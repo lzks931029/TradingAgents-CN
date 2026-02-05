@@ -1,6 +1,21 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.agents import create_react_agent, AgentExecutor
-from langchain import hub
+# 兼容新旧版本 langchain/langgraph
+try:
+    from langchain.agents import create_react_agent, AgentExecutor
+except ImportError:
+    # 新版本中 create_react_agent 在 langgraph
+    from langgraph.prebuilt import create_react_agent
+    # AgentExecutor 可能在不同位置
+    try:
+        from langchain.agents import AgentExecutor
+    except ImportError:
+        # 某些版本中不再需要 AgentExecutor，使用 langgraph 的实现
+        AgentExecutor = None
+# hub 的导入也需要兼容
+try:
+    from langchain import hub
+except ImportError:
+    import langchainhub as hub
 import time
 import json
 import traceback
@@ -231,17 +246,24 @@ def create_market_analyst_react(llm, toolkit):
                 # 创建ReAct Agent
                 prompt = hub.pull("hwchase17/react")
                 agent = create_react_agent(llm, tools, prompt)
-                agent_executor = AgentExecutor(
-                    agent=agent,
-                    tools=tools,
-                    verbose=True,
-                    handle_parsing_errors=True,
-                    max_iterations=10,  # 增加到10次迭代，确保有足够时间完成分析
-                    max_execution_time=180  # 增加到3分钟，给更多时间生成详细报告
-                )
-
-                logger.debug(f"📈 [DEBUG] 执行ReAct Agent查询...")
-                result = agent_executor.invoke({'input': query})
+                
+                # 兼容新旧版本
+                if AgentExecutor is not None:
+                    # 旧版本：需要 AgentExecutor 包装
+                    agent_executor = AgentExecutor(
+                        agent=agent,
+                        tools=tools,
+                        verbose=True,
+                        handle_parsing_errors=True,
+                        max_iterations=10,
+                        max_execution_time=180
+                    )
+                    logger.debug(f"📈 [DEBUG] 执行ReAct Agent查询...")
+                    result = agent_executor.invoke({'input': query})
+                else:
+                    # 新版本：agent 本身就是可执行的 graph
+                    logger.debug(f"📈 [DEBUG] 执行ReAct Agent查询 (langgraph)...")
+                    result = agent.invoke({'input': query})
 
                 report = result['output']
                 logger.info(f"📈 [市场分析师] ReAct Agent完成，报告长度: {len(report)}")
