@@ -2,7 +2,6 @@ from typing import Annotated, Sequence
 from datetime import date, timedelta, datetime
 from typing_extensions import TypedDict, Optional
 from langchain_openai import ChatOpenAI
-from tradingagents.agents import *
 from langgraph.prebuilt import ToolNode
 from langgraph.graph import END, StateGraph, START, MessagesState
 
@@ -64,6 +63,12 @@ class AgentState(MessagesState):
         str, "Report from the News Researcher of current world affairs"
     ]
     fundamentals_report: Annotated[str, "Report from the Fundamentals Researcher"]
+
+    # 🔧 死循环修复: 工具调用计数器
+    market_tool_call_count: Annotated[int, "Market analyst tool call counter"]
+    news_tool_call_count: Annotated[int, "News analyst tool call counter"]
+    sentiment_tool_call_count: Annotated[int, "Social media analyst tool call counter"]
+    fundamentals_tool_call_count: Annotated[int, "Fundamentals analyst tool call counter"]
 
     # researcher team discussion step
     investment_debate_state: Annotated[
