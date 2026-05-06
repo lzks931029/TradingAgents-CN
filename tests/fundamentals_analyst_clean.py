@@ -9,6 +9,7 @@ from langchain_core.messages import AIMessage
 
 def create_fundamentals_analyst(llm, toolkit):
     def fundamentals_analyst_node(state):
+        nonlocal llm
         print(f"📊 [DEBUG] ===== 基本面分析师节点开始 =====")
 
         current_date = state["trade_date"]

@@ -85,7 +85,7 @@ class LogAnalyzer:
     def analyze_performance(self) -> Dict[str, Any]:
         """分析性能相关日志"""
         logger.info(f"\n📊 性能分析")
-        logger.info(f"=")
+        logger.info(f"=")  # noqa: F823
         
         analysis = {
             'slow_operations': [],
@@ -204,7 +204,7 @@ class LogAnalyzer:
     def analyze_usage(self) -> Dict[str, Any]:
         """分析使用情况"""
         logger.info(f"\n📈 使用情况分析")
-        logger.info(f"=")
+        logger.info(f"=")  # noqa: F823
         
         analysis = {
             'daily_usage': defaultdict(int),
