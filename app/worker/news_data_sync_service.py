@@ -2,8 +2,9 @@
 新闻数据同步服务
 支持多数据源新闻数据同步和情绪分析
 """
-import asyncio
 import logging
+import asyncio
+
 from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
@@ -14,7 +15,6 @@ from tradingagents.dataflows.providers.china.akshare import get_akshare_provider
 from tradingagents.dataflows.news.realtime_news import RealtimeNewsAggregator
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class NewsSyncStats:
@@ -40,7 +40,6 @@ class NewsSyncStats:
         if self.total_processed == 0:
             return 0.0
         return (self.successful_saves / self.total_processed) * 100
-
 
 class NewsDataSyncService:
     """新闻数据同步服务"""
@@ -504,7 +503,6 @@ class NewsDataSyncService:
             self.logger.error(f"❌ 同步市场新闻失败: {e}")
             stats.end_time = datetime.utcnow()
             return stats
-
 
 # 全局服务实例
 _sync_service_instance = None

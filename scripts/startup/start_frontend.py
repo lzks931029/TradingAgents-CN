@@ -3,10 +3,10 @@
 TradingAgents-CN v1.0.0-preview 前端启动脚本
 """
 
+import time
 import subprocess
 import sys
-import os
-import time
+
 from pathlib import Path
 
 def check_node_version():

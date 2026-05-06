@@ -1,8 +1,9 @@
 """
 通知服务：持久化 + 列表 + 已读 + SSE 发布
 """
-import json
 import logging
+import json
+
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
 from bson import ObjectId
@@ -14,7 +15,6 @@ from app.models.notification import (
 from app.utils.timezone import now_tz
 
 logger = logging.getLogger("webapi.notifications")
-
 
 class NotificationsService:
     def __init__(self):
@@ -129,9 +129,7 @@ class NotificationsService:
         res = await db[self.collection].update_many({"user_id": user_id, "status": "unread"}, {"$set": {"status": "read"}})
         return res.modified_count
 
-
 _notifications_service: Optional[NotificationsService] = None
-
 
 def get_notifications_service() -> NotificationsService:
     global _notifications_service

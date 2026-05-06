@@ -3,6 +3,7 @@
 """
 
 import logging
+import traceback
 from typing import List, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
@@ -27,11 +28,8 @@ from app.models.operation_log import ActionType
 from app.services.config_provider import provider as config_provider
 from app.core.response import ok
 
-
-
 router = APIRouter(prefix="/config", tags=["配置管理"])
 logger = logging.getLogger("webapi")
-
 
 # ===== 配置重载端点 =====
 
@@ -83,7 +81,6 @@ async def reload_config(current_user: dict = Depends(get_current_user)):
             detail=f"配置重载失败: {str(e)}"
         )
 
-
 # ===== 方案A：敏感字段响应脱敏 & 请求清洗 =====
 from copy import deepcopy
 
@@ -92,7 +89,6 @@ def _sanitize_llm_configs(items):
         return [LLMConfig(**{**i.model_dump(), "api_key": None}) for i in items]
     except Exception:
         return items
-
 
 def _sort_llm_configs_by_newest(items):
     indexed_items = list(enumerate(items))
@@ -184,13 +180,9 @@ def _sanitize_kv(d: Dict[str, Any]) -> Dict[str, Any]:
     except Exception:
         return d
 
-
-
-
 class SetDefaultRequest(BaseModel):
     """设置默认配置请求"""
     name: str
-
 
 class FetchProviderModelsRequest(BaseModel):
     """从厂家 API 获取模型列表时的过滤参数"""
@@ -205,7 +197,6 @@ class FetchProviderModelsRequest(BaseModel):
     recommended_only: bool = False
     tools_only: bool = False
     exclude_preview: bool = True
-
 
 @router.get("/system", response_model=dict)
 async def get_system_config(
@@ -239,7 +230,6 @@ async def get_system_config(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取系统配置失败: {str(e)}"
         )
-
 
 # ========== 大模型厂家管理 ==========
 
@@ -313,7 +303,6 @@ async def get_llm_providers(
             detail=f"获取厂家列表失败: {str(e)}"
         )
 
-
 @router.post("/llm/providers", response_model=dict)
 async def add_llm_provider(
     request: LLMProviderRequest,
@@ -358,7 +347,6 @@ async def add_llm_provider(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"添加厂家失败: {str(e)}"
         )
-
 
 @router.put("/llm/providers/{provider_id}", response_model=dict)
 async def update_llm_provider(
@@ -419,7 +407,6 @@ async def update_llm_provider(
             detail=f"更新厂家失败: {str(e)}"
         )
 
-
 @router.delete("/llm/providers/{provider_id}", response_model=dict)
 async def delete_llm_provider(
     provider_id: str,
@@ -455,7 +442,6 @@ async def delete_llm_provider(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"删除厂家失败: {str(e)}"
         )
-
 
 @router.patch("/llm/providers/{provider_id}/toggle", response_model=dict)
 async def toggle_llm_provider(
@@ -495,7 +481,6 @@ async def toggle_llm_provider(
             detail=f"切换厂家状态失败: {str(e)}"
         )
 
-
 @router.post("/llm/providers/{provider_id}/fetch-models", response_model=dict)
 async def fetch_provider_models(
     provider_id: str,
@@ -524,13 +509,12 @@ async def fetch_provider_models(
         raise
     except Exception as e:
         print(f"获取模型列表失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取模型列表失败: {str(e)}"
         )
-
 
 @router.post("/llm/providers/migrate-env", response_model=dict)
 async def migrate_env_to_providers(
@@ -570,7 +554,6 @@ async def migrate_env_to_providers(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"环境变量迁移失败: {str(e)}"
         )
-
 
 @router.post("/llm/providers/init-aggregators", response_model=dict)
 async def init_aggregator_providers(
@@ -613,7 +596,6 @@ async def init_aggregator_providers(
             detail=f"初始化聚合渠道失败: {str(e)}"
         )
 
-
 @router.post("/llm/providers/{provider_id}/test", response_model=dict)
 async def test_provider_api(
     provider_id: str,
@@ -631,7 +613,6 @@ async def test_provider_api(
             status_code=500,
             detail=f"测试厂家API失败: {str(e)}"
         )
-
 
 # ========== 大模型配置管理 ==========
 
@@ -686,7 +667,6 @@ async def add_llm_config(
             if not api_key or api_key.startswith('your_') or api_key.startswith('your-') or len(api_key) <= 10:
                 llm_config_data['api_key'] = ""
 
-
         # 尝试创建LLMConfig对象
         try:
             llm_config = LLMConfig(**llm_config_data)
@@ -736,13 +716,12 @@ async def add_llm_config(
         raise
     except Exception as e:
         logger.error(f"❌ 添加大模型配置异常: {e}")
-        import traceback
+        
         logger.error(f"📋 异常堆栈: {traceback.format_exc()}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"添加大模型配置失败: {str(e)}"
         )
-
 
 @router.post("/datasource", response_model=dict)
 async def add_data_source_config(
@@ -846,7 +825,6 @@ async def add_data_source_config(
             detail=f"添加数据源配置失败: {str(e)}"
         )
 
-
 @router.post("/database", response_model=dict)
 async def add_database_config(
     request: DatabaseConfigRequest,
@@ -898,7 +876,6 @@ async def add_database_config(
             detail=f"添加数据库配置失败: {str(e)}"
         )
 
-
 @router.post("/test", response_model=dict)
 async def test_config(
     request: ConfigTestRequest,
@@ -930,7 +907,6 @@ async def test_config(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"测试配置失败: {str(e)}"
         )
-
 
 @router.post("/database/{db_name}/test", response_model=dict)
 async def test_saved_database_config(
@@ -981,7 +957,6 @@ async def test_saved_database_config(
             detail=f"测试数据库配置失败: {str(e)}"
         )
 
-
 @router.get("/llm", response_model=dict)
 async def get_llm_configs(
     current_user: User = Depends(get_current_user)
@@ -1024,7 +999,6 @@ async def get_llm_configs(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取大模型配置失败: {str(e)}"
         )
-
 
 @router.delete("/llm/{provider}/{model_name}")
 async def delete_llm_config(
@@ -1076,7 +1050,6 @@ async def delete_llm_config(
             detail=f"删除大模型配置失败: {str(e)}"
         )
 
-
 @router.post("/llm/set-default")
 async def set_default_llm(
     request: SetDefaultRequest,
@@ -1112,7 +1085,6 @@ async def set_default_llm(
             detail=f"设置默认大模型失败: {str(e)}"
         )
 
-
 @router.get("/datasource", response_model=dict)
 async def get_data_source_configs(
     current_user: User = Depends(get_current_user)
@@ -1128,7 +1100,6 @@ async def get_data_source_configs(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取数据源配置失败: {str(e)}"
         )
-
 
 @router.put("/datasource/{name}", response_model=dict)
 async def update_data_source_config(
@@ -1339,7 +1310,6 @@ async def update_data_source_config(
             detail=f"更新数据源配置失败: {str(e)}"
         )
 
-
 @router.delete("/datasource/{name}", response_model=dict)
 async def delete_data_source_config(
     name: str,
@@ -1393,7 +1363,6 @@ async def delete_data_source_config(
             detail=f"删除数据源配置失败: {str(e)}"
         )
 
-
 # ==================== 市场分类管理 ====================
 
 @router.get("/market-categories", response_model=dict)
@@ -1409,7 +1378,6 @@ async def get_market_categories(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取市场分类失败: {str(e)}"
         )
-
 
 @router.post("/market-categories", response_model=dict)
 async def add_market_category(
@@ -1448,7 +1416,6 @@ async def add_market_category(
             detail=f"添加市场分类失败: {str(e)}"
         )
 
-
 @router.put("/market-categories/{category_id}", response_model=dict)
 async def update_market_category(
     category_id: str,
@@ -1486,7 +1453,6 @@ async def update_market_category(
             detail=f"更新市场分类失败: {str(e)}"
         )
 
-
 @router.delete("/market-categories/{category_id}", response_model=dict)
 async def delete_market_category(
     category_id: str,
@@ -1523,7 +1489,6 @@ async def delete_market_category(
             detail=f"删除市场分类失败: {str(e)}"
         )
 
-
 # ==================== 数据源分组管理 ====================
 
 @router.get("/datasource-groupings", response_model=dict)
@@ -1539,7 +1504,6 @@ async def get_datasource_groupings(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取数据源分组关系失败: {str(e)}"
         )
-
 
 @router.post("/datasource-groupings", response_model=dict)
 async def add_datasource_to_category(
@@ -1578,7 +1542,6 @@ async def add_datasource_to_category(
             detail=f"添加数据源到分类失败: {str(e)}"
         )
 
-
 @router.delete("/datasource-groupings/{data_source_name}/{category_id}", response_model=dict)
 async def remove_datasource_from_category(
     data_source_name: str,
@@ -1615,7 +1578,6 @@ async def remove_datasource_from_category(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"从分类中移除数据源失败: {str(e)}"
         )
-
 
 @router.put("/datasource-groupings/{data_source_name}/{category_id}", response_model=dict)
 async def update_datasource_grouping(
@@ -1655,7 +1617,6 @@ async def update_datasource_grouping(
             detail=f"更新数据源分组关系失败: {str(e)}"
         )
 
-
 @router.put("/market-categories/{category_id}/datasource-order", response_model=dict)
 async def update_category_datasource_order(
     category_id: str,
@@ -1693,7 +1654,6 @@ async def update_category_datasource_order(
             detail=f"更新数据源排序失败: {str(e)}"
         )
 
-
 @router.post("/datasource/set-default")
 async def set_default_data_source(
     request: SetDefaultRequest,
@@ -1729,7 +1689,6 @@ async def set_default_data_source(
             detail=f"设置默认数据源失败: {str(e)}"
         )
 
-
 @router.get("/settings", response_model=dict)
 async def get_system_settings(
     current_user: User = Depends(get_current_user)
@@ -1743,7 +1702,6 @@ async def get_system_settings(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取系统设置失败: {str(e)}"
         )
-
 
 @router.get("/settings/meta", response_model=dict)
 async def get_system_settings_meta(
@@ -1763,7 +1721,6 @@ async def get_system_settings_meta(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取系统设置元数据失败: {str(e)}"
         )
-
 
 @router.put("/settings", response_model=dict)
 async def update_system_settings(
@@ -1829,7 +1786,6 @@ async def update_system_settings(
             detail=f"更新系统设置失败: {str(e)}"
         )
 
-
 @router.post("/export", response_model=dict)
 async def export_config(
     current_user: User = Depends(get_current_user)
@@ -1862,7 +1818,6 @@ async def export_config(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"导出配置失败: {str(e)}"
         )
-
 
 @router.post("/import", response_model=dict)
 async def import_config(
@@ -1899,7 +1854,6 @@ async def import_config(
             detail=f"导入配置失败: {str(e)}"
         )
 
-
 @router.post("/migrate-legacy", response_model=dict)
 async def migrate_legacy_config(
     current_user: User = Depends(get_current_user)
@@ -1933,7 +1887,6 @@ async def migrate_legacy_config(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"迁移传统配置失败: {str(e)}"
         )
-
 
 @router.post("/default/llm", response_model=dict)
 async def set_default_llm(
@@ -1972,7 +1925,6 @@ async def set_default_llm(
             detail=f"设置默认大模型失败: {str(e)}"
         )
 
-
 @router.post("/default/datasource", response_model=dict)
 async def set_default_data_source(
     request: SetDefaultRequest,
@@ -2010,7 +1962,6 @@ async def set_default_data_source(
             detail=f"设置默认数据源失败: {str(e)}"
         )
 
-
 @router.get("/models", response_model=dict)
 async def get_available_models(
     current_user: User = Depends(get_current_user)
@@ -2024,7 +1975,6 @@ async def get_available_models(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取模型列表失败: {str(e)}"
         )
-
 
 # ========== 模型目录管理 ==========
 
@@ -2044,7 +1994,6 @@ async def get_model_catalog(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取模型目录失败: {str(e)}"
         )
-
 
 @router.get("/model-catalog/{provider}", response_model=dict)
 async def get_provider_model_catalog(
@@ -2068,13 +2017,11 @@ async def get_provider_model_catalog(
             detail=f"获取模型目录失败: {str(e)}"
         )
 
-
 class ModelCatalogRequest(BaseModel):
     """模型目录请求"""
     provider: str
     provider_name: str
     models: List[Dict[str, Any]]
-
 
 @router.post("/model-catalog", response_model=dict)
 async def save_model_catalog(
@@ -2125,7 +2072,6 @@ async def save_model_catalog(
             detail=f"保存模型目录失败: {str(e)}"
         )
 
-
 @router.delete("/model-catalog/{provider}", response_model=dict)
 async def delete_model_catalog(
     provider: str,
@@ -2158,7 +2104,6 @@ async def delete_model_catalog(
             detail=f"删除模型目录失败: {str(e)}"
         )
 
-
 @router.post("/model-catalog/init", response_model=dict)
 async def init_model_catalog(
     current_user: User = Depends(get_current_user)
@@ -2181,7 +2126,6 @@ async def init_model_catalog(
             detail=f"初始化模型目录失败: {str(e)}"
         )
 
-
 # ===== 数据库配置管理端点 =====
 
 @router.get("/database", response_model=dict)
@@ -2200,7 +2144,6 @@ async def get_database_configs(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取数据库配置失败: {str(e)}"
         )
-
 
 @router.get("/database/{db_name}", response_model=dict)
 async def get_database_config(
@@ -2227,7 +2170,6 @@ async def get_database_config(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取数据库配置失败: {str(e)}"
         )
-
 
 @router.post("/database", response_model=dict)
 async def add_database_config(
@@ -2269,7 +2211,6 @@ async def add_database_config(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"添加数据库配置失败: {str(e)}"
         )
-
 
 @router.put("/database/{db_name}", response_model=dict)
 async def update_database_config(
@@ -2319,7 +2260,6 @@ async def update_database_config(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"更新数据库配置失败: {str(e)}"
         )
-
 
 @router.delete("/database/{db_name}", response_model=dict)
 async def delete_database_config(

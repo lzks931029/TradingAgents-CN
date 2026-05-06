@@ -1,8 +1,10 @@
+
 import logging
+import os
 import logging.config
 import sys
 from pathlib import Path
-import os
+
 import platform
 
 from app.core.logging_context import LoggingContextFilter, trace_id_var
@@ -27,7 +29,6 @@ except Exception:
     except Exception:
         toml_loader = None
 
-
 def resolve_logging_cfg_path() -> Path:
     """根据环境选择日志配置文件路径（可能不存在）
     优先 docker 配置，其次默认配置。
@@ -36,7 +37,6 @@ def resolve_logging_cfg_path() -> Path:
     is_docker_env = os.environ.get("DOCKER", "").lower() in {"1", "true", "yes"} or Path("/.dockerenv").exists()
     cfg_candidate = "config/logging_docker.toml" if profile == "docker" or is_docker_env else "config/logging.toml"
     return Path(cfg_candidate)
-
 
 class SimpleJsonFormatter(logging.Formatter):
     """Minimal JSON formatter without external deps."""
@@ -50,7 +50,6 @@ class SimpleJsonFormatter(logging.Formatter):
             "message": record.getMessage(),
         }
         return json.dumps(obj, ensure_ascii=False)
-
 
 def _parse_size(size_str: str) -> int:
     """解析大小字符串（如 '10MB'）为字节数"""

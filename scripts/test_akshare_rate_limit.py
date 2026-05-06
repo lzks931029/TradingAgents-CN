@@ -3,11 +3,12 @@
 验证东方财富接口的最佳请求间隔
 """
 
+import os
 import time
+import traceback
 import akshare as ak
 from datetime import datetime
 import sys
-
 
 def test_single_request():
     """测试单次请求"""
@@ -32,7 +33,6 @@ def test_single_request():
         elapsed = time.time() - start_time
         print(f"❌ 请求失败: {e}")
         return False, elapsed
-
 
 def test_continuous_requests(count=10, interval=0):
     """测试连续请求"""
@@ -120,7 +120,6 @@ def test_continuous_requests(count=10, interval=0):
     
     return success_count, fail_count
 
-
 def test_different_intervals():
     """测试不同的请求间隔"""
     print("\n" + "=" * 70)
@@ -192,7 +191,6 @@ def test_different_intervals():
         print(f"   QUOTES_INGESTION_INTERVAL={suggested_interval}  # {suggested_interval}秒间隔")
         print(f"   或者考虑使用 Tushare 数据源（更稳定）")
 
-
 def main():
     """主函数"""
     print("🚀 AKShare 请求频率限制测试")
@@ -201,7 +199,7 @@ def main():
     print("=" * 70)
 
     # 检查代理配置
-    import os
+    
     http_proxy = os.environ.get('HTTP_PROXY', '')
     https_proxy = os.environ.get('HTTPS_PROXY', '')
     no_proxy = os.environ.get('NO_PROXY', '')
@@ -289,10 +287,9 @@ def main():
         sys.exit(0)
     except Exception as e:
         print(f"\n\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()

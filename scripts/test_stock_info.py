@@ -4,8 +4,9 @@
 专门测试股票名称、行业等基本信息的获取功能
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到Python路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -57,7 +58,7 @@ def test_stock_info_retrieval():
             
         except Exception as e:
             print(f"❌ 测试{code}失败: {e}")
-            import traceback
+            
             traceback.print_exc()
 
 def test_tushare_stock_basic_api():
@@ -104,7 +105,7 @@ def test_tushare_stock_basic_api():
                 
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 def test_stock_basic_all():
@@ -154,7 +155,7 @@ def test_stock_basic_all():
                 
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

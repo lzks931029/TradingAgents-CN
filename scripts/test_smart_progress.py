@@ -3,9 +3,9 @@
 测试智能进度跟踪器
 """
 
-import sys
 import os
 import time
+import sys
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

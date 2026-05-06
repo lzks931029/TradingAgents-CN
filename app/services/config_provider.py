@@ -1,11 +1,10 @@
 from __future__ import annotations
 
+import os
 from datetime import datetime, timedelta
 from typing import Any, Dict, Optional
-import os
 
 from app.services.config_service import config_service
-
 
 class ConfigProvider:
     """Effective configuration provider with simple env→DB merge and TTL cache.
@@ -113,8 +112,6 @@ class ConfigProvider:
                 "has_value": bool(has_value),
             }
         return meta
-
-
 
 # Module-level singleton
 provider = ConfigProvider(ttl_seconds=60)

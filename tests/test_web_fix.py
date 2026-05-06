@@ -3,8 +3,9 @@
 测试Web界面修复
 """
 
+import traceback
 import sys
-import os
+
 from pathlib import Path
 
 # 添加项目根目录到Python路径
@@ -70,7 +71,7 @@ def test_render_decision_summary():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 

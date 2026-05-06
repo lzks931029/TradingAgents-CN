@@ -4,11 +4,11 @@ TradingAgents-CN Backend Launcher
 快速启动脚本
 """
 
+import os
 import subprocess
 import sys
-import os
-from pathlib import Path
 
+from pathlib import Path
 
 def main():
     """启动后端服务"""
@@ -44,7 +44,6 @@ def main():
     except Exception as e:
         print(f"❌ Unexpected error: {e}")
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()

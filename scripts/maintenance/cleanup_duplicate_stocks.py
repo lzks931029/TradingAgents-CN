@@ -3,6 +3,7 @@
 清理重复股票记录
 合并带前导零和不带前导零的股票代码记录
 """
+
 import os
 from pymongo import MongoClient
 from dotenv import load_dotenv

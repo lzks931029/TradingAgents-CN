@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-import time
+
 Docker环境快速配置脚本
 帮助用户快速配置Docker部署环境
 """
 
-import os
+import logging
+import time
 import shutil
 from pathlib import Path
 
@@ -117,7 +118,7 @@ def check_docker():
 
 def main():
     """主函数"""
-    import time
+    
 
     
     if not check_docker():

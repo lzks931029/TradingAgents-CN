@@ -1,5 +1,7 @@
 import sys
+
 import os
+import traceback
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.services.basics_sync.utils import fetch_latest_roe_map
@@ -28,6 +30,6 @@ try:
             
 except Exception as e:
     print(f"❌ 获取 ROE 数据失败: {e}")
-    import traceback
+    
     traceback.print_exc()
 

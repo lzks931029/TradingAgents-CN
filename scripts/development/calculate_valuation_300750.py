@@ -3,6 +3,7 @@
 计算股票300750的估值指标
 """
 
+import traceback
 import pymongo
 from tradingagents.config.database_manager import get_database_manager
 
@@ -97,7 +98,7 @@ def calculate_valuation_ratios(stock_code):
         
     except Exception as e:
         print(f'计算估值指标时出错: {e}')
-        import traceback
+        
         traceback.print_exc()
         return None
 

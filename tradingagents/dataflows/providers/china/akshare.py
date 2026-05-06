@@ -2,17 +2,18 @@
 AKShare统一数据提供器
 基于AKShare SDK的统一数据同步方案，提供标准化的数据接口
 """
-import asyncio
 import logging
+import os
+import time
+import asyncio
+
 from datetime import datetime, timedelta, timezone
 from typing import Dict, Any, List, Optional, Union
 import pandas as pd
 
 from ..base_provider import BaseStockDataProvider
-import time
 
 logger = logging.getLogger(__name__)
-
 
 class AKShareProvider(BaseStockDataProvider):
     """
@@ -39,7 +40,7 @@ class AKShareProvider(BaseStockDataProvider):
         try:
             import akshare as ak
             import requests
-            import time
+            
 
             # 尝试导入 curl_cffi，如果可用则使用它来绕过反爬虫
             try:
@@ -181,8 +182,8 @@ class AKShareProvider(BaseStockDataProvider):
         try:
             from curl_cffi import requests as curl_requests
             import json
-            import time
-            import os
+            
+            
 
             # 标准化股票代码
             symbol_6 = symbol.zfill(6)
@@ -578,7 +579,7 @@ class AKShareProvider(BaseStockDataProvider):
 
                 # 优先使用新浪财经接口（更稳定，不容易被封）
                 def fetch_spot_data_sina():
-                    import time
+                    
                     time.sleep(0.3)  # 添加延迟避免频率限制
                     return self.ak.stock_zh_a_spot()
 
@@ -590,7 +591,7 @@ class AKShareProvider(BaseStockDataProvider):
                     logger.warning(f"⚠️ 新浪财经接口失败: {e}，尝试东方财富接口...")
                     # 回退到东方财富接口
                     def fetch_spot_data_em():
-                        import time
+                        
                         time.sleep(0.5)
                         return self.ak.stock_zh_a_spot_em()
                     spot_df = await asyncio.to_thread(fetch_spot_data_em)
@@ -1206,7 +1207,7 @@ class AKShareProvider(BaseStockDataProvider):
         try:
             import akshare as ak
             import json
-            import time
+            
 
             if symbol:
                 # 获取个股新闻
@@ -1279,7 +1280,7 @@ class AKShareProvider(BaseStockDataProvider):
         try:
             import akshare as ak
             import json
-            import os
+            
 
             if symbol:
                 # 获取个股新闻
@@ -1664,10 +1665,8 @@ class AKShareProvider(BaseStockDataProvider):
 
         return 'general'
 
-
 # 全局提供器实例
 _akshare_provider = None
-
 
 def get_akshare_provider() -> AKShareProvider:
     """获取全局AKShare提供器实例"""

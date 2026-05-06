@@ -4,10 +4,12 @@
 将基于配置文件的认证迁移到基于数据库的认证
 """
 
+import logging
+import traceback
 import asyncio
 import json
 import sys
-import time
+
 from datetime import datetime
 from pathlib import Path
 
@@ -22,7 +24,7 @@ try:
     from tradingagents.utils.logging_manager import get_logger
 except ImportError:
     # 如果导入失败，使用标准日志
-    import logging
+    
     def get_logger(name: str) -> logging.Logger:
         return logging.getLogger(name)
 
@@ -83,7 +85,7 @@ async def migrate_config_file_auth():
         
     except Exception as e:
         logger.error(f"❌ 认证系统迁移失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -319,7 +321,7 @@ async def main():
         
     except Exception as e:
         logger.error(f"❌ 迁移过程中出现错误: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

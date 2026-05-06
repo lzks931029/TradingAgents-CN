@@ -3,9 +3,11 @@
 测试筛选字段配置API
 """
 
+import os
+import traceback
 import asyncio
 import sys
-import os
+
 import json
 from dotenv import load_dotenv
 
@@ -72,7 +74,7 @@ async def test_field_config_api():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

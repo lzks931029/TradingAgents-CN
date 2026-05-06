@@ -1,8 +1,10 @@
 """
 检查股票数据的 source 字段值
 """
-import sys
 import os
+import traceback
+import sys
+
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
@@ -144,7 +146,7 @@ def check_stock_source():
         
     except Exception as e:
         print(f"❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

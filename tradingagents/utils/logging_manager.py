@@ -5,8 +5,9 @@
 """
 
 import logging
-import logging.handlers
 import os
+import logging.handlers
+
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -17,7 +18,6 @@ import toml
 # 注意：这里不能导入自己，会造成循环导入
 # 在日志系统初始化前，使用标准库自举日志器，避免未定义引用
 _bootstrap_logger = logging.getLogger("tradingagents.logging_manager")
-
 
 class ColoredFormatter(logging.Formatter):
     """彩色日志格式化器"""
@@ -38,7 +38,6 @@ class ColoredFormatter(logging.Formatter):
             record.levelname = f"{self.COLORS[record.levelname]}{record.levelname}{self.COLORS['RESET']}"
         
         return super().format(record)
-
 
 class StructuredFormatter(logging.Formatter):
     """结构化日志格式化器（JSON格式）"""
@@ -67,7 +66,6 @@ class StructuredFormatter(logging.Formatter):
             log_entry['tokens'] = record.tokens
             
         return json.dumps(log_entry, ensure_ascii=False)
-
 
 class TradingAgentsLogger:
     """TradingAgents统一日志管理器"""
@@ -423,10 +421,8 @@ class TradingAgentsLogger:
             }
         )
 
-
 # 全局日志管理器实例
 _logger_manager: Optional[TradingAgentsLogger] = None
-
 
 def get_logger_manager() -> TradingAgentsLogger:
     """获取全局日志管理器实例"""
@@ -435,11 +431,9 @@ def get_logger_manager() -> TradingAgentsLogger:
         _logger_manager = TradingAgentsLogger()
     return _logger_manager
 
-
 def get_logger(name: str) -> logging.Logger:
     """获取指定名称的日志器（便捷函数）"""
     return get_logger_manager().get_logger(name)
-
 
 def setup_logging(config: Optional[Dict[str, Any]] = None):
     """设置项目日志系统（便捷函数）"""

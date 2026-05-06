@@ -4,9 +4,11 @@
 解决API速率限制和数据获取问题
 """
 
+import logging
+import os
 import time
 import json
-import os
+
 import pandas as pd
 from typing import Dict, Any, Optional
 from datetime import datetime, timedelta
@@ -28,7 +30,6 @@ except Exception:
         if create:
             os.makedirs(base, exist_ok=True)
         return base
-
 
 class ImprovedHKStockProvider:
     """改进的港股数据提供器"""
@@ -421,7 +422,6 @@ class ImprovedHKStockProvider:
                 'error': str(e)
             }
 
-
 # 全局实例
 _improved_hk_provider = None
 
@@ -431,7 +431,6 @@ def get_improved_hk_provider() -> ImprovedHKStockProvider:
     if _improved_hk_provider is None:
         _improved_hk_provider = ImprovedHKStockProvider()
     return _improved_hk_provider
-
 
 def get_hk_company_name_improved(symbol: str) -> str:
     """
@@ -446,7 +445,6 @@ def get_hk_company_name_improved(symbol: str) -> str:
     provider = get_improved_hk_provider()
     return provider.get_company_name(symbol)
 
-
 def get_hk_stock_info_improved(symbol: str) -> Dict[str, Any]:
     """
     获取港股信息的改进版本
@@ -459,7 +457,6 @@ def get_hk_stock_info_improved(symbol: str) -> Dict[str, Any]:
     """
     provider = get_improved_hk_provider()
     return provider.get_stock_info(symbol)
-
 
 def get_hk_financial_indicators(symbol: str) -> Dict[str, Any]:
     """
@@ -482,7 +479,6 @@ def get_hk_financial_indicators(symbol: str) -> Dict[str, Any]:
     """
     provider = get_improved_hk_provider()
     return provider.get_financial_indicators(symbol)
-
 
 # 兼容性函数：为了兼容旧的 akshare_utils 导入
 def get_hk_stock_data_akshare(symbol: str, start_date: str = None, end_date: str = None):
@@ -653,7 +649,6 @@ def get_hk_stock_data_akshare(symbol: str, start_date: str = None, end_date: str
         logger.error(f"❌ [AKShare-新浪] 港股历史数据获取失败: {symbol} - {e}")
         return f"❌ 港股{symbol}历史数据获取失败: {str(e)}"
 
-
 # 🔥 全局缓存：缓存 AKShare 的所有港股数据
 _akshare_hk_spot_cache = {
     'data': None,
@@ -664,7 +659,6 @@ _akshare_hk_spot_cache = {
 # 🔥 线程锁：防止多个线程同时调用 AKShare API
 import threading
 _akshare_hk_spot_lock = threading.Lock()
-
 
 def get_hk_stock_info_akshare(symbol: str) -> Dict[str, Any]:
     """

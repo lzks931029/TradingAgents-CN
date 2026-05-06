@@ -4,11 +4,11 @@
 支持文件缓存、Redis缓存、MongoDB缓存的智能切换
 """
 
-import os
+import logging
 import json
 import pickle
 import hashlib
-import logging
+
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, Optional, Union
@@ -343,7 +343,6 @@ class AdaptiveCacheManager:
         
         return stats
 
-
 # 全局缓存管理器实例
 _cache_manager = None
 
@@ -353,7 +352,6 @@ def get_cache() -> AdaptiveCacheManager:
     if _cache_manager is None:
         _cache_manager = AdaptiveCacheManager()
     return _cache_manager
-
 
 def main():
     """测试自适应缓存管理器"""
@@ -403,7 +401,6 @@ def main():
         logger.error(f"❌ 缓存查找失败")
     
     logger.info(f"\n🎉 自适应缓存管理器测试完成!")
-
 
 if __name__ == "__main__":
     main()

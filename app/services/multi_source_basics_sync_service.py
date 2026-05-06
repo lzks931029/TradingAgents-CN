@@ -6,10 +6,11 @@ Multi-source stock basics synchronization service
 - Upserts into MongoDB collection `stock_basic_info`
 - Provides unified interface for different data sources
 """
+import logging
 from __future__ import annotations
 
 import asyncio
-import logging
+
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
@@ -21,7 +22,6 @@ from pymongo import UpdateOne
 from app.core.database import get_mongo_db
 from app.services.basics_sync import add_financial_metrics as _add_financial_metrics_util
 
-
 logger = logging.getLogger(__name__)
 
 # Collection names
@@ -29,13 +29,11 @@ COLLECTION_NAME = "stock_basic_info"
 STATUS_COLLECTION = "sync_status"
 JOB_KEY = "stock_basics_multi_source"
 
-
 class DataSourcePriority(Enum):
     """数据源优先级枚举"""
     TUSHARE = 1
     AKSHARE = 2
     BAOSTOCK = 3
-
 
 @dataclass
 class SyncStats:
@@ -53,7 +51,6 @@ class SyncStats:
     data_sources_used: List[str] = field(default_factory=list)
     source_stats: Dict[str, Dict[str, int]] = field(default_factory=dict)
     message: Optional[str] = None
-
 
 class MultiSourceBasicsSyncService:
     """多数据源股票基础信息同步服务"""
@@ -331,8 +328,6 @@ class MultiSourceBasicsSyncService:
             async with self._lock:
                 self._running = False
 
-
-
     def _add_financial_metrics(self, doc: Dict, daily_metrics: Dict) -> None:
         """委托到 basics_sync.processing.add_financial_metrics"""
         return _add_financial_metrics_util(doc, daily_metrics)
@@ -368,7 +363,6 @@ class MultiSourceBasicsSyncService:
         else:
             # 无法识别的代码，返回原始代码（确保不为空）
             return code if code else ""
-
 
 # 全局服务实例
 _multi_source_sync_service = None

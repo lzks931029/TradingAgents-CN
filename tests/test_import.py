@@ -3,6 +3,7 @@
 测试模块导入
 """
 
+import traceback
 try:
     print("🔄 测试基础模块导入...")
     
@@ -20,5 +21,5 @@ try:
     
 except Exception as e:
     print(f"❌ 导入失败: {e}")
-    import traceback
+    
     traceback.print_exc()

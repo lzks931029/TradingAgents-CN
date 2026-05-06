@@ -2,8 +2,9 @@
 AKShare数据初始化API路由
 提供Web接口进行AKShare数据初始化和管理
 """
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime
 from typing import Dict, Any, Optional
 
@@ -29,19 +30,16 @@ _initialization_status = {
     "result": None
 }
 
-
 class InitializationRequest(BaseModel):
     """初始化请求模型"""
     historical_days: int = Field(default=365, ge=1, le=3650, description="历史数据天数")
     force: bool = Field(default=False, description="是否强制重新初始化")
     skip_if_exists: bool = Field(default=True, description="如果数据存在是否跳过")
 
-
 class SyncRequest(BaseModel):
     """同步请求模型"""
     force_update: bool = Field(default=False, description="是否强制更新")
     symbols: Optional[list] = Field(default=None, description="指定股票代码列表")
-
 
 @router.get("/status")
 async def get_database_status():
@@ -104,7 +102,6 @@ async def get_database_status():
         logger.error(f"获取数据库状态失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取数据库状态失败: {str(e)}")
 
-
 @router.get("/connection-test")
 async def test_akshare_connection():
     """
@@ -140,7 +137,6 @@ async def test_akshare_connection():
     except Exception as e:
         logger.error(f"AKShare连接测试失败: {e}")
         raise HTTPException(status_code=500, detail=f"连接测试失败: {str(e)}")
-
 
 @router.post("/start-full")
 async def start_full_initialization(
@@ -198,7 +194,6 @@ async def start_full_initialization(
         logger.error(f"启动完整初始化失败: {e}")
         raise HTTPException(status_code=500, detail=f"启动初始化失败: {str(e)}")
 
-
 @router.post("/start-basic-sync")
 async def start_basic_sync(
     request: SyncRequest,
@@ -253,7 +248,6 @@ async def start_basic_sync(
         logger.error(f"启动基础信息同步失败: {e}")
         raise HTTPException(status_code=500, detail=f"启动同步失败: {str(e)}")
 
-
 @router.get("/initialization-status")
 async def get_initialization_status():
     """
@@ -278,7 +272,6 @@ async def get_initialization_status():
         },
         "message": "任务状态获取成功"
     }
-
 
 @router.post("/stop")
 async def stop_initialization(current_user: dict = Depends(get_current_user)):
@@ -318,7 +311,6 @@ async def stop_initialization(current_user: dict = Depends(get_current_user)):
         logger.error(f"停止初始化任务失败: {e}")
         raise HTTPException(status_code=500, detail=f"停止任务失败: {str(e)}")
 
-
 async def _run_full_initialization_background(historical_days: int, force: bool):
     """后台运行完整初始化"""
     
@@ -342,7 +334,6 @@ async def _run_full_initialization_background(historical_days: int, force: bool)
             "result": {"success": False, "error": str(e)}
         })
         logger.error(f"完整初始化后台任务失败: {e}")
-
 
 async def _run_basic_sync_background(force_update: bool):
     """后台运行基础信息同步"""

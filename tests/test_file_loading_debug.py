@@ -3,7 +3,7 @@
 调试文件加载问题
 """
 
-import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -50,7 +50,7 @@ def test_file_loading():
         
     except Exception as e:
         print(f"❌ 文件加载测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

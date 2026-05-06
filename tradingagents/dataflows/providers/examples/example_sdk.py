@@ -7,15 +7,15 @@
 - app层: 数据同步服务，负责调用此适配器并写入数据库
 - 职责分离: 适配器只负责数据获取，同步服务负责数据存储
 """
+import logging
+import os
 import asyncio
 import aiohttp
 from typing import Optional, Dict, Any, List, Union
 from datetime import datetime, date
 import pandas as pd
 
-import os
 from ..base_provider import BaseStockDataProvider
-
 
 class ExampleSDKProvider(BaseStockDataProvider):
     """
@@ -358,7 +358,6 @@ class ExampleSDKProvider(BaseStockDataProvider):
         """异步上下文管理器出口"""
         await self.disconnect()
 
-
 # ==================== 使用示例 ====================
 
 async def example_usage():
@@ -388,7 +387,6 @@ async def example_usage():
     async with ExampleSDKProvider(api_key="your_api_key") as provider:
         basic_info = await provider.get_stock_basic_info("000001")
         print(f"基础信息: {basic_info}")
-
 
 if __name__ == "__main__":
     asyncio.run(example_usage())

@@ -4,13 +4,16 @@ TradingAgents-CN Streamlit Web界面
 基于Streamlit的股票分析Web应用程序
 """
 
-import streamlit as st
+import logging
 import os
+import time
+import streamlit as st
+
 import sys
 import json
 from pathlib import Path
 import datetime
-import time
+
 from dotenv import load_dotenv
 
 # 添加项目根目录到Python路径
@@ -23,7 +26,7 @@ try:
     logger = get_logger('web')
 except ImportError:
     # 如果无法导入，使用标准logging
-    import logging
+    
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger('web')
 
@@ -1444,8 +1447,6 @@ def main():
                 # 使用st.rerun()代替meta refresh，保持侧边栏状态
                 time.sleep(1)
                 st.rerun()
-
-
 
         # 3. 分析报告区域（只有在有结果且分析完成时才显示）
 

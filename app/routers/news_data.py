@@ -2,11 +2,11 @@
 新闻数据API路由
 提供新闻数据查询、同步和管理接口
 """
+import logging
 from fastapi import APIRouter, HTTPException, BackgroundTasks, Depends, Query, status
 from typing import Optional, List, Dict, Any
 from datetime import datetime, timedelta
 from pydantic import BaseModel, Field
-import logging
 
 from app.routers.auth_db import get_current_user
 from app.core.response import ok
@@ -15,7 +15,6 @@ from app.worker.news_data_sync_service import get_news_data_sync_service
 
 router = APIRouter(prefix="/api/news-data", tags=["新闻数据"])
 logger = logging.getLogger("webapi")
-
 
 class NewsQueryRequest(BaseModel):
     """新闻查询请求"""
@@ -31,14 +30,12 @@ class NewsQueryRequest(BaseModel):
     limit: int = Field(50, description="返回数量限制")
     skip: int = Field(0, description="跳过数量")
 
-
 class NewsSyncRequest(BaseModel):
     """新闻同步请求"""
     symbol: Optional[str] = Field(None, description="股票代码，为空则同步市场新闻")
     data_sources: Optional[List[str]] = Field(None, description="数据源列表")
     hours_back: int = Field(24, description="回溯小时数")
     max_news_per_source: int = Field(50, description="每个数据源最大新闻数量")
-
 
 @router.get("/query/{symbol}", response_model=dict)
 async def query_stock_news(
@@ -129,7 +126,6 @@ async def query_stock_news(
             detail=f"查询股票新闻失败: {str(e)}"
         )
 
-
 @router.post("/query", response_model=dict)
 async def query_news_advanced(
     request: NewsQueryRequest,
@@ -179,7 +175,6 @@ async def query_news_advanced(
             detail=f"高级新闻查询失败: {str(e)}"
         )
 
-
 @router.get("/latest", response_model=dict)
 async def get_latest_news(
     symbol: Optional[str] = Query(None, description="股票代码，为空则获取所有新闻"),
@@ -224,7 +219,6 @@ async def get_latest_news(
             detail=f"获取最新新闻失败: {str(e)}"
         )
 
-
 @router.get("/search", response_model=dict)
 async def search_news(
     query: str = Query(..., description="搜索关键词"),
@@ -267,7 +261,6 @@ async def search_news(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"新闻搜索失败: {str(e)}"
         )
-
 
 @router.get("/statistics", response_model=dict)
 async def get_news_statistics(
@@ -325,7 +318,6 @@ async def get_news_statistics(
             detail=f"获取新闻统计失败: {str(e)}"
         )
 
-
 @router.post("/sync/start", response_model=dict)
 async def start_news_sync(
     request: NewsSyncRequest,
@@ -376,7 +368,6 @@ async def start_news_sync(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"启动新闻同步失败: {str(e)}"
         )
-
 
 @router.post("/sync/single", response_model=dict)
 async def sync_single_stock_news(
@@ -430,7 +421,6 @@ async def sync_single_stock_news(
             detail=f"同步股票新闻失败: {str(e)}"
         )
 
-
 @router.delete("/cleanup", response_model=dict)
 async def cleanup_old_news(
     days_to_keep: int = Query(90, description="保留天数"),
@@ -464,7 +454,6 @@ async def cleanup_old_news(
             detail=f"清理过期新闻失败: {str(e)}"
         )
 
-
 @router.get("/health", response_model=dict)
 async def health_check():
     """健康检查"""
@@ -485,7 +474,6 @@ async def health_check():
             detail=f"健康检查失败: {str(e)}"
         )
 
-
 # 后台任务执行函数
 async def _execute_stock_news_sync(sync_service, request: NewsSyncRequest):
     """执行股票新闻同步"""
@@ -498,7 +486,6 @@ async def _execute_stock_news_sync(sync_service, request: NewsSyncRequest):
         )
     except Exception as e:
         logger.error(f"❌ 后台股票新闻同步失败: {e}")
-
 
 async def _execute_market_news_sync(sync_service, request: NewsSyncRequest):
     """执行市场新闻同步"""

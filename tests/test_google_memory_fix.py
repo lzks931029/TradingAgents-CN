@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -88,7 +89,7 @@ def test_google_memory_fixed():
             
     except Exception as e:
         print(f"❌ Google AI内存测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 
@@ -166,7 +167,7 @@ def test_google_tradingagents_with_memory():
                 
         except Exception as e:
             print(f"❌ 带内存的股票分析失败: {e}")
-            import traceback
+            
             print(traceback.format_exc())
             return False
             

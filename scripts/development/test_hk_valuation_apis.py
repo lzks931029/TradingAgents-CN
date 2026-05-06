@@ -7,12 +7,12 @@
 3. stock_financial_hk_analysis_indicator_em - 东方财富港股财务分析指标
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
-
 
 def test_stock_hk_valuation_baidu():
     """测试百度港股估值接口"""
@@ -41,14 +41,13 @@ def test_stock_hk_valuation_baidu():
                     
             except Exception as e:
                 print(f"   ❌ 调用失败: {e}")
-                import traceback
+                
                 traceback.print_exc()
     
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_stock_hk_indicator_eniu():
     """测试亿牛港股指标接口"""
@@ -80,9 +79,8 @@ def test_stock_hk_indicator_eniu():
     
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_stock_financial_hk_analysis_indicator_em():
     """测试东方财富港股财务分析指标接口"""
@@ -118,14 +116,13 @@ def test_stock_financial_hk_analysis_indicator_em():
                     
             except Exception as e:
                 print(f"   ❌ 调用失败: {e}")
-                import traceback
+                
                 traceback.print_exc()
     
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_stock_hk_spot_em():
     """测试东方财富港股实时行情接口"""
@@ -163,9 +160,8 @@ def test_stock_hk_spot_em():
     
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def main():
     """主函数"""
@@ -188,7 +184,6 @@ def main():
     print("\n" + "=" * 80)
     print("测试完成")
     print("=" * 80)
-
 
 if __name__ == "__main__":
     main()

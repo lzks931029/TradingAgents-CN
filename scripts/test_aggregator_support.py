@@ -5,6 +5,7 @@
     python scripts/test_aggregator_support.py
 """
 
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -19,7 +20,6 @@ from app.constants.model_capabilities import (
     is_aggregator_model,
     parse_aggregator_model
 )
-
 
 def test_aggregator_model_parsing():
     """测试聚合渠道模型名称解析"""
@@ -44,7 +44,6 @@ def test_aggregator_model_parsing():
         print(f"   是否聚合模型: {is_agg} (期望: {expected_is_aggregator})")
         print(f"   解析结果: {parsed} (期望: {expected_parse})")
         print()
-
 
 def test_model_capability_mapping():
     """测试模型能力映射"""
@@ -83,7 +82,6 @@ def test_model_capability_mapping():
         
         print()
 
-
 def test_aggregator_providers_config():
     """测试聚合渠道配置"""
     print("=" * 60)
@@ -97,7 +95,6 @@ def test_aggregator_providers_config():
         print(f"   模型格式: {config.get('model_name_format', 'N/A')}")
         print(f"   支持厂商: {', '.join(config.get('supported_providers', []))}")
         print()
-
 
 def test_model_recommendation():
     """测试模型推荐（使用聚合渠道模型）"""
@@ -133,7 +130,6 @@ def test_model_recommendation():
         
         print()
 
-
 def main():
     """主函数"""
     print("\n")
@@ -160,12 +156,11 @@ def main():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return 1
     
     return 0
-
 
 if __name__ == "__main__":
     exit_code = main()

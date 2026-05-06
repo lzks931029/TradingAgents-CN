@@ -1,4 +1,6 @@
+
 import logging
+import traceback
 from datetime import datetime, time as dtime, timedelta
 from typing import Dict, Optional, Tuple, List
 from zoneinfo import ZoneInfo
@@ -11,7 +13,6 @@ from app.core.database import get_mongo_db
 from app.services.data_sources.manager import DataSourceManager
 
 logger = logging.getLogger(__name__)
-
 
 class QuotesIngestionService:
     """
@@ -494,7 +495,7 @@ class QuotesIngestionService:
 
         except Exception as e:
             logger.error(f"❌ 从历史数据导入失败: {e}")
-            import traceback
+            
             logger.error(f"堆栈跟踪:\n{traceback.format_exc()}")
 
     async def backfill_last_close_snapshot(self) -> None:

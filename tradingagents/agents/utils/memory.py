@@ -1,9 +1,11 @@
 import chromadb
+import logging
+import os
 from chromadb.config import Settings
 from openai import OpenAI
 import dashscope
 from dashscope import TextEmbedding
-import os
+
 import threading
 import hashlib
 from typing import Dict, Optional
@@ -11,7 +13,6 @@ from typing import Dict, Optional
 # 导入统一日志系统
 from tradingagents.utils.logging_init import get_logger
 logger = get_logger("agents.utils.memory")
-
 
 class ChromaDBManager:
     """单例ChromaDB管理器，避免并发创建集合的冲突"""
@@ -94,7 +95,6 @@ class ChromaDBManager:
             # 缓存集合
             self._collections[name] = collection
             return collection
-
 
 class FinancialSituationMemory:
     def __init__(self, name, config):
@@ -653,7 +653,6 @@ class FinancialSituationMemory:
             info['last_text_processing'] = self._last_text_info
             
         return info
-
 
 if __name__ == "__main__":
     # Example usage

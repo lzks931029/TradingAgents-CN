@@ -3,9 +3,13 @@
 直接调用现有的 TradingAgents 分析功能
 """
 
+import logging
+import os
+import time
+import traceback
 import asyncio
 import uuid
-import logging
+
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 from pathlib import Path
@@ -28,7 +32,7 @@ from app.models.user import PyObjectId
 from app.models.notification import NotificationCreate
 from bson import ObjectId
 from app.core.database import get_mongo_db
-import time
+
 from app.services.config_service import ConfigService
 from app.services.memory_state_manager import get_memory_state_manager, TaskStatus
 from app.services.redis_progress_tracker import RedisProgressTracker, get_progress_by_id
@@ -49,7 +53,6 @@ logger = logging.getLogger("app.services.simple_analysis_service")
 
 # 配置服务实例
 config_service = ConfigService()
-
 
 async def get_provider_by_model_name(model_name: str) -> str:
     """
@@ -83,7 +86,6 @@ async def get_provider_by_model_name(model_name: str) -> str:
         logger.error(f"❌ 查找模型供应商失败: {e}")
         return _get_default_provider_by_model(model_name)
 
-
 def get_provider_by_model_name_sync(model_name: str) -> str:
     """
     根据模型名称从数据库配置中查找对应的供应商（同步版本）
@@ -96,7 +98,6 @@ def get_provider_by_model_name_sync(model_name: str) -> str:
     """
     provider_info = get_provider_and_url_by_model_sync(model_name)
     return provider_info["provider"]
-
 
 def get_provider_and_url_by_model_sync(model_name: str) -> dict:
     """
@@ -112,7 +113,7 @@ def get_provider_and_url_by_model_sync(model_name: str) -> dict:
         # 使用同步 MongoDB 客户端直接查询
         from pymongo import MongoClient
         from app.core.config import settings
-        import os
+        
 
         client = MongoClient(settings.MONGO_URI)
         db = client[settings.MONGO_DB]
@@ -284,7 +285,6 @@ def get_provider_and_url_by_model_sync(model_name: str) -> dict:
             "api_key": _get_env_api_key_for_provider(provider)
         }
 
-
 def _get_env_api_key_for_provider(provider: str) -> str:
     """
     从环境变量获取指定供应商的 API Key
@@ -295,7 +295,7 @@ def _get_env_api_key_for_provider(provider: str) -> str:
     Returns:
         str: API Key，如果未找到则返回 None
     """
-    import os
+    
 
     from tradingagents.llm_clients.provider_keys import env_key_for_provider, normalize_provider_key
 
@@ -311,7 +311,6 @@ def _get_env_api_key_for_provider(provider: str) -> str:
             return api_key
 
     return None
-
 
 def _get_default_backend_url(provider: str) -> str:
     """
@@ -335,7 +334,6 @@ def _get_default_backend_url(provider: str) -> str:
 
     logger.info(f"🔧 [默认URL] {provider} -> {url}")
     return url
-
 
 def _get_default_provider_by_model(model_name: str) -> str:
     """
@@ -376,7 +374,6 @@ def _get_default_provider_by_model(model_name: str) -> str:
     provider = model_provider_map.get(model_name, 'qwen')  # 默认使用阿里百炼
     logger.info(f"🔧 使用默认映射: {model_name} -> {provider}")
     return provider
-
 
 def create_analysis_config(
     research_depth,  # 支持数字(1-5)或字符串("快速", "标准", "深度")
@@ -561,7 +558,6 @@ def create_analysis_config(
     logger.info(f"📋 ========================================")
 
     return config
-
 
 class SimpleAnalysisService:
     """简化的股票分析服务类"""
@@ -768,7 +764,7 @@ class SimpleAnalysisService:
                 logger.error(f"❌ 创建任务时写入MongoDB失败: {e}")
                 # 这里不应该忽略错误，因为没有MongoDB记录会导致状态查询失败
                 # 但为了不影响任务执行，我们记录错误但继续执行
-                import traceback
+                
                 logger.error(f"❌ MongoDB保存详细错误: {traceback.format_exc()}")
 
             return {
@@ -797,7 +793,7 @@ class SimpleAnalysisService:
             logger.info(f"🎯🎯🎯 [ENTRY] user_id={user_id}, stock_code={stock_code}")
         except Exception as entry_error:
             print(f"❌❌❌ [CRITICAL] 日志记录失败: {entry_error}")
-            import traceback
+            
             traceback.print_exc()
 
         progress_tracker = None
@@ -1269,7 +1265,7 @@ class SimpleAnalysisService:
 
             # 启动一个异步任务来模拟进度更新
             import threading
-            import time
+            
 
             def simulate_progress():
                 """模拟TradingAgents内部进度"""
@@ -2309,8 +2305,6 @@ class SimpleAnalysisService:
             logger.error(f"❌ 查询僵尸任务失败: {e}", exc_info=True)
             return []
 
-
-
     async def _update_task_status(
         self,
         task_id: str,
@@ -2690,7 +2684,7 @@ class SimpleAnalysisService:
     async def _save_modular_reports_to_data_dir(self, result: Dict[str, Any], stock_symbol: str) -> Dict[str, str]:
         """保存分模块报告到data目录 - 完全采用web目录的文件结构"""
         try:
-            import os
+            
             from pathlib import Path
             from datetime import datetime
             import json
@@ -2862,12 +2856,11 @@ class SimpleAnalysisService:
 
         except Exception as e:
             logger.error(f"❌ 保存分模块报告失败: {e}")
-            import traceback
+            
             logger.error(f"❌ 详细错误: {traceback.format_exc()}")
             return {}
 
 # 重复的 get_task_status 方法已删除，使用第469行的内存版本
-
 
 # 全局服务实例
 _analysis_service = None

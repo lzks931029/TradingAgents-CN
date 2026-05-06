@@ -16,7 +16,6 @@ sys.path.insert(0, str(project_root))
 from scripts.migrate_config_to_webapi import ConfigMigrator
 from tradingagents.config.config_manager import ConfigManager
 
-
 async def test_migration():
     """测试配置迁移功能"""
     print("🧪 开始测试配置迁移功能...")
@@ -83,7 +82,6 @@ async def test_migration():
         print(f"   ❌ 配置迁移测试异常: {e}")
         return False
 
-
 def test_config_files():
     """测试配置文件的存在性"""
     print("\n📁 检查配置文件...")
@@ -104,7 +102,6 @@ def test_config_files():
                 print(f"      ⚠️ 读取失败: {e}")
         else:
             print(f"   ❌ {file_name} 不存在")
-
 
 def test_env_file():
     """测试.env文件"""
@@ -133,7 +130,6 @@ def test_env_file():
     else:
         print("   ❌ .env 文件不存在")
 
-
 async def main():
     """主函数"""
     print("=" * 60)
@@ -157,7 +153,6 @@ async def main():
     print("=" * 60)
     
     return success
-
 
 if __name__ == "__main__":
     # 运行测试

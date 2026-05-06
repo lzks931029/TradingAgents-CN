@@ -8,7 +8,6 @@ import os
 from typing import Dict, Any, Optional
 from .env_utils import parse_bool_env, parse_str_env, get_env_info, validate_required_env_vars
 
-
 class TushareConfig:
     """Tushare配置管理器"""
     
@@ -156,11 +155,9 @@ class TushareConfig:
         
         return fixes
 
-
 def get_tushare_config() -> TushareConfig:
     """获取Tushare配置实例"""
     return TushareConfig()
-
 
 def check_tushare_compatibility() -> Dict[str, Any]:
     """检查Tushare配置兼容性"""
@@ -173,7 +170,6 @@ def check_tushare_compatibility() -> Dict[str, Any]:
         'boolean_parsing_test': config.test_boolean_parsing(),
         'common_fixes': config.fix_common_issues()
     }
-
 
 def diagnose_tushare_issues():
     """诊断Tushare配置问题"""
@@ -224,7 +220,6 @@ def diagnose_tushare_issues():
         print(f"\n🔧 自动修复建议:")
         for var, fix in fixes.items():
             print(f"   {var}: {fix}")
-
 
 if __name__ == "__main__":
     diagnose_tushare_issues()

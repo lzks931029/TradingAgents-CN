@@ -7,8 +7,9 @@
 3. 测试其他可能的 AKShare 港股接口
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -46,9 +47,8 @@ def test_akshare_hk_spot():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_akshare_hk_valuation():
     """测试 AKShare 港股估值相关接口"""
@@ -80,9 +80,8 @@ def test_akshare_hk_valuation():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_akshare_hk_individual_stock():
     """测试 AKShare 港股个股相关接口"""
@@ -125,9 +124,8 @@ def test_akshare_hk_individual_stock():
     
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_tushare_hk():
     """测试 Tushare 港股接口"""
@@ -179,9 +177,8 @@ def test_tushare_hk():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def main():
     """主函数"""
@@ -204,7 +201,6 @@ def main():
     print("\n" + "=" * 80)
     print("测试完成")
     print("=" * 80)
-
 
 if __name__ == "__main__":
     main()

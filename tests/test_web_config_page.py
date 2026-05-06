@@ -3,6 +3,7 @@
 测试Web配置管理页面
 """
 
+import traceback
 import sys
 from pathlib import Path
 
@@ -21,7 +22,7 @@ def test_config_page_import():
         return True
     except Exception as e:
         print(f"❌ 配置管理页面导入失败: {e}")
-        import traceback
+        
         print(f"错误详情: {traceback.format_exc()}")
         return False
 
@@ -47,7 +48,7 @@ def test_config_manager_import():
         return True
     except Exception as e:
         print(f"❌ 配置管理器导入失败: {e}")
-        import traceback
+        
         print(f"错误详情: {traceback.format_exc()}")
         return False
 

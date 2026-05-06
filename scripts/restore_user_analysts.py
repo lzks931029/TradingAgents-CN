@@ -4,6 +4,7 @@
 将用户的分析师选择恢复为：['市场分析师', '基本面分析师', '新闻分析师']
 """
 
+import logging
 import sys
 from pathlib import Path
 
@@ -12,11 +13,9 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from app.core.database import get_mongo_db_sync
-import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 def restore_user_analysts():
     """恢复用户的分析师选择"""
@@ -49,7 +48,6 @@ def restore_user_analysts():
     except Exception as e:
         logger.error(f"❌ 恢复失败: {e}", exc_info=True)
         raise
-
 
 if __name__ == "__main__":
     logger.info("🚀 开始恢复用户分析师选择...")

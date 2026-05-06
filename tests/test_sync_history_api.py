@@ -3,12 +3,15 @@
 测试同步历史API功能
 验证历史记录的获取和显示
 """
-import sys
+import logging
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import asyncio
-import logging
+
 from datetime import datetime
 
 # 设置日志
@@ -146,7 +149,7 @@ async def test_sync_history_api():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None
 

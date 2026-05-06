@@ -3,9 +3,10 @@
 检查系统时区信息
 """
 
-import datetime
-import time
 import os
+import time
+import datetime
+
 import sys
 
 def check_timezone():

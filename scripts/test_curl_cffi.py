@@ -3,8 +3,9 @@
 使用 curl_cffi 模拟真实浏览器的 TLS 指纹
 这个库可以模拟 Chrome/Firefox 的 TLS/JA3 指纹，绕过更严格的反爬虫检测
 """
-import json
 import time
+import traceback
+import json
 
 try:
     from curl_cffi import requests
@@ -13,7 +14,6 @@ except ImportError:
     print("❌ curl_cffi 未安装")
     print("安装命令: pip install curl-cffi")
     exit(1)
-
 
 def get_stock_news_with_curl_cffi(symbol: str, page_size: int = 10):
     """
@@ -95,11 +95,10 @@ def get_stock_news_with_curl_cffi(symbol: str, page_size: int = 10):
                     
     except Exception as e:
         print(f"❌ 请求失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     return []
-
 
 if __name__ == "__main__":
     print("=" * 80)

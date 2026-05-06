@@ -4,8 +4,10 @@
 统一管理中国股票数据源的选择和切换，支持Tushare、AKShare、BaoStock等
 """
 
+import logging
 import os
 import time
+import traceback
 from typing import Dict, List, Optional, Any
 from enum import Enum
 import warnings
@@ -24,7 +26,6 @@ logger = setup_dataflow_logging()
 # 导入统一数据源编码
 from tradingagents.constants import DataSourceCode
 
-
 class ChinaDataSource(Enum):
     """
     中国股票数据源枚举
@@ -37,7 +38,6 @@ class ChinaDataSource(Enum):
     AKSHARE = DataSourceCode.AKSHARE
     BAOSTOCK = DataSourceCode.BAOSTOCK
 
-
 class USDataSource(Enum):
     """
     美股数据源枚举
@@ -49,10 +49,6 @@ class USDataSource(Enum):
     YFINANCE = DataSourceCode.YFINANCE  # Yahoo Finance（免费，股票价格和技术指标）
     ALPHA_VANTAGE = DataSourceCode.ALPHA_VANTAGE  # Alpha Vantage（基本面和新闻）
     FINNHUB = DataSourceCode.FINNHUB  # Finnhub（备用数据源）
-
-
-
-
 
 class DataSourceManager:
     """数据源管理器"""
@@ -1268,7 +1264,7 @@ class DataSourceManager:
             logger.error(f"❌ [Tushare] 调用失败: {e}, 耗时={duration:.2f}s", exc_info=True)
             logger.error(f"❌ [DataSourceManager详细日志] 异常类型: {type(e).__name__}")
             logger.error(f"❌ [DataSourceManager详细日志] 异常信息: {str(e)}")
-            import traceback
+            
             logger.error(f"❌ [DataSourceManager详细日志] 异常堆栈: {traceback.format_exc()}")
             raise
 
@@ -1498,7 +1494,6 @@ class DataSourceManager:
                         logger.warning(f"⚠️ [数据来源: MongoDB] 未找到有效名称: {symbol}，降级到其他数据源")
             except Exception as e:
                 logger.error(f"❌ [数据来源: MongoDB异常] 获取股票信息失败: {e}", exc_info=True)
-
 
         # 首先尝试当前数据源
         try:
@@ -2127,7 +2122,6 @@ class DataSourceManager:
         logger.warning(f"⚠️ [数据来源: 所有数据源失败] 无法获取新闻: {symbol or '市场新闻'}")
         return []
 
-
 # 全局数据源管理器实例
 _data_source_manager = None
 
@@ -2137,7 +2131,6 @@ def get_data_source_manager() -> DataSourceManager:
     if _data_source_manager is None:
         _data_source_manager = DataSourceManager()
     return _data_source_manager
-
 
 def get_china_stock_data_unified(symbol: str, start_date: str, end_date: str) -> str:
     """
@@ -2153,7 +2146,6 @@ def get_china_stock_data_unified(symbol: str, start_date: str, end_date: str) ->
         str: 格式化的股票数据
     """
     from tradingagents.utils.logging_init import get_logger
-
 
     # 添加详细的股票代码追踪日志
     logger.info(f"🔍 [股票代码追踪] data_source_manager.get_china_stock_data_unified 接收到的股票代码: '{symbol}' (类型: {type(symbol)})")
@@ -2175,7 +2167,6 @@ def get_china_stock_data_unified(symbol: str, start_date: str, end_date: str) ->
         logger.info(f"🔍 [股票代码追踪] 返回结果: None")
     return result
 
-
 def get_china_stock_info_unified(symbol: str) -> Dict:
     """
     统一的中国股票信息获取接口
@@ -2188,7 +2179,6 @@ def get_china_stock_info_unified(symbol: str) -> Dict:
     """
     manager = get_data_source_manager()
     return manager.get_stock_info(symbol)
-
 
 # 全局数据源管理器实例
 _data_source_manager = None
@@ -2211,7 +2201,6 @@ def get_stock_data_service() -> DataSourceManager:
     推荐直接使用 get_data_source_manager()
     """
     return get_data_source_manager()
-
 
 # ==================== 美股数据源管理器 ====================
 
@@ -2462,7 +2451,6 @@ class USDataSourceManager:
         else:
             logger.error(f"❌ 美股数据源不可用: {source.value}")
             return False
-
 
 # 全局美股数据源管理器实例
 _us_data_source_manager = None

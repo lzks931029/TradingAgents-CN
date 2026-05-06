@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
+import logging
+import time
 from fastapi.responses import StreamingResponse
 import asyncio
 import json
-import logging
-import time
 
 from app.routers.auth_db import get_current_user
 from app.core.database import get_redis_client
@@ -13,7 +13,6 @@ from app.services.queue_service import get_queue_service, QueueService
 
 router = APIRouter()
 logger = logging.getLogger("webapi.sse")
-
 
 async def task_progress_generator(task_id: str, user_id: str):
     """Generate SSE events for task progress updates"""
@@ -108,7 +107,6 @@ async def task_progress_generator(task_id: str, user_id: str):
                     logger.info(f"🔄 [SSE-Task] PubSub 连接已重置: task={task_id}")
                 except Exception as reset_error:
                     logger.error(f"❌ [SSE-Task] 重置 PubSub 连接也失败: {reset_error}")
-
 
 async def batch_progress_generator(batch_id: str, user_id: str):
     """Generate SSE events for batch progress updates"""
@@ -220,7 +218,6 @@ async def batch_progress_generator(batch_id: str, user_id: str):
         logger.exception(f"SSE batch error for {batch_id}: {e}")
         yield f"event: error\ndata: {{\"error\": \"连接异常: {str(e)}\"}}\n\n"
 
-
 @router.get("/tasks/{task_id}")
 async def stream_task_progress(task_id: str, user: dict = Depends(get_current_user), svc: QueueService = Depends(get_queue_service)):
     """Stream real-time progress updates for a specific task"""
@@ -238,7 +235,6 @@ async def stream_task_progress(task_id: str, user: dict = Depends(get_current_us
             "X-Accel-Buffering": "no"  # Disable nginx buffering
         }
     )
-
 
 @router.get("/batches/{batch_id}")
 async def stream_batch_progress(batch_id: str, user: dict = Depends(get_current_user), svc: QueueService = Depends(get_queue_service)):

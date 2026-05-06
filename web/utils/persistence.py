@@ -3,8 +3,9 @@
 使用URL参数和session state结合的方式来持久化用户选择
 """
 
-import streamlit as st
 import logging
+import streamlit as st
+
 from urllib.parse import urlencode, parse_qs
 import json
 

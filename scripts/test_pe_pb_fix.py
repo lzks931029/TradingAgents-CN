@@ -11,14 +11,14 @@
     python scripts/test_pe_pb_fix.py 600036
 """
 
+import logging
+import traceback
 import sys
 from pathlib import Path
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-
-import logging
 
 # 配置日志
 logging.basicConfig(
@@ -27,7 +27,6 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-
 
 def test_parse_mongodb_financial_data(code: str):
     """测试 MongoDB 财务数据解析（三层降级逻辑）"""
@@ -83,13 +82,12 @@ def test_parse_mongodb_financial_data(code: str):
     
     except Exception as e:
         logger.error(f"❌ 解析失败: {e}")
-        import traceback
+        
         logger.error(traceback.format_exc())
         return False
     
     finally:
         client.close()
-
 
 def test_realtime_metrics(code: str):
     """测试 realtime_metrics 的异步客户端兼容性"""
@@ -120,7 +118,7 @@ def test_realtime_metrics(code: str):
         sync_client.close()
     except Exception as e:
         logger.error(f"❌ 同步客户端测试异常: {e}")
-        import traceback
+        
         logger.error(traceback.format_exc())
     
     # 测试 2: 使用异步客户端（模拟诊断脚本的场景）
@@ -143,10 +141,9 @@ def test_realtime_metrics(code: str):
         
     except Exception as e:
         logger.error(f"❌ 异步客户端测试异常: {e}")
-        import traceback
+        
         logger.error(traceback.format_exc())
         return False
-
 
 def test_fundamentals_report(code: str):
     """测试基本面分析报告生成"""
@@ -204,10 +201,9 @@ def test_fundamentals_report(code: str):
     
     except Exception as e:
         logger.error(f"❌ 报告生成失败: {e}")
-        import traceback
+        
         logger.error(traceback.format_exc())
         return False
-
 
 def main(code: str):
     """主函数"""
@@ -248,7 +244,6 @@ def main(code: str):
     logger.info("=" * 80)
     
     return all_passed
-
 
 if __name__ == "__main__":
     import argparse

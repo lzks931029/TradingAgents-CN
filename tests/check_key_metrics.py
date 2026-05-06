@@ -3,9 +3,9 @@
 专门查看AKShare财务数据中的PE、PB、ROE指标
 """
 
-import sys
-import os
 import logging
+import os
+import sys
 
 # 设置日志级别
 logging.basicConfig(level=logging.WARNING, format='%(asctime)s | %(levelname)-8s | %(message)s')

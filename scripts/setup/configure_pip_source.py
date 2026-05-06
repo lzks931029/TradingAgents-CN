@@ -4,7 +4,8 @@
 提高包安装速度
 """
 
-import os
+import logging
+import traceback
 import sys
 from pathlib import Path
 
@@ -219,7 +220,7 @@ def main():
         
     except Exception as e:
         logger.error(f"❌ 配置失败: {e}")
-        import traceback
+        
 
         traceback.print_exc()
         return False

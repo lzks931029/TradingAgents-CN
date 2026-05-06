@@ -4,6 +4,7 @@
 """
 
 import logging
+import os
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import FileResponse
@@ -15,7 +16,6 @@ from app.services.log_export_service import get_log_export_service
 router = APIRouter(prefix="/system-logs", tags=["系统日志"])
 logger = logging.getLogger("webapi")
 
-
 # 请求模型
 class LogReadRequest(BaseModel):
     """日志读取请求"""
@@ -26,7 +26,6 @@ class LogReadRequest(BaseModel):
     start_time: Optional[str] = Field(default=None, description="开始时间（ISO格式）")
     end_time: Optional[str] = Field(default=None, description="结束时间（ISO格式）")
 
-
 class LogExportRequest(BaseModel):
     """日志导出请求"""
     filenames: Optional[List[str]] = Field(default=None, description="要导出的文件名列表（空表示全部）")
@@ -34,7 +33,6 @@ class LogExportRequest(BaseModel):
     start_time: Optional[str] = Field(default=None, description="开始时间（ISO格式）")
     end_time: Optional[str] = Field(default=None, description="结束时间（ISO格式）")
     format: str = Field(default="zip", description="导出格式：zip, txt")
-
 
 # 响应模型
 class LogFileInfo(BaseModel):
@@ -46,13 +44,11 @@ class LogFileInfo(BaseModel):
     modified_at: str
     type: str
 
-
 class LogContentResponse(BaseModel):
     """日志内容响应"""
     filename: str
     lines: List[str]
     stats: dict
-
 
 class LogStatisticsResponse(BaseModel):
     """日志统计响应"""
@@ -61,7 +57,6 @@ class LogStatisticsResponse(BaseModel):
     error_files: int
     recent_errors: List[str]
     log_types: dict
-
 
 @router.get("/files", response_model=List[LogFileInfo])
 async def list_log_files(
@@ -83,7 +78,6 @@ async def list_log_files(
     except Exception as e:
         logger.error(f"❌ 获取日志文件列表失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取日志文件列表失败: {str(e)}")
-
 
 @router.post("/read", response_model=LogContentResponse)
 async def read_log_file(
@@ -120,7 +114,6 @@ async def read_log_file(
         logger.error(f"❌ 读取日志文件失败: {e}")
         raise HTTPException(status_code=500, detail=f"读取日志文件失败: {str(e)}")
 
-
 @router.post("/export")
 async def export_logs(
     request: LogExportRequest,
@@ -151,7 +144,7 @@ async def export_logs(
         )
         
         # 返回文件下载
-        import os
+        
         filename = os.path.basename(export_path)
         media_type = "application/zip" if request.format == "zip" else "text/plain"
         
@@ -167,7 +160,6 @@ async def export_logs(
     except Exception as e:
         logger.error(f"❌ 导出日志文件失败: {e}")
         raise HTTPException(status_code=500, detail=f"导出日志文件失败: {str(e)}")
-
 
 @router.get("/statistics", response_model=LogStatisticsResponse)
 async def get_log_statistics(
@@ -194,7 +186,6 @@ async def get_log_statistics(
     except Exception as e:
         logger.error(f"❌ 获取日志统计失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取日志统计失败: {str(e)}")
-
 
 @router.delete("/files/{filename}")
 async def delete_log_file(

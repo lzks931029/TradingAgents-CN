@@ -3,12 +3,14 @@
 消费队列中的分析任务，调用TradingAgents进行股票分析
 """
 
-import asyncio
 import logging
+import traceback
+import asyncio
+
 import signal
 import sys
 import uuid
-import traceback
+
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, Dict, Any
@@ -27,7 +29,6 @@ from app.services.config_provider import provider as config_provider
 from app.services.queue import DEFAULT_USER_CONCURRENT_LIMIT, GLOBAL_CONCURRENT_LIMIT, VISIBILITY_TIMEOUT_SECONDS
 
 logger = logging.getLogger(__name__)
-
 
 class AnalysisWorker:
     """分析任务Worker类"""
@@ -247,7 +248,6 @@ class AnalysisWorker:
         except Exception as e:
             logger.error(f"关闭数据库连接失败: {e}")
 
-
 async def main():
     """主函数"""
     # 设置日志
@@ -268,7 +268,6 @@ async def main():
         sys.exit(1)
 
     logger.info("Worker已安全退出")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

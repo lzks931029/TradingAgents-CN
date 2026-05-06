@@ -4,7 +4,7 @@
 清理过期的缓存文件和数据库记录
 """
 
-import os
+import logging
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path

@@ -3,8 +3,10 @@
 测试FINNHUB API连接
 """
 
-import sys
 import os
+import traceback
+import sys
+
 sys.path.append('..')
 
 def test_finnhub_api():
@@ -88,7 +90,7 @@ def test_finnhub_api():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -148,7 +150,7 @@ def test_china_stock_api():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

@@ -3,15 +3,16 @@
 记录用户在系统中的各种操作行为，并保存到独立的日志文件中
 """
 
-import json
+import logging
 import time
+import json
+
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 import streamlit as st
 from dataclasses import dataclass, asdict
 import threading
-import os
 
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger

@@ -14,7 +14,6 @@ import json
 
 logger = logging.getLogger("webapi")
 
-
 class LogExportService:
     """日志导出服务"""
 
@@ -371,10 +370,8 @@ class LogExportService:
             logger.error(f"❌ 获取日志统计失败: {e}")
             return {}
 
-
 # 全局服务实例
 _log_export_service: Optional[LogExportService] = None
-
 
 def get_log_export_service() -> LogExportService:
     """获取日志导出服务实例"""
@@ -387,7 +384,6 @@ def get_log_export_service() -> LogExportService:
 
     return _log_export_service
 
-
 def _get_log_directory() -> str:
     """
     获取日志目录路径
@@ -396,7 +392,7 @@ def _get_log_directory() -> str:
     2. 从settings配置读取
     3. 使用默认值 ./logs
     """
-    import os
+    
     from pathlib import Path
 
     try:

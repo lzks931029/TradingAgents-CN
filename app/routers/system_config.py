@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+import logging
 from typing import Any, Dict
 import re
-import logging
 
 from app.core.config import settings
 from app.routers.auth_db import get_current_user
@@ -20,7 +20,6 @@ SENSITIVE_KEYS = {
 
 MASK = "***"
 
-
 def _mask_value(key: str, value: Any) -> Any:
     if value is None:
         return None
@@ -36,7 +35,6 @@ def _mask_value(key: str, value: Any) -> Any:
         return v
     return value
 
-
 def _build_summary() -> Dict[str, Any]:
     raw = settings.model_dump()
     # Attach derived URLs
@@ -48,7 +46,6 @@ def _build_summary() -> Dict[str, Any]:
         summary[k] = _mask_value(k, v)
     return summary
 
-
 @router.get("/config/summary", tags=["system"], summary="配置概要（已屏蔽敏感项，需管理员）")
 async def get_config_summary(current_user: dict = Depends(get_current_user)) -> Dict[str, Any]:
     """
@@ -58,7 +55,6 @@ async def get_config_summary(current_user: dict = Depends(get_current_user)) -> 
     if not current_user.get("is_admin", False):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin privileges required")
     return {"settings": _build_summary()}
-
 
 @router.get("/config/validate", tags=["system"], summary="验证配置完整性")
 async def validate_config():

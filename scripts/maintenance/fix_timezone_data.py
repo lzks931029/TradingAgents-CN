@@ -4,9 +4,11 @@
 将UTC时间转换为本地时间
 """
 
+import os
+import traceback
 import asyncio
 import sys
-import os
+
 import datetime
 from dotenv import load_dotenv
 
@@ -138,7 +140,7 @@ async def fix_timezone_data():
         
     except Exception as e:
         print(f"❌ 修复失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

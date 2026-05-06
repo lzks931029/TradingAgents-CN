@@ -5,13 +5,13 @@
 """
 
 import os
+import traceback
 import sys
 from datetime import datetime, timedelta
 
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
-
 
 def test_openai_adapter_import():
     """测试新适配器导入"""
@@ -33,10 +33,9 @@ def test_openai_adapter_import():
         
     except Exception as e:
         print(f"❌ 导入失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_openai_adapter_connection():
     """测试 OpenAI 兼容适配器连接"""
@@ -58,10 +57,9 @@ def test_openai_adapter_connection():
             
     except Exception as e:
         print(f"❌ 连接测试异常: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_openai_adapter_function_calling():
     """测试 OpenAI 兼容适配器的 Function Calling"""
@@ -83,10 +81,9 @@ def test_openai_adapter_function_calling():
             
     except Exception as e:
         print(f"❌ Function Calling 测试异常: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_technical_analysis_with_new_adapter():
     """测试新适配器的技术面分析"""
@@ -183,10 +180,9 @@ def test_technical_analysis_with_new_adapter():
         
     except Exception as e:
         print(f"❌ 技术面分析测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_trading_graph_integration():
     """测试与 TradingGraph 的集成"""
@@ -223,10 +219,9 @@ def test_trading_graph_integration():
         
     except Exception as e:
         print(f"❌ TradingGraph 集成测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def main():
     """主测试函数"""
@@ -289,7 +284,6 @@ def main():
         print("\n⚠️ 部分测试失败，请检查相关配置")
     
     input("按回车键退出...")
-
 
 if __name__ == "__main__":
     main()

@@ -2,12 +2,12 @@
 实时估值指标计算模块
 基于实时行情和财务数据计算PE/PB等指标
 """
+
 import logging
 from typing import Optional, Dict, Any
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
-
 
 def calculate_realtime_pe_pb(
     symbol: str,
@@ -295,7 +295,6 @@ def calculate_realtime_pe_pb(
         logger.error(f"计算股票 {symbol} 的实时PE/PB失败: {e}", exc_info=True)
         return None
 
-
 def validate_pe_pb(pe: Optional[float], pb: Optional[float]) -> bool:
     """
     验证PE/PB是否在合理范围内
@@ -318,7 +317,6 @@ def validate_pe_pb(pe: Optional[float], pb: Optional[float]) -> bool:
         return False
     
     return True
-
 
 def get_pe_pb_with_fallback(
     symbol: str,

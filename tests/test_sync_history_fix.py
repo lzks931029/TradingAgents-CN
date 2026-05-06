@@ -5,12 +5,15 @@
 1. 每次同步创建新的历史记录
 2. 时区显示正确
 """
-import sys
+import logging
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import asyncio
-import logging
+
 from datetime import datetime
 
 # 设置日志
@@ -153,7 +156,7 @@ async def test_multiple_sync_records():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None
 

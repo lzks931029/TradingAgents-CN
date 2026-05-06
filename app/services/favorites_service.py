@@ -2,6 +2,7 @@
 自选股服务
 """
 
+import logging
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 from bson import ObjectId
@@ -9,7 +10,6 @@ from bson import ObjectId
 from app.core.database import get_mongo_db
 from app.models.user import FavoriteStock
 from app.services.quotes_service import get_quotes_service
-
 
 class FavoritesService:
     """自选股服务类"""
@@ -163,7 +163,7 @@ class FavoritesService:
         alert_price_low: Optional[float] = None
     ) -> bool:
         """添加股票到自选股（兼容字符串ID与ObjectId）"""
-        import logging
+        
         logger = logging.getLogger("webapi")
 
         try:
@@ -314,7 +314,7 @@ class FavoritesService:
 
     async def is_favorite(self, user_id: str, stock_code: str) -> bool:
         """检查股票是否在自选股中（兼容字符串ID与ObjectId）"""
-        import logging
+        
         logger = logging.getLogger("webapi")
 
         try:
@@ -402,7 +402,6 @@ class FavoritesService:
         """获取模拟成交量"""
         # 基于股票代码生成模拟成交量
         return (hash(stock_code) % 10000 + 1000) * 100
-
 
 # 创建全局实例
 favorites_service = FavoritesService()

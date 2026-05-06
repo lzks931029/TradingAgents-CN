@@ -3,8 +3,9 @@
 BaoStock初始化API路由
 提供BaoStock数据初始化的RESTful API接口
 """
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime
 from typing import Dict, Any, Optional
 from fastapi import APIRouter, BackgroundTasks, HTTPException
@@ -26,12 +27,10 @@ _initialization_status = {
     "last_update": None
 }
 
-
 class InitializationRequest(BaseModel):
     """初始化请求模型"""
     historical_days: int = Field(default=365, ge=1, le=3650, description="历史数据天数")
     force: bool = Field(default=False, description="是否强制重新初始化")
-
 
 class InitializationResponse(BaseModel):
     """初始化响应模型"""
@@ -39,7 +38,6 @@ class InitializationResponse(BaseModel):
     message: str
     task_id: Optional[str] = None
     data: Optional[Dict[str, Any]] = None
-
 
 @router.get("/status", response_model=Dict[str, Any])
 async def get_database_status():
@@ -57,7 +55,6 @@ async def get_database_status():
     except Exception as e:
         logger.error(f"获取数据库状态失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取数据库状态失败: {e}")
-
 
 @router.get("/connection-test", response_model=Dict[str, Any])
 async def test_baostock_connection():
@@ -78,7 +75,6 @@ async def test_baostock_connection():
     except Exception as e:
         logger.error(f"BaoStock连接测试失败: {e}")
         raise HTTPException(status_code=500, detail=f"连接测试失败: {e}")
-
 
 @router.post("/start-full", response_model=InitializationResponse)
 async def start_full_initialization(
@@ -130,7 +126,6 @@ async def start_full_initialization(
         logger.error(f"启动完整初始化失败: {e}")
         raise HTTPException(status_code=500, detail=f"启动初始化失败: {e}")
 
-
 @router.post("/start-basic", response_model=InitializationResponse)
 async def start_basic_initialization(background_tasks: BackgroundTasks):
     """启动基础初始化"""
@@ -170,7 +165,6 @@ async def start_basic_initialization(background_tasks: BackgroundTasks):
         _initialization_status["is_running"] = False
         logger.error(f"启动基础初始化失败: {e}")
         raise HTTPException(status_code=500, detail=f"启动初始化失败: {e}")
-
 
 @router.get("/initialization-status", response_model=Dict[str, Any])
 async def get_initialization_status():
@@ -214,7 +208,6 @@ async def get_initialization_status():
         logger.error(f"获取初始化状态失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取状态失败: {e}")
 
-
 @router.post("/stop", response_model=Dict[str, Any])
 async def stop_initialization():
     """停止初始化任务"""
@@ -243,7 +236,6 @@ async def stop_initialization():
     except Exception as e:
         logger.error(f"停止初始化任务失败: {e}")
         raise HTTPException(status_code=500, detail=f"停止任务失败: {e}")
-
 
 async def _run_full_initialization_task(historical_days: int, force: bool, task_id: str):
     """运行完整初始化任务"""
@@ -276,7 +268,6 @@ async def _run_full_initialization_task(historical_days: int, force: bool, task_
             "last_update": datetime.now()
         })
 
-
 async def _run_basic_initialization_task(task_id: str):
     """运行基础初始化任务"""
     
@@ -304,7 +295,6 @@ async def _run_basic_initialization_task(task_id: str):
             "is_running": False,
             "last_update": datetime.now()
         })
-
 
 @router.get("/service-status", response_model=Dict[str, Any])
 async def get_service_status():

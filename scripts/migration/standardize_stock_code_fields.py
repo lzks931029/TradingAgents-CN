@@ -15,8 +15,10 @@
     python scripts/migration/standardize_stock_code_fields.py --rollback # 回滚
 """
 
-import sys
 import os
+import traceback
+import sys
+
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any
@@ -32,7 +34,6 @@ from dotenv import load_dotenv
 
 # 加载环境变量
 load_dotenv()
-
 
 class StockCodeFieldMigration:
     """股票代码字段标准化迁移"""
@@ -324,11 +325,10 @@ class StockCodeFieldMigration:
             
         except Exception as e:
             print(f"\n❌ 迁移失败: {e}")
-            import traceback
+            
             traceback.print_exc()
         finally:
             self.disconnect()
-
 
 def main():
     parser = argparse.ArgumentParser(description="数据库字段标准化迁移")
@@ -347,7 +347,6 @@ def main():
     
     migration = StockCodeFieldMigration(dry_run=dry_run)
     migration.run()
-
 
 if __name__ == "__main__":
     main()

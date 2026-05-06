@@ -2,14 +2,14 @@
 速率限制器
 用于控制API调用频率，避免超过数据源的限流限制
 """
-import asyncio
-import time
 import logging
+import time
+import asyncio
+
 from collections import deque
 from typing import Optional
 
 logger = logging.getLogger(__name__)
-
 
 class RateLimiter:
     """
@@ -96,7 +96,6 @@ class RateLimiter:
         self.total_wait_time = 0.0
         logger.info(f"🔄 {self.name} 统计信息已重置")
 
-
 class TushareRateLimiter(RateLimiter):
     """
     Tushare专用速率限制器
@@ -143,7 +142,6 @@ class TushareRateLimiter(RateLimiter):
         logger.info(f"✅ Tushare速率限制器已配置: {tier}等级, "
                    f"{max_calls}次/{time_window}秒 (安全边际: {safety_margin*100:.0f}%)")
 
-
 class AKShareRateLimiter(RateLimiter):
     """
     AKShare专用速率限制器
@@ -164,7 +162,6 @@ class AKShareRateLimiter(RateLimiter):
             time_window=time_window,
             name="AKShareRateLimiter"
         )
-
 
 class BaoStockRateLimiter(RateLimiter):
     """
@@ -187,12 +184,10 @@ class BaoStockRateLimiter(RateLimiter):
             name="BaoStockRateLimiter"
         )
 
-
 # 全局速率限制器实例
 _tushare_limiter: Optional[TushareRateLimiter] = None
 _akshare_limiter: Optional[AKShareRateLimiter] = None
 _baostock_limiter: Optional[BaoStockRateLimiter] = None
-
 
 def get_tushare_rate_limiter(tier: str = "standard", safety_margin: float = 0.8) -> TushareRateLimiter:
     """获取Tushare速率限制器（单例）"""
@@ -201,7 +196,6 @@ def get_tushare_rate_limiter(tier: str = "standard", safety_margin: float = 0.8)
         _tushare_limiter = TushareRateLimiter(tier=tier, safety_margin=safety_margin)
     return _tushare_limiter
 
-
 def get_akshare_rate_limiter() -> AKShareRateLimiter:
     """获取AKShare速率限制器（单例）"""
     global _akshare_limiter
@@ -209,14 +203,12 @@ def get_akshare_rate_limiter() -> AKShareRateLimiter:
         _akshare_limiter = AKShareRateLimiter()
     return _akshare_limiter
 
-
 def get_baostock_rate_limiter() -> BaoStockRateLimiter:
     """获取BaoStock速率限制器（单例）"""
     global _baostock_limiter
     if _baostock_limiter is None:
         _baostock_limiter = BaoStockRateLimiter()
     return _baostock_limiter
-
 
 def reset_all_limiters():
     """重置所有速率限制器"""

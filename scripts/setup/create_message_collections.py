@@ -3,10 +3,12 @@
 创建消息数据集合和索引
 包括社媒消息和内部消息的数据库结构设置
 """
-import asyncio
 import logging
-import sys
 import os
+import asyncio
+
+import sys
+
 from pathlib import Path
 
 # 添加项目根目录到Python路径
@@ -20,7 +22,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 async def create_social_media_collection():
     """创建社媒消息集合和索引"""
@@ -123,7 +124,6 @@ async def create_social_media_collection():
     except Exception as e:
         logger.error(f"❌ 社媒消息集合创建失败: {e}")
         return False
-
 
 async def create_internal_messages_collection():
     """创建内部消息集合和索引"""
@@ -234,7 +234,6 @@ async def create_internal_messages_collection():
         logger.error(f"❌ 内部消息集合创建失败: {e}")
         return False
 
-
 async def main():
     """主函数"""
     logger.info("🚀 开始创建消息数据集合...")
@@ -273,7 +272,6 @@ async def main():
         
     except Exception as e:
         logger.error(f"❌ 消息数据集合创建过程异常: {e}")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

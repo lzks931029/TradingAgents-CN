@@ -12,9 +12,11 @@
     python scripts/test/test_hk_sync.py
 """
 
+import logging
+import traceback
 import asyncio
 import sys
-import logging
+
 from pathlib import Path
 
 # 添加项目根目录到路径
@@ -27,7 +29,6 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 async def test_hk_yfinance_sync():
     """测试港股 yfinance 数据源同步"""
@@ -46,10 +47,9 @@ async def test_hk_yfinance_sync():
         
     except Exception as e:
         logger.error(f"❌ yfinance 同步测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 async def test_hk_akshare_sync():
     """测试港股 akshare 数据源同步"""
@@ -68,10 +68,9 @@ async def test_hk_akshare_sync():
         
     except Exception as e:
         logger.error(f"❌ AKShare 同步测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 async def verify_hk_data():
     """验证港股数据存储"""
@@ -130,10 +129,9 @@ async def verify_hk_data():
         
     except Exception as e:
         logger.error(f"❌ 数据验证失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 async def test_unified_service():
     """测试统一数据访问服务"""
@@ -189,10 +187,9 @@ async def test_unified_service():
         
     except Exception as e:
         logger.error(f"❌ 统一服务测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 async def main():
     """主函数"""
@@ -244,7 +241,6 @@ async def main():
         logger.warning("\n⚠️ 部分测试失败，请检查日志")
     
     return all_passed
-
 
 if __name__ == "__main__":
     success = asyncio.run(main())

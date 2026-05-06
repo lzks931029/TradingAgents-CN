@@ -11,7 +11,6 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 
-
 class DataCompletenessChecker:
     """数据完整性检查器"""
     
@@ -242,7 +241,6 @@ class DataCompletenessChecker:
         except Exception as e:
             self.logger.error(f"❌ 检查数据缺口失败: {e}")
             return []
-
 
 # 全局实例
 _checker = None

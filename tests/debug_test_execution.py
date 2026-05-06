@@ -4,9 +4,9 @@
 逐步检查测试脚本闪退的原因
 """
 
-import sys
 import os
 import traceback
+import sys
 
 def step1_basic_check():
     """步骤1: 基本环境检查"""

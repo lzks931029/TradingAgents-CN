@@ -9,9 +9,9 @@
 
 路径前缀: /api/markets
 """
+import logging
 from typing import Optional, Dict, Any, List
 from fastapi import APIRouter, Depends, HTTPException, status, Query
-import logging
 
 from app.routers.auth_db import get_current_user
 from app.core.database import get_mongo_db
@@ -21,7 +21,6 @@ from app.services.unified_stock_service import UnifiedStockService
 logger = logging.getLogger("webapi")
 
 router = APIRouter(prefix="/markets", tags=["multi-market"])
-
 
 @router.get("", response_model=dict)
 async def get_supported_markets(current_user: dict = Depends(get_current_user)):
@@ -73,7 +72,6 @@ async def get_supported_markets(current_user: dict = Depends(get_current_user)):
     ]
     
     return ok(data={"markets": markets})
-
 
 @router.get("/{market}/stocks/search", response_model=dict)
 async def search_stocks(
@@ -130,7 +128,6 @@ async def search_stocks(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"搜索失败: {str(e)}"
         )
-
 
 @router.get("/{market}/stocks/{code}/info", response_model=dict)
 async def get_stock_info(
@@ -194,7 +191,6 @@ async def get_stock_info(
             detail=f"获取股票信息失败: {str(e)}"
         )
 
-
 @router.get("/{market}/stocks/{code}/quote", response_model=dict)
 async def get_stock_quote(
     market: str,
@@ -254,7 +250,6 @@ async def get_stock_quote(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取股票行情失败: {str(e)}"
         )
-
 
 @router.get("/{market}/stocks/{code}/daily", response_model=dict)
 async def get_stock_daily_quotes(

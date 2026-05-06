@@ -3,7 +3,9 @@
 测试信号处理模块的日志记录修复
 """
 
+import logging
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
@@ -90,14 +92,14 @@ def test_signal_processing_logging():
                 
             except Exception as e:
                 print(f"❌ 信号处理失败: {e}")
-                import traceback
+                
                 traceback.print_exc()
         
         return True
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -162,7 +164,7 @@ def test_logging_extraction():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

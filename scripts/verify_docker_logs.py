@@ -3,9 +3,12 @@
 验证Docker环境下的日志功能
 """
 
+import logging
 import os
-import subprocess
 import time
+import traceback
+import subprocess
+
 from pathlib import Path
 
 def run_command(cmd):
@@ -41,7 +44,7 @@ def trigger_logs_in_container():
     
     # 测试命令
     test_cmd = '''python -c "
-import os
+
 import sys
 sys.path.insert(0, '/app')
 
@@ -75,7 +78,7 @@ try:
         
 except Exception as e:
     print(f'❌ 日志测试失败: {e}')
-    import traceback
+    
     traceback.print_exc()
 "'''
     

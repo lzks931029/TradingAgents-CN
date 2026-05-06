@@ -4,8 +4,10 @@
 模拟分析完成后的保存过程
 """
 
-import sys
 import os
+import traceback
+import sys
+
 from datetime import datetime
 
 # 添加项目路径
@@ -115,7 +117,7 @@ def test_save_analysis_result():
                 print(f"❌ JSON文件未找到: {json_file}")
             
             # 检查详细报告目录
-            import os
+            
             from pathlib import Path
             
             # 获取项目根目录
@@ -153,7 +155,7 @@ def test_save_analysis_result():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

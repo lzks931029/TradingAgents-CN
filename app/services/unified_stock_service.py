@@ -21,7 +21,6 @@ from motor.motor_asyncio import AsyncIOMotorDatabase
 
 logger = logging.getLogger("webapi")
 
-
 class UnifiedStockService:
     """统一股票数据服务（跨市场，支持多数据源）"""
 

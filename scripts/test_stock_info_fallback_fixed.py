@@ -4,8 +4,9 @@
 验证当Tushare失败时是否能自动降级到其他数据源
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到Python路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -71,7 +72,7 @@ def test_real_stock_fallback():
                 
         except Exception as e:
             print(f"❌ 测试{code}失败: {e}")
-            import traceback
+            
             traceback.print_exc()
 
 def test_individual_data_sources():
@@ -97,7 +98,7 @@ def test_individual_data_sources():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 def test_fundamentals_with_fallback():
@@ -131,7 +132,7 @@ def test_fundamentals_with_fallback():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

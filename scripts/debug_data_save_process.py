@@ -3,8 +3,10 @@
 深度调试数据保存过程
 逐步检查每个环节
 """
-import asyncio
 import logging
+import traceback
+import asyncio
+
 import pandas as pd
 from datetime import datetime, timedelta
 from tradingagents.dataflows.providers.tushare_provider import TushareProvider
@@ -16,7 +18,6 @@ from pymongo import ReplaceOne
 # 设置日志
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
-
 
 async def debug_data_save_process():
     """深度调试数据保存过程"""
@@ -200,12 +201,11 @@ async def debug_data_save_process():
         
     except Exception as e:
         print(f"❌ 调试过程失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     print("\n" + "=" * 60)
     print("🎯 深度调试完成！")
-
 
 if __name__ == "__main__":
     asyncio.run(debug_data_save_process())

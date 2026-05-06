@@ -5,7 +5,9 @@ A股股票基础信息同步到MongoDB
 从通达信获取股票基础信息并同步到MongoDB数据库
 """
 
+import logging
 import os
+import traceback
 import sys
 import json
 from datetime import datetime
@@ -233,7 +235,7 @@ class StockInfoSyncer:
                 
         except Exception as e:
             logger.error(f"❌ 同步数据到MongoDB时发生错误: {e}")
-            import traceback
+            
             traceback.print_exc()
             return False
     
@@ -326,7 +328,6 @@ class StockInfoSyncer:
             self.mongodb_client.close()
             logger.info(f"🔒 MongoDB连接已关闭")
 
-
 def main():
     """主函数"""
     logger.info(f"=")
@@ -392,14 +393,13 @@ def main():
         logger.info(f"\n⏹️ 用户中断操作")
     except Exception as e:
         logger.error(f"\n❌ 同步过程中发生错误: {e}")
-        import traceback
+        
 
         traceback.print_exc()
     finally:
         syncer.close()
     
     logger.info(f"\n✅ 同步完成")
-
 
 if __name__ == "__main__":
     main()

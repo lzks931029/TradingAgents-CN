@@ -4,8 +4,8 @@
 验证港股和美股数据是否使用了统一的技术指标计算
 """
 
-import sys
 import os
+import sys
 
 # 添加项目根目录到 Python 路径
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
@@ -46,7 +46,6 @@ def test_hk_indicators():
         print("\n⚠️ 港股数据缺少部分技术指标！")
     
     return all_present
-
 
 def test_us_indicators():
     """测试美股技术指标"""
@@ -89,7 +88,6 @@ def test_us_indicators():
         print(f"\n❌ 美股数据获取失败: {e}")
         print("   （可能是API限制或网络问题，这是正常的）")
         return None
-
 
 def test_indicator_library():
     """测试技术指标计算库"""
@@ -165,7 +163,6 @@ def test_indicator_library():
         print("\n⚠️ 技术指标计算库存在问题！")
     
     return all_present
-
 
 if __name__ == "__main__":
     print("\n" + "=" * 80)

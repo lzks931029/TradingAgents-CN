@@ -4,9 +4,11 @@
 一次性分析多只股票，生成对比报告
 """
 
+import logging
 import os
-import sys
 import time
+import sys
+
 from pathlib import Path
 
 # 导入日志模块
@@ -20,7 +22,6 @@ sys.path.insert(0, str(project_root))
 from dotenv import load_dotenv
 from tradingagents.llm_adapters import ChatDashScope
 from langchain_core.messages import HumanMessage, SystemMessage
-
 
 # 加载环境变量
 load_dotenv()

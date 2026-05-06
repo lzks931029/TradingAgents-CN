@@ -14,6 +14,7 @@
 - 确保优先级配置正确
 """
 
+import traceback
 import sys
 from pathlib import Path
 
@@ -23,7 +24,6 @@ sys.path.insert(0, str(project_root))
 
 from datetime import datetime
 from app.core.database import get_mongo_db_sync
-
 
 def fix_us_datasource_enabled():
     """修复美股数据源的 enabled 状态"""
@@ -132,9 +132,8 @@ def fix_us_datasource_enabled():
         
     except Exception as e:
         print(f"❌ 修复失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     fix_us_datasource_enabled()

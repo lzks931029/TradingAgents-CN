@@ -9,6 +9,8 @@
     --dry-run: 只显示将要更新的数据，不实际执行更新
 """
 
+import logging
+import traceback
 import sys
 import asyncio
 from pathlib import Path
@@ -22,7 +24,6 @@ from tradingagents.utils.stock_utils import StockUtils
 from tradingagents.utils.logging_init import get_logger
 
 logger = get_logger("default")
-
 
 async def migrate_add_market_type(dry_run: bool = False):
     """为已有的分析报告添加 market_type 字段"""
@@ -117,9 +118,8 @@ async def migrate_add_market_type(dry_run: bool = False):
         
     except Exception as e:
         logger.error(f"❌ 迁移失败：{e}")
-        import traceback
+        
         logger.error(traceback.format_exc())
-
 
 async def verify_migration():
     """验证迁移结果"""
@@ -169,7 +169,6 @@ async def verify_migration():
     except Exception as e:
         logger.error(f"❌ 验证失败：{e}")
 
-
 async def main():
     """主函数"""
 
@@ -189,7 +188,6 @@ async def main():
         logger.info("\n📡 正在关闭数据库连接...")
         await close_database()
         logger.info("✅ 数据库连接已关闭")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

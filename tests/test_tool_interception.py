@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 
 def test_hk_fundamentals_with_interception():
@@ -98,10 +99,9 @@ def test_hk_fundamentals_with_interception():
         
     except Exception as e:
         print(f"❌ 港股基本面分析测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_tool_selection_logic():
     """测试工具选择逻辑"""
@@ -162,7 +162,6 @@ def test_tool_selection_logic():
         print(f"❌ 工具选择验证失败: {e}")
         return False
 
-
 def main():
     """主测试函数"""
     print("🔧 工具拦截机制测试")
@@ -199,7 +198,6 @@ def main():
     else:
         print("⚠️ 部分测试失败，需要进一步检查")
         return False
-
 
 if __name__ == "__main__":
     success = main()

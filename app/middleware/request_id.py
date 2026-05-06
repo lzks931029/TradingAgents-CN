@@ -4,17 +4,17 @@
 - 将 trace_id 写入 logging 的 contextvars，使所有日志自动带出
 """
 
+import logging
+import time
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 import uuid
-import time
-import logging
+
 from typing import Callable
 
 from app.core.logging_context import trace_id_var
 
 logger = logging.getLogger(__name__)
-
 
 class RequestIDMiddleware(BaseHTTPMiddleware):
     """请求ID和日志中间件（trace_id）"""

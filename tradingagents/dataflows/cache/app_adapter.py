@@ -6,13 +6,13 @@ App 缓存读取适配器（TradingAgents -> app MongoDB 集合）
 
 当启用 ta_use_app_cache 时，作为优先数据源；未命中部分由上层继续回退到直连数据源。
 """
+import logging
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 from datetime import datetime
 
 import pandas as pd
-import logging
 
 _logger = logging.getLogger('dataflows')
 
@@ -21,10 +21,8 @@ try:
 except Exception:  # pragma: no cover - 弱依赖
     get_mongodb_client = None  # type: ignore
 
-
 BASICS_COLLECTION = "stock_basic_info"
 QUOTES_COLLECTION = "market_quotes"
-
 
 def get_basics_from_cache(stock_code: Optional[str] = None) -> Optional[Dict[str, Any] | List[Dict[str, Any]]]:
     """从 app 的 stock_basic_info 读取基础信息。"""
@@ -68,7 +66,6 @@ def get_basics_from_cache(stock_code: Optional[str] = None) -> Optional[Dict[str
         except Exception:
             pass
         return None
-
 
 def get_market_quote_dataframe(symbol: str) -> Optional[pd.DataFrame]:
     """从 app 的 market_quotes 读取单只股票的最新一条快照，并转为 DataFrame。"""

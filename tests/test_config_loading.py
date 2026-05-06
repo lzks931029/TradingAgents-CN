@@ -3,7 +3,7 @@
 测试配置加载问题
 """
 
-import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -65,7 +65,7 @@ def test_pricing_config_loading():
         
     except Exception as e:
         print(f"❌ 配置加载测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -111,7 +111,7 @@ def test_cost_calculation():
         
     except Exception as e:
         print(f"❌ 成本计算测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

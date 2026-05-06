@@ -5,6 +5,7 @@
 用于验证修复后的 PS 计算是否正确
 """
 
+import traceback
 import sys
 from pathlib import Path
 
@@ -14,7 +15,6 @@ sys.path.insert(0, str(project_root))
 
 import pandas as pd
 from scripts.sync_financial_data import _calculate_ttm_revenue, _safe_float
-
 
 def test_ttm_calculation():
     """测试 TTM 计算逻辑"""
@@ -104,7 +104,6 @@ def test_ttm_calculation():
     print("✅ 所有测试通过！")
     print("=" * 80)
 
-
 def test_ps_calculation():
     """测试 PS 计算示例"""
     
@@ -131,7 +130,6 @@ def test_ps_calculation():
     
     print("\n" + "=" * 80)
 
-
 if __name__ == "__main__":
     try:
         test_ttm_calculation()
@@ -141,7 +139,7 @@ if __name__ == "__main__":
         sys.exit(1)
     except Exception as e:
         print(f"\n❌ 测试出错: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
 

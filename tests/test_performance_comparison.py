@@ -5,9 +5,10 @@
 对比数据传输量、处理时间等关键指标
 """
 
-import sys
 import os
 import time
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from datetime import datetime, timedelta

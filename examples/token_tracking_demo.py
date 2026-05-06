@@ -9,9 +9,11 @@ Token使用统计和成本跟踪演示
 4. MongoDB存储支持
 """
 
+import logging
 import os
-import sys
 import time
+import sys
+
 from datetime import datetime
 
 # 导入日志模块
@@ -30,15 +32,12 @@ from tradingagents.llm_adapters.dashscope_adapter import ChatDashScope
 from tradingagents.config.config_manager import config_manager, token_tracker
 from langchain_core.messages import HumanMessage, SystemMessage
 
-
-
 def print_separator(title=""):
     """打印分隔线"""
     logger.info(f"\n")
     if title:
         logger.info(f" {title} ")
         logger.info(f"=")
-
 
 def display_config_status():
     """显示配置状态"""
@@ -68,7 +67,6 @@ def display_config_status():
     logger.info(f"   💰 成本跟踪: {'启用' if cost_tracking else '禁用'}")
     logger.warning(f"   ⚠️ 成本警告阈值: ¥{cost_threshold}")
 
-
 def display_current_statistics():
     """显示当前统计信息"""
     print_separator("当前使用统计")
@@ -91,7 +89,6 @@ def display_current_statistics():
             for provider, pstats in provider_stats.items():
                 logger.info(f"      {provider}: ¥{pstats['cost']:.4f} ({pstats['requests']}次请求)")
         print()
-
 
 def demo_basic_usage():
     """演示基本使用"""
@@ -149,7 +146,6 @@ def demo_basic_usage():
         logger.error(f"❌ 演示失败: {e}")
         return False
 
-
 def demo_cost_estimation():
     """演示成本估算"""
     print_separator("成本估算演示")
@@ -173,7 +169,6 @@ def demo_cost_estimation():
             estimated_output_tokens=output_tokens
         )
         logger.info(f"   {scenario:8} ({model:15}): ¥{cost:.4f} ({input_tokens:4}+{output_tokens:4} tokens)")
-
 
 def demo_mongodb_features():
     """演示MongoDB功能"""
@@ -218,7 +213,6 @@ def demo_mongodb_features():
     except Exception as e:
         logger.error(f"❌ MongoDB功能演示失败: {e}")
 
-
 def display_pricing_info():
     """显示定价信息"""
     print_separator("定价信息")
@@ -238,7 +232,6 @@ def display_pricing_info():
         logger.info(f"\n📦 {provider.upper()}:")
         for model in models:
             logger.info(f"   {model.model_name:20} | 输入: ¥{model.input_price_per_1k:.4f}/1K | 输出: ¥{model.output_price_per_1k:.4f}/1K")
-
 
 def main():
     """主演示函数"""
@@ -278,7 +271,6 @@ def main():
     logger.info(f"   - 文档: docs/configuration/token-tracking-guide.md")
     logger.info(f"   - 测试: tests/test_dashscope_token_tracking.py")
     logger.info(f"   - 配置示例: .env.example")
-
 
 if __name__ == "__main__":
     main()

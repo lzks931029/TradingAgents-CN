@@ -2,10 +2,12 @@
 新闻数据服务
 提供统一的新闻数据存储、查询和管理功能
 """
+import logging
+import traceback
 from typing import Optional, List, Dict, Any, Union
 from datetime import datetime, timedelta
 from dataclasses import dataclass
-import logging
+
 from pymongo import ReplaceOne
 from pymongo.errors import BulkWriteError
 from bson import ObjectId
@@ -13,7 +15,6 @@ from bson import ObjectId
 from app.core.database import get_database
 
 logger = logging.getLogger(__name__)
-
 
 def convert_objectid_to_str(data: Union[Dict, List[Dict]]) -> Union[Dict, List[Dict]]:
     """
@@ -36,7 +37,6 @@ def convert_objectid_to_str(data: Union[Dict, List[Dict]]) -> Union[Dict, List[D
         return data
     return data
 
-
 @dataclass
 class NewsQueryParams:
     """新闻查询参数"""
@@ -53,7 +53,6 @@ class NewsQueryParams:
     skip: int = 0
     sort_by: str = "publish_time"
     sort_order: int = -1  # -1 for desc, 1 for asc
-
 
 @dataclass
 class NewsStats:
@@ -73,7 +72,6 @@ class NewsStats:
             self.categories = {}
         if self.sources is None:
             self.sources = {}
-
 
 class NewsDataService:
     """新闻数据服务"""
@@ -340,7 +338,7 @@ class NewsDataService:
 
         except Exception as e:
             self.logger.error(f"❌ 保存新闻数据失败: {e}")
-            import traceback
+            
             self.logger.error(traceback.format_exc())
             return 0
 
@@ -752,7 +750,6 @@ class NewsDataService:
         except Exception as e:
             self.logger.error(f"❌ 全文搜索失败: {e}")
             return []
-
 
 # 全局服务实例
 _service_instance = None

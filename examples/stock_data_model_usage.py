@@ -3,10 +3,12 @@
 股票数据模型使用示例
 演示如何使用扩展后的股票数据模型和服务
 """
+
+import logging
 import os
 import sys
 import asyncio
-import logging
+
 from datetime import datetime
 
 # 添加项目根目录到路径
@@ -17,7 +19,6 @@ from app.models import StockBasicInfoExtended, MarketQuotesExtended
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def demo_basic_info():
     """演示获取股票基础信息"""
@@ -48,7 +49,6 @@ async def demo_basic_info():
         
         logger.info("-" * 50)
 
-
 async def demo_market_quotes():
     """演示获取实时行情"""
     logger.info("📈 演示获取实时行情...")
@@ -77,7 +77,6 @@ async def demo_market_quotes():
             logger.error(f"❌ {code} - 获取行情失败: {e}")
         
         logger.info("-" * 50)
-
 
 async def demo_stock_list():
     """演示获取股票列表"""
@@ -117,7 +116,6 @@ async def demo_stock_list():
         
     except Exception as e:
         logger.error(f"❌ 获取股票列表失败: {e}")
-
 
 async def demo_data_update():
     """演示数据更新"""
@@ -175,7 +173,6 @@ async def demo_data_update():
             
     except Exception as e:
         logger.error(f"❌ 数据更新失败: {e}")
-
 
 async def demo_data_validation():
     """演示数据验证"""
@@ -235,7 +232,6 @@ async def demo_data_validation():
     except Exception as e:
         logger.error(f"❌ 数据验证失败: {e}")
 
-
 async def main():
     """主函数"""
     logger.info("🚀 开始股票数据模型使用演示...")
@@ -260,7 +256,6 @@ async def main():
     finally:
         # 关闭数据库连接
         await close_database()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

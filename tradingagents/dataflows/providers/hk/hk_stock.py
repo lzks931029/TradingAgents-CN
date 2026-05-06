@@ -3,23 +3,21 @@
 提供港股数据的获取、处理和缓存功能
 """
 
+import logging
+import time
 import pandas as pd
 import numpy as np
 import yfinance as yf
-import time
+
 from typing import Optional, Dict, Any
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 from tradingagents.config.runtime_settings import get_timezone_name
 
-import os
-
 from tradingagents.config.runtime_settings import get_float, get_int
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('agents')
-
-
 
 class HKStockProvider:
     """港股数据提供器"""
@@ -474,7 +472,6 @@ class HKStockProvider:
             logger.error(f"❌ 格式化港股数据失败: {e}", exc_info=True)
             return f"❌ 港股数据格式化失败: {symbol}"
 
-
 # 全局提供器实例
 _hk_provider = None
 
@@ -484,7 +481,6 @@ def get_hk_stock_provider() -> HKStockProvider:
     if _hk_provider is None:
         _hk_provider = HKStockProvider()
     return _hk_provider
-
 
 def get_hk_stock_data(symbol: str, start_date: str = None, end_date: str = None) -> str:
     """
@@ -501,7 +497,6 @@ def get_hk_stock_data(symbol: str, start_date: str = None, end_date: str = None)
     provider = get_hk_stock_provider()
     data = provider.get_stock_data(symbol, start_date, end_date)
     return provider.format_stock_data(symbol, data, start_date, end_date)
-
 
 def get_hk_stock_info(symbol: str) -> Dict:
     """

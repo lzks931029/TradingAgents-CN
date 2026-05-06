@@ -5,14 +5,13 @@
 验证毛利率、净利率、ROE、ROA 等指标的范围检查
 """
 
-import sys
 import os
+import sys
 
 # 添加项目根目录到 Python 路径
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from tradingagents.dataflows.optimized_china_data import OptimizedChinaDataFlow
-
 
 def test_financial_data_validation():
     """测试财务数据验证"""
@@ -98,7 +97,6 @@ def test_financial_data_validation():
     print("\n" + "="*80)
     print("✅ 测试完成!")
     print("="*80)
-
 
 if __name__ == '__main__':
     test_financial_data_validation()

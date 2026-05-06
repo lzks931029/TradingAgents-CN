@@ -2,6 +2,7 @@
 修复 stock_basic_info 集合的 symbol 字段问题
 为所有缺少 symbol 字段的记录添加 symbol 字段（从 code 字段复制）
 """
+import logging
 import asyncio
 import sys
 from pathlib import Path
@@ -12,14 +13,12 @@ sys.path.insert(0, str(project_root))
 
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.core.config import get_settings
-import logging
 
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s | %(levelname)-8s | %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 async def fix_stock_basic_info_symbol():
     """修复 stock_basic_info 集合的 symbol 字段"""
@@ -159,7 +158,6 @@ async def fix_stock_basic_info_symbol():
     finally:
         client.close()
 
-
 async def process_batch(collection, batch):
     """处理一批数据"""
     success = 0
@@ -178,7 +176,6 @@ async def process_batch(collection, batch):
             error += 1
     
     return {"success": success, "error": error}
-
 
 async def check_and_fix_unique_index():
     """检查并修复唯一索引问题"""
@@ -223,7 +220,6 @@ async def check_and_fix_unique_index():
     finally:
         client.close()
 
-
 async def main():
     """主函数"""
     import sys
@@ -247,7 +243,6 @@ async def main():
         logger.error("\n❌ 操作失败！")
     
     return result
-
 
 if __name__ == "__main__":
     asyncio.run(main())

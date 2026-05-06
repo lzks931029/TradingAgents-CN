@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -103,13 +104,13 @@ def test_recommended_model():
                 
         except Exception as e:
             print(f"❌ 股票分析失败: {e}")
-            import traceback
+            
             print(traceback.format_exc())
             return False
             
     except Exception as e:
         print(f"❌ 最终验证失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 

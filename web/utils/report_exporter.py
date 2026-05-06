@@ -4,10 +4,12 @@
 支持将分析结果导出为多种格式
 """
 
+import logging
+import os
+import traceback
 import streamlit as st
 import json
-import os
-import logging
+
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Optional
@@ -54,7 +56,7 @@ try:
     import markdown
     import re
     import tempfile
-    import os
+    
     from pathlib import Path
 
     # 导入pypandoc（用于markdown转docx和pdf）
@@ -81,7 +83,6 @@ except ImportError as e:
     PANDOC_AVAILABLE = False
     logger.info(f"导出功能依赖包缺失: {e}")
     logger.info(f"请安装: pip install pypandoc markdown")
-
 
 class ReportExporter:
     """报告导出器"""
@@ -594,10 +595,8 @@ class ReportExporter:
             st.error(f"❌ 导出失败: {str(e)}")
             return None
 
-
 # 创建全局导出器实例
 report_exporter = ReportExporter()
-
 
 def _format_team_decision_content(content: Dict[str, Any], module_key: str) -> str:
     """格式化团队决策内容（独立函数版本）"""
@@ -637,11 +636,10 @@ def _format_team_decision_content(content: Dict[str, Any], module_key: str) -> s
 
     return formatted_content
 
-
 def save_modular_reports_to_results_dir(results: Dict[str, Any], stock_symbol: str) -> Dict[str, str]:
     """保存分模块报告到results目录（CLI版本格式）"""
     try:
-        import os
+        
         from pathlib import Path
 
         # 获取项目根目录
@@ -836,7 +834,7 @@ def save_modular_reports_to_results_dir(results: Dict[str, Any], stock_symbol: s
 
             except Exception as e:
                 logger.error(f"❌ MongoDB保存过程出错: {e}")
-                import traceback
+                
                 logger.error(f"❌ MongoDB保存详细错误: {traceback.format_exc()}")
                 # 不影响文件保存的成功返回
         else:
@@ -846,15 +844,14 @@ def save_modular_reports_to_results_dir(results: Dict[str, Any], stock_symbol: s
 
     except Exception as e:
         logger.error(f"❌ 保存分模块报告失败: {e}")
-        import traceback
+        
         logger.error(f"❌ 详细错误: {traceback.format_exc()}")
         return {}
-
 
 def save_report_to_results_dir(content: bytes, filename: str, stock_symbol: str) -> str:
     """保存报告到results目录"""
     try:
-        import os
+        
         from pathlib import Path
 
         # 获取项目根目录（Web应用在web/子目录中运行）
@@ -892,10 +889,9 @@ def save_report_to_results_dir(content: bytes, filename: str, stock_symbol: str)
 
     except Exception as e:
         logger.error(f"❌ 保存报告到results目录失败: {e}")
-        import traceback
+        
         logger.error(f"❌ 详细错误: {traceback.format_exc()}")
         return ""
-
 
 def render_export_buttons(results: Dict[str, Any]):
     """渲染导出按钮"""
@@ -1160,7 +1156,6 @@ def render_export_buttons(results: Dict[str, Any]):
 
                     # 建议使用其他格式
                     st.info("💡 建议：您可以先使用Markdown或Word格式导出，然后使用其他工具转换为PDF")
-
 
 def save_analysis_report(stock_symbol: str, analysis_results: Dict[str, Any], 
                         report_content: str = None) -> bool:

@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -80,7 +81,7 @@ def test_deepseek_market_analyst():
         
     except Exception as e:
         print(f"❌ DeepSeek市场分析师测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -154,7 +155,7 @@ def test_dashscope_market_analyst():
         
     except Exception as e:
         print(f"❌ 百炼市场分析师测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

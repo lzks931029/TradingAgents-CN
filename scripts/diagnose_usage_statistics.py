@@ -3,6 +3,7 @@
 检查数据是否正常保存到数据库
 """
 
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -11,7 +12,6 @@ from datetime import datetime, timedelta
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-
 
 async def main():
     print("=" * 80)
@@ -71,7 +71,7 @@ async def main():
                 print(f"     • {provider}: {provider_stats['requests']} 次请求, ¥{provider_stats['cost']:.4f}")
     except Exception as e:
         print(f"❌ 获取统计数据失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 4. 检查配置文件中的成本跟踪设置
@@ -146,7 +146,7 @@ async def main():
             print("❌ 测试记录添加失败")
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 7. 检查最近的分析任务
@@ -236,7 +236,6 @@ async def main():
         print(f"\n❌ 生成诊断结论失败: {e}")
     
     print("\n" + "=" * 80)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

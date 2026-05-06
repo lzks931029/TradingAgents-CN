@@ -1,10 +1,13 @@
 # 标准库导入
-import datetime
+import logging
 import os
+import time
+import datetime
+
 import re
 import subprocess
 import sys
-import time
+
 from collections import deque
 from difflib import get_close_matches
 from functools import wraps
@@ -60,7 +63,7 @@ def setup_cli_logging():
     CLI模式下的日志配置：移除控制台输出，保持界面清爽
     Configure logging for CLI mode: remove console output to keep interface clean
     """
-    import logging
+    
     from tradingagents.utils.logging_manager import get_logger_manager
 
     logger_manager = get_logger_manager()
@@ -147,7 +150,6 @@ app = typer.Typer(
     rich_markup_mode="rich",  # Enable rich markup
     no_args_is_help=False,  # 不显示帮助，直接进入分析模式
 )
-
 
 # Create a deque to store recent messages with a maximum length
 class MessageBuffer:
@@ -281,9 +283,7 @@ class MessageBuffer:
 
         self.final_report = "\n\n".join(report_parts) if report_parts else None
 
-
 message_buffer = MessageBuffer()
-
 
 def create_layout():
     """
@@ -303,7 +303,6 @@ def create_layout():
         Layout(name="progress", ratio=2), Layout(name="messages", ratio=3)
     )
     return layout
-
 
 def update_display(layout, spinner_text=None):
     """
@@ -517,7 +516,6 @@ def update_display(layout, spinner_text=None):
 
     layout["footer"].update(Panel(stats_table, border_style="grey50"))
 
-
 def get_user_selections():
     """Get all user selections before starting the analysis display."""
     # Display ASCII art welcome message
@@ -640,7 +638,6 @@ def get_user_selections():
         "deep_thinker": selected_deep_thinker,
     }
 
-
 def select_market():
     """选择股票市场"""
     markets = {
@@ -691,7 +688,6 @@ def select_market():
             console.print(f"[red]❌ 无效选择，请输入 1、2 或 3 | Invalid choice, please enter 1, 2, or 3[/red]")
             logger.warning(f"用户输入无效选择: {choice}")
 
-
 def get_ticker(market):
     """根据选定市场获取股票代码"""
     console.print(f"\n[bold cyan]{market['name']}股票示例 | {market['name_en']} Examples:[/bold cyan]")
@@ -736,7 +732,6 @@ def get_ticker(market):
             console.print(f"[yellow]请使用正确格式: {market['format']}[/yellow]")
             logger.warning(f"股票代码格式验证失败: {ticker}")
 
-
 def get_analysis_date():
     """Get the analysis date from user input."""
     while True:
@@ -755,7 +750,6 @@ def get_analysis_date():
             console.print(
                 "[red]错误：日期格式无效，请使用 YYYY-MM-DD 格式 | Error: Invalid date format. Please use YYYY-MM-DD[/red]"
             )
-
 
 def display_complete_report(final_state):
     """Display the complete analysis report with team-based panels."""
@@ -946,7 +940,6 @@ def display_complete_report(final_state):
                 )
             )
 
-
 def update_research_team_status(status):
     """
     更新所有研究团队成员和交易员的状态
@@ -1042,7 +1035,7 @@ def check_api_keys(llm_provider: str) -> bool:
     return True
 
 def run_analysis():
-    import time
+    
     start_time = time.time()  # 记录开始时间
     
     # First get all user selections
@@ -1606,7 +1599,6 @@ def run_analysis():
 
         update_display(layout)
 
-
 @app.command(
     name="analyze",
     help="开始股票分析 | Start stock analysis"
@@ -1617,7 +1609,6 @@ def analyze():
     Launch interactive stock analysis tool
     """
     run_analysis()
-
 
 @app.command(
     name="config",
@@ -1727,7 +1718,6 @@ def config():
     logger.info(f"• python examples/dashscope/demo_dashscope_simple.py   # 简单测试")
     logger.info(f"• python tests/integration/test_dashscope_integration.py  # 集成测试")
 
-
 @app.command(
     name="version",
     help="版本信息 | Version information"
@@ -1771,7 +1761,6 @@ def version():
     logger.info(f"  • 🌍 感谢选择Apache 2.0协议的开源精神")
     logger.info(f"  • 🎯 本项目旨在更好地在中国推广TradingAgents")
     logger.info(f"  • 🔗 源项目: https://github.com/TauricResearch/TradingAgents")
-
 
 @app.command(
     name="data-config",
@@ -1869,7 +1858,6 @@ def data_config(
     logger.info(f"• 查看当前配置: tradingagents data-config --show")
     logger.info(f"• 环境变量优先级最高 | Environment variables have highest priority")
 
-
 @app.command(
     name="examples",
     help="示例程序 | Example programs"
@@ -1924,7 +1912,6 @@ def examples():
     logger.info(f"2. 选择合适的示例程序运行 | Choose appropriate example to run")
     logger.info(f"3. 推荐从中文版本开始 | Recommended to start with Chinese version")
 
-
 @app.command(
     name="test",
     help="运行测试 | Run tests"
@@ -1955,7 +1942,6 @@ def test():
         logger.error(f"[red]❌ 测试执行错误 | Test execution error: {e}[/red]")
         logger.info(f"\n[yellow]手动运行测试 | Manual test execution:[/yellow]")
         logger.info(f"python tests/integration/test_dashscope_integration.py")
-
 
 @app.command(
     name="help",
@@ -2020,7 +2006,6 @@ def help_chinese():
     logger.info(f"• 示例程序: examples/ 目录")
     logger.info(f"• 集成测试: tests/ 目录")
     logger.info(f"• GitHub: https://github.com/TauricResearch/TradingAgents")
-
 
 def main():
     """主函数 - 默认进入分析模式"""

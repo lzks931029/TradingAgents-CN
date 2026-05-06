@@ -2,17 +2,17 @@
 社媒消息数据服务
 提供统一的社媒消息存储、查询和分析功能
 """
+import logging
 from typing import Optional, List, Dict, Any, Union
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
-import logging
+
 from pymongo import ReplaceOne
 from pymongo.errors import BulkWriteError
 
 from app.core.database import get_database
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class SocialMediaQueryParams:
@@ -35,7 +35,6 @@ class SocialMediaQueryParams:
     sort_by: str = "publish_time"
     sort_order: int = -1  # -1 for desc, 1 for asc
 
-
 @dataclass
 class SocialMediaStats:
     """社媒消息统计信息"""
@@ -51,7 +50,6 @@ class SocialMediaStats:
     total_likes: int = 0
     total_shares: int = 0
     total_comments: int = 0
-
 
 class SocialMediaService:
     """社媒消息数据服务"""
@@ -338,7 +336,6 @@ class SocialMediaService:
         except Exception as e:
             self.logger.error(f"❌ 社媒消息统计失败: {e}")
             return SocialMediaStats()
-
 
 # 全局服务实例
 _social_media_service = None

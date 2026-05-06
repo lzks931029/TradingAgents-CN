@@ -31,7 +31,6 @@ from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
-
 class USDataService:
     """美股数据服务（按需获取+缓存模式）"""
 
@@ -176,11 +175,9 @@ class USDataService:
         
         return normalized
 
-
 # ==================== 全局实例管理 ====================
 
 _us_data_service = None
-
 
 async def get_us_data_service() -> USDataService:
     """获取美股数据服务实例（单例模式）"""

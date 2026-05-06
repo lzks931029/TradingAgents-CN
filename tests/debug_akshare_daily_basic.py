@@ -2,11 +2,13 @@
 """
 调试AKShare的daily_basic功能
 """
-import sys
+import logging
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import logging
 from datetime import datetime, timedelta
 
 # 设置日志
@@ -65,7 +67,7 @@ def test_akshare_spot_data():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 def test_akshare_adapter():
@@ -121,7 +123,7 @@ def test_akshare_adapter():
         
     except Exception as e:
         print(f"❌ 适配器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 def test_akshare_alternative_apis():

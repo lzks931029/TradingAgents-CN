@@ -12,9 +12,12 @@ Usage:
   # 3) Run:
   #    python scripts/test_qianfan_connect.py
 """
+
 import os
-import sys
 import time
+import traceback
+import sys
+
 from typing import Optional
 
 # Try to load .env if python-dotenv is available
@@ -29,11 +32,9 @@ from tradingagents.llm_adapters.openai_compatible_base import (
     create_openai_compatible_llm,
 )
 
-
 def getenv_stripped(key: str) -> Optional[str]:
     val = os.getenv(key)
     return val.strip() if isinstance(val, str) else val
-
 
 def main() -> int:
     # 检查新的API Key环境变量
@@ -86,10 +87,9 @@ def main() -> int:
         return 0
     except Exception as e:
         print(f"[ERROR] LLM call failed: {e}")
-        import traceback
+        
         traceback.print_exc()
         return 4
-
 
 if __name__ == "__main__":
     sys.exit(main())

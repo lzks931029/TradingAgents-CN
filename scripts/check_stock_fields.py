@@ -1,15 +1,14 @@
 #!/usr/bin/env python
+import os
 # -*- coding: utf-8 -*-
 """检查股票基础信息字段"""
 
 import asyncio
 import sys
-import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.core.database import get_mongo_db, init_database
-
 
 async def check_fields():
     """检查股票基础信息字段"""
@@ -38,7 +37,6 @@ async def check_fields():
     print('  - sse: 板块标识（如：sz、sh等）')
     print('  - sec: 分类标识（如：stock_cn等）')
     print('  - sector: 板块（扩展字段，可能为空）')
-
 
 if __name__ == "__main__":
     asyncio.run(check_fields())

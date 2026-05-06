@@ -1,8 +1,9 @@
 """
 测试选择性数据同步功能
 """
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime
 from tradingagents.config.database_manager import get_mongodb_client
 from app.core.database import init_database
@@ -10,7 +11,6 @@ from app.worker.tushare_init_service import get_tushare_init_service
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def check_data_counts():
     """检查各类数据的数量"""
@@ -27,7 +27,6 @@ async def check_data_counts():
     }
     
     return counts
-
 
 async def test_selective_sync():
     """测试选择性同步"""
@@ -129,7 +128,6 @@ async def test_selective_sync():
     print("   # 同步多个数据类型")
     print("   python cli/tushare_init.py --full --sync-items historical,financial,quotes")
     print()
-
 
 if __name__ == "__main__":
     asyncio.run(test_selective_sync())

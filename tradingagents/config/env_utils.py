@@ -7,7 +7,6 @@
 import os
 from typing import Any, Union, Optional
 
-
 def parse_bool_env(env_var: str, default: bool = False) -> bool:
     """
     解析布尔类型环境变量，兼容多种格式
@@ -63,7 +62,6 @@ def parse_bool_env(env_var: str, default: bool = False) -> bool:
         print(f"⚠️ 无法解析环境变量 {env_var}='{value}'，使用默认值 {default}")
         return default
 
-
 def parse_int_env(env_var: str, default: int = 0) -> int:
     """
     解析整数类型环境变量
@@ -85,7 +83,6 @@ def parse_int_env(env_var: str, default: int = 0) -> int:
     except (ValueError, AttributeError):
         print(f"⚠️ 无法解析环境变量 {env_var}='{value}' 为整数，使用默认值 {default}")
         return default
-
 
 def parse_float_env(env_var: str, default: float = 0.0) -> float:
     """
@@ -109,7 +106,6 @@ def parse_float_env(env_var: str, default: float = 0.0) -> float:
         print(f"⚠️ 无法解析环境变量 {env_var}='{value}' 为浮点数，使用默认值 {default}")
         return default
 
-
 def parse_str_env(env_var: str, default: str = "") -> str:
     """
     解析字符串类型环境变量
@@ -127,7 +123,6 @@ def parse_str_env(env_var: str, default: str = "") -> str:
         return default
     
     return str(value).strip()
-
 
 def parse_list_env(env_var: str, separator: str = ",", default: Optional[list] = None) -> list:
     """
@@ -158,7 +153,6 @@ def parse_list_env(env_var: str, separator: str = ",", default: Optional[list] =
         print(f"⚠️ 无法解析环境变量 {env_var}='{value}' 为列表，使用默认值 {default}")
         return default
 
-
 def get_env_info(env_var: str) -> dict:
     """
     获取环境变量的详细信息
@@ -179,7 +173,6 @@ def get_env_info(env_var: str) -> dict:
         'type': type(value).__name__ if value is not None else 'None',
         'length': len(str(value)) if value is not None else 0
     }
-
 
 def validate_required_env_vars(required_vars: list) -> dict:
     """
@@ -212,22 +205,18 @@ def validate_required_env_vars(required_vars: list) -> dict:
     
     return results
 
-
 # 兼容性函数：保持向后兼容
 def get_bool_env(env_var: str, default: bool = False) -> bool:
     """向后兼容的布尔值解析函数"""
     return parse_bool_env(env_var, default)
 
-
 def get_int_env(env_var: str, default: int = 0) -> int:
     """向后兼容的整数解析函数"""
     return parse_int_env(env_var, default)
 
-
 def get_str_env(env_var: str, default: str = "") -> str:
     """向后兼容的字符串解析函数"""
     return parse_str_env(env_var, default)
-
 
 # 导出主要函数
 __all__ = [

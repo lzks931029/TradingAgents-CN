@@ -6,10 +6,10 @@ Unified Data Directory Configuration Manager
 提供统一的数据目录配置管理功能
 """
 
+import logging
 import os
 from pathlib import Path
 from typing import Dict, Optional, Union
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -219,7 +219,6 @@ class UnifiedDataDirectoryManager:
                     print(f"  ❌ {key}: 错误 - {e}")
             print()
 
-
 # 全局实例
 _data_manager = None
 
@@ -295,7 +294,6 @@ def main():
     # 如果没有指定任何操作，显示帮助
     if not any([args.create, args.validate, args.show_config, args.show_structure]):
         parser.print_help()
-
 
 if __name__ == '__main__':
     main()

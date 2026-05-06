@@ -4,14 +4,13 @@
 移除自动生成的文件和临时输出
 """
 
-import os
+import logging
 import shutil
 from pathlib import Path
 
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('default')
-
 
 def cleanup_directories():
     """清理不必要的目录"""

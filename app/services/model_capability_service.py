@@ -4,6 +4,7 @@
 提供模型能力评估、验证和推荐功能。
 """
 
+import logging
 from typing import Tuple, Dict, Optional, List, Any
 from app.constants.model_capabilities import (
     ANALYSIS_DEPTH_REQUIREMENTS,
@@ -13,11 +14,10 @@ from app.constants.model_capabilities import (
     ModelFeature
 )
 from app.core.unified_config import unified_config
-import logging
+
 import re
 
 logger = logging.getLogger(__name__)
-
 
 class ModelCapabilityService:
     """模型能力管理服务"""
@@ -417,10 +417,8 @@ class ModelCapabilityService:
         
         return "建议升级模型配置"
 
-
 # 单例
 _model_capability_service = None
-
 
 def get_model_capability_service() -> ModelCapabilityService:
     """获取模型能力服务单例"""

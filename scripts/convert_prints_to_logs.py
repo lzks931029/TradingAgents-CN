@@ -4,11 +4,10 @@
 排除tests和env目录
 """
 
-import os
+import logging
 import re
 from pathlib import Path
 from typing import List, Dict, Tuple
-
 
 class PrintToLogConverter:
     """Print语句到日志转换器"""
@@ -265,7 +264,6 @@ class PrintToLogConverter:
         
         return report
 
-
 def main():
     """主函数"""
     print("🚀 开始将print语句转换为日志输出")
@@ -302,7 +300,6 @@ def main():
         f.write(report)
     
     print(f"\n📄 详细报告已保存到: {report_file}")
-
 
 if __name__ == '__main__':
     main()

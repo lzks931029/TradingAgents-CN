@@ -2,15 +2,14 @@
 错误处理中间件
 """
 
+import logging
 from fastapi import Request, Response
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
-import logging
-import traceback
+
 from typing import Callable
 
 logger = logging.getLogger(__name__)
-
 
 class ErrorHandlerMiddleware(BaseHTTPMiddleware):
     """全局错误处理中间件"""

@@ -3,9 +3,10 @@ WebSocket 连接管理器
 用于实时推送分析进度更新
 """
 
+import logging
 import asyncio
 import json
-import logging
+
 from typing import Dict, Set, Any
 from fastapi import WebSocket, WebSocketDisconnect
 

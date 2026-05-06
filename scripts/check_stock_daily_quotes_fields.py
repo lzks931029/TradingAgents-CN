@@ -2,9 +2,9 @@
 检查 stock_daily_quotes 集合的字段
 """
 
+import traceback
 import sys
 from pymongo import MongoClient
-
 
 def check_fields():
     """检查集合字段"""
@@ -121,10 +121,9 @@ def check_fields():
         
     except Exception as e:
         print(f"\n❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
-
 
 if __name__ == "__main__":
     check_fields()

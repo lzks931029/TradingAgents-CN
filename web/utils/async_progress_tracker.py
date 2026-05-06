@@ -4,9 +4,11 @@
 支持Redis和文件两种存储方式，前端定时轮询获取进度
 """
 
-import json
-import time
+import logging
 import os
+import time
+import json
+
 from typing import Dict, Any, Optional, List
 from datetime import datetime
 import threading
@@ -657,7 +659,6 @@ def format_time(seconds: float) -> str:
     else:
         hours = seconds / 3600
         return f"{hours:.1f}小时"
-
 
 def get_latest_analysis_id() -> Optional[str]:
     """获取最新的分析ID"""

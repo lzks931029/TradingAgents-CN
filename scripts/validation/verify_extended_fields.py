@@ -3,16 +3,16 @@
 验证扩展字段同步结果
 检查 stock_basic_info 集合中新增的财务指标字段
 """
+import os
 import asyncio
 import sys
-import os
+
 from typing import Dict, Any
 
 # Add project root to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 from app.core.database import get_mongo_db
-
 
 async def verify_extended_fields():
     """验证扩展字段的同步结果"""
@@ -108,7 +108,6 @@ async def verify_extended_fields():
     except Exception as e:
         print(f"❌ 验证失败: {e}")
         sys.exit(1)
-
 
 if __name__ == "__main__":
     asyncio.run(verify_extended_fields())

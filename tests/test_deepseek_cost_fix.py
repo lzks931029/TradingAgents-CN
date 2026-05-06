@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """
-import time
+
 验证DeepSeek成本计算修复
 """
 
 import os
+import time
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -64,7 +66,7 @@ def test_deepseek_cost_calculation():
             print(f"   响应长度: {len(response.content)}")
         
         # 等待统计更新
-        import time
+        
         time.sleep(1)
         
         # 检查最终统计
@@ -98,7 +100,7 @@ def test_deepseek_cost_calculation():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

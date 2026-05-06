@@ -1,7 +1,9 @@
 """
 测试基本面分析师是否还会重复调用工具
 """
+
 import os
+import traceback
 import sys
 from datetime import datetime
 
@@ -74,7 +76,7 @@ def test_fundamentals_analyst():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

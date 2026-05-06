@@ -5,8 +5,9 @@
 """
 
 import os
-import sys
 import time
+import sys
+
 from datetime import datetime, timedelta
 
 # 添加项目根目录到路径
@@ -39,7 +40,6 @@ def test_cache_manager():
     except Exception as e:
         print(f"❌ 缓存管理器测试失败: {e}")
         return False
-
 
 def test_us_stock_cache():
     """测试美股数据缓存"""
@@ -85,7 +85,6 @@ def test_us_stock_cache():
     except Exception as e:
         print(f"❌ 美股缓存测试失败: {e}")
         return False
-
 
 def test_china_stock_cache():
     """测试A股数据缓存"""
@@ -147,7 +146,6 @@ def test_china_stock_cache():
         print(f"❌ A股缓存测试失败: {e}")
         return False
 
-
 def test_cache_ttl():
     """测试缓存TTL功能"""
     print("\n⏰ 测试缓存TTL功能...")
@@ -187,7 +185,6 @@ def test_cache_ttl():
         print(f"❌ 缓存TTL测试失败: {e}")
         return False
 
-
 def test_cache_cleanup():
     """测试缓存清理功能"""
     print("\n🧹 测试缓存清理功能...")
@@ -220,7 +217,6 @@ def test_cache_cleanup():
     except Exception as e:
         print(f"❌ 缓存清理测试失败: {e}")
         return False
-
 
 def main():
     """主测试函数"""
@@ -263,7 +259,6 @@ def main():
         print("🎉 所有缓存优化功能测试通过！")
     else:
         print("⚠️ 部分测试失败，请检查系统配置")
-
 
 if __name__ == "__main__":
     main()

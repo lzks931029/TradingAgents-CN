@@ -3,10 +3,11 @@
 测试股票数据API
 验证新的股票数据模型和API接口是否正常工作
 """
+import logging
 import asyncio
 import aiohttp
 import json
-import logging
+
 from typing import Dict, Any
 
 logging.basicConfig(level=logging.INFO)
@@ -228,7 +229,6 @@ class StockDataAPITester:
             
             logger.info("-" * 50)
 
-
 async def main():
     """主函数"""
     logger.info("🚀 开始股票数据API测试...")
@@ -249,7 +249,6 @@ async def main():
         
     except Exception as e:
         logger.error(f"❌ 测试过程失败: {e}")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

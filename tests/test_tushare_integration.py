@@ -5,6 +5,7 @@ Tushare集成测试
 """
 
 import os
+import traceback
 import sys
 import pandas as pd
 from datetime import datetime, timedelta
@@ -12,7 +13,6 @@ from datetime import datetime, timedelta
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
-
 
 def test_tushare_provider():
     """测试Tushare提供器基本功能"""
@@ -65,9 +65,8 @@ def test_tushare_provider():
         
     except Exception as e:
         print(f"❌ Tushare提供器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_tushare_adapter():
     """测试Tushare适配器功能"""
@@ -124,9 +123,8 @@ def test_tushare_adapter():
         
     except Exception as e:
         print(f"❌ Tushare适配器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_tushare_interface():
     """测试Tushare接口函数"""
@@ -184,9 +182,8 @@ def test_tushare_interface():
         
     except Exception as e:
         print(f"❌ Tushare接口函数测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_tushare_cache():
     """测试Tushare缓存功能"""
@@ -234,9 +231,8 @@ def test_tushare_cache():
         
     except Exception as e:
         print(f"❌ Tushare缓存测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def check_tushare_environment():
     """检查Tushare环境配置"""
@@ -271,7 +267,6 @@ def check_tushare_environment():
         print(f"⚠️ 缓存管理器不可用: {e}")
     
     return True
-
 
 def main():
     """主测试函数"""
@@ -312,7 +307,6 @@ def main():
     print("   4. 享受高质量的A股数据服务")
     
     input("按回车键退出...")
-
 
 if __name__ == "__main__":
     main()

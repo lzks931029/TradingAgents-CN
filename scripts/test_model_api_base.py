@@ -1,8 +1,9 @@
 """
 测试脚本：验证模型级别的 API 基础 URL 是否生效
 """
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 def main():

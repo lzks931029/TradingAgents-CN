@@ -1,9 +1,9 @@
-import os
+
+import logging
 from importlib import reload
 from pathlib import Path
 
 import pytest
-
 
 MINIMAL_TOML = """
 [logging]
@@ -19,7 +19,6 @@ level = "DEBUG"
 max_size = "1MB"
 backup_count = 1
 """
-
 
 @pytest.mark.parametrize("profile, expect_name", [
     ("", "logging.toml"),

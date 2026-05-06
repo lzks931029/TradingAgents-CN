@@ -4,14 +4,13 @@
 确保项目中所有版本号引用都是一致的
 """
 
-import os
+import logging
 import re
 from pathlib import Path
 
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('default')
-
 
 def get_target_version():
     """从VERSION文件获取目标版本号"""
@@ -32,7 +31,6 @@ def normalize_version(v: str) -> str:
          .lstrip('v')
          .strip()
     )
-
 
 def check_special_files(file_path: Path, content: str, target_version: str):
     """对特定文件做精准校验，减少误报"""
@@ -71,7 +69,6 @@ def check_special_files(file_path: Path, content: str, target_version: str):
         return []
 
     return []
-
 
 def check_file_versions(file_path: Path, target_version: str):
     """检查文件中的版本号（低噪声策略）"""

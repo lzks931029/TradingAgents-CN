@@ -9,6 +9,7 @@
 4. 生成详细的修复报告
 """
 
+import logging
 import os
 import re
 from pathlib import Path

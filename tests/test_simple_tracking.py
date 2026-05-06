@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """
-import logging
+
 简单的股票代码追踪测试
 """
 
+import logging
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
@@ -59,7 +61,7 @@ def test_data_flow():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -108,7 +110,7 @@ def test_tushare_direct():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -154,7 +156,7 @@ def test_tushare_provider():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

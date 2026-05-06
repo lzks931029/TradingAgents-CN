@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -47,7 +48,7 @@ def test_deepseek_pricing_config():
         
     except Exception as e:
         print(f"❌ 定价配置测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -100,7 +101,7 @@ def test_deepseek_cost_calculation():
         
     except Exception as e:
         print(f"❌ 成本计算测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -147,7 +148,7 @@ def test_token_tracker():
         
     except Exception as e:
         print(f"❌ Token跟踪器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -185,7 +186,7 @@ def test_deepseek_adapter_integration():
         
     except Exception as e:
         print(f"❌ DeepSeek适配器集成测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

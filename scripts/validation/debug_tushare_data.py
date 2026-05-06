@@ -3,7 +3,9 @@
 调试 Tushare 数据格式
 检查 stock_basic 和 daily_basic 的实际数据格式和代码匹配问题
 """
+
 import os
+import traceback
 import sys
 from datetime import datetime, timedelta
 
@@ -99,7 +101,7 @@ def debug_tushare_data():
         
     except Exception as e:
         print(f"❌ 调试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

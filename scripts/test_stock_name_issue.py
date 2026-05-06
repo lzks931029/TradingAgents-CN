@@ -1,8 +1,10 @@
 """
 测试市场分析时股票名称获取问题
 """
-import sys
+import logging
 import os
+import traceback
+import sys
 
 # 添加项目根目录到 Python 路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -10,7 +12,6 @@ sys.path.insert(0, project_root)
 
 from tradingagents.utils.logging_init import get_logger
 logger = get_logger("default")
-
 
 def test_get_company_name():
     """测试从股票代码获取公司名称"""
@@ -47,7 +48,7 @@ def test_get_company_name():
                 
         except Exception as e:
             print(f"❌ 调用失败: {e}")
-            import traceback
+            
             traceback.print_exc()
         
         # 2. 测试 market_analyst 中的 _get_company_name 函数
@@ -67,7 +68,7 @@ def test_get_company_name():
                 
         except Exception as e:
             print(f"❌ 调用失败: {e}")
-            import traceback
+            
             traceback.print_exc()
         
         # 3. 测试 data_source_manager.get_china_stock_info_unified
@@ -84,9 +85,8 @@ def test_get_company_name():
                 
         except Exception as e:
             print(f"❌ 调用失败: {e}")
-            import traceback
+            
             traceback.print_exc()
-
 
 def test_data_source_config():
     """测试数据源配置"""
@@ -111,9 +111,8 @@ def test_data_source_config():
             
     except Exception as e:
         print(f"❌ 获取数据源配置失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     print("\n🔍 开始测试股票名称获取问题...")

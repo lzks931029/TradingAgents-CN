@@ -1,3 +1,4 @@
+
 import os
 from typing import Any, Optional
 
@@ -7,13 +8,11 @@ from langchain_openai import ChatOpenAI
 from .base_client import BaseLLMClient, normalize_content
 from .validators import validate_model
 
-
 class NormalizedChatOpenAI(ChatOpenAI):
     """ChatOpenAI wrapper that normalizes typed content blocks to text."""
 
     def invoke(self, input, config=None, **kwargs):
         return normalize_content(super().invoke(input, config, **kwargs))
-
 
 def _input_to_messages(input_: Any) -> list:
     """Normalise a langchain LLM input to a list of message objects.
@@ -26,7 +25,6 @@ def _input_to_messages(input_: Any) -> list:
     if hasattr(input_, "to_messages"):
         return input_.to_messages()
     return []
-
 
 class DeepSeekChatOpenAI(NormalizedChatOpenAI):
     """DeepSeek-specific overrides for thinking-mode round-trip.
@@ -74,7 +72,6 @@ class DeepSeekChatOpenAI(NormalizedChatOpenAI):
             )
         return super().with_structured_output(schema, method=method, **kwargs)
 
-
 _PASSTHROUGH_KWARGS = (
     "temperature",
     "max_tokens",
@@ -95,7 +92,6 @@ _PROVIDER_CONFIG = {
     "ollama": ("http://localhost:11434/v1", None),
     "custom_openai": (None, "CUSTOM_OPENAI_API_KEY"),
 }
-
 
 class OpenAIClient(BaseLLMClient):
     """Client for OpenAI and OpenAI-compatible providers."""

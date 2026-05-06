@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -111,7 +112,7 @@ def test_risk_assessment_extraction():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 
@@ -234,7 +235,7 @@ def test_risk_assessment_integration():
             
     except Exception as e:
         print(f"❌ 集成测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 

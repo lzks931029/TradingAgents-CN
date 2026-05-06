@@ -2,12 +2,15 @@
 """
 测试同步控制的三个功能：开始同步、刷新状态、清空缓存
 """
-import sys
+import logging
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import asyncio
-import logging
+
 from datetime import datetime
 
 # 设置日志
@@ -108,7 +111,7 @@ async def test_sync_control_functions():
                 
         except Exception as e:
             print(f"   ❌ 同步测试失败: {e}")
-            import traceback
+            
             traceback.print_exc()
         
         # 4. 最终状态检查
@@ -129,7 +132,7 @@ async def test_sync_control_functions():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 async def test_api_endpoints():

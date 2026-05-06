@@ -3,7 +3,7 @@
 最终测试港股基本面分析修复
 """
 
-import os
+import traceback
 import sys
 
 def test_hk_fundamentals_complete():
@@ -82,10 +82,9 @@ def test_hk_fundamentals_complete():
         
     except Exception as e:
         print(f"❌ 港股基本面分析测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_tool_selection_verification():
     """验证工具选择逻辑"""
@@ -140,7 +139,6 @@ def test_tool_selection_verification():
         print(f"❌ 工具选择验证失败: {e}")
         return False
 
-
 def main():
     """主测试函数"""
     print("🔧 港股基本面分析最终测试")
@@ -177,7 +175,6 @@ def main():
     else:
         print("⚠️ 部分测试失败，需要进一步检查")
         return False
-
 
 if __name__ == "__main__":
     success = main()

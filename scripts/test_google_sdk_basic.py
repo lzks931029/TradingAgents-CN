@@ -6,8 +6,10 @@
 2. 使用 langchain_google_genai.ChatGoogleGenerativeAI
 3. 使用我们的 ChatGoogleOpenAI 适配器
 """
-import sys
 import os
+import traceback
+import sys
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 print("=" * 80)
@@ -54,7 +56,7 @@ try:
     
 except Exception as e:
     print(f"❌ 测试失败: {e}")
-    import traceback
+    
     traceback.print_exc()
     print()
 
@@ -86,7 +88,7 @@ try:
     
 except Exception as e:
     print(f"❌ 测试失败: {e}")
-    import traceback
+    
     traceback.print_exc()
     print()
 
@@ -120,7 +122,7 @@ try:
     
 except Exception as e:
     print(f"❌ 测试失败: {e}")
-    import traceback
+    
     traceback.print_exc()
     print()
 
@@ -156,7 +158,7 @@ try:
     
 except Exception as e:
     print(f"❌ 测试失败: {e}")
-    import traceback
+    
     traceback.print_exc()
     print()
 
@@ -189,7 +191,7 @@ try:
     
 except Exception as e:
     print(f"❌ 测试失败: {e}")
-    import traceback
+    
     traceback.print_exc()
     print()
 
@@ -223,7 +225,7 @@ try:
     
 except Exception as e:
     print(f"❌ 测试失败: {e}")
-    import traceback
+    
     traceback.print_exc()
     print()
 

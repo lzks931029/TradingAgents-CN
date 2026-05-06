@@ -3,8 +3,9 @@
 用于跟踪和检测分析线程的存活状态
 """
 
+import logging
 import threading
-import time
+
 from typing import Dict, Optional
 from tradingagents.utils.logging_manager import get_logger
 

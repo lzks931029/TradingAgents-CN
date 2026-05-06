@@ -3,9 +3,9 @@
 通过API创建默认用户
 """
 
+import time
 import requests
 import json
-import time
 
 # API基础URL
 API_BASE = "http://localhost:8000/api"

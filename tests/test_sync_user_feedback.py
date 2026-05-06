@@ -3,12 +3,15 @@
 测试同步用户反馈功能
 模拟同步过程中的状态变化，验证用户反馈机制
 """
-import sys
+import logging
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import asyncio
-import logging
+
 from datetime import datetime
 
 # 设置日志
@@ -154,7 +157,7 @@ async def simulate_sync_with_feedback():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None
 

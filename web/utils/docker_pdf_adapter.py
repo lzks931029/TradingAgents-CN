@@ -4,14 +4,16 @@ Docker环境PDF导出适配器
 处理Docker容器中的PDF生成特殊需求
 """
 
+import logging
 import os
+import time
 import subprocess
 import tempfile
 from typing import Optional
 
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
-import time
+
 logger = get_logger('web')
 
 def is_docker_environment() -> bool:
@@ -54,7 +56,7 @@ def setup_xvfb_display():
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         # 等待一下让Xvfb启动
-        import time
+        
         time.sleep(2)
 
         # 设置DISPLAY环境变量

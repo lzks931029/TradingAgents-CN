@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -88,7 +89,7 @@ def test_toolkit_tools():
         
     except Exception as e:
         print(f"❌ 工具包测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 

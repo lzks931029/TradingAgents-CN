@@ -4,7 +4,9 @@ TradingAgents 简化演示脚本 - 使用阿里百炼大模型
 这个脚本展示了如何使用阿里百炼大模型进行简单的LLM测试
 """
 
+import logging
 import os
+import traceback
 import sys
 from pathlib import Path
 
@@ -84,7 +86,7 @@ def test_simple_llm():
         
     except Exception as e:
         logger.error(f"❌ 测试失败: {str(e)}")
-        import traceback
+        
         logger.error(f"🔍 详细错误信息:")
         traceback.print_exc()
 

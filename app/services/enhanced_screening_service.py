@@ -20,7 +20,6 @@ from app.services.enhanced_screening.utils import (
 )
 from app.core.database import get_mongo_db
 
-
 class EnhancedScreeningService:
     """增强的股票筛选服务"""
 
@@ -335,10 +334,8 @@ class EnhancedScreeningService:
 
         return validation_result
 
-
 # 全局服务实例
 _enhanced_screening_service: Optional[EnhancedScreeningService] = None
-
 
 def get_enhanced_screening_service() -> EnhancedScreeningService:
     """获取增强筛选服务实例"""

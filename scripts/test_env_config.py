@@ -7,6 +7,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 
@@ -17,7 +18,6 @@ sys.path.insert(0, str(project_root))
 # 加载环境变量
 from dotenv import load_dotenv
 load_dotenv()
-
 
 def test_env_variables():
     """测试环境变量配置"""
@@ -119,7 +119,6 @@ def test_env_variables():
     
     return configured_count > 0
 
-
 def test_service_integration():
     """测试服务集成"""
     
@@ -155,11 +154,10 @@ def test_service_integration():
         
     except Exception as e:
         print(f"❌ 服务集成测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         print()
         return False
-
 
 def main():
     """主函数"""
@@ -204,7 +202,6 @@ def main():
         print("这不是错误，但建议配置至少一个聚合渠道以简化使用")
         print()
         return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

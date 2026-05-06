@@ -6,6 +6,7 @@ Test Data Directory Configuration CLI Features
 """
 
 import os
+import traceback
 import sys
 import tempfile
 import shutil
@@ -150,7 +151,7 @@ def main():
         
     except Exception as e:
         print(f"\n❌ 测试过程中出现错误 | Error during testing: {e}")
-        import traceback
+        
         traceback.print_exc()
         return 1
     

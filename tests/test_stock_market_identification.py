@@ -5,8 +5,9 @@
 验证300750和300750.SZ的识别结果
 """
 
-import sys
 import os
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from tradingagents.utils.stock_utils import StockUtils

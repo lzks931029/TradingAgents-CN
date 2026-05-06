@@ -1,7 +1,8 @@
 from pydantic import Field
+import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import List
-import os
+
 import warnings
 import re
 import getpass
@@ -131,7 +132,6 @@ class Settings(BaseSettings):
     QUEUE_MAX_RETRIES: int = Field(default=3)
     WORKER_HEARTBEAT_INTERVAL: int = Field(default=30)  # 30秒
 
-
     # 队列轮询/清理间隔（秒）
     QUEUE_POLL_INTERVAL_SECONDS: float = Field(default=1.0)
     QUEUE_CLEANUP_INTERVAL_SECONDS: float = Field(default=60.0)
@@ -185,18 +185,15 @@ class Settings(BaseSettings):
     SSE_BATCH_POLL_INTERVAL_SECONDS: float = Field(default=2.0)
     SSE_BATCH_MAX_IDLE_SECONDS: int = Field(default=600)
 
-
     # 监控配置
     METRICS_ENABLED: bool = Field(default=True)
     HEALTH_CHECK_INTERVAL: int = Field(default=60)  # 60秒
-
 
     # 配置真相来源（方案A）：file|db|hybrid
     # - file：以文件/env 为准（推荐，生产缺省）
     # - db：以数据库为准（仅兼容旧版，不推荐）
     # - hybrid：文件/env 优先，DB 作为兜底
     CONFIG_SOT: str = Field(default="file")
-
 
     # 基础信息同步任务配置（可配置调度）
     SYNC_STOCK_BASICS_ENABLED: bool = Field(default=True)
@@ -335,7 +332,6 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-
 def _read_major_version() -> str:
     v = os.getenv("TRADINGAGENTS_VERSION", "").strip() or os.getenv("APP_VERSION", "").strip()
     if not v:
@@ -347,13 +343,11 @@ def _read_major_version() -> str:
     m = re.match(r"^\s*(\d+)", v)
     return m.group(1) if m else "0"
 
-
 def _default_instance_tag() -> str:
     user = os.getenv("TRADINGAGENTS_DB_USER", "").strip() or getpass.getuser()
     host = os.getenv("TRADINGAGENTS_DB_HOST", "").strip() or os.getenv("COMPUTERNAME", "").strip() or os.getenv("HOSTNAME", "").strip()
     tag = f"{user}-{host}" if host else user
     return _sanitize_mongo_db_name(tag).strip("_-").lower() or "local"
-
 
 def _sanitize_mongo_db_name(name: str) -> str:
     cleaned = re.sub(r"[^a-zA-Z0-9._-]+", "_", str(name)).strip("._-")
@@ -375,7 +369,6 @@ if settings.HTTPS_PROXY:
     os.environ['HTTPS_PROXY'] = settings.HTTPS_PROXY
 if settings.NO_PROXY:
     os.environ['NO_PROXY'] = settings.NO_PROXY
-
 
 def get_settings() -> Settings:
     """获取配置实例"""

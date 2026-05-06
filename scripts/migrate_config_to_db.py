@@ -12,8 +12,10 @@
     --force     强制覆盖已存在的配置
 """
 
-import sys
 import os
+import traceback
+import sys
+
 import json
 import asyncio
 import shutil
@@ -32,7 +34,6 @@ load_dotenv()
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.core.config import settings
 from app.models.config import ModelProvider, DataSourceType
-
 
 class ConfigMigrator:
     """配置迁移器"""
@@ -357,14 +358,13 @@ class ConfigMigrator:
             
         except Exception as e:
             print(f"\n❌ 迁移失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return 1
         finally:
             await self.close_db()
         
         return 0
-
 
 async def main():
     """主函数"""
@@ -388,7 +388,6 @@ async def main():
     )
     
     return await migrator.run()
-
 
 if __name__ == "__main__":
     sys.exit(asyncio.run(main()))

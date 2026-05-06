@@ -2,8 +2,11 @@
 股票分析执行工具
 """
 
-import sys
+import logging
 import os
+import time
+import sys
+
 import uuid
 from pathlib import Path
 from datetime import datetime
@@ -27,7 +30,7 @@ load_dotenv(project_root / ".env", override=True)
 
 # 导入统一日志系统
 from tradingagents.utils.logging_init import setup_web_logging
-import time
+
 logger = setup_web_logging()
 
 # 添加配置管理器
@@ -175,7 +178,7 @@ def run_stock_analysis(stock_symbol, analysis_date, analysts, research_depth, ll
 
     # 记录分析开始的详细日志
     logger_manager = get_logger_manager()
-    import time
+    
     analysis_start_time = time.time()
 
     logger_manager.log_analysis_start(

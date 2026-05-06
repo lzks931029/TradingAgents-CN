@@ -4,13 +4,13 @@
 为所有工具调用添加统一的日志记录
 """
 
+import logging
 import time
 import functools
 from typing import Any, Dict, Optional, Callable
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from tradingagents.config.runtime_settings import get_timezone_name
-
 
 from tradingagents.utils.logging_init import get_logger
 
@@ -20,7 +20,6 @@ logger = get_logger('agents')
 
 # 工具调用日志器
 tool_logger = get_logger("tools")
-
 
 def log_tool_call(tool_name: Optional[str] = None, log_args: bool = True, log_result: bool = False):
     """
@@ -115,7 +114,6 @@ def log_tool_call(tool_name: Optional[str] = None, log_args: bool = True, log_re
         return wrapper
     return decorator
 
-
 def log_data_source_call(source_name: str):
     """
     数据源调用专用日志装饰器
@@ -196,7 +194,6 @@ def log_data_source_call(source_name: str):
         return wrapper
     return decorator
 
-
 def log_llm_call(provider: str, model: str):
     """
     LLM调用专用日志装饰器
@@ -259,7 +256,6 @@ def log_llm_call(provider: str, model: str):
         return wrapper
     return decorator
 
-
 # 便捷函数
 def log_tool_usage(tool_name: str, symbol: str = None, **extra_data):
     """
@@ -282,7 +278,6 @@ def log_tool_usage(tool_name: str, symbol: str = None, **extra_data):
 
     tool_logger.info(f"📋 [工具使用] {tool_name}", extra=extra)
 
-
 def log_analysis_step(step_name: str, symbol: str, **extra_data):
     """
     记录分析步骤的便捷函数
@@ -301,7 +296,6 @@ def log_analysis_step(step_name: str, symbol: str, **extra_data):
     }
 
     tool_logger.info(f"📈 [分析步骤] {step_name} - {symbol}", extra=extra)
-
 
 def log_analysis_module(module_name: str, session_id: str = None):
     """
@@ -395,7 +389,6 @@ def log_analysis_module(module_name: str, session_id: str = None):
         return wrapper
     return decorator
 
-
 def log_analyst_module(analyst_type: str):
     """
     分析师模块专用装饰器
@@ -405,7 +398,6 @@ def log_analyst_module(analyst_type: str):
     """
     return log_analysis_module(f"{analyst_type}_analyst")
 
-
 def log_graph_module(graph_type: str):
     """
     图处理模块专用装饰器
@@ -414,7 +406,6 @@ def log_graph_module(graph_type: str):
         graph_type: 图处理类型（如：signal_processing、workflow等）
     """
     return log_analysis_module(f"graph_{graph_type}")
-
 
 def log_dataflow_module(dataflow_type: str):
     """

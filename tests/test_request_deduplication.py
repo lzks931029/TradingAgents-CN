@@ -1,13 +1,13 @@
 """
-import time
+
 测试请求去重机制
 验证并发请求不会导致重复的API调用
 """
+import time
 import asyncio
 import pytest
 from unittest.mock import Mock, patch, AsyncMock
 from app.services.foreign_stock_service import ForeignStockService
-
 
 @pytest.mark.asyncio
 async def test_concurrent_hk_quote_requests():
@@ -35,7 +35,7 @@ async def test_concurrent_hk_quote_requests():
         nonlocal call_count
         call_count += 1
         # 模拟API延迟
-        import time
+        
         time.sleep(0.1)
         return {
             'code': code,
@@ -70,7 +70,6 @@ async def test_concurrent_hk_quote_requests():
     
     print(f"✅ 测试通过：10个并发请求只触发了{call_count}次API调用")
 
-
 @pytest.mark.asyncio
 async def test_concurrent_us_quote_requests():
     """
@@ -90,7 +89,7 @@ async def test_concurrent_us_quote_requests():
     def mock_get_us_quote_from_yfinance(code):
         nonlocal call_count
         call_count += 1
-        import time
+        
         time.sleep(0.1)
         return {
             'code': code,
@@ -124,7 +123,6 @@ async def test_concurrent_us_quote_requests():
     
     print(f"✅ 测试通过：10个并发请求只触发了{call_count}次API调用")
 
-
 @pytest.mark.asyncio
 async def test_different_stocks_no_blocking():
     """
@@ -146,7 +144,7 @@ async def test_different_stocks_no_blocking():
             call_count[code] = 0
         call_count[code] += 1
 
-        import time
+        
         time.sleep(0.1)
 
         return {
@@ -182,7 +180,6 @@ async def test_different_stocks_no_blocking():
         assert call_count.get(code, 0) == 1, f"股票{code}应该只调用1次API，实际调用了{call_count.get(code, 0)}次"
 
     print(f"✅ 测试通过：3个不同股票各5个并发请求，每个股票只触发了1次API调用")
-
 
 if __name__ == '__main__':
     # 运行测试

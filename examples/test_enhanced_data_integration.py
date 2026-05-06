@@ -72,7 +72,6 @@ def test_enhanced_data_adapter():
     else:
         print("❌ 未获取到社媒数据")
 
-
 def test_optimized_china_data_provider():
     """测试优化的A股数据提供器"""
     print("\n🔄 测试优化的A股数据提供器...")
@@ -106,7 +105,6 @@ def test_optimized_china_data_provider():
             print("❌ 基本面数据获取失败或数据为空")
     except Exception as e:
         print(f"❌ 基本面数据获取异常: {e}")
-
 
 def test_cache_mode_comparison():
     """测试缓存模式对比"""
@@ -149,7 +147,6 @@ def test_cache_mode_comparison():
     except Exception as e:
         print(f"❌ 异常: {e}")
 
-
 def main():
     """主函数"""
     print("🚀 增强数据整合功能测试")
@@ -166,7 +163,6 @@ def main():
     
     print("\n" + "=" * 50)
     print("✅ 测试完成")
-
 
 if __name__ == "__main__":
     main()

@@ -4,7 +4,9 @@ TradingAgents 中文演示脚本 - 使用阿里百炼大模型
 专门针对中文用户优化的股票分析演示
 """
 
+import logging
 import os
+import traceback
 import sys
 from pathlib import Path
 
@@ -141,7 +143,7 @@ def analyze_stock_with_chinese_output(stock_symbol="AAPL", analysis_date="2024-0
         
     except Exception as e:
         logger.error(f"❌ 分析过程中出现错误: {str(e)}")
-        import traceback
+        
 
         logger.error(f"🔍 详细错误信息:")
         traceback.print_exc()

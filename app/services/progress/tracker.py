@@ -3,19 +3,16 @@
 - 暂时从旧模块导入 RedisProgressTracker 类
 - 在本模块内提供 get_progress_by_id 的实现（与旧实现一致，修正 cls 引用）
 """
+import logging
+import os
+import time
 from typing import Any, Dict, Optional, List
 import json
-import os
-import logging
-import time
-
-
 
 logger = logging.getLogger("app.services.progress.tracker")
 
 from dataclasses import dataclass, asdict
 from datetime import datetime
-
 
 @dataclass
 class AnalysisStep:
@@ -26,7 +23,6 @@ class AnalysisStep:
     weight: float = 0.1  # 权重，用于计算进度
     start_time: Optional[float] = None
     end_time: Optional[float] = None
-
 
 def safe_serialize(data):
     """安全序列化，处理不可序列化的对象"""
@@ -40,8 +36,6 @@ def safe_serialize(data):
         return safe_serialize(data.__dict__)
     else:
         return str(data)
-
-
 
 class RedisProgressTracker:
     """Redis进度跟踪器"""
@@ -472,10 +466,6 @@ class RedisProgressTracker:
         except Exception as e:
             logger.error(f"[RedisProgress] to_dict failed: {self.task_id} - {e}")
             return self.progress_data
-
-
-
-
 
 def get_progress_by_id(task_id: str) -> Optional[Dict[str, Any]]:
     """根据任务ID获取进度（与旧实现一致，修正 cls 引用）"""

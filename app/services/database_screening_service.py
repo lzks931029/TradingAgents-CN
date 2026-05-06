@@ -12,7 +12,6 @@ from app.core.database import get_mongo_db
 
 logger = logging.getLogger(__name__)
 
-
 class DatabaseScreeningService:
     """基于数据库的股票筛选服务"""
     
@@ -585,10 +584,8 @@ class DatabaseScreeningService:
             logger.error(f"获取字段可选值失败: {e}")
             return []
 
-
 # 全局服务实例
 _database_screening_service: Optional[DatabaseScreeningService] = None
-
 
 def get_database_screening_service() -> DatabaseScreeningService:
     """获取数据库筛选服务实例"""

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-import os
+
 Redis快速连接测试脚本
 """
 
-import redis
+import os
 import time
+import redis
+
 import sys
 
 def quick_redis_test(host=None, port=None, password=None):

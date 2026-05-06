@@ -3,8 +3,10 @@
 测试.env文件兼容性
 """
 
-import sys
 import os
+import traceback
+import sys
+
 from pathlib import Path
 
 # 添加项目根目录到Python路径
@@ -32,7 +34,7 @@ def test_env_loading():
         return True
     except Exception as e:
         print(f"❌ .env文件加载失败: {e}")
-        import traceback
+        
         print(f"错误详情: {traceback.format_exc()}")
         return False
 
@@ -66,7 +68,7 @@ def test_model_config_merge():
         return True
     except Exception as e:
         print(f"❌ 模型配置合并失败: {e}")
-        import traceback
+        
         print(f"错误详情: {traceback.format_exc()}")
         return False
 
@@ -102,7 +104,7 @@ def test_settings_merge():
         return True
     except Exception as e:
         print(f"❌ 系统设置合并失败: {e}")
-        import traceback
+        
         print(f"错误详情: {traceback.format_exc()}")
         return False
 
@@ -132,7 +134,7 @@ def test_backward_compatibility():
         return True
     except Exception as e:
         print(f"❌ 向后兼容性测试失败: {e}")
-        import traceback
+        
         print(f"错误详情: {traceback.format_exc()}")
         return False
 

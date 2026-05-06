@@ -11,7 +11,6 @@ from .tracker import RedisProgressTracker
 
 logger = logging.getLogger("app.services.progress_log_handler")
 
-
 class ProgressLogHandler(logging.Handler):
     """进度日志处理器，监控TradingAgents日志并更新进度"""
 
@@ -137,11 +136,9 @@ class ProgressLogHandler(logging.Handler):
 
         return None
 
-
 # 全局日志处理器实例
 _progress_log_handler = None
 _handler_lock = threading.Lock()
-
 
 def get_progress_log_handler() -> ProgressLogHandler:
     """获取全局进度日志处理器实例"""
@@ -171,12 +168,10 @@ def get_progress_log_handler() -> ProgressLogHandler:
 
     return _progress_log_handler
 
-
 def register_analysis_tracker(task_id: str, tracker: RedisProgressTracker):
     """注册分析跟踪器到日志监控"""
     handler = get_progress_log_handler()
     handler.register_tracker(task_id, tracker)
-
 
 def unregister_analysis_tracker(task_id: str):
     """从日志监控中注销分析跟踪器"""

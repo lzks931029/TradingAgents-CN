@@ -15,7 +15,6 @@ logger = logging.getLogger("app.routers.usage_statistics")
 
 router = APIRouter(prefix="/api/usage", tags=["使用统计"])
 
-
 @router.get("/records", summary="获取使用记录")
 async def get_usage_records(
     provider: Optional[str] = Query(None, description="供应商"),
@@ -52,7 +51,6 @@ async def get_usage_records(
         logger.error(f"获取使用记录失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.get("/statistics", summary="获取使用统计")
 async def get_usage_statistics(
     days: int = Query(7, ge=1, le=365, description="统计天数"),
@@ -77,7 +75,6 @@ async def get_usage_statistics(
         logger.error(f"获取使用统计失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.get("/cost/by-provider", summary="按供应商统计成本")
 async def get_cost_by_provider(
     days: int = Query(7, ge=1, le=365, description="统计天数"),
@@ -95,7 +92,6 @@ async def get_cost_by_provider(
     except Exception as e:
         logger.error(f"获取成本统计失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-
 
 @router.get("/cost/by-model", summary="按模型统计成本")
 async def get_cost_by_model(
@@ -115,7 +111,6 @@ async def get_cost_by_model(
         logger.error(f"获取成本统计失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.get("/cost/daily", summary="每日成本统计")
 async def get_daily_cost(
     days: int = Query(7, ge=1, le=365, description="统计天数"),
@@ -133,7 +128,6 @@ async def get_daily_cost(
     except Exception as e:
         logger.error(f"获取每日成本失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-
 
 @router.delete("/records/old", summary="删除旧记录")
 async def delete_old_records(

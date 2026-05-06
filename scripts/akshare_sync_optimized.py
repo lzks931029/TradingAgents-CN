@@ -14,6 +14,7 @@ AKShare 优化同步脚本
     python scripts/akshare_sync_optimized.py --delay 0.2  # 调整延迟时间
 """
 
+import logging
 import asyncio
 import sys
 from pathlib import Path
@@ -27,7 +28,6 @@ sys.path.insert(0, str(project_root))
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.core.config import settings
 from tradingagents.dataflows.providers.china.akshare import AKShareProvider
-import logging
 
 # 配置日志
 logging.basicConfig(
@@ -36,7 +36,6 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-
 
 async def sync_stock_basic_info(
     batch_size: int = 100,
@@ -211,7 +210,6 @@ async def sync_stock_basic_info(
     finally:
         client.close()
 
-
 def main():
     """主函数"""
     import argparse
@@ -246,7 +244,6 @@ def main():
         delay=args.delay,
         retry_failed=not args.no_retry
     ))
-
 
 if __name__ == "__main__":
     main()

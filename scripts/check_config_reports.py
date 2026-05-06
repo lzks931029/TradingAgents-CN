@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+import os
 """检查数据库中的 config_reports 集合"""
 
 import asyncio
 from motor.motor_asyncio import AsyncIOMotorClient
-import os
+
 from dotenv import load_dotenv
 
 async def check_config_reports():

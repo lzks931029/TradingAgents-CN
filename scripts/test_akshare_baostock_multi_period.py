@@ -1,8 +1,10 @@
 """
 测试AKShare和BaoStock多周期数据同步功能
 """
-import asyncio
 import logging
+import traceback
+import asyncio
+
 from datetime import datetime, timedelta
 from tradingagents.config.database_manager import get_mongodb_client
 from tradingagents.dataflows.providers.akshare_provider import AKShareProvider
@@ -12,7 +14,6 @@ from app.core.database import init_database
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def test_provider_multi_period(provider_name: str, provider, symbol: str):
     """测试单个Provider的多周期功能"""
@@ -110,9 +111,8 @@ async def test_provider_multi_period(provider_name: str, provider, symbol: str):
                 
         except Exception as e:
             print(f"   ❌ {period_names[period]}数据同步失败: {e}")
-            import traceback
+            
             traceback.print_exc()
-
 
 async def main():
     """主测试函数"""
@@ -135,7 +135,7 @@ async def main():
         await test_provider_multi_period("AKShare", akshare_provider, test_symbol)
     except Exception as e:
         print(f"❌ AKShare测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 测试BaoStock
@@ -147,7 +147,7 @@ async def main():
         await test_provider_multi_period("BaoStock", baostock_provider, test_symbol)
     except Exception as e:
         print(f"❌ BaoStock测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 统计所有数据源的多周期数据
@@ -173,7 +173,6 @@ async def main():
     print("\n" + "="*60)
     print("🎯 测试完成！")
     print("="*60)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

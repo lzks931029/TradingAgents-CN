@@ -1,4 +1,5 @@
 
+
 import logging
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel, Field
@@ -43,7 +44,6 @@ class ScreeningResponse(BaseModel):
 svc = ScreeningService()
 enhanced_svc = get_enhanced_screening_service()
 
-
 @router.get("/fields", response_model=FieldConfigResponse)
 async def get_screening_fields(user: dict = Depends(get_current_user)):
     """
@@ -69,7 +69,6 @@ async def get_screening_fields(user: dict = Depends(get_current_user)):
     except Exception as e:
         logger.error(f"[get_screening_fields] 获取字段配置失败: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
-
 
 def _convert_legacy_conditions_to_new_format(legacy_conditions: Dict[str, Any]) -> List[ScreeningCondition]:
     """
@@ -151,7 +150,6 @@ def _convert_legacy_conditions_to_new_format(legacy_conditions: Dict[str, Any]) 
 
     return conditions
 
-
 # 传统筛选接口（保持向后兼容，但使用增强服务）
 @router.post("/run", response_model=ScreeningResponse)
 async def run_screening(req: ScreeningRequest, user: dict = Depends(get_current_user)):
@@ -187,7 +185,6 @@ async def run_screening(req: ScreeningRequest, user: dict = Depends(get_current_
     except Exception as e:
         logger.error(f"[screening] 处理失败: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
-
 
 # 新的优化筛选接口
 @router.post("/enhanced", response_model=NewScreeningResponse)
@@ -229,7 +226,6 @@ async def enhanced_screening(req: NewScreeningRequest, user: dict = Depends(get_
         logger.error(f"[enhanced_screening] 筛选失败: {e}")
         raise HTTPException(status_code=500, detail=f"增强筛选失败: {str(e)}")
 
-
 # 获取支持的字段信息
 @router.get("/fields", response_model=List[Dict[str, Any]])
 async def get_supported_fields(user: dict = Depends(get_current_user)):
@@ -240,7 +236,6 @@ async def get_supported_fields(user: dict = Depends(get_current_user)):
     except Exception as e:
         logger.error(f"[screening] 获取字段信息失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取字段信息失败: {str(e)}")
-
 
 # 获取单个字段的详细信息
 @router.get("/fields/{field_name}", response_model=Dict[str, Any])
@@ -257,7 +252,6 @@ async def get_field_info(field_name: str, user: dict = Depends(get_current_user)
         logger.error(f"[screening] 获取字段信息失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取字段信息失败: {str(e)}")
 
-
 # 验证筛选条件
 @router.post("/validate", response_model=Dict[str, Any])
 async def validate_conditions(conditions: List[ScreeningCondition], user: dict = Depends(get_current_user)):
@@ -270,7 +264,6 @@ async def validate_conditions(conditions: List[ScreeningCondition], user: dict =
         raise HTTPException(status_code=500, detail=f"验证条件失败: {str(e)}")
 
 # 重复定义的旧端点移除（保留带日志的版本）
-
 
 @router.get("/industries")
 async def get_industries(user: dict = Depends(get_current_user)):

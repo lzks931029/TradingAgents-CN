@@ -2,10 +2,10 @@
 测试速率限制器
 验证Tushare速率限制器是否正常工作
 """
-import asyncio
 import time
-from app.core.rate_limiter import TushareRateLimiter, get_tushare_rate_limiter
+import asyncio
 
+from app.core.rate_limiter import TushareRateLimiter, get_tushare_rate_limiter
 
 async def test_basic_rate_limiter():
     """测试基本速率限制功能"""
@@ -44,7 +44,6 @@ async def test_basic_rate_limiter():
     print(f"  实际速率: {stats['total_calls'] / total_time:.1f}次/秒")
     print(f"  理论速率: {limiter.max_calls / limiter.time_window:.1f}次/秒")
 
-
 async def test_different_tiers():
     """测试不同积分等级的速率限制"""
     
@@ -75,7 +74,6 @@ async def test_different_tiers():
             print(f"  实际速率: {test_calls / total_time:.1f}次/秒")
         else:
             print(f"  实际速率: 瞬间完成（无限制）")
-
 
 async def test_concurrent_calls():
     """测试并发调用"""
@@ -114,7 +112,6 @@ async def test_concurrent_calls():
     print(f"  等待次数: {stats['total_waits']}")
     print(f"  实际速率: {stats['total_calls'] / total_time:.1f}次/秒")
 
-
 async def test_safety_margin():
     """测试安全边际的效果"""
     
@@ -146,7 +143,6 @@ async def test_safety_margin():
         else:
             print(f"  实际速率: 瞬间完成（无限制）")
 
-
 async def test_global_limiter():
     """测试全局单例限制器"""
     
@@ -167,7 +163,6 @@ async def test_global_limiter():
         print(f"  ✅ 单例模式正常工作")
     else:
         print(f"  ❌ 单例模式失败")
-
 
 async def main():
     """主函数"""
@@ -201,7 +196,6 @@ async def main():
     print("     TUSHARE_TIER=standard")
     print("     TUSHARE_RATE_LIMIT_SAFETY_MARGIN=0.8")
     print()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

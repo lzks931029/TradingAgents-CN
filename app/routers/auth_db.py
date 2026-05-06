@@ -3,6 +3,7 @@
 替代原有的基于配置文件的认证机制
 """
 
+import logging
 import time
 from typing import Optional
 
@@ -20,7 +21,7 @@ try:
     from tradingagents.utils.logging_manager import get_logger
 except ImportError:
     # 如果导入失败，使用标准日志
-    import logging
+    
     def get_logger(name: str) -> logging.Logger:
         return logging.getLogger(name)
 

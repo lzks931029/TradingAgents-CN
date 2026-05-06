@@ -9,6 +9,7 @@ FileNotFoundError: [WinError 2] 系统找不到指定的文件。: '__pycache__\
 python scripts/fix_streamlit_watcher.py
 """
 
+import logging
 import os
 import sys
 import shutil
@@ -17,7 +18,6 @@ from pathlib import Path
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('scripts')
-
 
 def clean_pycache_files():
     """清理所有__pycache__目录和.pyc文件"""

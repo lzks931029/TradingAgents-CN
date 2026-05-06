@@ -3,7 +3,7 @@
 测试配置统一
 """
 
-import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -65,7 +65,7 @@ def test_config_unification():
         
     except Exception as e:
         print(f"❌ 配置统一测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -104,7 +104,7 @@ def test_web_config_access():
         
     except Exception as e:
         print(f"❌ Web配置访问测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -149,7 +149,7 @@ def test_config_consistency():
         
     except Exception as e:
         print(f"❌ 配置一致性测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

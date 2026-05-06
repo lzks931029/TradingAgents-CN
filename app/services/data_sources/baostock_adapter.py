@@ -1,15 +1,15 @@
 """
 BaoStock data source adapter
 """
-from typing import Optional
 import logging
+from typing import Optional
+
 from datetime import datetime, timedelta
 import pandas as pd
 
 from .base import DataSourceAdapter
 
 logger = logging.getLogger(__name__)
-
 
 class BaoStockAdapter(DataSourceAdapter):
     """BaoStockdata source adapter"""
@@ -226,7 +226,6 @@ class BaoStockAdapter(DataSourceAdapter):
             return float(value)
         except (ValueError, TypeError):
             return None
-
 
     def get_realtime_quotes(self):
         """Placeholder: BaoStock does not provide full-market realtime snapshot in our adapter.

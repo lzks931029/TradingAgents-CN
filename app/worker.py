@@ -4,12 +4,14 @@ TradingAgents-CN WebAPI Worker
 Consumes tasks from Redis queue and processes them using actual stock analysis.
 """
 
+import logging
+import time
 import asyncio
 import json
-import logging
+
 import signal
 import sys
-import time
+
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -31,7 +33,6 @@ SET_FAILED = "qa:failed"
 
 logger = logging.getLogger("worker")
 
-
 async def publish_progress(task_id: str, message: str, step: Optional[int] = None, total_steps: Optional[int] = None):
     """Publish progress updates to Redis pubsub for SSE streaming"""
     r = get_redis_client()
@@ -49,7 +50,6 @@ async def publish_progress(task_id: str, message: str, step: Optional[int] = Non
         await r.publish(f"task_progress:{task_id}", json.dumps(progress_data, ensure_ascii=False))
     except Exception as e:
         logger.warning(f"Failed to publish progress for task {task_id}: {e}")
-
 
 async def process_task(task_id: str) -> None:
     r = get_redis_client()
@@ -183,7 +183,6 @@ async def process_task(task_id: str) -> None:
         await r.sadd(SET_FAILED, task_id)
         await publish_progress(task_id, f"❌ 处理失败: {str(e)}")
 
-
 async def worker_loop(stop_event: asyncio.Event):
     r = get_redis_client()
     logger.info("Worker loop started")
@@ -202,7 +201,6 @@ async def worker_loop(stop_event: asyncio.Event):
             await asyncio.sleep(1)
     logger.info("Worker loop stopped")
 
-
 async def main():
     setup_logging("INFO")
     await init_db()
@@ -216,7 +214,6 @@ async def main():
             logging.getLogger(name).setLevel(desired_level)
     except Exception as e:
         logging.getLogger("worker").warning(f"Failed to apply dynamic log level: {e}")
-
 
     stop_event = asyncio.Event()
 
@@ -236,7 +233,6 @@ async def main():
         await worker_loop(stop_event)
     finally:
         await close_db()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

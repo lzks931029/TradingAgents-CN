@@ -4,6 +4,7 @@
 将老web系统的用户数据迁移到新的API系统
 """
 
+import traceback
 import json
 import asyncio
 import sys
@@ -131,7 +132,7 @@ async def main():
         await migrate_users()
     except Exception as e:
         print(f"❌ 迁移失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

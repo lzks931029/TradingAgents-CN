@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -128,7 +129,7 @@ def test_deepseek_complete_workflow():
         
     except Exception as e:
         print(f"❌ DeepSeek测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None
 
@@ -241,7 +242,7 @@ Question: {input}
         
     except Exception as e:
         print(f"❌ 百炼ReAct Agent测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None
 

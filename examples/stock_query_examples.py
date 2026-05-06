@@ -5,8 +5,10 @@
 演示如何使用新的股票数据服务，支持完整的降级机制
 """
 
-import sys
+import logging
 import os
+import traceback
+import sys
 
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
@@ -210,8 +212,6 @@ def demo_fallback_mechanism():
     else:
         logger.info(f"  ✅ 意外获得数据: {result.get('name')}")
 
-
-
 def main():
     """
     主函数
@@ -244,7 +244,7 @@ def main():
         logger.warning(f"\n⚠️ 用户中断程序")
     except Exception as e:
         logger.error(f"\n❌ 程序执行出错: {e}")
-        import traceback
+        
 
         traceback.print_exc()
 

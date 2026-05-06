@@ -5,8 +5,9 @@
 - 如果系统已配置全局代理（如 V2Ray 系统代理模式），会自动使用
 - 不需要显式设置 HTTP_PROXY 环境变量
 """
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 print("🧪 Google AI base_url 参数测试")
@@ -156,7 +157,6 @@ def test_google_base_url():
     print("   - 通过 client_options 传递自定义端点给 Google AI SDK")
     
     return True
-
 
 if __name__ == "__main__":
     success = test_google_base_url()

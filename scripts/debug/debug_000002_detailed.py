@@ -5,8 +5,10 @@
 详细调试000002股票PE计算问题
 """
 
-import sys
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from tradingagents.dataflows.optimized_china_data import OptimizedChinaDataProvider
@@ -80,12 +82,12 @@ def debug_000002_detailed():
                     
         except Exception as e:
             print(f"内部方法测试失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             
     except Exception as e:
         print(f"获取基本面数据失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

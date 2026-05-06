@@ -3,6 +3,7 @@ OpenAI兼容适配器基类
 为所有支持OpenAI接口的LLM提供商提供统一的基础实现
 """
 
+import logging
 import os
 import time
 from typing import Any, Dict, List, Optional, Union
@@ -27,7 +28,6 @@ try:
 except ImportError:
     TOKEN_TRACKING_ENABLED = False
     logger.warning("⚠️ Token跟踪功能未启用")
-
 
 class OpenAICompatibleBase(ChatOpenAI):
     """
@@ -193,7 +193,6 @@ class OpenAICompatibleBase(ChatOpenAI):
         except Exception as e:
             logger.warning(f"⚠️ Token跟踪记录失败: {e}")
 
-
 class ChatDeepSeekOpenAI(OpenAICompatibleBase):
     """DeepSeek OpenAI兼容适配器"""
     
@@ -216,7 +215,6 @@ class ChatDeepSeekOpenAI(OpenAICompatibleBase):
             **kwargs
         )
 
-
 class ChatDashScopeOpenAIUnified(OpenAICompatibleBase):
     """阿里百炼 DashScope OpenAI兼容适配器"""
     
@@ -238,7 +236,6 @@ class ChatDashScopeOpenAIUnified(OpenAICompatibleBase):
             max_tokens=max_tokens,
             **kwargs
         )
-
 
 class ChatQianfanOpenAI(OpenAICompatibleBase):
     """文心一言千帆平台 OpenAI兼容适配器"""
@@ -355,7 +352,6 @@ class ChatQianfanOpenAI(OpenAICompatibleBase):
         # 调用父类的_generate方法
         return super()._generate(truncated_messages, stop, run_manager, **kwargs)
 
-
 class ChatZhipuOpenAI(OpenAICompatibleBase):
     """智谱AI GLM OpenAI兼容适配器"""
     
@@ -393,7 +389,6 @@ class ChatZhipuOpenAI(OpenAICompatibleBase):
         # 保守估算：2字符/token
         return max(1, len(text) // 2)
 
-
 class ChatCustomOpenAI(OpenAICompatibleBase):
     """自定义OpenAI端点适配器（代理/聚合平台）"""
 
@@ -425,7 +420,6 @@ class ChatCustomOpenAI(OpenAICompatibleBase):
             max_tokens=max_tokens,
             **kwargs
         )
-
 
 # 支持的OpenAI兼容模型配置
 OPENAI_COMPATIBLE_PROVIDERS = {
@@ -496,7 +490,6 @@ OPENAI_COMPATIBLE_PROVIDERS = {
     }
 }
 
-
 def create_openai_compatible_llm(
     provider: str,
     model: str,
@@ -531,7 +524,6 @@ def create_openai_compatible_llm(
 
     return adapter_class(**init_kwargs)
 
-
 def test_openai_compatible_adapters():
     """快速测试所有适配器是否能被正确实例化（不发起真实请求）"""
     for provider, info in OPENAI_COMPATIBLE_PROVIDERS.items():
@@ -547,7 +539,6 @@ def test_openai_compatible_adapters():
             logger.info(f"✅ 适配器实例化成功: {provider}")
         except Exception as e:
             logger.warning(f"⚠️ 适配器实例化失败（预期或可忽略）: {provider} - {e}")
-
 
 if __name__ == "__main__":
     test_openai_compatible_adapters()

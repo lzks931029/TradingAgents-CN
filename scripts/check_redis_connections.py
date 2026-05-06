@@ -6,6 +6,7 @@
     python scripts/check_redis_connections.py
 """
 
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -16,7 +17,6 @@ sys.path.insert(0, str(project_root))
 
 from app.core.config import settings
 import redis.asyncio as redis
-
 
 async def check_redis_connections():
     """检查 Redis 连接状态"""
@@ -141,7 +141,7 @@ async def check_redis_connections():
 
     except Exception as e:
         print(f"❌ 检查失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     finally:
         await r.close()
@@ -149,7 +149,6 @@ async def check_redis_connections():
     print("=" * 80)
     print("✅ 检查完成")
     print("=" * 80)
-
 
 async def kill_idle_pubsub_connections(idle_threshold: int = 300):
     """
@@ -190,13 +189,12 @@ async def kill_idle_pubsub_connections(idle_threshold: int = 300):
         
     except Exception as e:
         print(f"❌ 操作失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     finally:
         await r.close()
 
     print("=" * 80)
-
 
 if __name__ == "__main__":
     import argparse

@@ -2,12 +2,12 @@
 测试预估总时长修复
 验证 RedisProgressTracker 初始化时是否正确设置 estimated_total_time
 """
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from app.services.progress.tracker import RedisProgressTracker
-import time
 
 def test_estimated_total_time():
     """测试预估总时长"""

@@ -4,9 +4,11 @@
 专门分析为什么LLM声称调用了工具但实际没有执行
 """
 
-import os
-import sys
 import logging
+import os
+import traceback
+import sys
+
 from datetime import datetime
 
 # 添加项目路径
@@ -129,7 +131,7 @@ def test_tool_call_mechanism():
                             
                     except Exception as e:
                         logger.error(f"     工具执行失败: {e}")
-                        import traceback
+                        
                         logger.error(f"     错误详情: {traceback.format_exc()}")
             else:
                 logger.warning("   LLM没有调用任何工具")
@@ -153,7 +155,7 @@ def test_tool_call_mechanism():
         
     except Exception as e:
         logger.error(f"测试失败: {e}")
-        import traceback
+        
         logger.error(f"错误详情: {traceback.format_exc()}")
         return False
 

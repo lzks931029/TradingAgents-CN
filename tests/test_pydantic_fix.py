@@ -3,6 +3,7 @@
 测试Pydantic v2修复
 """
 
+import traceback
 try:
     from webapi.models.user import PyObjectId, User
     from bson import ObjectId
@@ -29,5 +30,5 @@ try:
     
 except Exception as e:
     print(f"❌ 错误: {e}")
-    import traceback
+    
     traceback.print_exc()

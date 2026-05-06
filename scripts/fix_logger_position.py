@@ -8,6 +8,7 @@ Fix logger variable position script (improved version)
 Move misplaced logger initialization to the correct position after import statements
 """
 
+import logging
 import os
 import re
 import sys

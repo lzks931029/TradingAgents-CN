@@ -3,10 +3,11 @@
 调试API响应格式
 """
 
+import os
 import requests
 import json
 from pymongo import MongoClient
-import os
+
 from dotenv import load_dotenv
 
 def debug_api_response():

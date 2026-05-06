@@ -2,9 +2,10 @@
 """
 测试 Docker 容器内 AKShare 新闻接口 - 检查请求头和反爬虫
 """
+import traceback
 import akshare as ak
 import json
-import traceback
+
 import requests
 
 def test_with_different_headers():

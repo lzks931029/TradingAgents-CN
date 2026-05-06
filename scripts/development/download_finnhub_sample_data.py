@@ -7,6 +7,7 @@ Finnhub示例数据下载脚本
 在没有真实API密钥或数据的情况下，可以使用此脚本创建测试数据。
 """
 
+import logging
 import os
 import json
 import sys

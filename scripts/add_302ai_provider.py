@@ -2,9 +2,10 @@
 """
 添加 302.AI 供应商到数据库
 """
+import os
 import asyncio
 import sys
-import os
+
 from datetime import datetime, timezone
 
 # 添加项目根目录到Python路径

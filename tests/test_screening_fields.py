@@ -3,9 +3,11 @@
 测试筛选字段映射
 """
 
+import os
+import traceback
 import asyncio
 import sys
-import os
+
 from dotenv import load_dotenv
 
 # 加载环境变量
@@ -81,7 +83,7 @@ async def test_screening_fields():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

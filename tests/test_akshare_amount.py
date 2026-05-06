@@ -2,8 +2,9 @@
 测试 AKShare 成交额单位
 检查 AKShare 返回的成交额数据单位是否正确
 """
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import asyncio

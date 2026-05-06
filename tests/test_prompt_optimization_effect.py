@@ -4,7 +4,9 @@
 验证股票代码和公司名称正确分离，以及分析师输出质量
 """
 
+import logging
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
@@ -147,14 +149,14 @@ def test_fundamentals_analyst_prompt():
                     
             except Exception as e:
                 print(f"❌ 基本面分析执行失败: {e}")
-                import traceback
+                
                 traceback.print_exc()
         
         return True
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -259,14 +261,14 @@ def test_market_analyst_prompt():
                 
         except Exception as e:
             print(f"❌ 市场分析执行失败: {e}")
-            import traceback
+            
             traceback.print_exc()
         
         return True
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -322,7 +324,7 @@ def test_prompt_elements():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

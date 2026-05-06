@@ -6,12 +6,13 @@ Data Directory Reorganization Migration Script
 此脚本将项目中分散的数据目录重新组织为统一的结构
 """
 
+import logging
 import os
 import shutil
 import json
 from pathlib import Path
 from typing import Dict, List, Tuple
-import logging
+
 from datetime import datetime
 
 # 设置日志
@@ -310,7 +311,6 @@ TRADINGAGENTS_RESULTS_DIR=${TRADINGAGENTS_DATA_DIR}/analysis_results
         
         return True
 
-
 def main():
     """主函数"""
     import argparse
@@ -344,7 +344,6 @@ def main():
         logger.info("3. 确认无误后可删除备份目录")
     else:
         logger.error("\n❌ 迁移失败！请检查日志并从备份恢复")
-
 
 if __name__ == '__main__':
     main()

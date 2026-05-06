@@ -11,8 +11,9 @@
     python scripts/migrations/add_symbol_field_to_stock_basic_info.py
 """
 
-import asyncio
 import logging
+import asyncio
+
 import sys
 from pathlib import Path
 from typing import Optional
@@ -29,7 +30,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
 async def get_mongo_db() -> Optional[AsyncIOMotorDatabase]:
     """获取 MongoDB 数据库连接"""
     try:
@@ -44,7 +44,6 @@ async def get_mongo_db() -> Optional[AsyncIOMotorDatabase]:
     except Exception as e:
         logger.error(f"❌ MongoDB 连接失败: {e}")
         return None
-
 
 async def migrate_add_symbol_field():
     """为 stock_basic_info 集合添加 symbol 字段"""
@@ -136,12 +135,10 @@ async def migrate_add_symbol_field():
         logger.error(f"\n❌ 迁移失败: {e}", exc_info=True)
         return False
 
-
 async def main():
     """主函数"""
     success = await migrate_add_symbol_field()
     exit(0 if success else 1)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-import os
+
 Redis连接和性能测试脚本
 """
 
-import redis
+import os
 import time
+import redis
+
 import statistics
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed

@@ -4,8 +4,11 @@
 演示如何使用用户活动记录功能
 """
 
-import sys
+import logging
 import time
+import traceback
+import sys
+
 from pathlib import Path
 from datetime import datetime
 
@@ -164,7 +167,7 @@ def main():
         
     except Exception as e:
         print(f"❌ 演示过程中出现错误: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

@@ -3,8 +3,10 @@
 检查宁德时代的数据
 """
 
+import logging
+import traceback
 import sys
-import os
+
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
@@ -12,12 +14,11 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 import asyncio
-import logging
+
 from app.core.database import init_database, get_mongo_db, close_database
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def check_ningde():
     """检查宁德时代的数据"""
@@ -73,7 +74,7 @@ async def check_ningde():
         
     except Exception as e:
         logger.error(f"❌ 检查失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return 1
     
@@ -81,7 +82,6 @@ async def check_ningde():
         await close_database()
     
     return 0
-
 
 if __name__ == "__main__":
     exit_code = asyncio.run(check_ningde())

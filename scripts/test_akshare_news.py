@@ -2,6 +2,7 @@
 测试 AKShare 获取股票新闻数据
 测试 000002 万科的最新新闻时间
 """
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -10,7 +11,6 @@ from datetime import datetime
 # 添加项目根目录到 Python 路径
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-
 
 async def test_akshare_news():
     """测试 AKShare 获取新闻数据"""
@@ -150,9 +150,8 @@ async def test_akshare_news():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     asyncio.run(test_akshare_news())

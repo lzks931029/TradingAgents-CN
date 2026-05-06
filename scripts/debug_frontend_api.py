@@ -3,6 +3,7 @@
 检查前端调用的API是否返回正确的数据
 """
 
+import traceback
 import requests
 import json
 
@@ -120,12 +121,11 @@ def debug_frontend_api():
     print(f"✅ 调试完成")
     print(f"{'=' * 80}")
 
-
 if __name__ == "__main__":
     try:
         debug_frontend_api()
     except Exception as e:
         print(f"\n❌ 调试异常: {e}")
-        import traceback
+        
         traceback.print_exc()
 

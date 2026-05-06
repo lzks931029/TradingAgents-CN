@@ -6,14 +6,14 @@
     python scripts/quick_test_pe_pb.py 600036
 """
 
+import logging
+import traceback
 import sys
 from pathlib import Path
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-
-import logging
 
 # 配置日志
 logging.basicConfig(
@@ -22,7 +22,6 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-
 
 def test_pe_pb_from_basic_info(code: str):
     """测试从 stock_basic_info 直接获取 PE/PB"""
@@ -79,11 +78,10 @@ def test_pe_pb_from_basic_info(code: str):
     
     except Exception as e:
         logger.error(f"❌ 解析失败: {e}")
-        import traceback
+        
         logger.error(traceback.format_exc())
         client.close()
         return False
-
 
 def main(code: str):
     """主函数"""
@@ -102,7 +100,6 @@ def main(code: str):
     logger.info("=" * 80)
     
     return success
-
 
 if __name__ == "__main__":
     import argparse

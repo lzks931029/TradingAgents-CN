@@ -4,8 +4,10 @@
 用于初始化系统所需的基础数据
 """
 
+import logging
+import traceback
 import sys
-import os
+
 from pathlib import Path
 from datetime import datetime
 import asyncio
@@ -19,11 +21,9 @@ from app.core.database import get_mongo_db
 from app.models.user import User, UserRole
 from app.utils.security import get_password_hash
 from app.utils.timezone import now_tz
-import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def create_default_users(db):
     """创建默认用户"""
@@ -83,7 +83,6 @@ async def create_default_users(db):
     logger.info("✓ 创建测试用户成功")
     logger.info("  用户名: test")
     logger.info("  密码: test123")
-
 
 async def create_system_config(db):
     """创建系统配置"""
@@ -159,7 +158,6 @@ async def create_system_config(db):
     
     await config_collection.insert_many(configs)
     logger.info(f"✓ 创建 {len(configs)} 个系统配置")
-
 
 async def create_model_config(db):
     """创建模型配置"""
@@ -240,7 +238,6 @@ async def create_model_config(db):
     await model_collection.insert_many(models)
     logger.info(f"✓ 创建 {len(models)} 个模型配置")
 
-
 async def create_sync_status(db):
     """创建数据同步状态"""
     logger.info("\n创建数据同步状态...")
@@ -296,7 +293,6 @@ async def create_sync_status(db):
     await sync_collection.insert_many(sync_statuses)
     logger.info(f"✓ 创建 {len(sync_statuses)} 个同步状态")
 
-
 async def main():
     """主函数"""
     logger.info("=" * 60)
@@ -331,10 +327,9 @@ async def main():
         
     except Exception as e:
         logger.error(f"❌ 初始化失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

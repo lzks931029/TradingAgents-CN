@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-import time
+
 DeepSeek Token统计功能测试
 """
 
 import os
+import time
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -55,7 +56,7 @@ def test_deepseek_adapter():
         print(f"   ✅ 响应接收成功，长度: {len(response.content)}")
         
         # 等待统计更新
-        import time
+        
         time.sleep(1)
         
         # 检查统计更新

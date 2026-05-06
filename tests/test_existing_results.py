@@ -3,10 +3,11 @@
 测试已有的分析结果
 """
 
+import os
 import requests
 import json
 from pymongo import MongoClient
-import os
+
 from dotenv import load_dotenv
 
 def get_existing_task_ids():

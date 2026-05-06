@@ -6,9 +6,11 @@
 验证在获取数据时是否正确打印数据来源信息
 """
 
+import logging
+import os
+import traceback
 import asyncio
 import sys
-import os
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -18,7 +20,6 @@ from tradingagents.dataflows.optimized_us_data import get_us_stock_data_cached
 from tradingagents.utils.logging_init import get_logger
 
 logger = get_logger("default")
-
 
 def test_china_stock_data():
     """测试A股数据获取的日志"""
@@ -75,7 +76,6 @@ def test_china_stock_data():
     
     print(f"\n✅ 获取到数据长度: {len(data3)} 字符")
 
-
 def test_us_stock_data():
     """测试美股数据获取的日志"""
     print("\n" + "=" * 60)
@@ -117,7 +117,6 @@ def test_us_stock_data():
     
     print(f"\n✅ 获取到数据长度: {len(data2)} 字符")
 
-
 def test_hk_stock_data():
     """测试港股数据获取的日志"""
     print("\n" + "=" * 60)
@@ -144,7 +143,6 @@ def test_hk_stock_data():
     )
     
     print(f"\n✅ 获取到数据长度: {len(data1)} 字符")
-
 
 if __name__ == "__main__":
     try:
@@ -173,7 +171,7 @@ if __name__ == "__main__":
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
 

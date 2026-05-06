@@ -3,8 +3,9 @@
 测试API分析功能的脚本
 """
 
-import requests
 import time
+import requests
+
 import json
 
 def test_api_analysis():

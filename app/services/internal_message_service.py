@@ -2,10 +2,11 @@
 内部消息数据服务
 提供统一的内部消息存储、查询和管理功能
 """
+import logging
 from typing import Optional, List, Dict, Any, Union
 from datetime import datetime, timedelta
 from dataclasses import dataclass, field
-import logging
+
 from pymongo import ReplaceOne
 from pymongo.errors import BulkWriteError
 from bson import ObjectId
@@ -13,7 +14,6 @@ from bson import ObjectId
 from app.core.database import get_database
 
 logger = logging.getLogger(__name__)
-
 
 def convert_objectid_to_str(data: Union[Dict, List[Dict]]) -> Union[Dict, List[Dict]]:
     """
@@ -35,7 +35,6 @@ def convert_objectid_to_str(data: Union[Dict, List[Dict]]) -> Union[Dict, List[D
             data['_id'] = str(data['_id'])
         return data
     return data
-
 
 @dataclass
 class InternalMessageQueryParams:
@@ -60,7 +59,6 @@ class InternalMessageQueryParams:
     sort_by: str = "created_time"
     sort_order: int = -1  # -1 for desc, 1 for asc
 
-
 @dataclass
 class InternalMessageStats:
     """内部消息统计信息"""
@@ -72,7 +70,6 @@ class InternalMessageStats:
     ratings: Dict[str, int] = field(default_factory=dict)
     avg_confidence: float = 0.0
     recent_count: int = 0  # 最近24小时
-
 
 class InternalMessageService:
     """内部消息数据服务"""
@@ -402,7 +399,6 @@ class InternalMessageService:
         except Exception as e:
             self.logger.error(f"❌ 内部消息统计失败: {e}")
             return InternalMessageStats()
-
 
 # 全局服务实例
 _internal_message_service = None

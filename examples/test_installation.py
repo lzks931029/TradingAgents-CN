@@ -4,8 +4,9 @@ TradingAgents-CN 安装验证脚本
 用于验证系统安装是否正确
 """
 
+import logging
 import sys
-import os
+
 import importlib
 from pathlib import Path
 from typing import Dict, List, Tuple

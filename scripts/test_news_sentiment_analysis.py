@@ -2,6 +2,7 @@
 """
 测试新闻情绪分析和关键词提取功能
 """
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -12,7 +13,6 @@ sys.path.insert(0, str(project_root))
 
 from tradingagents.dataflows.providers.akshare_provider import get_akshare_provider
 from app.core.database import close_database
-
 
 async def test_sentiment_analysis():
     """测试情绪分析功能"""
@@ -72,7 +72,7 @@ async def test_sentiment_analysis():
 
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
     finally:
@@ -81,7 +81,6 @@ async def test_sentiment_analysis():
             await close_database()
         except Exception:
             pass  # 这个脚本不使用数据库，忽略错误
-
 
 if __name__ == "__main__":
     asyncio.run(test_sentiment_analysis())

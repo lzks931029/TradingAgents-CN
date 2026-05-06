@@ -3,7 +3,7 @@
 调试分析问题的脚本
 """
 
-import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -102,7 +102,7 @@ def debug_analysis_result():
         
     except Exception as e:
         print(f"❌ 调试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

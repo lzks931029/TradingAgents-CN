@@ -4,9 +4,10 @@ AKShare功能检查测试
 检查当前分支中AKShare的可用性和功能完整性
 """
 
-import sys
 import os
 import traceback
+import sys
+
 from typing import Dict, Any, List
 
 def test_akshare_import():

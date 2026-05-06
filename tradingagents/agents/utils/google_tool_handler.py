@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
+
 Google模型工具调用统一处理器
 
 解决Google模型在工具调用时result.content为空的问题，
@@ -9,9 +10,10 @@ Google模型工具调用统一处理器
 """
 
 import logging
+import time
+import traceback
 from typing import Any, Dict, List, Optional, Tuple
 from langchain_core.messages import HumanMessage, ToolMessage, AIMessage
-import time
 
 logger = logging.getLogger(__name__)
 
@@ -201,7 +203,7 @@ class GoogleToolCallHandler:
                             logger.error(f"[{analyst_name}] ❌ 异常详情: {str(tool_error)}")
                             
                             # 记录详细的异常堆栈
-                            import traceback
+                            
                             error_traceback = traceback.format_exc()
                             logger.error(f"[{analyst_name}] ❌ 工具执行异常堆栈:\n{error_traceback}")
                             
@@ -333,7 +335,7 @@ class GoogleToolCallHandler:
                 logger.error(f"[{analyst_name}] ❌ 异常详情: {str(final_error)}")
                 
                 # 记录详细的异常堆栈
-                import traceback
+                
                 error_traceback = traceback.format_exc()
                 logger.error(f"[{analyst_name}] ❌ 异常堆栈:\n{error_traceback}")
                 
@@ -345,7 +347,7 @@ class GoogleToolCallHandler:
                 
         except Exception as e:
             logger.error(f"[{analyst_name}] ❌ Google模型工具调用处理失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             
             # 降级处理：返回工具调用信息
@@ -563,7 +565,7 @@ class GoogleToolCallHandler:
                 logger.info(f"[{analyst_name}] 🚀 正在调用LLM.invoke() (尝试 {attempt + 1}/{max_retries})...")
                 
                 # 调用LLM生成报告
-                import time
+                
                 start_time = time.time()
                 result = llm.invoke(optimized_messages)
                 end_time = time.time()

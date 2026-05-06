@@ -13,6 +13,7 @@
     python scripts/补充行业信息_akshare.py --batch-size 10  # 每批处理10只股票
 """
 
+import logging
 import asyncio
 import sys
 from pathlib import Path
@@ -26,7 +27,6 @@ sys.path.insert(0, str(project_root))
 
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.core.config import settings
-import logging
 
 # 配置日志
 logging.basicConfig(
@@ -35,7 +35,6 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-
 
 async def get_stock_industry_from_akshare(code: str) -> Dict[str, str]:
     """
@@ -76,7 +75,6 @@ async def get_stock_industry_from_akshare(code: str) -> Dict[str, str]:
     except Exception as e:
         logger.error(f"❌ 获取 {code} 行业信息失败: {e}")
         return {"industry": "未知", "area": "未知"}
-
 
 async def 补充行业信息(
     limit: int = None,
@@ -214,7 +212,6 @@ async def 补充行业信息(
     finally:
         client.close()
 
-
 def main():
     """主函数"""
     parser = argparse.ArgumentParser(
@@ -260,7 +257,6 @@ def main():
         batch_size=args.batch_size,
         delay=args.delay
     ))
-
 
 if __name__ == "__main__":
     main()

@@ -3,6 +3,7 @@
 模拟一次分析并检查是否正确记录
 """
 
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -11,7 +12,6 @@ from datetime import datetime
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-
 
 async def test_usage_recording():
     print("=" * 80)
@@ -68,7 +68,7 @@ async def test_usage_recording():
             return
     except Exception as e:
         print(f"❌ 创建记录失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return
     
@@ -109,7 +109,7 @@ async def test_usage_recording():
             print("⚠️  统计查询返回空数据")
     except Exception as e:
         print(f"❌ 统计查询失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 5. 清理测试数据
@@ -124,7 +124,6 @@ async def test_usage_recording():
     print("\n" + "=" * 80)
     print("✅ 测试完成")
     print("=" * 80)
-
 
 async def test_analysis_service_recording():
     """测试分析服务的记录功能"""
@@ -186,9 +185,8 @@ async def test_analysis_service_recording():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 async def main():
     # 测试1: 基础记录功能
@@ -196,7 +194,6 @@ async def main():
     
     # 测试2: 分析服务记录功能
     await test_analysis_service_recording()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -2,6 +2,7 @@
 """
 调试新闻数据格式
 """
+import traceback
 import asyncio
 import sys
 import json
@@ -12,7 +13,6 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from tradingagents.dataflows.providers.tushare_provider import get_tushare_provider
-
 
 async def debug_news_format():
     """调试新闻数据格式"""
@@ -53,9 +53,8 @@ async def debug_news_format():
         
     except Exception as e:
         print(f"❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     asyncio.run(debug_news_format())

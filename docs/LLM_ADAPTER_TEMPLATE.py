@@ -5,14 +5,12 @@ LLM 适配器模板 - 适用于 OpenAI 兼容提供商
 并根据目标提供商修改 provider_name、base_url、API Key 环境变量等信息。
 """
 
-from typing import Any, Dict
-import os
 import logging
+from typing import Any, Dict
 
 from tradingagents.llm_adapters.openai_compatible_base import OpenAICompatibleBase
 
 logger = logging.getLogger(__name__)
-
 
 class ChatProviderTemplate(OpenAICompatibleBase):
     """{ProviderDisplayName} OpenAI 兼容适配器"""
@@ -37,7 +35,6 @@ class ChatProviderTemplate(OpenAICompatibleBase):
             **kwargs,
         )
         logger.info("✅ {ProviderDisplayName} OpenAI 兼容适配器初始化成功")
-
 
 # 供 openai_compatible_base.py 注册参考
 PROVIDER_TEMPLATE_MODELS: Dict[str, Dict[str, Any]] = {

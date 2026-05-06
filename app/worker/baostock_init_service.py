@@ -3,8 +3,9 @@
 BaoStock数据初始化服务
 提供BaoStock数据的完整初始化功能
 """
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
@@ -14,7 +15,6 @@ from app.core.database import get_database
 from app.worker.baostock_sync_service import BaoStockSyncService, BaoStockSyncStats
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class BaoStockInitializationStats:
@@ -43,7 +43,6 @@ class BaoStockInitializationStats:
     def progress(self) -> str:
         """进度字符串"""
         return f"{self.completed_steps}/{self.total_steps}"
-
 
 class BaoStockInitService:
     """BaoStock数据初始化服务"""
@@ -340,7 +339,6 @@ class BaoStockInitService:
             stats.errors.append(error_msg)
             return stats
 
-
 # APScheduler兼容的初始化函数
 async def run_baostock_full_initialization():
     """运行BaoStock完整初始化"""
@@ -351,7 +349,6 @@ async def run_baostock_full_initialization():
         logger.info(f"🎯 BaoStock完整初始化完成: {stats.progress}, 耗时: {stats.duration:.1f}秒")
     except Exception as e:
         logger.error(f"❌ BaoStock完整初始化任务失败: {e}")
-
 
 async def run_baostock_basic_initialization():
     """运行BaoStock基础初始化"""

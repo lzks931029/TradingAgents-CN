@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 from datetime import datetime
 
@@ -123,7 +124,7 @@ def test_final_integration():
         
     except Exception as e:
         print(f"❌ 测试过程中出现错误: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

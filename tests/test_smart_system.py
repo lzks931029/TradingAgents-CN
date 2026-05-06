@@ -4,6 +4,7 @@
 """
 
 import time
+import traceback
 import sys
 from datetime import datetime
 
@@ -86,7 +87,7 @@ def test_adaptive_cache():
         
     except Exception as e:
         print(f"❌ 自适应缓存测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False, None
 

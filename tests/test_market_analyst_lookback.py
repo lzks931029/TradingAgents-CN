@@ -12,7 +12,9 @@
     python scripts/validation/test_market_analyst_lookback.py
 """
 
+import logging
 import os
+import traceback
 import sys
 from datetime import datetime, timedelta
 
@@ -23,7 +25,6 @@ sys.path.insert(0, project_root)
 from tradingagents.utils.logging_manager import get_logger
 
 logger = get_logger('test')
-
 
 def test_config_loading():
     """测试1：验证配置加载"""
@@ -53,7 +54,6 @@ def test_config_loading():
     except Exception as e:
         print(f"❌ 配置加载失败: {e}")
         return None
-
 
 def test_date_range_calculation(lookback_days):
     """测试2：验证日期范围计算"""
@@ -89,10 +89,9 @@ def test_date_range_calculation(lookback_days):
         return start_date, end_date, actual_days
     except Exception as e:
         print(f"❌ 日期范围计算失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None, None, None
-
 
 def test_data_fetching(start_date, end_date):
     """测试3：验证数据获取"""
@@ -153,10 +152,9 @@ def test_data_fetching(start_date, end_date):
             return False
     except Exception as e:
         print(f"❌ 数据获取异常: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_technical_indicators_accuracy(lookback_days):
     """测试4：验证技术指标准确性要求"""
@@ -211,7 +209,6 @@ def test_technical_indicators_accuracy(lookback_days):
     
     return all_passed
 
-
 def main():
     """主测试流程"""
     print("\n" + "=" * 80)
@@ -254,7 +251,6 @@ def main():
         print(f"\n⚠️  存在问题，请检查日志")
     
     print("=" * 80)
-
 
 if __name__ == "__main__":
     main()

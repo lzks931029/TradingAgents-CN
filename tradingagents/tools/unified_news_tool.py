@@ -6,6 +6,7 @@
 """
 
 import logging
+import traceback
 from datetime import datetime
 import re
 
@@ -180,7 +181,7 @@ class UnifiedNewsAnalyzer:
 
         except Exception as e:
             logger.error(f"[统一新闻工具] 从数据库获取新闻失败: {e}")
-            import traceback
+            
             logger.error(traceback.format_exc())
             return ""
 
@@ -233,7 +234,7 @@ class UnifiedNewsAnalyzer:
 
                         except Exception as e:
                             logger.error(f"[统一新闻工具] ❌ 获取新闻失败: {e}")
-                            import traceback
+                            
                             logger.error(traceback.format_exc())
                             return None
 
@@ -275,7 +276,7 @@ class UnifiedNewsAnalyzer:
             return False
         except Exception as e:
             logger.error(f"[统一新闻工具] ❌ 同步新闻失败: {e}")
-            import traceback
+            
             logger.error(traceback.format_exc())
             return False
 
@@ -547,7 +548,6 @@ class UnifiedNewsAnalyzer:
 时间戳: {timestamp}
 """
         return formatted_result.strip()
-
 
 def create_unified_news_tool(toolkit):
     """创建统一新闻工具函数"""

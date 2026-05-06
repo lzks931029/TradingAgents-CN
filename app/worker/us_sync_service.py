@@ -14,8 +14,10 @@
 - 批量更新操作提高性能
 """
 
-import asyncio
 import logging
+import os
+import asyncio
+
 from datetime import datetime
 from typing import List, Dict, Optional, Any
 from pymongo import UpdateOne
@@ -31,7 +33,6 @@ from app.core.database import get_mongo_db
 from app.core.config import settings
 
 logger = logging.getLogger(__name__)
-
 
 class USSyncService:
     """美股数据同步服务（支持多数据源）"""
@@ -60,7 +61,7 @@ class USSyncService:
         if self._finnhub_client is None:
             try:
                 import finnhub
-                import os
+                
 
                 api_key = os.getenv('FINNHUB_API_KEY')
                 if not api_key:
@@ -381,7 +382,6 @@ class USSyncService:
         
         return result
 
-
 # ==================== 全局服务实例 ====================
 
 _us_sync_service = None
@@ -393,7 +393,6 @@ async def get_us_sync_service() -> USSyncService:
         _us_sync_service = USSyncService()
         await _us_sync_service.initialize()
     return _us_sync_service
-
 
 # ==================== APScheduler 兼容的任务函数 ====================
 
@@ -408,7 +407,6 @@ async def run_us_yfinance_basic_info_sync(force_update: bool = False):
         logger.error(f"❌ 美股基础信息同步失败 (yfinance): {e}")
         raise
 
-
 async def run_us_yfinance_quotes_sync():
     """APScheduler任务：美股实时行情同步（yfinance）"""
     try:
@@ -419,7 +417,6 @@ async def run_us_yfinance_quotes_sync():
     except Exception as e:
         logger.error(f"❌ 美股实时行情同步失败: {e}")
         raise
-
 
 async def run_us_status_check():
     """APScheduler任务：美股数据源状态检查"""

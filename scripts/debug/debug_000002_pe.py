@@ -5,8 +5,9 @@
 调试000002股票PE为N/A的原因
 """
 
-import sys
 import os
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from tradingagents.dataflows.data_source_manager import get_china_stock_data_unified

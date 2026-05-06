@@ -26,7 +26,6 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from app.core.database import get_mongo_db, init_database
 from pymongo import ASCENDING
 
-
 def generate_full_symbol(code: str) -> str:
     """
     根据股票代码生成完整标准化代码
@@ -49,7 +48,6 @@ def generate_full_symbol(code: str) -> str:
         return f"{code}.BJ"  # 北京证券交易所
     else:
         return f"{code}.SZ"  # 默认深圳
-
 
 async def fix_full_symbol_index():
     """修复 full_symbol 索引问题"""
@@ -198,7 +196,6 @@ async def fix_full_symbol_index():
     print(f"  4. ⬜ 重新运行数据同步测试")
     print(f"  5. ⬜ （可选）重新创建 full_symbol 唯一索引")
 
-
 async def main():
     """主函数"""
     
@@ -206,7 +203,6 @@ async def main():
     os.environ['TA_USE_APP_CACHE'] = 'true'
     
     await fix_full_symbol_index()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

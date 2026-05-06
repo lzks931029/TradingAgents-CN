@@ -3,6 +3,7 @@
 检查股票300750的MongoDB数据
 """
 
+import traceback
 import pymongo
 from tradingagents.config.database_manager import get_database_manager
 
@@ -54,5 +55,5 @@ try:
     
 except Exception as e:
     print(f'检查数据时出错: {e}')
-    import traceback
+    
     traceback.print_exc()

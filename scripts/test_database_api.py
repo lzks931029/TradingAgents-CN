@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """
-import time
+
 测试数据库管理 API 接口
 """
+import time
+import traceback
 import asyncio
 import httpx
 import json
 from typing import Dict, Any
 
-
 BASE_URL = "http://127.0.0.1:8000"
 TOKEN = None  # 将在登录后设置
-
 
 async def login() -> str:
     """登录并获取 token"""
@@ -33,7 +33,6 @@ async def login() -> str:
         else:
             raise Exception(f"登录失败: {response.text}")
 
-
 async def test_database_status(token: str):
     """测试数据库状态接口"""
     print("=" * 80)
@@ -52,7 +51,6 @@ async def test_database_status(token: str):
         print(json.dumps(response.json(), indent=2, ensure_ascii=False))
         print()
 
-
 async def test_database_stats(token: str):
     """测试数据库统计接口"""
     print("=" * 80)
@@ -60,7 +58,7 @@ async def test_database_stats(token: str):
     print("=" * 80)
     
     async with httpx.AsyncClient(timeout=60.0) as client:
-        import time
+        
         start_time = time.time()
         
         response = await client.get(
@@ -126,7 +124,6 @@ async def test_database_stats(token: str):
         
         print()
 
-
 async def test_database_test_connection(token: str):
     """测试数据库连接测试接口"""
     print("=" * 80)
@@ -144,7 +141,6 @@ async def test_database_test_connection(token: str):
         print(f"响应内容:")
         print(json.dumps(response.json(), indent=2, ensure_ascii=False))
         print()
-
 
 async def main():
     """主函数"""
@@ -169,9 +165,8 @@ async def main():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

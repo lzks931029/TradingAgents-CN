@@ -3,11 +3,12 @@
 重启API服务并测试保存功能的脚本
 """
 
-import requests
 import time
+import requests
+
 import json
 import subprocess
-import os
+
 from pathlib import Path
 
 def check_api_running():

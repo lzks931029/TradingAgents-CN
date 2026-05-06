@@ -1,6 +1,8 @@
 from typing import Annotated, Dict
-import time
+
+import logging
 import os
+import time
 from datetime import datetime
 
 # 导入新闻模块（支持新旧路径）
@@ -11,13 +13,11 @@ except ImportError:
 
 from .news.google_news import *
 
-
 from .news.chinese_finance import get_chinese_social_sentiment
 
 # 导入 Finnhub 工具（支持新旧路径）
 
 from .providers.us import get_data_in_range
-
 
 # 导入统一日志系统
 from tradingagents.utils.logging_init import setup_dataflow_logging
@@ -48,7 +48,6 @@ except (ImportError, AttributeError) as e:
         return None
     def get_hk_stock_info_akshare(*args, **kwargs):
         return None
-
 
 # ==================== 数据源配置读取 ====================
 
@@ -110,7 +109,6 @@ def _get_enabled_hk_data_sources() -> list:
 
     # 回退到默认顺序
     return ['akshare', 'yfinance']
-
 
 def _get_enabled_us_data_sources() -> list:
     """
@@ -189,7 +187,7 @@ from dateutil.relativedelta import relativedelta
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 import json
-import os
+
 import pandas as pd
 from tqdm import tqdm
 from openai import OpenAI
@@ -214,7 +212,6 @@ def get_config():
 def set_config(config):
     """设置配置（兼容性包装）"""
     config_manager.save_settings(config)
-
 
 def get_finnhub_news(
     ticker: Annotated[
@@ -264,7 +261,6 @@ def get_finnhub_news(
 
     return f"## {ticker} News, from {before} to {curr_date}:\n" + str(combined_result)
 
-
 def get_finnhub_company_insider_sentiment(
     ticker: Annotated[str, "ticker symbol for the company"],
     curr_date: Annotated[
@@ -304,7 +300,6 @@ def get_finnhub_company_insider_sentiment(
         + result_str
         + "The change field refers to the net buying/selling from all insiders' transactions. The mspr field refers to monthly share purchase ratio."
     )
-
 
 def get_finnhub_company_insider_transactions(
     ticker: Annotated[str, "ticker symbol"],
@@ -346,7 +341,6 @@ def get_finnhub_company_insider_transactions(
         + result_str
         + "The change field reflects the variation in share count—here a negative number indicates a reduction in holdings—while share specifies the total number of shares involved. The transactionPrice denotes the per-share price at which the trade was executed, and transactionDate marks when the transaction occurred. The name field identifies the insider making the trade, and transactionCode (e.g., S for sale) clarifies the nature of the transaction. FilingDate records when the transaction was officially reported, and the unique id links to the specific SEC filing, as indicated by the source. Additionally, the symbol ties the transaction to a particular company, isDerivative flags whether the trade involves derivative securities, and currency notes the currency context of the transaction."
     )
-
 
 def get_simfin_balance_sheet(
     ticker: Annotated[str, "ticker symbol"],
@@ -394,7 +388,6 @@ def get_simfin_balance_sheet(
         + "\n\nThis includes metadata like reporting dates and currency, share details, and a breakdown of assets, liabilities, and equity. Assets are grouped as current (liquid items like cash and receivables) and noncurrent (long-term investments and property). Liabilities are split between short-term obligations and long-term debts, while equity reflects shareholder funds such as paid-in capital and retained earnings. Together, these components ensure that total assets equal the sum of liabilities and equity."
     )
 
-
 def get_simfin_cashflow(
     ticker: Annotated[str, "ticker symbol"],
     freq: Annotated[
@@ -441,7 +434,6 @@ def get_simfin_cashflow(
         + "\n\nThis includes metadata like reporting dates and currency, share details, and a breakdown of cash movements. Operating activities show cash generated from core business operations, including net income adjustments for non-cash items and working capital changes. Investing activities cover asset acquisitions/disposals and investments. Financing activities include debt transactions, equity issuances/repurchases, and dividend payments. The net change in cash represents the overall increase or decrease in the company's cash position during the reporting period."
     )
 
-
 def get_simfin_income_statements(
     ticker: Annotated[str, "ticker symbol"],
     freq: Annotated[
@@ -487,7 +479,6 @@ def get_simfin_income_statements(
         + str(latest_income)
         + "\n\nThis includes metadata like reporting dates and currency, share details, and a comprehensive breakdown of the company's financial performance. Starting with Revenue, it shows Cost of Revenue and resulting Gross Profit. Operating Expenses are detailed, including SG&A, R&D, and Depreciation. The statement then shows Operating Income, followed by non-operating items and Interest Expense, leading to Pretax Income. After accounting for Income Tax and any Extraordinary items, it concludes with Net Income, representing the company's bottom-line profit or loss for the period."
     )
-
 
 def get_google_news(
     query: Annotated[str, "Query to search with"],
@@ -537,7 +528,6 @@ def get_google_news(
 
     logger.info(f"[Google新闻] 成功获取 {len(news_results)} 条新闻，查询: {query}")
     return f"## {query.replace('+', ' ')} Google News, from {before} to {curr_date}:\n\n{news_str}"
-
 
 def get_reddit_global_news(
     start_date: Annotated[str, "Start date in yyyy-mm-dd format"],
@@ -589,7 +579,6 @@ def get_reddit_global_news(
             news_str += f"### {post['title']}\n\n{post['content']}\n\n"
 
     return f"## Global News Reddit, from {before} to {curr_date}:\n{news_str}"
-
 
 def get_reddit_company_news(
     ticker: Annotated[str, "ticker symbol of the company"],
@@ -648,7 +637,6 @@ def get_reddit_company_news(
             news_str += f"### {post['title']}\n\n{post['content']}\n\n"
 
     return f"##{ticker} News Reddit, from {before} to {curr_date}:\n\n{news_str}"
-
 
 def get_stock_stats_indicators_window(
     symbol: Annotated[str, "ticker symbol of the company"],
@@ -785,7 +773,6 @@ def get_stock_stats_indicators_window(
 
     return result_str
 
-
 def get_stockstats_indicator(
     symbol: Annotated[str, "ticker symbol of the company"],
     indicator: Annotated[str, "technical indicator to get the analysis and report of"],
@@ -813,7 +800,6 @@ def get_stockstats_indicator(
         return ""
 
     return str(indicator_value)
-
 
 def get_YFin_data_window(
     symbol: Annotated[str, "ticker symbol of the company"],
@@ -854,7 +840,6 @@ def get_YFin_data_window(
         f"## Raw Market Data for {symbol} from {start_date} to {curr_date}:\n\n"
         + df_string
     )
-
 
 def get_YFin_data_online(
     symbol: Annotated[str, "ticker symbol of the company"],
@@ -900,7 +885,6 @@ def get_YFin_data_online(
 
     return header + csv_string
 
-
 def get_YFin_data(
     symbol: Annotated[str, "ticker symbol of the company"],
     start_date: Annotated[str, "Start date in yyyy-mm-dd format"],
@@ -934,7 +918,6 @@ def get_YFin_data(
     filtered_data = filtered_data.reset_index(drop=True)
 
     return filtered_data
-
 
 def get_stock_news_openai(ticker, curr_date):
     config = get_config()
@@ -970,7 +953,6 @@ def get_stock_news_openai(ticker, curr_date):
 
     return response.output[1].content[0].text
 
-
 def get_global_news_openai(curr_date):
     config = get_config()
     client = OpenAI(base_url=config["backend_url"])
@@ -1005,7 +987,6 @@ def get_global_news_openai(curr_date):
 
     return response.output[1].content[0].text
 
-
 def get_fundamentals_finnhub(ticker, curr_date):
     """
     使用Finnhub API获取股票基本面数据作为OpenAI的备选方案
@@ -1017,7 +998,7 @@ def get_fundamentals_finnhub(ticker, curr_date):
     """
     try:
         import finnhub
-        import os
+        
         # 导入缓存管理器（统一入口）
         from .cache import get_cache
         cache = get_cache()
@@ -1144,7 +1125,6 @@ def get_fundamentals_finnhub(ticker, curr_date):
         logger.error(f"❌ [DEBUG] Finnhub基本面数据获取失败: {str(e)}")
         return f"Finnhub基本面数据获取失败: {str(e)}"
 
-
 def get_fundamentals_openai(ticker, curr_date):
     """
     获取美股基本面数据，使用数据源管理器自动选择和降级
@@ -1238,7 +1218,6 @@ def get_fundamentals_openai(ticker, curr_date):
         logger.error(f"❌ [美股基本面] 获取失败: {str(e)}")
         return f"❌ 获取 {ticker} 基本面数据失败: {str(e)}"
 
-
 def _get_fundamentals_alpha_vantage(ticker, curr_date, cache):
     """
     从 Alpha Vantage 获取基本面数据
@@ -1268,7 +1247,6 @@ def _get_fundamentals_alpha_vantage(ticker, curr_date, cache):
     except Exception as e:
         logger.warning(f"⚠️ [Alpha Vantage] 获取失败: {e}")
         return None
-
 
 def _get_fundamentals_yfinance(ticker, curr_date, cache):
     """
@@ -1343,7 +1321,6 @@ def _get_fundamentals_yfinance(ticker, curr_date, cache):
         logger.warning(f"⚠️ [yfinance] 获取失败: {e}")
         return None
 
-
 def _get_fundamentals_openai_impl(ticker, curr_date, config, cache):
     """
     OpenAI 基本面数据获取实现（内部函数）
@@ -1403,7 +1380,6 @@ def _get_fundamentals_openai_impl(ticker, curr_date, config, cache):
         logger.error(f"❌ [OpenAI] 基本面数据获取失败: {str(e)}")
         raise  # 抛出异常，让外层函数继续尝试其他数据源
 
-
 # ==================== Tushare数据接口 ====================
 
 def get_china_stock_data_tushare(
@@ -1438,7 +1414,6 @@ def get_china_stock_data_tushare(
     except Exception as e:
         logger.error(f"❌ [Tushare] 获取股票数据失败: {e}")
         return f"❌ 获取{ticker}股票数据失败: {e}"
-
 
 def get_china_stock_info_tushare(
     ticker: Annotated[str, "中国股票代码，如：000001、600036等"]
@@ -1480,7 +1455,6 @@ def get_china_stock_info_tushare(
         logger.error(f"❌ [Tushare] 获取股票信息失败: {e}")
         return f"❌ 获取{ticker}股票信息失败: {e}"
 
-
 def get_china_stock_fundamentals_tushare(
     ticker: Annotated[str, "中国股票代码，如：000001、600036等"]
 ) -> str:
@@ -1507,7 +1481,6 @@ def get_china_stock_fundamentals_tushare(
     except Exception as e:
         logger.error(f"❌ 获取基本面数据失败: {e}")
         return f"❌ 获取{ticker}基本面数据失败: {e}"
-
 
 # ==================== 统一数据源接口 ====================
 
@@ -1626,7 +1599,6 @@ def get_china_stock_data_unified(
                     }, exc_info=True)
         return f"❌ 获取{ticker}股票数据失败: {e}"
 
-
 def get_china_stock_info_unified(
     ticker: Annotated[str, "中国股票代码，如：000001、600036等"]
 ) -> str:
@@ -1678,7 +1650,6 @@ def get_china_stock_info_unified(
         logger.error(f"❌ [统一接口] 获取股票信息失败: {e}")
         return f"❌ 获取{ticker}股票信息失败: {e}"
 
-
 def switch_china_data_source(
     source: Annotated[str, "数据源名称：tushare, akshare, baostock"]
 ) -> str:
@@ -1717,7 +1688,6 @@ def switch_china_data_source(
         logger.error(f"❌ 数据源切换失败: {e}")
         return f"❌ 数据源切换失败: {e}"
 
-
 def get_current_china_data_source() -> str:
     """
     获取当前中国股票数据源
@@ -1741,7 +1711,6 @@ def get_current_china_data_source() -> str:
     except Exception as e:
         logger.error(f"❌ 获取数据源信息失败: {e}")
         return f"❌ 获取数据源信息失败: {e}"
-
 
 # ==================== 港股数据接口 ====================
 
@@ -1843,7 +1812,6 @@ def get_hk_stock_data_unified(symbol: str, start_date: str = None, end_date: str
         logger.error(f"❌ 获取港股数据失败: {e}")
         return f"❌ 获取港股{symbol}数据失败: {e}"
 
-
 def get_hk_stock_info_unified(symbol: str) -> Dict:
     """
     获取港股信息的统一接口（根据用户配置选择数据源）
@@ -1904,7 +1872,6 @@ def get_hk_stock_info_unified(symbol: str) -> Dict:
             'source': 'error',
             'error': str(e)
         }
-
 
 def get_stock_data_by_market(symbol: str, start_date: str = None, end_date: str = None) -> str:
     """

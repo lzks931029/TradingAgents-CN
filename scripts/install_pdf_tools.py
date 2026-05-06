@@ -4,6 +4,7 @@ PDF工具安装脚本
 自动安装PDF生成所需的工具
 """
 
+import logging
 import os
 import sys
 import subprocess

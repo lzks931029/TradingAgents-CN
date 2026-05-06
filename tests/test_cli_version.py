@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -37,7 +38,7 @@ def test_cli_imports():
         
     except Exception as e:
         print(f"❌ CLI模块导入失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -75,7 +76,7 @@ def test_cli_config():
         
     except Exception as e:
         print(f"❌ CLI配置测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -118,7 +119,7 @@ def test_cli_graph_creation():
         
     except Exception as e:
         print(f"❌ CLI图创建失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -165,7 +166,7 @@ def test_cli_cost_tracking():
         
     except Exception as e:
         print(f"❌ CLI成本跟踪测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -186,7 +187,7 @@ def test_cli_help():
         
     except Exception as e:
         print(f"❌ CLI帮助功能测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

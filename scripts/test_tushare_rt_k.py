@@ -2,6 +2,7 @@
 测试 Tushare rt_k 接口
 验证修复后的实时行情同步功能
 """
+import logging
 import asyncio
 import sys
 from pathlib import Path
@@ -12,14 +13,12 @@ sys.path.insert(0, str(project_root))
 
 from tradingagents.dataflows.providers.china.tushare import TushareProvider
 from app.worker.tushare_sync_service import TushareSyncService
-import logging
 
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s | %(name)s | %(levelname)-8s | %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 async def test_rt_k_interface():
     """测试 rt_k 接口"""
@@ -63,7 +62,6 @@ async def test_rt_k_interface():
         logger.error(f"❌ 批量获取实时行情失败: {e}")
         return False
 
-
 async def test_single_stock():
     """测试单只股票获取"""
     logger.info("\n" + "=" * 80)
@@ -88,7 +86,6 @@ async def test_single_stock():
         except Exception as e:
             logger.error(f"❌ {symbol} 获取失败: {e}")
 
-
 async def test_trading_time_check():
     """测试交易时间判断"""
     logger.info("\n" + "=" * 80)
@@ -103,7 +100,6 @@ async def test_trading_time_check():
     
     if not is_trading:
         logger.info("ℹ️ 不在交易时间，实时行情同步任务会自动跳过")
-
 
 async def test_sync_service():
     """测试同步服务"""
@@ -135,7 +131,6 @@ async def test_sync_service():
         for i, error in enumerate(result['errors'][:3]):
             logger.warning(f"    {i+1}. {error.get('code', 'N/A')}: {error.get('error', 'N/A')}")
 
-
 async def main():
     """主函数"""
     logger.info("🚀 开始测试 Tushare rt_k 接口修复")
@@ -163,7 +158,6 @@ async def main():
         return False
     
     return True
-
 
 if __name__ == "__main__":
     asyncio.run(main())

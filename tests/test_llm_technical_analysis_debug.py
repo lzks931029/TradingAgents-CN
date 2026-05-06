@@ -5,13 +5,13 @@ LLM技术面分析调试测试
 """
 
 import os
+import traceback
 import sys
 from datetime import datetime
 
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
-
 
 def test_dashscope_technical_analysis():
     """测试阿里百炼的技术面分析"""
@@ -78,10 +78,9 @@ def test_dashscope_technical_analysis():
         
     except Exception as e:
         print(f"❌ 阿里百炼测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_deepseek_technical_analysis():
     """测试DeepSeek的技术面分析"""
@@ -148,10 +147,9 @@ def test_deepseek_technical_analysis():
         
     except Exception as e:
         print(f"❌ DeepSeek测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_message_sequence_handling():
     """测试复杂消息序列处理"""
@@ -213,10 +211,9 @@ def test_message_sequence_handling():
         
     except Exception as e:
         print(f"❌ 复杂消息序列测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_max_tokens_impact():
     """测试max_tokens参数的影响"""
@@ -265,7 +262,6 @@ def test_max_tokens_impact():
     except Exception as e:
         print(f"❌ max_tokens测试失败: {e}")
         return False
-
 
 def main():
     """主测试函数"""
@@ -316,7 +312,6 @@ def main():
     print("   4. 添加模型特定的处理逻辑")
     
     input("按回车键退出...")
-
 
 if __name__ == "__main__":
     main()

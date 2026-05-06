@@ -4,6 +4,7 @@
 支持本地缓存股票数据，减少API调用，提高响应速度
 """
 
+import logging
 import os
 import json
 import pickle
@@ -16,7 +17,6 @@ import hashlib
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('agents')
-
 
 class StockDataCache:
     """股票数据缓存管理器 - 支持美股和A股数据缓存优化"""
@@ -672,7 +672,6 @@ class StockDataCache:
             'has_long_text_support': len(available_long_providers) > 0,
             'will_skip_long_content': self.content_length_config['enable_length_check'] and len(available_long_providers) == 0
         }
-
 
 # 全局缓存实例
 _cache_instance = None

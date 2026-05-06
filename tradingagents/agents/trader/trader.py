@@ -1,12 +1,12 @@
 import functools
-import time
+
+import logging
 import json
 
 # 导入统一日志系统
 from tradingagents.utils.logging_init import get_logger
 from tradingagents.agents.utils.instrument_utils import build_instrument_context
 logger = get_logger("default")
-
 
 def create_trader(llm, memory):
     def trader_node(state, name):

@@ -32,7 +32,6 @@ from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
-
 class HKDataService:
     """港股数据服务（按需获取+缓存模式）"""
 
@@ -177,11 +176,9 @@ class HKDataService:
         
         return normalized
 
-
 # ==================== 全局实例管理 ====================
 
 _hk_data_service = None
-
 
 async def get_hk_data_service() -> HKDataService:
     """获取港股数据服务实例（单例模式）"""

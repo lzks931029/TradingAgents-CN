@@ -2,12 +2,14 @@
 """
 测试 monkey patch 是否在 Docker 环境中生效
 """
-import sys
+import logging
 import os
+import traceback
+import sys
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import asyncio
-import logging
 
 logging.basicConfig(
     level=logging.INFO,
@@ -15,7 +17,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-
 
 async def main():
     logger.info("=" * 60)
@@ -66,13 +67,12 @@ async def main():
             logger.warning(f"  ⚠️ 未获取到新闻")
     except Exception as e:
         logger.error(f"  ❌ 获取新闻失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     logger.info("\n" + "=" * 60)
     logger.info("✅ 测试完成")
     logger.info("=" * 60)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

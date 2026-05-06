@@ -4,8 +4,9 @@
 绕过yfinance依赖问题，直接测试AKShare集成
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -91,7 +92,7 @@ def test_akshare_utils_direct():
             
     except Exception as e:
         print(f"❌ akshare_utils测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

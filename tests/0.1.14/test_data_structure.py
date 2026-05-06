@@ -3,8 +3,10 @@
 测试数据结构脚本
 """
 
-import sys
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.join(os.path.dirname(__file__), 'web'))
 
 def test_data_structure():
@@ -45,7 +47,7 @@ def test_data_structure():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None
 

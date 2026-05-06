@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import subprocess
 import sys
 from datetime import datetime
@@ -217,8 +218,7 @@ def check_log_configuration(container_name):
     # 检查Python日志配置
     print("\n🐍 检查Python日志配置:")
     python_check = '''
-import os
-import logging
+
 print("Python日志配置:")
 print(f"  日志级别: {os.getenv('TRADINGAGENTS_LOG_LEVEL', 'NOT_SET')}")
 print(f"  日志目录: {os.getenv('TRADINGAGENTS_LOG_DIR', 'NOT_SET')}")
@@ -326,6 +326,6 @@ if __name__ == "__main__":
         sys.exit(1)
     except Exception as e:
         print(f"\n❌ 发生错误: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)

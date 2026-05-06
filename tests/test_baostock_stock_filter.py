@@ -2,11 +2,13 @@
 """
 测试BaoStock股票过滤功能
 """
-import sys
+import logging
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import logging
 from datetime import datetime, timedelta
 
 # 设置日志
@@ -95,7 +97,7 @@ def test_baostock_stock_types():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 def test_baostock_adapter_stock_filter():
@@ -184,7 +186,7 @@ def test_baostock_adapter_stock_filter():
         
     except Exception as e:
         print(f"❌ 适配器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

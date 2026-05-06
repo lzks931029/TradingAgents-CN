@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import subprocess
 import sys
 from datetime import datetime
@@ -269,5 +270,5 @@ if __name__ == "__main__":
         print("\n\n⚠️ 操作被用户中断")
     except Exception as e:
         print(f"\n❌ 发生错误: {e}")
-        import traceback
+        
         traceback.print_exc()

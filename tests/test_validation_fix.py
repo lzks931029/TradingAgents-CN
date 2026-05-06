@@ -2,8 +2,9 @@
 测试港股验证修复
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -65,7 +66,7 @@ def test_hk_validation():
         
     except Exception as e:
         print(f"❌ 验证测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

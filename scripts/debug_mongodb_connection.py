@@ -3,7 +3,9 @@ MongoDB 连接调试脚本
 
 用于排查 Docker 环境中的 MongoDB 连接问题
 """
+
 import os
+import traceback
 import sys
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure, OperationFailure
@@ -83,7 +85,7 @@ try:
     client.close()
 except Exception as e:
     print(f"❌ 连接失败: {e}")
-    import traceback
+    
     traceback.print_exc()
 print()
 
@@ -108,7 +110,7 @@ if connection_string:
         client.close()
     except Exception as e:
         print(f"❌ 连接失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 else:
     print("⚠️  未设置 MONGODB_CONNECTION_STRING 环境变量")

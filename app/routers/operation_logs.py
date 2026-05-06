@@ -21,7 +21,6 @@ from app.models.operation_log import (
 router = APIRouter(prefix="/logs", tags=["操作日志"])
 logger = logging.getLogger("webapi")
 
-
 @router.get("/list", response_model=OperationLogListResponse)
 async def get_operation_logs(
     page: int = Query(1, ge=1, description="页码"),
@@ -69,7 +68,6 @@ async def get_operation_logs(
             detail=f"获取操作日志列表失败: {str(e)}"
         )
 
-
 @router.get("/stats", response_model=OperationLogStatsResponse)
 async def get_operation_log_stats(
     days: int = Query(30, ge=1, le=365, description="统计天数"),
@@ -94,7 +92,6 @@ async def get_operation_log_stats(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"获取操作日志统计失败: {str(e)}"
         )
-
 
 @router.get("/{log_id}")
 async def get_operation_log_detail(
@@ -129,7 +126,6 @@ async def get_operation_log_detail(
             detail=f"获取操作日志详情失败: {str(e)}"
         )
 
-
 @router.post("/clear", response_model=ClearLogsResponse)
 async def clear_operation_logs(
     request: ClearLogsRequest,
@@ -163,7 +159,6 @@ async def clear_operation_logs(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"清空操作日志失败: {str(e)}"
         )
-
 
 @router.post("/create")
 async def create_operation_log(
@@ -201,7 +196,6 @@ async def create_operation_log(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"创建操作日志失败: {str(e)}"
         )
-
 
 @router.get("/export/csv")
 async def export_logs_csv(

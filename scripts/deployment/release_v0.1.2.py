@@ -3,7 +3,7 @@
 TradingAgents-CN v0.1.2 版本发布脚本
 """
 
-import os
+import logging
 import sys
 import subprocess
 from pathlib import Path
@@ -12,7 +12,6 @@ from datetime import datetime
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('scripts')
-
 
 def run_command(command, cwd=None):
     """运行命令并返回结果"""

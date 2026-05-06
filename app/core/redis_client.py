@@ -2,8 +2,9 @@
 Redis客户端配置和连接管理
 """
 
-import redis.asyncio as redis
 import logging
+import redis.asyncio as redis
+
 from typing import Optional
 from .config import settings
 
@@ -12,7 +13,6 @@ logger = logging.getLogger(__name__)
 # 全局Redis连接池
 redis_pool: Optional[redis.ConnectionPool] = None
 redis_client: Optional[redis.Redis] = None
-
 
 async def init_redis():
     """初始化Redis连接"""
@@ -45,7 +45,6 @@ async def init_redis():
         logger.error(f"❌ Redis连接失败: {e}")
         raise
 
-
 async def close_redis():
     """关闭Redis连接"""
     
@@ -58,13 +57,11 @@ async def close_redis():
     except Exception as e:
         logger.error(f"❌ 关闭Redis连接时出错: {e}")
 
-
 def get_redis() -> redis.Redis:
     """获取Redis客户端实例"""
     if redis_client is None:
         raise RuntimeError("Redis客户端未初始化")
     return redis_client
-
 
 class RedisKeys:
     """Redis键名常量"""
@@ -98,7 +95,6 @@ class RedisKeys:
     # 缓存相关
     SCREENING_CACHE = "screening:{cache_key}"
     ANALYSIS_CACHE = "analysis:{cache_key}"
-
 
 class RedisService:
     """Redis服务封装类"""
@@ -188,10 +184,8 @@ class RedisService:
         """
         return await self.redis.eval(lua_script, 1, lock_key, lock_value)
 
-
 # 全局Redis服务实例
 redis_service: Optional[RedisService] = None
-
 
 def get_redis_service() -> RedisService:
     """获取Redis服务实例"""

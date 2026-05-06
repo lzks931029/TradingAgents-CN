@@ -3,6 +3,7 @@
 测试 config_service 读取的配置
 """
 
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -45,9 +46,8 @@ async def main():
         
     except Exception as e:
         print(f"\n❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

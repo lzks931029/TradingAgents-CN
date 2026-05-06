@@ -3,10 +3,12 @@
 消息数据爬虫运行示例
 演示如何使用社媒消息和内部消息爬虫
 """
-import asyncio
 import logging
-import sys
 import os
+import asyncio
+
+import sys
+
 from pathlib import Path
 
 # 添加项目根目录到Python路径
@@ -18,7 +20,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 async def run_social_media_crawler_example():
     """运行社媒消息爬虫示例"""
@@ -41,7 +42,6 @@ async def run_social_media_crawler_example():
         logger.error(f"❌ 社媒消息爬虫示例失败: {e}")
         return 0
 
-
 async def run_internal_message_crawler_example():
     """运行内部消息爬虫示例"""
     logger.info("📊 内部消息爬虫示例")
@@ -63,7 +63,6 @@ async def run_internal_message_crawler_example():
         logger.error(f"❌ 内部消息爬虫示例失败: {e}")
         return 0
 
-
 async def run_scheduler_example():
     """运行调度器示例"""
     logger.info("🤖 爬虫调度器示例")
@@ -83,7 +82,6 @@ async def run_scheduler_example():
     except Exception as e:
         logger.error(f"❌ 调度器示例失败: {e}")
         return 0
-
 
 async def query_saved_messages():
     """查询已保存的消息"""
@@ -140,7 +138,6 @@ async def query_saved_messages():
         logger.error(f"❌ 查询消息失败: {e}")
         return False
 
-
 async def main():
     """主函数 - 演示所有爬虫功能"""
     logger.info("🚀 消息数据爬虫系统演示")
@@ -196,7 +193,6 @@ async def main():
     logger.info("   - examples/crawlers/internal_message_crawler.py")
     logger.info("   - examples/crawlers/message_crawler_scheduler.py")
     logger.info("   - docs/guides/message_data_system/README.md")
-
 
 if __name__ == "__main__":
     try:

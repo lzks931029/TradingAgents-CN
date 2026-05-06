@@ -1,8 +1,10 @@
 """
 测试脚本：验证 default_base_url 修复是否生效
 """
-import sys
 import os
+import traceback
+import sys
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 def main():
@@ -58,7 +60,7 @@ def main():
             
     except Exception as e:
         print(f"\n❌ LLM 实例创建失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 2. 测试完整的分析流程
@@ -92,7 +94,7 @@ def main():
             
     except Exception as e:
         print(f"\n❌ 配置创建失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 3. 测试 TradingAgentsGraph 初始化
@@ -154,7 +156,7 @@ def main():
         
     except Exception as e:
         print(f"\n❌ TradingAgentsGraph 创建失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     print("\n" + "=" * 80)

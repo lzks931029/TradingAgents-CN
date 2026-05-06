@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 
 def test_tool_isolation():
@@ -119,10 +120,9 @@ def test_tool_isolation():
         
     except Exception as e:
         print(f"❌ 工具隔离测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_llm_instance_reuse():
     """测试LLM实例复用问题"""
@@ -168,7 +168,6 @@ def test_llm_instance_reuse():
         print(f"❌ LLM实例复用测试失败: {e}")
         return False
 
-
 def main():
     """主测试函数"""
     print("🔧 工具绑定问题调试")
@@ -200,7 +199,6 @@ def main():
     else:
         print("⚠️ 部分测试失败，需要进一步检查")
         return False
-
 
 if __name__ == "__main__":
     success = main()

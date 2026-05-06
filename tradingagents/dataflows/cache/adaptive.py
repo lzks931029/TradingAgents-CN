@@ -4,11 +4,11 @@
 根据数据库可用性自动选择最佳缓存策略
 """
 
-import os
+import logging
 import json
 import pickle
 import hashlib
-import logging
+
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, Optional, Union
@@ -427,7 +427,6 @@ class AdaptiveCacheSystem:
         
         # MongoDB会自动清理过期文档（通过expires_at字段）
         # Redis会自动清理过期键
-
 
 # 全局缓存系统实例
 _cache_system = None

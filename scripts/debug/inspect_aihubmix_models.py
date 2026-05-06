@@ -11,11 +11,12 @@
     .\.venv\Scripts\python.exe scripts\debug\inspect_aihubmix_models.py --providers qwen glm deepseek
 """
 
+import os
 from __future__ import annotations
 
 import argparse
 import json
-import os
+
 import re
 from collections import defaultdict
 from pathlib import Path
@@ -24,10 +25,8 @@ from typing import Any
 import requests
 from dotenv import load_dotenv
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_URL = "https://aihubmix.com/api/v1/models"
-
 
 def is_valid_api_key(value: str | None) -> bool:
     if not value:
@@ -38,7 +37,6 @@ def is_valid_api_key(value: str | None) -> bool:
     if value.startswith("your_") or value.startswith("your-") or value.endswith("_here"):
         return False
     return len(value) > 10
-
 
 def load_api_key_from_mongo() -> str | None:
     try:
@@ -58,7 +56,6 @@ def load_api_key_from_mongo() -> str | None:
 
     api_key = provider.get("api_key")
     return api_key if is_valid_api_key(api_key) else None
-
 
 def infer_vendor(model_id: str) -> str:
     model_id = str(model_id or "").strip().lower()
@@ -84,7 +81,6 @@ def infer_vendor(model_id: str) -> str:
             return provider
     return "other"
 
-
 def fetch_models(api_url: str, api_key: str | None) -> list[dict[str, Any]]:
     headers: dict[str, str] = {}
     if is_valid_api_key(api_key):
@@ -102,7 +98,6 @@ def fetch_models(api_url: str, api_key: str | None) -> list[dict[str, Any]]:
     if not isinstance(data, list):
         raise RuntimeError(f"Unexpected payload format: {json.dumps(payload)[:500]}")
     return data
-
 
 def summarize(models: list[dict[str, Any]], focus_providers: list[str], sample_limit: int) -> dict[str, Any]:
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -145,7 +140,6 @@ def summarize(models: list[dict[str, Any]], focus_providers: list[str], sample_l
     ][:sample_limit]
 
     return summary
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Inspect AiHubMix raw model list and vendor inference.")
@@ -201,7 +195,6 @@ def main() -> int:
     print(f"with tools: {summary['with_tools']}")
     print(f"with function_calling: {summary['with_function_calling']}")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

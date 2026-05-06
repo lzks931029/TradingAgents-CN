@@ -4,6 +4,8 @@
 展示如何使用配置管理和成本统计功能
 """
 
+import logging
+import traceback
 import sys
 from pathlib import Path
 from datetime import datetime
@@ -17,7 +19,6 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from tradingagents.config.config_manager import config_manager, token_tracker
-
 
 def demo_model_management():
     """演示模型管理功能"""
@@ -39,7 +40,6 @@ def demo_model_management():
         logger.info(f"  API密钥: {'已配置' if qwen_model.api_key else '未配置'}")
         logger.info(f"  最大Token: {qwen_model.max_tokens}")
         logger.info(f"  状态: {'启用' if qwen_model.enabled else '禁用'}")
-
 
 def demo_cost_calculation():
     """演示成本计算功能"""
@@ -63,7 +63,6 @@ def demo_cost_calculation():
         cost = config_manager.calculate_cost(provider, model, input_tokens, output_tokens)
         model_name = f"{provider}/{model}"
         logger.info(f"{model_name:<20} {input_tokens:<10} {output_tokens:<10} {cost:<10.4f} {purpose}")
-
 
 def demo_usage_tracking():
     """演示使用跟踪功能"""
@@ -121,7 +120,6 @@ def demo_usage_tracking():
     
     logger.info(f"\n💰 总成本: ¥{total_cost:.4f}")
 
-
 def demo_usage_statistics():
     """演示使用统计功能"""
     logger.info(f"\n📊 使用统计演示")
@@ -143,7 +141,6 @@ def demo_usage_statistics():
             logger.info(f"    请求数: {data['requests']}")
             logger.info(f"    成本: ¥{data['cost']:.4f}")
             logger.info(f"    平均成本: ¥{data['cost']/data['requests']:.6f}/请求")
-
 
 def demo_cost_estimation():
     """演示成本估算功能"""
@@ -200,7 +197,6 @@ def demo_cost_estimation():
         
         print()
 
-
 def demo_settings_management():
     """演示设置管理功能"""
     logger.info(f"\n⚙️ 设置管理演示")
@@ -217,7 +213,6 @@ def demo_settings_management():
     logger.warning(f"\n📝 当前成本警告阈值: ¥{settings.get('cost_alert_threshold', 100)}")
     logger.info(f"📝 当前默认模型: {settings.get('default_provider', 'dashscope')}/{settings.get('default_model', 'qwen-turbo')}")
     logger.info(f"📝 成本跟踪状态: {'启用' if settings.get('enable_cost_tracking', True) else '禁用'}")
-
 
 def main():
     """主演示函数"""
@@ -248,10 +243,9 @@ def main():
         
     except Exception as e:
         logger.error(f"❌ 演示过程中出现错误: {e}")
-        import traceback
+        
 
         logger.error(f"错误详情: {traceback.format_exc()}")
-
 
 if __name__ == "__main__":
     main()

@@ -6,9 +6,11 @@
 验证 DataSourceManager 是否正确将基本面数据纳入统一管理
 """
 
+import logging
+import os
+import traceback
 import asyncio
 import sys
-import os
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -18,7 +20,6 @@ from tradingagents.dataflows.interface import get_china_stock_fundamentals_tusha
 from tradingagents.utils.logging_init import get_logger
 
 logger = get_logger("default")
-
 
 def test_fundamentals_from_mongodb():
     """测试从 MongoDB 获取基本面数据"""
@@ -70,7 +71,6 @@ def test_fundamentals_from_mongodb():
     else:
         print(f"❌ 基本面数据获取失败")
         print(f"📄 错误信息: {result[:200]}")
-
 
 def test_fundamentals_from_tushare():
     """测试从 Tushare 获取基本面数据"""
@@ -124,7 +124,6 @@ def test_fundamentals_from_tushare():
     else:
         print("\n⚠️ Tushare 数据源不可用，跳过测试")
 
-
 def test_fundamentals_fallback():
     """测试基本面数据降级机制"""
     print("\n" + "=" * 70)
@@ -161,7 +160,6 @@ def test_fundamentals_fallback():
         print(f"⚠️ 所有数据源都无法获取基本面数据")
         print(f"📄 结果: {result[:200]}")
 
-
 def test_interface_function():
     """测试统一接口函数"""
     print("\n" + "=" * 70)
@@ -197,7 +195,6 @@ def test_interface_function():
         print(f"❌ 接口调用失败")
         print(f"📄 错误信息: {result[:200]}")
 
-
 def test_data_source_priority():
     """测试数据源优先级"""
     print("\n" + "=" * 70)
@@ -222,7 +219,6 @@ def test_data_source_priority():
         print("   ⚠️ MongoDB 未启用，使用传统数据源优先级:")
         print(f"   1. {manager.default_source.value}（默认）")
         print("   2. 其他可用数据源")
-
 
 if __name__ == "__main__":
     try:
@@ -265,7 +261,7 @@ if __name__ == "__main__":
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
 

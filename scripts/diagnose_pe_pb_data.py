@@ -12,6 +12,8 @@
     python scripts/diagnose_pe_pb_data.py 600036
 """
 
+import logging
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -22,7 +24,6 @@ sys.path.insert(0, str(project_root))
 
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.core.config import settings
-import logging
 
 # 配置日志
 logging.basicConfig(
@@ -31,7 +32,6 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-
 
 async def diagnose_stock(code: str):
     """诊断单只股票的 PE/PB 数据"""
@@ -178,7 +178,7 @@ async def diagnose_stock(code: str):
                 logger.error(f"❌ 实时 PE/PB 计算失败（返回空）")
         except Exception as e:
             logger.error(f"❌ 实时 PE/PB 计算异常: {e}")
-            import traceback
+            
             logger.error(traceback.format_exc())
         
         # 6. 诊断结论
@@ -226,7 +226,6 @@ async def diagnose_stock(code: str):
     logger.info("✅ 诊断完成")
     logger.info("=" * 80)
 
-
 def main():
     """主函数"""
     import argparse
@@ -245,7 +244,6 @@ def main():
     args = parser.parse_args()
     
     asyncio.run(diagnose_stock(args.code))
-
 
 if __name__ == "__main__":
     main()

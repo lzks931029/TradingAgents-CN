@@ -3,6 +3,7 @@
 测试 TradingAgents MongoDB 存储初始化
 """
 
+import traceback
 import sys
 from pathlib import Path
 
@@ -73,9 +74,8 @@ def main():
         
     except Exception as e:
         print(f"\n❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     main()

@@ -2,6 +2,7 @@
 模型能力管理API路由
 """
 
+import logging
 from fastapi import APIRouter, HTTPException, Depends
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field
@@ -19,12 +20,10 @@ from app.constants.model_capabilities import (
 )
 from app.core.unified_config import unified_config
 from app.core.response import ok, fail
-import logging
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/model-capabilities", tags=["模型能力管理"])
-
 
 # ==================== 请求/响应模型 ====================
 
@@ -38,11 +37,9 @@ class ModelCapabilityInfo(BaseModel):
     performance_metrics: Optional[Dict[str, Any]] = None
     description: Optional[str] = None
 
-
 class ModelRecommendationRequest(BaseModel):
     """模型推荐请求"""
     research_depth: str = Field(..., description="研究深度：快速/基础/标准/深度/全面")
-
 
 class ModelRecommendationResponse(BaseModel):
     """模型推荐响应"""
@@ -52,13 +49,11 @@ class ModelRecommendationResponse(BaseModel):
     deep_model_info: ModelCapabilityInfo
     reason: str
 
-
 class ModelValidationRequest(BaseModel):
     """模型验证请求"""
     quick_model: str
     deep_model: str
     research_depth: str
-
 
 class ModelValidationResponse(BaseModel):
     """模型验证响应"""
@@ -66,11 +61,9 @@ class ModelValidationResponse(BaseModel):
     warnings: List[str]
     recommendations: List[str]
 
-
 class BatchInitRequest(BaseModel):
     """批量初始化请求"""
     overwrite: bool = Field(default=False, description="是否覆盖已有配置")
-
 
 # ==================== API路由 ====================
 
@@ -104,7 +97,6 @@ async def get_default_model_configs():
         logger.error(f"获取默认模型配置失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.get("/depth-requirements", response_model=dict)
 async def get_depth_requirements():
     """
@@ -129,7 +121,6 @@ async def get_depth_requirements():
         logger.error(f"获取分析深度要求失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.get("/capability-descriptions", response_model=dict)
 async def get_capability_descriptions():
     """获取能力等级描述"""
@@ -138,7 +129,6 @@ async def get_capability_descriptions():
     except Exception as e:
         logger.error(f"获取能力等级描述失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-
 
 @router.get("/badges", response_model=dict)
 async def get_all_badges():
@@ -167,7 +157,6 @@ async def get_all_badges():
     except Exception as e:
         logger.error(f"获取徽章样式失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-
 
 @router.post("/recommend", response_model=dict)
 async def recommend_models(request: ModelRecommendationRequest):
@@ -230,7 +219,6 @@ async def recommend_models(request: ModelRecommendationRequest):
         logger.error(f"模型推荐失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.post("/validate", response_model=dict)
 async def validate_models(request: ModelValidationRequest):
     """
@@ -252,7 +240,6 @@ async def validate_models(request: ModelValidationRequest):
     except Exception as e:
         logger.error(f"模型验证失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-
 
 @router.post("/batch-init", response_model=dict)
 async def batch_init_capabilities(request: BatchInitRequest):
@@ -308,7 +295,6 @@ async def batch_init_capabilities(request: BatchInitRequest):
     except Exception as e:
         logger.error(f"批量初始化失败: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-
 
 @router.get("/model/{model_name}", response_model=dict)
 async def get_model_capability(model_name: str):

@@ -12,6 +12,7 @@
     python scripts/check_missing_stocks.py --test-fetch  # 测试获取缺失股票的信息
 """
 
+import logging
 import asyncio
 import sys
 from pathlib import Path
@@ -24,7 +25,7 @@ sys.path.insert(0, str(project_root))
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.core.config import settings
 from tradingagents.dataflows.providers.china.akshare import AKShareProvider
-import logging
+
 import argparse
 
 # 配置日志
@@ -34,7 +35,6 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-
 
 async def get_akshare_stock_codes() -> Set[str]:
     """获取 AKShare 的所有股票代码"""
@@ -48,7 +48,6 @@ async def get_akshare_stock_codes() -> Set[str]:
     
     logger.info(f"✅ AKShare 股票列表: {len(codes)} 只")
     return codes
-
 
 async def get_db_stock_codes() -> Set[str]:
     """获取数据库中的所有股票代码"""
@@ -71,7 +70,6 @@ async def get_db_stock_codes() -> Set[str]:
     
     logger.info(f"✅ 数据库股票列表: {len(codes)} 只")
     return codes
-
 
 async def test_fetch_missing_stocks(missing_codes: List[str], limit: int = 10):
     """测试获取缺失股票的信息"""
@@ -105,7 +103,6 @@ async def test_fetch_missing_stocks(missing_codes: List[str], limit: int = 10):
             failed_count += 1
     
     logger.info(f"\n📊 测试结果: 成功 {success_count}/{limit}, 失败 {failed_count}/{limit}")
-
 
 async def main(test_fetch: bool = False):
     """主函数"""
@@ -167,7 +164,6 @@ async def main(test_fetch: bool = False):
         logger.info(f"\n💡 建议:")
         logger.info(f"   1. 运行 'python scripts/akshare_force_sync_all.py' 强制全量同步")
         logger.info(f"   2. 或运行 'python scripts/sync_missing_stocks.py' 只同步缺失的股票")
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

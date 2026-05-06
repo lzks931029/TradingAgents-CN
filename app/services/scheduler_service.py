@@ -5,6 +5,8 @@
 提供定时任务的查询、暂停、恢复、手动触发等功能
 """
 
+import logging
+import traceback
 import asyncio
 from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta, timezone
@@ -26,7 +28,6 @@ logger = get_logger(__name__)
 # UTC+8 时区
 UTC_8 = timezone(timedelta(hours=8))
 
-
 def get_utc8_now():
     """
     获取 UTC+8 当前时间（naive datetime）
@@ -36,11 +37,9 @@ def get_utc8_now():
     """
     return now_tz().replace(tzinfo=None)
 
-
 class TaskCancelledException(Exception):
     """任务被取消异常"""
     pass
-
 
 class SchedulerService:
     """定时任务管理服务"""
@@ -213,7 +212,7 @@ class SchedulerService:
             return True
         except Exception as e:
             logger.error(f"❌ 触发任务 {job_id} 失败: {e}")
-            import traceback
+            
             logger.error(f"详细错误: {traceback.format_exc()}")
             await self._record_job_action(job_id, "trigger", "failed", str(e))
             return False
@@ -1025,11 +1024,9 @@ class SchedulerService:
             logger.error(f"❌ 更新任务 {job_id} 元数据失败: {e}")
             return False
 
-
 # 全局服务实例
 _scheduler_service: Optional[SchedulerService] = None
 _scheduler_instance: Optional[AsyncIOScheduler] = None
-
 
 def set_scheduler_instance(scheduler: AsyncIOScheduler):
     """
@@ -1041,7 +1038,6 @@ def set_scheduler_instance(scheduler: AsyncIOScheduler):
     global _scheduler_instance
     _scheduler_instance = scheduler
     logger.info("✅ 调度器实例已设置")
-
 
 def get_scheduler_service() -> SchedulerService:
     """
@@ -1060,7 +1056,6 @@ def get_scheduler_service() -> SchedulerService:
         logger.info("✅ 调度器服务实例已创建")
 
     return _scheduler_service
-
 
 async def update_job_progress(
     job_id: str,

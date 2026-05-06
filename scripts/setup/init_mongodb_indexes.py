@@ -11,11 +11,10 @@
 
 注意：此脚本仅创建索引，不会删除已有索引。
 """
+import os
 from __future__ import annotations
 
-import os
 from pymongo import MongoClient, ASCENDING, DESCENDING
-
 
 def build_mongo_uri() -> str:
     host = os.getenv("MONGODB_HOST", "localhost")
@@ -27,7 +26,6 @@ def build_mongo_uri() -> str:
     if user and pwd:
         return f"mongodb://{user}:{pwd}@{host}:{port}/{db}?authSource={auth_src}"
     return f"mongodb://{host}:{port}/{db}"
-
 
 def ensure_indexes():
     uri = build_mongo_uri()
@@ -81,7 +79,6 @@ def ensure_indexes():
     ss.create_index([("finished_at", DESCENDING)], name="idx_finished_at_desc")
 
     print("✅ 索引初始化完成")
-
 
 if __name__ == "__main__":
     ensure_indexes()

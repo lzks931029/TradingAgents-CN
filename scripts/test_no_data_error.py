@@ -1,6 +1,8 @@
 """
 测试当所有数据源都获取不到数据时，是否会抛出异常
 """
+import logging
+import traceback
 import sys
 from pathlib import Path
 
@@ -9,7 +11,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 # 设置日志级别为 INFO
-import logging
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s | %(name)-20s | %(levelname)-8s | %(message)s',
@@ -92,7 +94,7 @@ def test_no_data_error():
         print(f"   异常类型: {type(e).__name__}")
         print(f"   异常信息: {e}")
         print("=" * 70)
-        import traceback
+        
         traceback.print_exc()
     
     # 总结
@@ -104,7 +106,6 @@ def test_no_data_error():
     print("3. ✅ 当有数据时，系统正常返回财务指标")
     print("4. ✅ 不再使用估算值，确保数据的真实性")
     print("=" * 70)
-
 
 if __name__ == "__main__":
     test_no_data_error()

@@ -3,9 +3,9 @@
 检查AKShare财务数据结构
 """
 
-import sys
-import os
 import logging
+import os
+import sys
 
 # 设置日志级别
 logging.basicConfig(level=logging.INFO, format='%(asctime)s | %(levelname)-8s | %(message)s')

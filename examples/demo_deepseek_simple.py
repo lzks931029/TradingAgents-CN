@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -56,7 +57,7 @@ def demo_simple_chat():
         
     except Exception as e:
         print(f"❌ 简单对话演示失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -93,7 +94,7 @@ def demo_stock_analysis():
         
     except Exception as e:
         print(f"❌ 股票分析演示失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

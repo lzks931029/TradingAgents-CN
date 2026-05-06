@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """
-import time
+
 创建财务数据集合和索引
 根据设计文档创建stock_financial_data集合及其优化索引
 """
-import asyncio
 import logging
-import sys
 import os
+import time
+import asyncio
+
+import sys
+
 from datetime import datetime
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import ASCENDING, DESCENDING
@@ -21,7 +24,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 async def create_financial_data_collection():
     """创建财务数据集合和索引"""
@@ -192,7 +194,7 @@ async def create_financial_data_collection():
         logger.info("🔍 验证索引性能...")
         
         # 测试查询性能
-        import time
+        
         
         # 测试1: 按股票代码查询
         start_time = time.time()
@@ -227,7 +229,6 @@ async def create_financial_data_collection():
         if 'client' in locals():
             client.close()
 
-
 async def main():
     """主函数"""
     logger.info("🚀 开始创建财务数据集合...")
@@ -261,7 +262,6 @@ async def main():
         print("   - 数据库连接配置是否正确")
         print("   - 是否有足够的权限")
         print("="*60)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

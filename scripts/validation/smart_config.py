@@ -4,10 +4,11 @@
 确保系统在有或没有MongoDB/Redis的情况下都能正常运行
 """
 
+import logging
 import os
 import sys
 import json
-import logging
+
 from pathlib import Path
 from typing import Dict, Any, Optional, Tuple
 
@@ -234,7 +235,6 @@ class SmartConfigManager:
             logger.info(f"  缓存性能: 很快 (<0.01秒)")
         logger.info(f"  相比API调用: 99%+ 性能提升")
 
-
 # 全局配置管理器实例
 _config_manager = None
 
@@ -261,7 +261,6 @@ def get_cache_backend() -> str:
     """获取当前缓存后端"""
     config = get_config()
     return config["cache"]["primary_backend"]
-
 
 def main():
     """主函数 - 演示智能配置系统"""
@@ -339,7 +338,6 @@ Write-Host "Redis: $env:REDIS_ENABLED" -ForegroundColor Cyan
     logger.info(f"1. 运行: python test_with_smart_config.py")
     logger.info(f"2. 或者: .\set_env.ps1 (设置环境变量)")
     logger.info(f"3. 然后: python quick_test.py")
-
 
 if __name__ == "__main__":
     main()

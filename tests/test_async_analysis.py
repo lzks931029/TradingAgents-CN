@@ -4,11 +4,12 @@
 验证 BackgroundTasks + 内存状态管理 + WebSocket 的完整流程
 """
 
+import time
 import asyncio
 import aiohttp
 import websockets
 import json
-import time
+
 from datetime import datetime
 
 async def test_async_analysis():

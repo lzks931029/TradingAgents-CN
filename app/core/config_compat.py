@@ -15,7 +15,6 @@ import warnings
 
 from app.core.config import settings
 
-
 class ConfigManagerCompat:
     """
     ConfigManager 兼容类
@@ -175,7 +174,6 @@ class ConfigManagerCompat:
             "debug": False,
         }
 
-
 class TokenTrackerCompat:
     """
     TokenTracker 兼容类
@@ -238,11 +236,9 @@ class TokenTrackerCompat:
         """重置使用统计"""
         self._usage_data.clear()
 
-
 # 创建全局实例（用于向后兼容）
 config_manager_compat = ConfigManagerCompat()
 token_tracker_compat = TokenTrackerCompat()
-
 
 # 便捷函数
 def get_config_manager() -> ConfigManagerCompat:
@@ -253,7 +249,6 @@ def get_config_manager() -> ConfigManagerCompat:
         ConfigManagerCompat: 配置管理器兼容实例
     """
     return config_manager_compat
-
 
 def get_token_tracker() -> TokenTrackerCompat:
     """

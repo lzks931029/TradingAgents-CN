@@ -3,8 +3,8 @@
 测试港股技术指标计算是否正确
 """
 
-import sys
 import os
+import sys
 
 # 添加项目根目录到 Python 路径
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))

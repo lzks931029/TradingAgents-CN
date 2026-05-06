@@ -3,8 +3,10 @@
 展示如何使用不同的新闻过滤方法来提高新闻质量
 """
 
-import sys
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pandas as pd
@@ -54,7 +56,6 @@ def demo_basic_filtering():
     
     return filtered_news
 
-
 def demo_real_news_filtering():
     """演示真实新闻数据过滤"""
     print("\n🌐 演示2: 真实新闻数据过滤")
@@ -102,7 +103,6 @@ def demo_real_news_filtering():
     
     return filtered_news
 
-
 def demo_enhanced_filtering():
     """演示增强新闻过滤功能"""
     print("\n⚡ 演示3: 增强新闻过滤功能")
@@ -148,7 +148,6 @@ def demo_enhanced_filtering():
     
     return enhanced_result
 
-
 def demo_integrated_filtering():
     """演示集成新闻过滤功能"""
     print("\n🔧 演示4: 集成新闻过滤功能")
@@ -184,7 +183,6 @@ def demo_integrated_filtering():
     print(preview)
     
     return result
-
 
 def main():
     """主演示函数"""
@@ -222,9 +220,8 @@ def main():
         
     except Exception as e:
         print(f"❌ 演示过程中出现错误: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     main()

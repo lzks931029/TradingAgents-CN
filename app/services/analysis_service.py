@@ -3,10 +3,11 @@
 将现有的TradingAgents分析功能包装成API服务
 """
 
+import logging
 import asyncio
 import uuid
 import json
-import logging
+
 from datetime import datetime
 from typing import Dict, Any, List, Optional, Callable
 from pathlib import Path
@@ -39,9 +40,7 @@ from app.services.queue import DEFAULT_USER_CONCURRENT_LIMIT, GLOBAL_CONCURRENT_
 from app.services.usage_statistics_service import UsageStatisticsService
 from app.models.config import UsageRecord
 
-import logging
 logger = logging.getLogger(__name__)
-
 
 class AnalysisService:
     """股票分析服务类"""
@@ -947,10 +946,8 @@ class AnalysisService:
         except Exception as e:
             logger.error(f"❌ 记录 token 使用失败: {e}")
 
-
 # 全局分析服务实例（延迟初始化）
 analysis_service: Optional[AnalysisService] = None
-
 
 def get_analysis_service() -> AnalysisService:
     """获取分析服务实例（延迟初始化）"""

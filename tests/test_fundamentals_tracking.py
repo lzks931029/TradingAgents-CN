@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-import logging
+
 基本面分析股票代码追踪测试
 """
 
+import logging
+import os
+import traceback
 logger = logging.getLogger(__name__)
 
-import os
 import sys
 
 # 添加项目根目录到Python路径
@@ -83,7 +85,7 @@ def test_fundamentals_analyst():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -141,7 +143,7 @@ def test_unified_tool_direct():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

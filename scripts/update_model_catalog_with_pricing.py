@@ -6,6 +6,7 @@
 2. 重新初始化包含价格信息的模型目录
 """
 
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -16,7 +17,6 @@ sys.path.insert(0, str(project_root))
 
 from app.core.database import db_manager
 from app.services.config_service import ConfigService
-
 
 async def main():
     """主函数"""
@@ -74,12 +74,11 @@ async def main():
         print("=" * 60)
         print(f"❌ 更新失败: {e}")
         print("=" * 60)
-        import traceback
+        
         traceback.print_exc()
         return 1
 
     return 0
-
 
 if __name__ == "__main__":
     exit_code = asyncio.run(main())

@@ -12,9 +12,10 @@
 2. 或者将 code 字段设置为 symbol 的值
 """
 
+import logging
 import asyncio
 import sys
-import logging
+
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
@@ -30,7 +31,6 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-
 
 async def fix_null_code_records():
     """修复 code=null 的记录"""
@@ -97,7 +97,6 @@ async def fix_null_code_records():
         logger.error(f"❌ 修复失败: {e}")
         raise
 
-
 async def check_index():
     """检查索引信息"""
     try:
@@ -119,7 +118,6 @@ async def check_index():
     except Exception as e:
         logger.error(f"❌ 检查索引失败: {e}")
 
-
 async def main():
     """主函数"""
     logger.info("🔧 开始修复 market_quotes 集合中的 code=null 记录...")
@@ -136,7 +134,6 @@ async def main():
     await fix_null_code_records()
 
     logger.info("✅ 修复完成")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

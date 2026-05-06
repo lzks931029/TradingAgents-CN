@@ -3,6 +3,7 @@
 测试 API 返回的系统设置
 """
 
+import traceback
 import requests
 import json
 
@@ -63,9 +64,8 @@ def main():
         
     except Exception as e:
         print(f"\n❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     main()

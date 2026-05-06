@@ -4,6 +4,7 @@
 测试从通达信获取股票代码和名称
 """
 
+import traceback
 import pytest
 pytest.importorskip("enhanced_stock_list_fetcher")
 pytestmark = pytest.mark.integration
@@ -62,7 +63,7 @@ def test_get_stock_codes():
 
     except Exception as e:
         print(f"❌ 获取股票数据时发生错误: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

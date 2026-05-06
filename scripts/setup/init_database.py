@@ -4,6 +4,7 @@
 创建MongoDB集合和索引，初始化Redis缓存结构
 """
 
+import logging
 import os
 import sys
 from datetime import datetime
@@ -14,7 +15,6 @@ from tradingagents.utils.logging_manager import get_logger
 from tradingagents.config.runtime_settings import get_timezone_name
 
 logger = get_logger('scripts')
-
 
 def now_tz():
     """获取当前配置时区的时间"""
@@ -140,7 +140,6 @@ def init_mongodb():
         logger.error(f"❌ MongoDB初始化失败: {e}")
         return False
 
-
 def init_redis():
     """初始化Redis缓存"""
     logger.info(f"\n📦 初始化Redis缓存...")
@@ -218,7 +217,6 @@ def init_redis():
         logger.error(f"❌ Redis初始化失败: {e}")
         return False
 
-
 def test_database_connection():
     """测试数据库连接"""
     logger.info(f"\n🔗 测试数据库连接...")
@@ -259,7 +257,6 @@ def test_database_connection():
         logger.error(f"❌ 数据库连接测试失败: {e}")
         return False
 
-
 def main():
     """主函数"""
     logger.info(f"🚀 TradingAgents 数据库初始化")
@@ -295,7 +292,6 @@ def main():
     else:
         logger.error(f"\n⚠️ 部分初始化失败，请检查错误信息")
         return False
-
 
 if __name__ == "__main__":
     success = main()

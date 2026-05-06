@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -62,7 +63,7 @@ def test_dashscope_chinese():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 
@@ -108,7 +109,7 @@ def test_signal_processor_chinese():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 

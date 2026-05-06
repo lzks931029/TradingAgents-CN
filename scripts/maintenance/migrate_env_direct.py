@@ -3,8 +3,9 @@
 直接从.env文件迁移API密钥到数据库
 """
 
-import asyncio
 import os
+import asyncio
+
 import sys
 from datetime import datetime
 

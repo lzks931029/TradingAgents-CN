@@ -2,12 +2,14 @@
 """
 测试 AKShare 与 curl_cffi 集成
 """
+import time
+import traceback
 import sys
 sys.path.insert(0, '/app')
 
 # 先 patch requests
 import requests
-import time
+
 from curl_cffi import requests as curl_requests
 
 original_get = requests.get
@@ -65,7 +67,7 @@ for symbol in test_symbols:
             print(f"第一条新闻: {df.iloc[0]['新闻标题'] if '新闻标题' in df.columns else 'N/A'}")
     except Exception as e:
         print(f"❌ 失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     time.sleep(1)

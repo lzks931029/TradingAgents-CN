@@ -26,7 +26,6 @@ redis_pool: Optional[ConnectionPool] = None
 _sync_mongo_client: Optional[MongoClient] = None
 _sync_mongo_db: Optional[Database] = None
 
-
 class DatabaseManager:
     """数据库连接管理器"""
 
@@ -181,10 +180,8 @@ class DatabaseManager:
         """检查所有数据库连接是否健康"""
         return self._mongo_healthy and self._redis_healthy
 
-
 # 全局数据库管理器实例
 db_manager = DatabaseManager()
-
 
 async def init_database():
     """初始化数据库连接"""
@@ -210,7 +207,6 @@ async def init_database():
         logger.error(f"💥 数据库初始化失败: {e}")
         raise
 
-
 async def init_database_views_and_indexes():
     """初始化数据库视图和索引"""
     try:
@@ -227,7 +223,6 @@ async def init_database_views_and_indexes():
     except Exception as e:
         logger.warning(f"⚠️ 数据库视图和索引初始化失败: {e}")
         # 不抛出异常，允许应用继续启动
-
 
 async def create_stock_screening_view(db):
     """创建股票筛选视图"""
@@ -343,7 +338,6 @@ async def create_stock_screening_view(db):
     except Exception as e:
         logger.warning(f"⚠️ 创建视图失败: {e}")
 
-
 async def create_database_indexes(db):
     """创建数据库索引"""
     try:
@@ -367,7 +361,6 @@ async def create_database_indexes(db):
     except Exception as e:
         logger.warning(f"⚠️ 创建索引失败: {e}")
 
-
 async def close_database():
     """关闭数据库连接"""
     global mongo_client, mongo_db, redis_client, redis_pool
@@ -380,20 +373,17 @@ async def close_database():
     redis_client = None
     redis_pool = None
 
-
 def get_mongo_client() -> AsyncIOMotorClient:
     """获取MongoDB客户端"""
     if mongo_client is None:
         raise RuntimeError("MongoDB客户端未初始化")
     return mongo_client
 
-
 def get_mongo_db() -> AsyncIOMotorDatabase:
     """获取MongoDB数据库实例"""
     if mongo_db is None:
         raise RuntimeError("MongoDB数据库未初始化")
     return mongo_db
-
 
 def get_mongo_db_sync() -> Database:
     """
@@ -418,23 +408,19 @@ def get_mongo_db_sync() -> Database:
     _sync_mongo_db = _sync_mongo_client[settings.MONGO_DB]
     return _sync_mongo_db
 
-
 def get_redis_client() -> Redis:
     """获取Redis客户端"""
     if redis_client is None:
         raise RuntimeError("Redis客户端未初始化")
     return redis_client
 
-
 async def get_database_health() -> dict:
     """获取数据库健康状态"""
     return await db_manager.health_check()
 
-
 # 兼容性别名
 init_db = init_database
 close_db = close_database
-
 
 def get_database():
     """获取数据库实例"""

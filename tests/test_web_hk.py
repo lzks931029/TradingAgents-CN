@@ -2,8 +2,9 @@
 测试Web版本港股功能
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -106,7 +107,7 @@ def test_analysis_runner_hk_support():
         
     except Exception as e:
         print(f"❌ 分析运行器港股支持测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

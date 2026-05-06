@@ -1,6 +1,7 @@
 """
 通知 REST API
 """
+
 import logging
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -12,7 +13,6 @@ from app.services.notifications_service import get_notifications_service
 
 router = APIRouter()
 logger = logging.getLogger("webapi.notifications")
-
 
 @router.get("/notifications")
 async def list_notifications(
@@ -28,13 +28,11 @@ async def list_notifications(
     data = await svc.list(user_id=user["id"], status=s, ntype=t, page=page, page_size=page_size)
     return ok(data=data.model_dump(), message="ok")
 
-
 @router.get("/notifications/unread_count")
 async def get_unread_count(user: dict = Depends(get_current_user)):
     svc = get_notifications_service()
     cnt = await svc.unread_count(user_id=user["id"])
     return ok(data={"count": cnt})
-
 
 @router.post("/notifications/{notif_id}/read")
 async def mark_read(notif_id: str, user: dict = Depends(get_current_user)):
@@ -44,13 +42,11 @@ async def mark_read(notif_id: str, user: dict = Depends(get_current_user)):
         raise HTTPException(status_code=404, detail="Notification not found")
     return ok()
 
-
 @router.post("/notifications/read_all")
 async def mark_all_read(user: dict = Depends(get_current_user)):
     svc = get_notifications_service()
     n = await svc.mark_all_read(user_id=user["id"])
     return ok(data={"updated": n})
-
 
 @router.get("/notifications/debug/redis_pool")
 async def debug_redis_pool(user: dict = Depends(get_current_user)):

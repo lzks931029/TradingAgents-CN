@@ -2,8 +2,9 @@
 测试导入修复
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -33,7 +34,7 @@ def test_fundamentals_analyst_import():
         
     except Exception as e:
         print(f"❌ 基本面分析师导入失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -80,7 +81,7 @@ def test_stock_utils_functions():
         
     except Exception as e:
         print(f"❌ 股票工具函数测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -110,7 +111,7 @@ def test_web_analysis_runner():
         
     except Exception as e:
         print(f"❌ Web分析运行器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -137,7 +138,7 @@ def test_complete_analysis_flow():
         
     except Exception as e:
         print(f"❌ 完整分析流程导入测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

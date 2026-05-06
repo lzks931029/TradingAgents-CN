@@ -7,8 +7,10 @@
 3. 与 A 股数据源的 RSI 计算结果对比
 """
 
-import sys
 import os
+import traceback
+import sys
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 import pandas as pd
@@ -89,7 +91,6 @@ def test_rsi_methods():
     
     return True
 
-
 def test_a_stock_compatibility():
     """测试与 A 股数据源的兼容性"""
     print("\n" + "=" * 80)
@@ -165,7 +166,6 @@ def test_a_stock_compatibility():
             print(f"   RSI24 不匹配")
         return False
 
-
 if __name__ == "__main__":
     print("\n" + "=" * 80)
     print("RSI 计算方法测试")
@@ -193,7 +193,7 @@ if __name__ == "__main__":
             
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
 

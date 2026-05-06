@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -77,7 +78,7 @@ def debug_config_manager():
         
     except Exception as e:
         print(f"❌ 配置管理器调试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -131,7 +132,7 @@ def debug_token_tracker():
         
     except Exception as e:
         print(f"❌ Token跟踪器调试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -174,7 +175,7 @@ def debug_deepseek_adapter():
         
     except Exception as e:
         print(f"❌ DeepSeek适配器调试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -226,7 +227,7 @@ def debug_model_name_issue():
         
     except Exception as e:
         print(f"❌ 模型名称调试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

@@ -3,6 +3,7 @@
 测试队列系统的脚本
 """
 
+import traceback
 import asyncio
 import sys
 import json
@@ -15,7 +16,6 @@ sys.path.insert(0, str(project_root))
 from webapi.core.database import init_database, close_database
 from webapi.core.redis_client import init_redis, close_redis
 from webapi.services.queue_service import get_queue_service
-
 
 async def test_queue_operations():
     """测试队列基本操作"""
@@ -92,14 +92,13 @@ async def test_queue_operations():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     finally:
         # 清理连接
         await close_database()
         await close_redis()
-
 
 async def test_concurrent_limits():
     """测试并发限制"""
@@ -142,13 +141,12 @@ async def test_concurrent_limits():
         
     except Exception as e:
         print(f"❌ 并发测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     finally:
         await close_database()
         await close_redis()
-
 
 async def main():
     """主测试函数"""
@@ -164,7 +162,6 @@ async def main():
     await test_concurrent_limits()
     
     print("\n✅ 所有测试完成!")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -2,10 +2,11 @@
 Tushare数据同步服务
 负责将Tushare数据同步到MongoDB标准化集合
 """
+import logging
+import traceback
 import asyncio
 from datetime import datetime, timedelta, timezone
 from typing import List, Dict, Any, Optional
-import logging
 
 from tradingagents.dataflows.providers.china.tushare import TushareProvider
 from app.services.stock_data_service import get_stock_data_service
@@ -21,7 +22,6 @@ logger = logging.getLogger(__name__)
 # UTC+8 时区
 UTC_8 = timezone(timedelta(hours=8))
 
-
 def get_utc8_now():
     """
     获取 UTC+8 当前时间（naive datetime）
@@ -30,7 +30,6 @@ def get_utc8_now():
     这样前端可以直接添加 +08:00 后缀显示
     """
     return now_tz().replace(tzinfo=None)
-
 
 class TushareSyncService:
     """
@@ -708,7 +707,7 @@ class TushareSyncService:
                                    f"总等待时间: {limiter_stats['total_wait_time']:.1f}秒")
 
                 except Exception as e:
-                    import traceback
+                    
                     error_details = traceback.format_exc()
                     stats["error_count"] += 1
                     stats["errors"].append({
@@ -740,7 +739,7 @@ class TushareSyncService:
             return stats
 
         except Exception as e:
-            import traceback
+            
             error_details = traceback.format_exc()
             logger.error(
                 f"❌ 历史数据同步失败（外层异常）\n"
@@ -1260,7 +1259,6 @@ class TushareSyncService:
                 raise
             logger.error(f"❌ 更新任务进度失败: {e}", exc_info=True)
 
-
 # 全局同步服务实例
 _tushare_sync_service = None
 
@@ -1271,7 +1269,6 @@ async def get_tushare_sync_service() -> TushareSyncService:
         _tushare_sync_service = TushareSyncService()
         await _tushare_sync_service.initialize()
     return _tushare_sync_service
-
 
 # APScheduler兼容的任务函数
 async def run_tushare_basic_info_sync(force_update: bool = False):
@@ -1284,7 +1281,6 @@ async def run_tushare_basic_info_sync(force_update: bool = False):
     except Exception as e:
         logger.error(f"❌ Tushare基础信息同步失败: {e}")
         raise
-
 
 async def run_tushare_quotes_sync(force: bool = False):
     """
@@ -1302,7 +1298,6 @@ async def run_tushare_quotes_sync(force: bool = False):
         logger.error(f"❌ Tushare行情同步失败: {e}")
         raise
 
-
 async def run_tushare_historical_sync(incremental: bool = True):
     """APScheduler任务：同步历史数据"""
     logger.info(f"🚀 [APScheduler] 开始执行 Tushare 历史数据同步任务 (incremental={incremental})")
@@ -1314,10 +1309,9 @@ async def run_tushare_historical_sync(incremental: bool = True):
         return result
     except Exception as e:
         logger.error(f"❌ [APScheduler] Tushare历史数据同步失败: {e}")
-        import traceback
+        
         logger.error(f"详细错误: {traceback.format_exc()}")
         raise
-
 
 async def run_tushare_financial_sync():
     """APScheduler任务：同步财务数据（获取最近20期，约5年）"""
@@ -1330,7 +1324,6 @@ async def run_tushare_financial_sync():
         logger.error(f"❌ Tushare财务数据同步失败: {e}")
         raise
 
-
 async def run_tushare_status_check():
     """APScheduler任务：检查同步状态"""
     try:
@@ -1341,7 +1334,6 @@ async def run_tushare_status_check():
     except Exception as e:
         logger.error(f"❌ Tushare状态检查失败: {e}")
         return {"error": str(e)}
-
 
 async def run_tushare_news_sync(hours_back: int = 24, max_news_per_stock: int = 20):
     """APScheduler任务：同步新闻数据"""

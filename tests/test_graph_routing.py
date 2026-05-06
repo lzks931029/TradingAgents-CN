@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -95,7 +96,7 @@ def test_graph_routing():
         return False
     except Exception as e:
         print(f"❌ 其他错误: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

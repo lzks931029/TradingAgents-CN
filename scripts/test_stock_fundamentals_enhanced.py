@@ -20,7 +20,6 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.core.database import get_mongo_db, init_database
 
-
 async def test_stock_fundamentals(stock_code: str = "000001"):
     """测试股票基本面数据获取"""
     
@@ -186,7 +185,6 @@ async def test_stock_fundamentals(stock_code: str = "000001"):
     print(f"测试完成: {success_count}/{total_count} 项通过")
     print(f"{'='*80}\n")
 
-
 async def test_multiple_stocks():
     """测试多个股票"""
     
@@ -205,7 +203,6 @@ async def test_multiple_stocks():
         await test_stock_fundamentals(stock_code)
         print("\n")
 
-
 async def main():
     """主函数"""
 
@@ -222,7 +219,6 @@ async def main():
 
     # 可选：测试多个股票
     # await test_multiple_stocks()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

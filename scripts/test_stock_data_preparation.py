@@ -4,9 +4,11 @@
 验证新的股票数据准备机制是否正常工作
 """
 
-import sys
 import os
 import time
+import traceback
+import sys
+
 from datetime import datetime, timedelta
 
 # 添加项目根目录到Python路径
@@ -105,7 +107,7 @@ def test_stock_data_preparation():
             
     except Exception as e:
         print(f"❌ 测试过程中发生异常: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

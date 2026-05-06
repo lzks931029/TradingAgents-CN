@@ -2,11 +2,13 @@
 """
 测试数据一致性检查功能
 """
-import sys
+import logging
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import logging
 import pandas as pd
 from datetime import datetime, timedelta
 
@@ -109,7 +111,7 @@ def test_data_consistency_checker():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 def test_mock_data_consistency():
@@ -179,7 +181,7 @@ def test_mock_data_consistency():
         
     except Exception as e:
         print(f"❌ 模拟数据测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

@@ -3,10 +3,12 @@
 测试增强的股票筛选功能
 """
 
-import asyncio
-import sys
 import os
 import time
+import traceback
+import asyncio
+import sys
+
 from dotenv import load_dotenv
 
 # 加载环境变量
@@ -184,7 +186,7 @@ async def test_enhanced_screening():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

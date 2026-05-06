@@ -3,9 +3,9 @@
 测试前端API接口
 验证多数据源同步相关的API端点是否正常工作
 """
+import time
 import requests
 import json
-import time
 
 def test_api_endpoint(url, method="GET", data=None):
     """测试API端点"""

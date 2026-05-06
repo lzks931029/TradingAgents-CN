@@ -4,19 +4,19 @@ TradingAgents-CN v1.0.0-preview API服务启动脚本
 同时启动FastAPI服务和Worker进程
 """
 
+import os
+import time
 import asyncio
 import subprocess
 import sys
 import signal
-import time
-import os
+
 from pathlib import Path
 from typing import List, Optional
 
 # 确保项目根目录在路径中
 project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
-
 
 class ServiceManager:
     """服务管理器"""
@@ -119,7 +119,6 @@ class ServiceManager:
         finally:
             self.stop_all_services()
 
-
 def check_dependencies():
     """检查依赖是否安装"""
     print("🔍 检查依赖...")
@@ -153,7 +152,6 @@ def check_dependencies():
     
     print("✅ 所有依赖已安装")
     return True
-
 
 def check_services():
     """检查外部服务"""
@@ -193,7 +191,6 @@ def check_services():
         return False
     
     return True
-
 
 def main():
     """主函数"""
@@ -259,7 +256,6 @@ def main():
     
     # 监控服务
     manager.monitor_services()
-
 
 if __name__ == "__main__":
     main()

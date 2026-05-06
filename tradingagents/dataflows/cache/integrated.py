@@ -5,7 +5,6 @@
 提供向后兼容的接口
 """
 
-import os
 import logging
 from pathlib import Path
 from typing import Any, Dict, Optional, Union
@@ -24,7 +23,7 @@ try:
     ADAPTIVE_CACHE_AVAILABLE = True
 except ImportError as e:
     ADAPTIVE_CACHE_AVAILABLE = False
-    import logging
+    
     logging.getLogger(__name__).debug(f"自适应缓存不可用: {e}")
 
 class IntegratedCacheManager:
@@ -377,7 +376,6 @@ class IntegratedCacheManager:
             return "持久化模式 (MongoDB + 文件)"
         else:
             return "标准模式 (智能文件缓存)"
-
 
 # 全局集成缓存管理器实例
 _integrated_cache = None

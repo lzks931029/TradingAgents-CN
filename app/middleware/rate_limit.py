@@ -3,14 +3,14 @@
 防止API滥用，实现用户级和端点级速率限制
 """
 
+import logging
 from fastapi import Request, Response, HTTPException
 from starlette.middleware.base import BaseHTTPMiddleware
-import logging
+
 from typing import Callable, Dict, Optional
 from core.redis_client import get_redis_service, RedisKeys
 
 logger = logging.getLogger(__name__)
-
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
     """速率限制中间件"""
@@ -93,7 +93,6 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
             f"端点: {endpoint}, "
             f"当前计数: {current_count}/{rate_limit}"
         )
-
 
 class QuotaMiddleware(BaseHTTPMiddleware):
     """每日配额中间件"""

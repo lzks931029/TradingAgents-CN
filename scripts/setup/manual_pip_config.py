@@ -4,7 +4,9 @@
 适用于老版本pip不支持config命令的情况
 """
 
+import logging
 import os
+import traceback
 import sys
 from pathlib import Path
 
@@ -254,7 +256,7 @@ def main():
         
     except Exception as e:
         logger.error(f"❌ 配置失败: {e}")
-        import traceback
+        
 
         traceback.print_exc()
         return False

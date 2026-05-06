@@ -4,8 +4,10 @@
 初始化数据库配置，确保系统可以在有或没有数据库的情况下运行
 """
 
+import logging
+import traceback
 import sys
-import os
+
 import json
 from pathlib import Path
 
@@ -196,7 +198,7 @@ def initialize_system():
         
     except Exception as e:
         logger.error(f"❌ 系统测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
     
@@ -318,7 +320,7 @@ def main():
         return success
     except Exception as e:
         logger.error(f"❌ 系统初始化失败: {e}")
-        import traceback
+        
 
         traceback.print_exc()
         return False

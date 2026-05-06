@@ -4,14 +4,14 @@ CLI工具中文化演示脚本
 展示TradingAgents CLI工具的中文支持功能
 """
 
+import logging
+import time
 import subprocess
 import sys
-import time
 
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('cli')
-
 
 def run_command(command, description):
     """运行命令并显示结果"""

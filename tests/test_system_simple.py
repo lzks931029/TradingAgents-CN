@@ -3,8 +3,9 @@
 简单的系统测试 - 验证配置和缓存系统
 """
 
+import traceback
 import sys
-import os
+
 from pathlib import Path
 
 def test_basic_system():
@@ -105,7 +106,7 @@ def test_basic_system():
         
     except Exception as e:
         print(f"❌ 缓存系统测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
     
@@ -128,7 +129,7 @@ def test_basic_system():
         
     except Exception as e:
         print(f"❌ 数据库管理器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
     
@@ -167,7 +168,7 @@ def main():
         
     except Exception as e:
         print(f"❌ 系统测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

@@ -2,6 +2,7 @@
 股票数据服务层 - 统一数据访问接口
 基于现有MongoDB集合，提供标准化的数据访问服务
 """
+
 import logging
 from datetime import datetime, date
 from typing import Optional, Dict, Any, List
@@ -18,7 +19,6 @@ from app.models.stock_models import (
 )
 
 logger = logging.getLogger(__name__)
-
 
 class StockDataService:
     """
@@ -389,7 +389,6 @@ class StockDataService:
         result["data_version"] = 1
         
         return result
-
 
 # 全局服务实例
 _stock_data_service = None

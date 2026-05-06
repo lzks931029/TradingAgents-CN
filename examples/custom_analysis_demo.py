@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-import time
+
 自定义股票分析演示
 展示如何使用TradingAgents-CN进行个性化投资分析
 """
 
+import logging
 import os
+import time
 import sys
 from pathlib import Path
 
@@ -244,7 +246,7 @@ def batch_analysis_demo():
                 logger.error(f"❌ 保存 {stock} 分析失败: {e}")
         
         # 添加延迟避免API限制
-        import time
+        
         time.sleep(2)
     
     logger.info(f"\n🎉 批量分析完成！共分析了 {len(stocks)} 只股票")

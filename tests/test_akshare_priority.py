@@ -4,8 +4,9 @@
 测试AKShare数据源优先级和财务指标修复效果
 """
 
-import sys
 import os
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from tradingagents.dataflows.optimized_china_data import get_optimized_china_data_provider

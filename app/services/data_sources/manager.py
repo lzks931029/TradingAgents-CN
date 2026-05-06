@@ -1,8 +1,10 @@
 """
 Data source manager that orchestrates multiple adapters with priority and optional consistency checks
 """
-from typing import List, Optional, Tuple, Dict
 import logging
+import traceback
+from typing import List, Optional, Tuple, Dict
+
 from datetime import datetime, timedelta
 import pandas as pd
 
@@ -12,7 +14,6 @@ from .akshare_adapter import AKShareAdapter
 from .baostock_adapter import BaoStockAdapter
 
 logger = logging.getLogger(__name__)
-
 
 class DataSourceManager:
     """
@@ -82,7 +83,7 @@ class DataSourceManager:
                     adapter._priority = adapter._get_default_priority()
         except Exception as e:
             logger.warning(f"⚠️ 从数据库加载优先级失败: {e}，使用默认优先级")
-            import traceback
+            
             logger.warning(f"堆栈跟踪:\n{traceback.format_exc()}")
             # 使用默认优先级
             for adapter in self.adapters:
@@ -217,7 +218,6 @@ class DataSourceManager:
                 continue
         return None, None
 
-
     def get_daily_basic_with_consistency_check(
         self, trade_date: str
     ) -> Tuple[Optional[pd.DataFrame], Optional[str], Optional[Dict]]:
@@ -276,8 +276,6 @@ class DataSourceManager:
             logger.error(f"❌ 一致性检查失败: {e}")
             df, source = self.get_daily_basic_with_fallback(trade_date)
             return df, source, None
-
-
 
     def get_kline_with_fallback(self, code: str, period: str = "day", limit: int = 120, adj: Optional[str] = None) -> Tuple[Optional[List[Dict]], Optional[str]]:
         """按优先级尝试获取K线，返回(items, source)"""

@@ -2,11 +2,12 @@
 统一的Tushare数据提供器
 合并app层和tradingagents层的所有优势功能
 """
+import logging
+import traceback
 from typing import Optional, Dict, Any, List, Union
 from datetime import datetime, date, timedelta
 import pandas as pd
 import asyncio
-import logging
 
 from ..base_provider import BaseStockDataProvider
 from tradingagents.config.providers_config import get_provider_config
@@ -20,7 +21,6 @@ except ImportError:
     ts = None
 
 logger = logging.getLogger(__name__)
-
 
 class TushareProvider(BaseStockDataProvider):
     """
@@ -80,7 +80,7 @@ class TushareProvider(BaseStockDataProvider):
             self.logger.info("⚠️ [DB查询] 数据库中未找到有效的 Tushare Token")
         except Exception as e:
             self.logger.error(f"❌ [DB查询] 从数据库读取 Token 失败: {e}")
-            import traceback
+            
             self.logger.error(f"❌ [DB查询] 堆栈跟踪:\n{traceback.format_exc()}")
 
         return None
@@ -579,7 +579,7 @@ class TushareProvider(BaseStockDataProvider):
             return df
             
         except Exception as e:
-            import traceback
+            
             error_details = traceback.format_exc()
             self.logger.error(
                 f"❌ 获取历史数据失败 symbol={symbol}, period={period}\n"
@@ -1587,7 +1587,6 @@ class TushareProvider(BaseStockDataProvider):
         if isinstance(value, float) and (value != value):  # 检查NaN
             return None
         return str(value) if value else None
-
 
 # 全局提供器实例
 _tushare_provider = None

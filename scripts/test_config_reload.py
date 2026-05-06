@@ -8,10 +8,10 @@
 3. 显示重载结果
 """
 
+import os
 import requests
 import json
 import sys
-import os
 
 # 添加项目根目录到 Python 路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -23,7 +23,6 @@ API_URL = f"{BASE_URL}/api/config/reload"
 # 测试用户的 token（需要先登录获取）
 # 这里使用一个测试 token，实际使用时需要替换
 TOKEN = None
-
 
 def get_test_token():
     """获取测试用户的 token"""
@@ -49,7 +48,6 @@ def get_test_token():
     
     print("❌ 无法获取测试 token，请先创建测试用户或手动设置 TOKEN")
     return None
-
 
 def test_config_reload():
     """测试配置重载"""
@@ -110,7 +108,6 @@ def test_config_reload():
         print(f"❌ 发生错误: {e}")
         return False
 
-
 def check_backend_logs():
     """提示检查后端日志"""
     print()
@@ -138,7 +135,6 @@ def check_backend_logs():
     print("   ✅ 配置桥接完成，共桥接 X 项配置")
     print()
 
-
 def main():
     """主函数"""
     print()
@@ -159,7 +155,6 @@ def main():
     print()
     
     return 0 if success else 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

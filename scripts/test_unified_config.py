@@ -3,6 +3,7 @@
 测试 unified_config 获取的模型配置
 """
 
+import traceback
 import sys
 from pathlib import Path
 
@@ -36,9 +37,8 @@ def main():
         
     except Exception as e:
         print(f"\n❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     main()

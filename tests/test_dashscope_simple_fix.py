@@ -5,12 +5,12 @@
 """
 
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
-
 
 def test_basic_functionality():
     """测试基本功能"""
@@ -47,10 +47,9 @@ def test_basic_functionality():
         
     except Exception as e:
         print(f"❌ 基本功能测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_tool_binding():
     """测试工具绑定"""
@@ -102,10 +101,9 @@ def test_tool_binding():
         
     except Exception as e:
         print(f"❌ 工具绑定测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_vs_old_adapter():
     """对比新旧适配器"""
@@ -161,7 +159,6 @@ def test_vs_old_adapter():
         print(f"❌ 对比测试失败: {e}")
         return False
 
-
 def test_trading_graph_creation():
     """测试TradingGraph创建"""
     print("\n🔧 测试TradingGraph创建")
@@ -200,10 +197,9 @@ def test_trading_graph_creation():
         
     except Exception as e:
         print(f"❌ TradingGraph创建失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def main():
     """主测试函数"""
@@ -250,7 +246,6 @@ def main():
         print("\n🚀 现在可以测试完整的技术面分析功能了！")
     else:
         print("\n⚠️ 部分功能仍有问题，需要进一步调试")
-
 
 if __name__ == "__main__":
     main()

@@ -4,7 +4,9 @@ TradingAgents 演示脚本 - 使用阿里百炼大模型（禁用记忆功能）
 这个脚本展示了如何使用阿里百炼大模型运行 TradingAgents 框架，临时禁用记忆功能
 """
 
+import logging
 import os
+import traceback
 import sys
 from pathlib import Path
 
@@ -110,7 +112,7 @@ def main():
         logger.error(f"❌ 运行时错误: {str(e)}")
         print()
         # 显示详细的错误信息
-        import traceback
+        
 
         logger.error(f"🔍 详细错误信息:")
         traceback.print_exc()

@@ -3,6 +3,7 @@
 TradingAgents-CN Web应用启动脚本
 """
 
+import logging
 import os
 import sys
 import subprocess
@@ -285,7 +286,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         if sys.argv[1] == "--no-clean":
             # 设置环境变量跳过清理
-            import os
+            
             os.environ['SKIP_CACHE_CLEAN'] = 'true'
             logger.info(f"🚀 启动模式: 跳过缓存清理")
         elif sys.argv[1] == "--force-clean":

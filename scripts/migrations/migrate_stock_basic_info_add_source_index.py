@@ -17,8 +17,9 @@
     python scripts/migrations/migrate_stock_basic_info_add_source_index.py
 """
 
-import asyncio
 import logging
+import asyncio
+
 import sys
 from pathlib import Path
 from datetime import datetime
@@ -38,7 +39,6 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-
 
 async def migrate_stock_basic_info():
     """迁移 stock_basic_info 集合"""
@@ -226,7 +226,6 @@ async def migrate_stock_basic_info():
     finally:
         client.close()
 
-
 async def rollback_migration():
     """回滚迁移（恢复到单数据源模式）"""
     
@@ -298,7 +297,6 @@ async def rollback_migration():
         raise
     finally:
         client.close()
-
 
 if __name__ == "__main__":
     import sys

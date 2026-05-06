@@ -6,7 +6,6 @@
 import logging
 from typing import List, Optional
 
-
 class DevConfig:
     """开发环境配置类"""
     
@@ -137,7 +136,6 @@ class DevConfig:
             # 生产环境：更严格的日志控制
             logging.getLogger("watchfiles").setLevel(logging.ERROR)
             logging.getLogger("uvicorn").setLevel(logging.WARNING)
-
 
 # 开发环境快捷配置
 DEV_CONFIG = DevConfig()

@@ -1,6 +1,7 @@
 """
 检查 MongoDB 中的财务数据
 """
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -8,7 +9,6 @@ from pathlib import Path
 # 添加项目根目录到 Python 路径
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-
 
 def check_mongodb_data():
     """检查 MongoDB 中的财务数据"""
@@ -120,9 +120,8 @@ def check_mongodb_data():
         
     except Exception as e:
         print(f"\n❌ 检查失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     check_mongodb_data()

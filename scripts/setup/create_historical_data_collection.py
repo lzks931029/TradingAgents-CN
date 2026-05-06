@@ -3,10 +3,12 @@
 创建股票历史数据集合
 为三数据源的历史K线数据创建专门的MongoDB集合
 """
-import asyncio
 import logging
-import sys
 import os
+import asyncio
+
+import sys
+
 from datetime import datetime
 from motor.motor_asyncio import AsyncIOMotorClient
 
@@ -16,7 +18,6 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspa
 # 配置日志
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def create_historical_data_collection():
     """创建股票历史数据集合和索引"""
@@ -145,7 +146,6 @@ async def create_historical_data_collection():
         logger.error(f"❌ 创建历史数据集合失败: {e}")
         return False
 
-
 async def main():
     """主函数"""
     print("🎯 股票历史数据集合创建工具")
@@ -179,7 +179,6 @@ async def main():
         print("\n❌ 历史数据集合创建失败，请检查MongoDB连接")
     
     return success
-
 
 if __name__ == "__main__":
     try:

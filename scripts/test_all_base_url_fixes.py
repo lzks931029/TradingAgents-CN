@@ -1,8 +1,10 @@
 """
 完整测试：验证所有 base_url 修复
 """
-import sys
 import os
+import traceback
+import sys
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 def test_create_llm_by_provider():
@@ -38,7 +40,6 @@ def test_create_llm_by_provider():
         print(f"   期望: {custom_url}")
         print(f"   实际: {llm.openai_api_base}")
         return False
-
 
 def test_trading_graph_init():
     """测试 TradingAgentsGraph 初始化"""
@@ -88,7 +89,6 @@ def test_trading_graph_init():
         success = False
     
     return success
-
 
 def test_fundamentals_analyst():
     """测试基本面分析师"""
@@ -161,7 +161,6 @@ def test_fundamentals_analyst():
         print(f"⚠️ 未检测到阿里百炼模型")
         return False
 
-
 def main():
     print("=" * 80)
     print("🧪 完整测试：验证所有 base_url 修复")
@@ -175,7 +174,7 @@ def main():
         results.append(("create_llm_by_provider", result))
     except Exception as e:
         print(f"\n❌ 测试 1 失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         results.append(("create_llm_by_provider", False))
     
@@ -192,7 +191,7 @@ def main():
         results.append(("基本面分析师", result))
     except Exception as e:
         print(f"\n❌ 测试 3 失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         results.append(("基本面分析师", False))
     
@@ -213,7 +212,6 @@ def main():
         print("\n⚠️ 部分测试失败，请检查上面的详细信息")
     
     return all_passed
-
 
 if __name__ == "__main__":
     success = main()

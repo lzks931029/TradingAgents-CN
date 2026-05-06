@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -60,7 +61,7 @@ def test_web_interface_config():
         
     except Exception as e:
         print(f"❌ Web界面配置测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 

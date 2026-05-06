@@ -3,6 +3,7 @@
 检查MongoDB中所有股票相关的集合
 """
 
+import traceback
 import pymongo
 from tradingagents.config.database_manager import get_database_manager
 
@@ -96,7 +97,7 @@ def check_stock_collections():
         
     except Exception as e:
         print(f'检查集合时出错: {e}')
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

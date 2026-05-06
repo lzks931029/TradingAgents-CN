@@ -4,6 +4,7 @@
 利用百炼模型的原生 OpenAI 兼容性，无需额外的工具转换
 """
 
+import logging
 import os
 from typing import Any, Dict, List, Optional, Union, Sequence
 from langchain_openai import ChatOpenAI
@@ -14,7 +15,6 @@ from ..config.config_manager import token_tracker
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('agents')
-
 
 class ChatDashScopeOpenAI(ChatOpenAI):
     """
@@ -135,7 +135,6 @@ class ChatDashScopeOpenAI(ChatOpenAI):
         
         return result
 
-
 # 支持的模型列表
 DASHSCOPE_OPENAI_MODELS = {
     # 通义千问系列
@@ -177,11 +176,9 @@ DASHSCOPE_OPENAI_MODELS = {
     }
 }
 
-
 def get_available_openai_models() -> Dict[str, Dict[str, Any]]:
     """获取可用的 DashScope OpenAI 兼容模型列表"""
     return DASHSCOPE_OPENAI_MODELS
-
 
 def create_dashscope_openai_llm(
     model: str = "qwen-plus-latest",
@@ -199,7 +196,6 @@ def create_dashscope_openai_llm(
         max_tokens=max_tokens,
         **kwargs
     )
-
 
 def test_dashscope_openai_connection(
     model: str = "qwen-turbo",
@@ -232,7 +228,6 @@ def test_dashscope_openai_connection(
     except Exception as e:
         logger.error(f"❌ DashScope OpenAI 兼容接口连接失败: {e}")
         return False
-
 
 def test_dashscope_openai_function_calling(
     model: str = "qwen-plus-latest",
@@ -284,7 +279,6 @@ def test_dashscope_openai_function_calling(
     except Exception as e:
         logger.error(f"❌ DashScope OpenAI Function Calling 测试失败: {e}")
         return False
-
 
 if __name__ == "__main__":
     """测试脚本"""

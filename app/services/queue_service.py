@@ -3,11 +3,13 @@
 基于现有实现，添加并发控制、优先级队列、可见性超时等功能
 """
 
-import json
+import logging
 import time
+import json
+
 import uuid
 import asyncio
-import logging
+
 from typing import List, Optional, Dict, Any
 from datetime import datetime, timedelta
 
@@ -40,7 +42,6 @@ from app.services.queue import (
 logger = logging.getLogger(__name__)
 
 # Redis键名与配置常量由 app.services.queue.keys 提供（此处不再重复定义）
-
 
 class QueueService:
     """增强版队列服务类"""
@@ -358,7 +359,6 @@ class QueueService:
         except Exception as e:
             logger.error(f"取消任务失败: {e}")
             return False
-
 
 def get_queue_service() -> QueueService:
     return QueueService(get_redis_client())

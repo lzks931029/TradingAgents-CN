@@ -2,9 +2,10 @@
 WebSocket 通知系统
 替代 SSE + Redis PubSub，解决连接泄漏问题
 """
+import logging
 import asyncio
 import json
-import logging
+
 from typing import Dict, Set
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Query, HTTPException
 from datetime import datetime
@@ -101,10 +102,8 @@ class ConnectionManager:
             "users": {user_id: len(conns) for user_id, conns in self.active_connections.items()}
         }
 
-
 # 全局连接管理器实例
 manager = ConnectionManager()
-
 
 @router.websocket("/ws/notifications")
 async def websocket_notifications_endpoint(
@@ -196,7 +195,6 @@ async def websocket_notifications_endpoint(
         # 断开连接
         await manager.disconnect(websocket, user_id)
 
-
 @router.websocket("/ws/tasks/{task_id}")
 async def websocket_task_progress_endpoint(
     websocket: WebSocket,
@@ -261,12 +259,10 @@ async def websocket_task_progress_endpoint(
     finally:
         logger.info(f"🔌 [WS-Task] 断开连接: task={task_id}")
 
-
 @router.get("/ws/stats")
 async def get_websocket_stats():
     """获取 WebSocket 连接统计"""
     return manager.get_stats()
-
 
 # 🔥 辅助函数：供其他模块调用，发送通知
 async def send_notification_via_websocket(user_id: str, notification: dict):
@@ -282,7 +278,6 @@ async def send_notification_via_websocket(user_id: str, notification: dict):
         "data": notification
     }
     await manager.send_personal_message(message, user_id)
-
 
 async def send_task_progress_via_websocket(task_id: str, progress_data: dict):
     """

@@ -5,13 +5,13 @@ Agent Utils Tushare修复验证测试
 """
 
 import os
+import traceback
 import sys
 from datetime import datetime, timedelta
 
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
-
 
 def test_get_china_stock_data_fix():
     """测试get_china_stock_data函数的Tushare修复"""
@@ -52,10 +52,9 @@ def test_get_china_stock_data_fix():
         
     except Exception as e:
         print(f"❌ get_china_stock_data测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_get_china_market_overview_fix():
     """测试get_china_market_overview函数的修复"""
@@ -95,10 +94,9 @@ def test_get_china_market_overview_fix():
         
     except Exception as e:
         print(f"❌ get_china_market_overview测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_stock_name_mapping_fix():
     """测试股票名称映射的修复"""
@@ -136,10 +134,9 @@ def test_stock_name_mapping_fix():
         
     except Exception as e:
         print(f"❌ 股票名称映射测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def check_debug_output():
     """检查调试输出是否显示使用了统一接口"""
@@ -167,7 +164,6 @@ def check_debug_output():
     except Exception as e:
         print(f"❌ 调试输出检查失败: {e}")
         return False
-
 
 def main():
     """主测试函数"""
@@ -228,7 +224,6 @@ def main():
     print("   3. 股票数据应该来自Tushare而不是TDX")
     
     input("按回车键退出...")
-
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,5 @@
+
+import logging
 import time
 import json
 
@@ -5,7 +7,6 @@ import json
 from tradingagents.utils.logging_init import get_logger
 from tradingagents.agents.utils.instrument_utils import build_instrument_context
 logger = get_logger("default")
-
 
 def create_risk_manager(llm, memory):
     def risk_manager_node(state) -> dict:

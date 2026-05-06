@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import traceback
 # -*- coding: utf-8 -*-
 """将数据库中的模型配置同步到 JSON 文件"""
 
@@ -65,7 +66,7 @@ async def main():
         
     except Exception as e:
         print(f"\n❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     print("\n" + "=" * 80)

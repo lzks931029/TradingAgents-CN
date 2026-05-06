@@ -3,6 +3,7 @@
 根据分析师数量、研究深度动态计算进度和时间预估
 """
 
+import logging
 import time
 from typing import Optional, Callable, Dict, List
 import streamlit as st

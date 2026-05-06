@@ -3,8 +3,9 @@
 DeepSeek V3集成测试
 """
 
-import sys
 import os
+import sys
+
 from pathlib import Path
 from dotenv import load_dotenv
 

@@ -5,8 +5,10 @@
 简化调试000002股票PE计算
 """
 
-import sys
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from tradingagents.dataflows.data_source_manager import get_china_stock_data_unified
@@ -54,7 +56,7 @@ def debug_000002_simple():
                 
     except Exception as e:
         print(f"数据获取失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

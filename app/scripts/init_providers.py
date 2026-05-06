@@ -3,9 +3,10 @@
 初始化大模型厂家数据脚本
 """
 
+import os
 import asyncio
 import sys
-import os
+
 from datetime import datetime
 
 # 添加项目根目录到Python路径

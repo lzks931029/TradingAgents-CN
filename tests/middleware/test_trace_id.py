@@ -1,4 +1,5 @@
 import re
+
 import logging
 import io
 from fastapi import FastAPI
@@ -8,9 +9,7 @@ from app.middleware.request_id import RequestIDMiddleware
 from app.core.logging_config import setup_logging
 from app.core.logging_context import LoggingContextFilter
 
-
 UUID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
-
 
 def create_app():
     app = FastAPI()
@@ -22,7 +21,6 @@ def create_app():
         return {"ok": True}
 
     return app
-
 
 def test_trace_id_header_and_logging():
     # Arrange

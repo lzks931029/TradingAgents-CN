@@ -4,8 +4,9 @@
 验证修复后的导入是否正常
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -64,7 +65,7 @@ def test_akshare_provider():
         return True
     except Exception as e:
         print(f"❌ AKShare提供器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -96,7 +97,7 @@ def test_data_source_manager():
         return True
     except Exception as e:
         print(f"❌ 数据源管理器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

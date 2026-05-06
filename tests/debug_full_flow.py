@@ -3,9 +3,11 @@
 调试完整的AKShare数据获取和解析流程
 """
 
-import sys
-import os
 import logging
+import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # 设置详细的日志级别
@@ -58,7 +60,7 @@ def debug_full_flow():
             print(f"❌ 解析失败，返回None")
     except Exception as e:
         print(f"❌ 解析异常: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 5. 测试_get_real_financial_metrics函数
@@ -77,7 +79,7 @@ def debug_full_flow():
             print(f"❌ 真实财务指标获取失败")
     except Exception as e:
         print(f"❌ 真实财务指标获取异常: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 6. 测试_estimate_financial_metrics函数
@@ -96,7 +98,7 @@ def debug_full_flow():
             print(f"❌ 财务指标估算失败")
     except Exception as e:
         print(f"❌ 财务指标估算异常: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     print(f"\n" + "="*60)

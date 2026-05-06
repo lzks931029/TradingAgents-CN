@@ -3,9 +3,10 @@
 测试数据库管理API
 """
 
+import traceback
 import asyncio
 import sys
-import os
+
 sys.path.append('.')
 
 from app.services.database_service import DatabaseService
@@ -47,7 +48,7 @@ async def test_database_service():
         
     except Exception as e:
         print(f'❌ 测试失败: {e}')
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == '__main__':

@@ -3,8 +3,9 @@
 BaoStock数据同步服务
 提供BaoStock数据的批量同步功能，集成到APScheduler调度系统
 """
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass
@@ -15,7 +16,6 @@ from app.services.historical_data_service import get_historical_data_service
 from tradingagents.dataflows.providers.china.baostock import BaoStockProvider
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class BaoStockSyncStats:
@@ -29,7 +29,6 @@ class BaoStockSyncStats:
     def __post_init__(self):
         if self.errors is None:
             self.errors = []
-
 
 class BaoStockSyncService:
     """BaoStock数据同步服务"""
@@ -561,7 +560,6 @@ class BaoStockSyncService:
                 "last_check": datetime.now().isoformat()
             }
 
-
 # APScheduler兼容的任务函数
 async def run_baostock_basic_info_sync():
     """运行BaoStock基础信息同步任务"""
@@ -573,7 +571,6 @@ async def run_baostock_basic_info_sync():
     except Exception as e:
         logger.error(f"❌ BaoStock基础信息同步任务失败: {e}")
 
-
 async def run_baostock_daily_quotes_sync():
     """运行BaoStock日K线同步任务（最新交易日）"""
     try:
@@ -584,7 +581,6 @@ async def run_baostock_daily_quotes_sync():
     except Exception as e:
         logger.error(f"❌ BaoStock日K线同步任务失败: {e}")
 
-
 async def run_baostock_historical_sync():
     """运行BaoStock历史数据同步任务"""
     try:
@@ -594,7 +590,6 @@ async def run_baostock_historical_sync():
         logger.info(f"🎯 BaoStock历史数据同步完成: {stats.historical_records}条记录, {len(stats.errors)}个错误")
     except Exception as e:
         logger.error(f"❌ BaoStock历史数据同步任务失败: {e}")
-
 
 async def run_baostock_status_check():
     """运行BaoStock状态检查任务"""

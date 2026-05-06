@@ -2,8 +2,9 @@
 Multi-source synchronization API routes
 Provides endpoints for multi-source stock data synchronization
 """
-import asyncio
 import logging
+import asyncio
+
 from typing import Dict, List, Optional, Any, Union
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
@@ -15,12 +16,10 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/sync/multi-source", tags=["Multi-Source Sync"])
 
-
 class SyncRequest(BaseModel):
     """同步请求模型"""
     force: bool = False
     preferred_sources: Optional[List[str]] = None
-
 
 class SyncResponse(BaseModel):
     """同步响应模型"""
@@ -28,14 +27,12 @@ class SyncResponse(BaseModel):
     message: str
     data: Union[Dict[str, Any], List[Any], Any]
 
-
 class DataSourceStatus(BaseModel):
     """数据源状态模型"""
     name: str
     priority: int
     available: bool
     description: str
-
 
 @router.get("/sources/status")
 async def get_data_sources_status():
@@ -83,7 +80,6 @@ async def get_data_sources_status():
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get data sources status: {str(e)}")
-
 
 @router.get("/sources/current")
 async def get_current_data_source():
@@ -133,7 +129,6 @@ async def get_current_data_source():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get current data source: {str(e)}")
 
-
 @router.get("/status")
 async def get_sync_status():
     """获取多数据源同步状态"""
@@ -149,7 +144,6 @@ async def get_sync_status():
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get sync status: {str(e)}")
-
 
 @router.post("/stock_basics/run")
 async def run_stock_basics_sync(
@@ -188,7 +182,6 @@ async def run_stock_basics_sync(
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to run synchronization: {str(e)}")
-
 
 async def _test_single_adapter(adapter) -> dict:
     """
@@ -268,11 +261,9 @@ async def _test_single_adapter(adapter) -> dict:
 
     return result
 
-
 class TestSourceRequest(BaseModel):
     """测试数据源请求"""
     source_name: str | None = None
-
 
 @router.post("/test-sources")
 async def test_data_sources(request: TestSourceRequest = TestSourceRequest()):
@@ -345,7 +336,6 @@ async def test_data_sources(request: TestSourceRequest = TestSourceRequest()):
         logger.error(f"❌ 测试数据源时出错: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Failed to test data sources: {str(e)}")
 
-
 @router.get("/recommendations")
 async def get_sync_recommendations():
     """获取数据源使用建议"""
@@ -398,7 +388,6 @@ async def get_sync_recommendations():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to generate recommendations: {str(e)}")
 
-
 @router.get("/history")
 async def get_sync_history(
     page: int = Query(1, ge=1, description="页码"),
@@ -443,7 +432,6 @@ async def get_sync_history(
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get sync history: {str(e)}")
-
 
 @router.delete("/cache")
 async def clear_sync_cache():

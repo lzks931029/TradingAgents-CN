@@ -1,11 +1,11 @@
 from langchain_core.messages import AIMessage
-import time
+
+import logging
 import json
 
 # 导入统一日志系统
 from tradingagents.utils.logging_init import get_logger
 logger = get_logger("default")
-
 
 def create_bear_researcher(llm, memory):
     def bear_node(state) -> dict:

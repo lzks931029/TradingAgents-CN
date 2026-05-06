@@ -4,8 +4,10 @@
 从 .env 文件读取真实的 API Key，更新到 MongoDB 数据库中
 """
 
-import asyncio
 import os
+import traceback
+import asyncio
+
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -22,7 +24,6 @@ if env_file.exists():
 else:
     print(f"❌ .env 文件不存在: {env_file}")
     sys.exit(1)
-
 
 async def update_api_keys():
     """更新数据库中的 API Key"""
@@ -156,17 +157,15 @@ async def update_api_keys():
     else:
         print("❌ 配置更新失败")
 
-
 async def main():
     """主函数"""
     try:
         await update_api_keys()
     except Exception as e:
         print(f"\n❌ 更新失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

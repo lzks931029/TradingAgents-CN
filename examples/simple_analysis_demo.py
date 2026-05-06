@@ -4,6 +4,7 @@
 展示如何快速使用TradingAgents-CN进行投资分析
 """
 
+import logging
 import os
 import sys
 from pathlib import Path

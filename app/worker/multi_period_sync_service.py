@@ -3,8 +3,9 @@
 多周期历史数据同步服务
 支持日线、周线、月线数据的统一同步
 """
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass
@@ -15,7 +16,6 @@ from app.worker.akshare_sync_service import AKShareSyncService
 from app.worker.baostock_sync_service import BaoStockSyncService
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class MultiPeriodSyncStats:
@@ -31,7 +31,6 @@ class MultiPeriodSyncStats:
     def __post_init__(self):
         if self.errors is None:
             self.errors = []
-
 
 class MultiPeriodSyncService:
     """多周期历史数据同步服务"""
@@ -332,10 +331,8 @@ class MultiPeriodSyncService:
             logger.error(f"❌ 获取同步统计失败: {e}")
             return {}
 
-
 # 全局服务实例
 _multi_period_sync_service = None
-
 
 async def get_multi_period_sync_service() -> MultiPeriodSyncService:
     """获取多周期同步服务实例"""
@@ -344,7 +341,6 @@ async def get_multi_period_sync_service() -> MultiPeriodSyncService:
         _multi_period_sync_service = MultiPeriodSyncService()
         await _multi_period_sync_service.initialize()
     return _multi_period_sync_service
-
 
 # APScheduler任务函数
 async def run_multi_period_sync(periods: List[str] = None):
@@ -358,16 +354,13 @@ async def run_multi_period_sync(periods: List[str] = None):
         logger.error(f"❌ 多周期数据同步失败: {e}")
         raise
 
-
 async def run_daily_sync():
     """APScheduler任务：日线数据同步"""
     return await run_multi_period_sync(["daily"])
 
-
 async def run_weekly_sync():
     """APScheduler任务：周线数据同步"""
     return await run_multi_period_sync(["weekly"])
-
 
 async def run_monthly_sync():
     """APScheduler任务：月线数据同步"""

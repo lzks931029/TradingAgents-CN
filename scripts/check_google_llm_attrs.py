@@ -2,8 +2,9 @@
 检查 ChatGoogleOpenAI 的属性
 """
 
-import sys
 import os
+import sys
+
 from pathlib import Path
 
 # 添加项目根目录到路径

@@ -4,6 +4,7 @@
 测试脚本：检查数据库中 datasource_groupings 集合的实际数据
 """
 
+import traceback
 import sys
 from pathlib import Path
 
@@ -12,7 +13,6 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from app.core.database import get_mongo_db_sync
-
 
 def test_datasource_groupings():
     """测试数据源分组配置"""
@@ -95,9 +95,8 @@ def test_datasource_groupings():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_all_groupings():
     """测试所有市场的数据源分组"""
@@ -146,9 +145,8 @@ def test_all_groupings():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     # 测试美股数据源分组

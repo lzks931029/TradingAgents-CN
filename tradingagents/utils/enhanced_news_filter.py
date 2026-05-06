@@ -3,9 +3,10 @@
 支持多种过滤策略：规则过滤、语义相似度、本地分类模型
 """
 
+import logging
 import pandas as pd
 import re
-import logging
+
 from typing import List, Dict, Tuple, Optional
 from datetime import datetime
 import numpy as np
@@ -300,7 +301,6 @@ class EnhancedNewsFilter(NewsRelevanceFilter):
             
         return filtered_df
 
-
 def create_enhanced_news_filter(ticker: str, use_semantic: bool = True, use_local_model: bool = False) -> EnhancedNewsFilter:
     """
     创建增强新闻过滤器的便捷函数
@@ -315,7 +315,6 @@ def create_enhanced_news_filter(ticker: str, use_semantic: bool = True, use_loca
     """
     company_name = get_company_name(ticker)
     return EnhancedNewsFilter(ticker, company_name, use_semantic, use_local_model)
-
 
 # 使用示例
 if __name__ == "__main__":

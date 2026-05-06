@@ -3,6 +3,7 @@
 002027 股票代码专项测试
 """
 
+import logging
 import os
 import sys
 

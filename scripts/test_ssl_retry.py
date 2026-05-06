@@ -2,12 +2,13 @@
 """
 测试 SSL 重试机制
 """
-import sys
+import logging
 import os
+import sys
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import asyncio
-import logging
 
 logging.basicConfig(
     level=logging.INFO,
@@ -15,7 +16,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-
 
 async def main():
     logger.info("=" * 80)
@@ -73,7 +73,6 @@ async def main():
     logger.info("=" * 80)
     
     return success_count > 0
-
 
 if __name__ == "__main__":
     success = asyncio.run(main())

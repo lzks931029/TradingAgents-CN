@@ -1,11 +1,12 @@
 """
 测试并发API请求，验证数据源测试时其他接口是否会超时
 """
+import time
+import traceback
 import asyncio
 import aiohttp
-import time
-from datetime import datetime
 
+from datetime import datetime
 
 async def test_notifications_api(session: aiohttp.ClientSession, test_id: int):
     """测试通知接口"""
@@ -33,7 +34,6 @@ async def test_notifications_api(session: aiohttp.ClientSession, test_id: int):
         elapsed = time.time() - start
         print(f"  [{test_id:2d}] ❌ 通知接口错误 ({elapsed:.2f}秒): {e}")
         return False
-
 
 async def test_data_sources_api(session: aiohttp.ClientSession):
     """测试数据源测试接口"""
@@ -67,7 +67,6 @@ async def test_data_sources_api(session: aiohttp.ClientSession):
         elapsed = time.time() - start
         print(f"\n❌ 数据源测试错误 ({elapsed:.2f}秒): {e}")
         return False
-
 
 async def concurrent_test():
     """并发测试：同时运行数据源测试和通知接口请求"""
@@ -128,7 +127,6 @@ async def concurrent_test():
         
         print("=" * 80)
 
-
 async def sequential_test():
     """顺序测试：先测试通知接口，再测试数据源"""
     print("\n" + "=" * 80)
@@ -154,7 +152,6 @@ async def sequential_test():
         print(f"   结果: {'✅ 成功' if success else '❌ 失败'}")
         print()
 
-
 async def main():
     """主测试函数"""
     print("\n" + "🔬" * 40)
@@ -177,7 +174,6 @@ async def main():
     # 并发测试
     await concurrent_test()
 
-
 if __name__ == "__main__":
     try:
         asyncio.run(main())
@@ -185,6 +181,6 @@ if __name__ == "__main__":
         print("\n\n⚠️  测试被用户中断")
     except Exception as e:
         print(f"\n\n❌ 测试出错: {e}")
-        import traceback
+        
         traceback.print_exc()
 

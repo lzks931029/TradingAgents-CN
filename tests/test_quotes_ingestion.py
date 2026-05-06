@@ -1,6 +1,7 @@
 """
 测试行情入库服务的股票代码标准化和历史数据导入功能
 """
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -12,7 +13,6 @@ sys.path.insert(0, str(project_root))
 from app.services.quotes_ingestion_service import QuotesIngestionService
 from app.core.database import get_mongo_db, init_db, close_db
 from datetime import datetime
-
 
 async def test_normalize_stock_code():
     """测试股票代码标准化功能"""
@@ -51,7 +51,6 @@ async def test_normalize_stock_code():
     print(f"\n总计: {len(test_cases)} 个测试用例, 通过: {passed}, 失败: {failed}")
     
     return failed == 0
-
 
 async def test_market_quotes_status():
     """测试 market_quotes 集合状态"""
@@ -110,7 +109,6 @@ async def test_market_quotes_status():
     
     await close_db()
     return True
-
 
 async def test_historical_data_import():
     """测试从历史数据导入功能"""
@@ -184,14 +182,13 @@ async def test_historical_data_import():
         
     except Exception as e:
         print(f"   ❌ 导入失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         await close_db()
         return False
     
     await close_db()
     return True
-
 
 async def test_akshare_realtime_quotes():
     """测试 AKShare 实时行情获取（检查代码标准化）"""
@@ -240,10 +237,9 @@ async def test_akshare_realtime_quotes():
         
     except Exception as e:
         print(f"   ❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 async def main():
     """主测试函数"""
@@ -288,7 +284,6 @@ async def main():
         print("\n🎉 所有测试通过！")
     else:
         print(f"\n⚠️  有 {total - passed} 个测试失败，请检查日志")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

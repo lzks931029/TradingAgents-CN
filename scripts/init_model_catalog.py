@@ -5,6 +5,7 @@
     python scripts/init_model_catalog.py
 """
 
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -15,7 +16,6 @@ sys.path.insert(0, str(project_root))
 
 from app.core.database import db_manager
 from app.services.config_service import ConfigService
-
 
 async def main():
     """初始化模型目录"""
@@ -67,7 +67,7 @@ async def main():
 
     except Exception as e:
         print(f"❌ 初始化失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
     finally:
@@ -78,7 +78,6 @@ async def main():
             print("🔌 数据库连接已关闭")
         except:
             pass
-
 
 if __name__ == "__main__":
     asyncio.run(main())

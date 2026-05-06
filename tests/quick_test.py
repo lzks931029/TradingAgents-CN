@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-import time
+
 快速集成测试 - 验证复制的文件是否正常工作
 """
 
 import os
-import sys
+import time
 import traceback
+import sys
+
 from datetime import datetime
 
 print("🚀 TradingAgents 集成测试")
@@ -135,7 +137,7 @@ except Exception as e:
 # 测试5：性能测试
 print("\n⚡ 简单性能测试...")
 try:
-    import time
+    
     
     cache = get_cache()
     

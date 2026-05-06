@@ -1,3 +1,4 @@
+
 import os
 import types
 import builtins
@@ -5,7 +6,6 @@ import pandas as pd
 import pytest
 
 from typing import Any, Dict, Optional
-
 
 class DummyDBManager:
     def __init__(self, available: bool = True):
@@ -16,7 +16,6 @@ class DummyDBManager:
 
     def get_mongodb_client(self):
         return object()
-
 
 @pytest.fixture(autouse=True)
 def clear_env_and_modules(monkeypatch):
@@ -29,7 +28,6 @@ def clear_env_and_modules(monkeypatch):
     # Restore env
     os.environ.clear()
     os.environ.update(old)
-
 
 def test_basics_prefers_app_cache_when_enabled(monkeypatch):
     os.environ["TA_USE_APP_CACHE"] = "true"
@@ -60,7 +58,6 @@ def test_basics_prefers_app_cache_when_enabled(monkeypatch):
     assert isinstance(res, dict)
     assert res.get("source") == "mongo"
     assert called["api"] is False  # API should not be called when cache hits
-
 
 def test_basics_fallback_to_api_when_cache_miss(monkeypatch):
     os.environ["TA_USE_APP_CACHE"] = "true"
@@ -93,7 +90,6 @@ def test_basics_fallback_to_api_when_cache_miss(monkeypatch):
     assert res.get("source") == "api"
     assert called["api"] is True
 
-
 def test_basics_direct_first_when_disabled(monkeypatch):
     os.environ["TA_USE_APP_CACHE"] = "false"
 
@@ -125,7 +121,6 @@ def test_basics_direct_first_when_disabled(monkeypatch):
     assert isinstance(res, dict)
     assert res.get("source") == "api"
     assert order[0] == "api"
-
 
 def test_realtime_quotes_prefers_app_market_quotes(monkeypatch):
     os.environ["TA_USE_APP_CACHE"] = "true"

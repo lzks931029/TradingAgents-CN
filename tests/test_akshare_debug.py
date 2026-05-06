@@ -3,9 +3,10 @@
 AKShare财务数据获取调试脚本
 """
 
-import sys
-import os
 import logging
+import os
+import traceback
+import sys
 
 # 设置日志级别为DEBUG以查看详细信息
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s | %(name)-20s | %(levelname)-8s | %(message)s')
@@ -51,7 +52,7 @@ def test_akshare_financial_data():
             
     except Exception as e:
         print(f"❌ 调用get_financial_data失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 3. 测试条件判断

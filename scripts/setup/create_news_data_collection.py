@@ -3,10 +3,13 @@
 创建新闻数据集合和索引
 根据设计文档创建stock_news集合的完整数据库结构
 """
-import asyncio
 import logging
-import sys
 import os
+import traceback
+import asyncio
+
+import sys
+
 from datetime import datetime
 
 # 添加项目根目录到Python路径
@@ -27,7 +30,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 async def create_news_collection():
     """创建新闻数据集合和索引"""
@@ -175,10 +177,9 @@ async def create_news_collection():
         
     except Exception as e:
         logger.error(f"❌ 创建新闻数据集合失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 async def insert_sample_news_data(collection):
     """插入示例新闻数据"""
@@ -271,7 +272,6 @@ async def insert_sample_news_data(collection):
     except Exception as e:
         logger.error(f"❌ 插入示例数据失败: {e}")
 
-
 async def main():
     """主函数"""
     logger.info("🚀 开始新闻数据集合初始化...")
@@ -291,7 +291,6 @@ async def main():
     else:
         logger.error("❌ 新闻数据集合初始化失败!")
         sys.exit(1)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

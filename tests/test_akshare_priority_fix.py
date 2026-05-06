@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
@@ -36,7 +37,7 @@ def test_default_data_source():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -75,7 +76,7 @@ def test_fallback_priority():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -117,7 +118,7 @@ def test_environment_variable_override():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -187,7 +188,7 @@ def test_data_source_switching():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

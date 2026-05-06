@@ -4,9 +4,10 @@
 验证不存在的股票代码不会导致无限循环
 """
 
-import sys
 import os
 import time
+import sys
+
 import threading
 
 # 添加项目根目录到Python路径

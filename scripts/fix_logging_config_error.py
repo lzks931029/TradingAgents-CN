@@ -3,7 +3,7 @@
 修复日志配置KeyError错误
 """
 
-import os
+import logging
 from pathlib import Path
 
 def fix_logging_docker_config():
@@ -159,8 +159,6 @@ def create_simple_test():
 简单的日志测试 - 避免复杂导入
 """
 
-import os
-import logging
 import logging.handlers
 from pathlib import Path
 

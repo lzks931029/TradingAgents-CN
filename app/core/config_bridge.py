@@ -3,14 +3,15 @@
 将统一配置系统的配置桥接到环境变量，供 TradingAgents 核心库使用
 """
 
-import os
-import json
 import logging
+import os
+import traceback
+import json
+
 from pathlib import Path
 from typing import Optional
 
 logger = logging.getLogger("app.config_bridge")
-
 
 def bridge_config_to_env():
     """
@@ -263,14 +264,14 @@ def bridge_config_to_env():
                         config_manager.mongodb_storage = None
                 except Exception as e:
                     logger.error(f"❌ 创建 MongoDBStorage 实例失败: {e}")
-                    import traceback
+                    
                     logger.error(traceback.format_exc())
                     config_manager.mongodb_storage = None
             else:
                 logger.info("ℹ️ USE_MONGODB_STORAGE 未启用，将使用 JSON 文件存储")
         except Exception as e:
             logger.error(f"❌ 重新初始化 tradingagents MongoDB 存储失败: {e}")
-            import traceback
+            
             logger.error(traceback.format_exc())
 
         # 7. 同步定价配置到 tradingagents 的 config/pricing.json
@@ -294,7 +295,6 @@ def bridge_config_to_env():
         logger.error(f"❌ 配置桥接失败: {e}", exc_info=True)
         logger.warning("⚠️  TradingAgents 将使用 .env 文件中的配置")
         return False
-
 
 def _bridge_datasource_details(data_source_configs) -> int:
     """
@@ -355,7 +355,6 @@ def _bridge_datasource_details(data_source_configs) -> int:
 
     return bridged_count
 
-
 def _bridge_system_settings() -> int:
     """
     桥接系统运行时配置到环境变量
@@ -387,7 +386,7 @@ def _bridge_system_settings() -> int:
             system_settings = config_doc['system_settings']
         except Exception as e:
             logger.debug(f"  ⚠️  无法从数据库获取系统设置: {e}")
-            import traceback
+            
             logger.debug(traceback.format_exc())
             return 0
         finally:
@@ -485,7 +484,7 @@ def _bridge_system_settings() -> int:
         except Exception as e:
             logger.warning(f"  ⚠️  同步系统设置到文件系统失败: {e}")
             print(f"❌ [config_bridge] 同步系统设置到文件系统失败: {e}")
-            import traceback
+            
             print(traceback.format_exc())
 
         return bridged_count
@@ -493,7 +492,6 @@ def _bridge_system_settings() -> int:
     except Exception as e:
         logger.warning(f"  ⚠️  桥接系统设置失败: {e}")
         return 0
-
 
 def get_bridged_api_key(provider: str) -> Optional[str]:
     """
@@ -507,7 +505,6 @@ def get_bridged_api_key(provider: str) -> Optional[str]:
     """
     env_key = f"{provider.upper()}_API_KEY"
     return os.environ.get(env_key)
-
 
 def get_bridged_model(model_type: str = "default") -> Optional[str]:
     """
@@ -525,7 +522,6 @@ def get_bridged_model(model_type: str = "default") -> Optional[str]:
         return os.environ.get('TRADINGAGENTS_DEEP_MODEL')
     else:
         return os.environ.get('TRADINGAGENTS_DEFAULT_MODEL')
-
 
 def clear_bridged_config():
     """
@@ -580,7 +576,6 @@ def clear_bridged_config():
 
     logger.info("✅ 已清除所有桥接的配置")
 
-
 def reload_bridged_config():
     """
     重新加载桥接的配置
@@ -590,7 +585,6 @@ def reload_bridged_config():
     logger.info("🔄 重新加载配置桥接...")
     clear_bridged_config()
     return bridge_config_to_env()
-
 
 def _sync_pricing_config(llm_configs):
     """
@@ -630,7 +624,6 @@ def _sync_pricing_config(llm_configs):
     except Exception as e:
         logger.warning(f"  ⚠️  同步定价配置失败: {e}")
 
-
 def sync_pricing_config_now():
     """
     立即同步定价配置（用于配置更新后实时同步）
@@ -655,10 +648,9 @@ def sync_pricing_config_now():
             return True
     except Exception as e:
         logger.error(f"❌ 立即同步定价配置失败: {e}")
-        import traceback
+        
         logger.error(traceback.format_exc())
         return False
-
 
 def _handle_sync_task_result(task):
     """处理同步任务的结果"""
@@ -666,9 +658,8 @@ def _handle_sync_task_result(task):
         task.result()
     except Exception as e:
         logger.error(f"❌ 定价配置同步任务执行失败: {e}")
-        import traceback
+        
         logger.error(traceback.format_exc())
-
 
 async def _sync_pricing_config_from_db():
     """
@@ -725,9 +716,8 @@ async def _sync_pricing_config_from_db():
 
     except Exception as e:
         logger.error(f"❌ 从数据库同步定价配置失败: {e}")
-        import traceback
+        
         logger.error(traceback.format_exc())
-
 
 # 导出函数
 __all__ = [

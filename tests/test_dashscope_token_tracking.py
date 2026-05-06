@@ -4,8 +4,10 @@
 """
 
 import os
-import sys
 import time
+import traceback
+import sys
+
 from datetime import datetime
 
 # 添加项目根目录到Python路径
@@ -14,7 +16,6 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from tradingagents.llm_adapters.dashscope_adapter import ChatDashScope
 from tradingagents.config.config_manager import config_manager, token_tracker
 from langchain_core.messages import HumanMessage
-
 
 def test_dashscope_token_tracking():
     """测试DashScope适配器的token统计功能"""
@@ -105,10 +106,9 @@ def test_dashscope_token_tracking():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_mongodb_storage():
     """测试MongoDB存储功能"""
@@ -138,7 +138,6 @@ def test_mongodb_storage():
         print("❌ MongoDB连接失败")
         print("请检查MongoDB配置和连接字符串")
         return False
-
 
 def main():
     """主测试函数"""
@@ -181,7 +180,6 @@ def main():
         print("❌ 部分测试失败")
     
     return success
-
 
 if __name__ == "__main__":
     main()

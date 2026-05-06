@@ -2,11 +2,13 @@
 基于Redis的会话管理器 - 最可靠的跨页面刷新状态持久化方案
 """
 
+import os
+import time
 import streamlit as st
 import json
-import time
+
 import hashlib
-import os
+
 from typing import Optional, Dict, Any
 
 class RedisSessionManager:
@@ -170,7 +172,7 @@ class RedisSessionManager:
     def _save_to_file(self, session_key: str, session_data: Dict[str, Any]):
         """保存到文件（fallback方案）"""
         try:
-            import os
+            
             os.makedirs("./data", exist_ok=True)
             
             filename = f"./data/{session_key.replace(':', '_')}.json"

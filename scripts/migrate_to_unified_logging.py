@@ -4,7 +4,8 @@
 自动将项目模块迁移到统一日志系统
 """
 
-import os
+import logging
+import traceback
 import re
 import sys
 from pathlib import Path
@@ -14,8 +15,6 @@ import argparse
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('scripts')
-
-
 
 class LoggingMigrator:
     """日志系统迁移器"""
@@ -255,7 +254,6 @@ class LoggingMigrator:
         
         return report
 
-
 def main():
     parser = argparse.ArgumentParser(description='迁移项目到统一日志系统')
     parser.add_argument('--target', '-t', help='目标目录或文件')
@@ -297,7 +295,6 @@ def main():
         logger.info(f"📄 报告已保存到: {args.report}")
     
     logger.info(f"\n✅ 迁移完成!")
-
 
 if __name__ == "__main__":
     main()

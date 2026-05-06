@@ -3,8 +3,10 @@
 测试SignalProcessor修复后的功能
 """
 
-import sys
 import os
+import traceback
+import sys
+
 from pathlib import Path
 
 # 添加项目根目录到Python路径
@@ -98,7 +100,7 @@ def test_signal_processor_currency_fix():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 

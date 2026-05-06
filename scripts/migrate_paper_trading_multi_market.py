@@ -6,6 +6,7 @@
     python scripts/migrate_paper_trading_multi_market.py --dry-run  # 仅预览，不实际修改
 """
 
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -16,7 +17,6 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from app.core.database import get_mongo_db, init_database
-
 
 async def migrate_accounts(dry_run=False):
     """迁移账户表：单一现金 -> 多货币"""
@@ -106,7 +106,6 @@ async def migrate_accounts(dry_run=False):
     print(f"   ⏭️  跳过: {skipped_count}")
     print(f"   📝 总计: {len(accounts)}")
 
-
 async def migrate_positions(dry_run=False):
     """迁移持仓表：添加市场和货币字段"""
     print("\n" + "="*60)
@@ -174,7 +173,6 @@ async def migrate_positions(dry_run=False):
     print(f"   ⏭️  跳过: {skipped_count}")
     print(f"   📝 总计: {len(positions)}")
 
-
 async def migrate_orders(dry_run=False):
     """迁移订单表：添加市场、货币和手续费字段"""
     print("\n" + "="*60)
@@ -236,7 +234,6 @@ async def migrate_orders(dry_run=False):
     print(f"   ⏭️  跳过: {skipped_count}")
     print(f"   📝 总计: {len(orders)}")
 
-
 async def migrate_trades(dry_run=False):
     """迁移成交记录表：添加市场、货币和手续费字段"""
     print("\n" + "="*60)
@@ -295,7 +292,6 @@ async def migrate_trades(dry_run=False):
     print(f"   ⏭️  跳过: {skipped_count}")
     print(f"   📝 总计: {len(trades)}")
 
-
 async def main():
     """主函数"""
     # 初始化数据库连接
@@ -331,12 +327,11 @@ async def main():
 
     except Exception as e:
         print(f"\n❌ 迁移失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
 
     print(f"\n⏰ 结束时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

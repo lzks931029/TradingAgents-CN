@@ -11,7 +11,6 @@ import sys
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
-
 def test_adapter_creation():
     """测试适配器创建"""
     print("🔧 测试适配器创建")
@@ -36,7 +35,6 @@ def test_adapter_creation():
     except Exception as e:
         print(f"❌ 适配器创建失败: {e}")
         return False
-
 
 def test_tool_binding_basic():
     """测试基本工具绑定"""
@@ -68,7 +66,6 @@ def test_tool_binding_basic():
         print(f"❌ 工具绑定失败: {e}")
         return False
 
-
 def test_vs_old_adapter():
     """对比新旧适配器差异"""
     print("\n🔧 对比新旧适配器")
@@ -96,7 +93,6 @@ def test_vs_old_adapter():
         print(f"❌ 对比测试失败: {e}")
         return False
 
-
 def test_import_completeness():
     """测试导入完整性"""
     print("\n🔧 测试导入完整性")
@@ -123,7 +119,6 @@ def test_import_completeness():
     print(f"\n📊 导入结果: {success_count}/{len(imports)} 成功")
     return success_count == len(imports)
 
-
 def test_api_key_detection():
     """测试API密钥检测"""
     print("\n🔧 测试API密钥检测")
@@ -144,7 +139,6 @@ def test_api_key_detection():
         print("⚠️ DASHSCOPE_API_KEY未设置")
         print("   这不影响适配器创建，但会影响实际调用")
         return True  # 不影响核心测试
-
 
 def test_technical_analysis_simulation():
     """模拟技术面分析流程"""
@@ -191,7 +185,6 @@ def test_technical_analysis_simulation():
     except Exception as e:
         print(f"❌ 技术面分析模拟失败: {e}")
         return False
-
 
 def main():
     """主测试函数"""
@@ -252,7 +245,6 @@ def main():
         print("\n⚠️ 仍有问题需要解决")
     
     return passed >= 5
-
 
 if __name__ == "__main__":
     success = main()

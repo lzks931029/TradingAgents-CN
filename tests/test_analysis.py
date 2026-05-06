@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -67,7 +68,7 @@ def test_graph_initialization():
         return True, graph
     except Exception as e:
         print(f"❌ 图初始化失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False, None
 
@@ -86,7 +87,7 @@ def test_simple_analysis():
         return True
     except Exception as e:
         print(f"❌ 分析失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 

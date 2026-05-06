@@ -3,9 +3,10 @@
 自动记录用户的API操作日志
 """
 
+import logging
 import time
 import json
-import logging
+
 from typing import Optional, Dict, Any
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -21,8 +22,6 @@ OPLOG_ENABLED: bool = True
 def set_operation_log_enabled(flag: bool) -> None:
     global OPLOG_ENABLED
     OPLOG_ENABLED = bool(flag)
-
-
 
 class OperationLogMiddleware(BaseHTTPMiddleware):
     """操作日志记录中间件"""
@@ -277,7 +276,6 @@ class OperationLogMiddleware(BaseHTTPMiddleware):
 
         except Exception as e:
             logger.error(f"记录操作日志失败: {e}")
-
 
 # 便捷函数：手动记录操作日志
 async def manual_log_operation(

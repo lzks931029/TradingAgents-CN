@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+import os
 """检查数据库中的数据"""
 import asyncio
 import sys
 from pathlib import Path
-import os
+
 from dotenv import load_dotenv
 
 # 添加项目根目录到路径
@@ -14,7 +15,6 @@ load_dotenv()
 
 from motor.motor_asyncio import AsyncIOMotorClient
 import json
-
 
 async def check():
     client = AsyncIOMotorClient(os.getenv('MONGODB_CONNECTION_STRING'))
@@ -55,7 +55,6 @@ async def check():
         print("未找到数据")
     
     client.close()
-
 
 if __name__ == "__main__":
     asyncio.run(check())

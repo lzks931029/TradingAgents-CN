@@ -3,6 +3,7 @@
 提供用户操作日志的查看和管理功能
 """
 
+import os
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -10,7 +11,7 @@ import plotly.graph_objects as go
 from datetime import datetime, timedelta
 from typing import Dict, List, Any
 import json
-import os
+
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -153,7 +154,7 @@ def render_operation_logs():
     # 检查权限
     try:
         import sys
-        import os
+        
         sys.path.append(os.path.dirname(os.path.dirname(__file__)))
         from utils.auth_manager import auth_manager
         

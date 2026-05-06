@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -148,7 +149,7 @@ def main():
         
     except Exception as e:
         print(f"\n❌ 调试过程中出现错误: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

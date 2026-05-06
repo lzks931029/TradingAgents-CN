@@ -3,12 +3,12 @@
 
 这个脚本使用模拟数据来验证 TTM 计算公式是否正确
 """
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from tradingagents.dataflows.providers.china.tushare import TushareProvider
-
 
 def test_ttm_calculation():
     """测试 TTM 计算逻辑"""
@@ -180,7 +180,6 @@ def test_ttm_calculation():
     print("\n" + "=" * 80)
     print("测试完成！")
     print("=" * 80)
-
 
 if __name__ == "__main__":
     test_ttm_calculation()

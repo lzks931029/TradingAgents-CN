@@ -2,9 +2,10 @@
 """
 测试分析报告API功能
 """
+import traceback
 import requests
 import json
-import time
+
 from datetime import datetime
 
 def login_and_get_token(base_url):
@@ -188,7 +189,7 @@ def test_reports_api():
         
     except Exception as e:
         print(f"❌ 测试过程中出现异常: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

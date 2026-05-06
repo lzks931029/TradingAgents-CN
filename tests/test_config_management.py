@@ -3,7 +3,7 @@
 配置管理功能测试
 """
 
-import os
+import traceback
 import sys
 import tempfile
 import shutil
@@ -15,7 +15,6 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from tradingagents.config.config_manager import ConfigManager, ModelConfig, PricingConfig, TokenTracker
-
 
 def test_config_manager():
     """测试配置管理器基本功能"""
@@ -110,7 +109,6 @@ def test_config_manager():
         
         print("✅ 系统设置测试通过")
 
-
 def test_token_tracker():
     """测试Token跟踪器"""
     print("\n🧪 测试Token跟踪器")
@@ -158,7 +156,6 @@ def test_token_tracker():
         
         print("✅ 会话成本测试通过")
 
-
 def test_pricing_accuracy():
     """测试定价准确性"""
     print("\n🧪 测试定价准确性")
@@ -190,7 +187,6 @@ def test_pricing_accuracy():
                 assert cost == 0.0, f"未知模型应该返回0成本，但得到 {cost}"
         
         print("✅ 定价准确性测试通过")
-
 
 def test_usage_statistics():
     """测试使用统计功能"""
@@ -238,7 +234,6 @@ def test_usage_statistics():
         
         print("✅ 使用统计测试通过")
 
-
 def main():
     """主测试函数"""
     print("🧪 配置管理功能测试")
@@ -261,10 +256,9 @@ def main():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         print(f"错误详情: {traceback.format_exc()}")
         return False
-
 
 if __name__ == "__main__":
     success = main()

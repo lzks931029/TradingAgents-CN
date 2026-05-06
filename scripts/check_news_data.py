@@ -2,6 +2,7 @@
 """
 检查新闻数据库中的数据
 """
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -12,7 +13,6 @@ sys.path.insert(0, str(project_root))
 
 from app.core.database import init_db, get_database
 from datetime import datetime, timedelta
-
 
 async def check_news_data():
     """检查新闻数据"""
@@ -85,9 +85,8 @@ async def check_news_data():
         
     except Exception as e:
         print(f"\n❌ 检查失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     asyncio.run(check_news_data())

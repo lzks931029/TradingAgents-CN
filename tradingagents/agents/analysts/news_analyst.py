@@ -1,5 +1,7 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-import time
+
+import logging
+import traceback
 import json
 from datetime import datetime
 
@@ -15,7 +17,6 @@ from tradingagents.agents.utils.google_tool_handler import GoogleToolCallHandler
 from tradingagents.agents.utils.instrument_utils import build_instrument_context
 
 logger = get_logger("analysts.news")
-
 
 def create_news_analyst(llm, toolkit):
     @log_analyst_module("news")
@@ -292,7 +293,7 @@ def create_news_analyst(llm, toolkit):
 
             except Exception as e:
                 logger.error(f"[新闻分析师] ❌ 预处理失败: {e}，回退到标准模式")
-                import traceback
+                
                 logger.error(f"[新闻分析师] 📋 异常堆栈: {traceback.format_exc()}")
         
         # 使用统一的Google工具调用处理器
@@ -386,7 +387,7 @@ def create_news_analyst(llm, toolkit):
 
                 except Exception as e:
                     logger.error(f"[新闻分析师] ❌ 强制补救过程失败: {e}")
-                    import traceback
+                    
                     logger.error(f"[新闻分析师] 📋 异常堆栈: {traceback.format_exc()}")
                     report = result.content if hasattr(result, 'content') else ""
             else:

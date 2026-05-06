@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-import time
+
 诊断Tushare返回空数据的原因
 分析时间参数、股票代码、API限制等可能的问题
 """
 
-import sys
 import os
+import time
+import sys
+
 from datetime import datetime, timedelta
 
 # 添加项目根目录到Python路径
@@ -131,7 +133,7 @@ def test_api_limits():
     
     try:
         from tradingagents.dataflows.tushare_utils import get_tushare_provider
-        import time
+        
         
         provider = get_tushare_provider()
         

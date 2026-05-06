@@ -3,8 +3,9 @@
 BaoStock统一数据提供器
 实现BaseStockDataProvider接口，提供标准化的BaoStock数据访问
 """
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime, timedelta, timezone
 from typing import Dict, Any, List, Optional, Union
 import pandas as pd
@@ -12,7 +13,6 @@ import pandas as pd
 from ..base_provider import BaseStockDataProvider
 
 logger = logging.getLogger(__name__)
-
 
 class BaoStockProvider(BaseStockDataProvider):
     """BaoStock统一数据提供器"""
@@ -889,10 +889,8 @@ class BaoStockProvider(BaseStockDataProvider):
             logger.debug(f"获取{code}现金流量数据失败: {e}")
             return None
 
-
 # 全局提供器实例
 _baostock_provider = None
-
 
 def get_baostock_provider() -> BaoStockProvider:
     """获取全局BaoStock提供器实例"""

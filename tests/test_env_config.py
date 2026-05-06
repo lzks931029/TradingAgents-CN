@@ -3,8 +3,10 @@
 测试使用.env配置的数据库管理器
 """
 
-import sys
 import os
+import traceback
+import sys
+
 from pathlib import Path
 
 def test_env_config():
@@ -64,7 +66,7 @@ def test_env_config():
         
     except Exception as e:
         print(f"❌ 数据库管理器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
     
@@ -103,7 +105,7 @@ def test_env_config():
         
     except Exception as e:
         print(f"❌ 缓存系统测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
     
@@ -160,7 +162,7 @@ def main():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

@@ -3,12 +3,14 @@
 增强版本，支持优先级、进度跟踪、任务管理等功能
 """
 
+import logging
+import os
+import time
 from fastapi import APIRouter, HTTPException, Depends, Query, BackgroundTasks, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 from datetime import datetime
-import logging
-import time
+
 import uuid
 import asyncio
 
@@ -93,7 +95,6 @@ async def submit_single_analysis(
     except Exception as e:
         logger.error(f"❌ 提交单股分析任务失败: {e}")
         raise HTTPException(status_code=400, detail=str(e))
-
 
 # 测试路由 - 验证路由是否被正确注册
 @router.get("/test-route")
@@ -347,7 +348,7 @@ async def get_task_result(
 
         # 处理reports字段 - 如果没有reports字段，优先尝试从文件系统加载，其次从state中提取
         if 'reports' not in result_data or not result_data['reports']:
-            import os
+            
             from pathlib import Path
 
             stock_symbol = result_data.get('stock_symbol') or result_data.get('stock_code')
@@ -547,7 +548,6 @@ async def get_task_result(
                     result_data['key_points'] = kp[:5]
         except Exception as fill_err:
             logger.warning(f"⚠️ [RESULT] 补全关键字段时出错: {fill_err}")
-
 
         # 进一步兜底：从 detailed_analysis 推断并补全
         try:
@@ -1108,7 +1108,6 @@ async def get_task_details(
         raise HTTPException(status_code=404, detail="任务不存在")
     return t
 
-
 # ==================== 僵尸任务管理 ====================
 
 @router.get("/admin/zombie-tasks")
@@ -1138,7 +1137,6 @@ async def get_zombie_tasks(
         logger.error(f"❌ 获取僵尸任务失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取僵尸任务失败: {str(e)}")
 
-
 @router.post("/admin/cleanup-zombie-tasks")
 async def cleanup_zombie_tasks(
     max_running_hours: int = Query(default=2, ge=1, le=72, description="最大运行时长（小时）"),
@@ -1164,7 +1162,6 @@ async def cleanup_zombie_tasks(
     except Exception as e:
         logger.error(f"❌ 清理僵尸任务失败: {e}")
         raise HTTPException(status_code=500, detail=f"清理僵尸任务失败: {str(e)}")
-
 
 @router.post("/tasks/{task_id}/mark-failed")
 async def mark_task_as_failed(
@@ -1219,7 +1216,6 @@ async def mark_task_as_failed(
     except Exception as e:
         logger.error(f"❌ 标记任务失败: {e}")
         raise HTTPException(status_code=500, detail=f"标记任务失败: {str(e)}")
-
 
 @router.delete("/tasks/{task_id}")
 async def delete_task(

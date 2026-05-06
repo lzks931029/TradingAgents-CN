@@ -3,8 +3,9 @@
 测试修复后的分析功能
 """
 
-import requests
 import time
+import requests
+
 import json
 from pathlib import Path
 

@@ -4,8 +4,9 @@
 验证占位符是否被正确识别为"未配置"
 """
 
-import sys
 import os
+import sys
+
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
@@ -17,7 +18,6 @@ from dotenv import load_dotenv
 load_dotenv(project_root / ".env")
 
 from app.core.startup_validator import StartupValidator
-
 
 def test_env_validation():
     """测试 .env 文件中的 API Key 验证"""
@@ -111,7 +111,6 @@ def test_env_validation():
         print("\n⚠️  未检测到占位符（可能所有 API Key 都是有效的）")
     
     print("=" * 80)
-
 
 if __name__ == "__main__":
     test_env_validation()

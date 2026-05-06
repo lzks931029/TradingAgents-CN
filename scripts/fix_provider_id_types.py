@@ -6,9 +6,9 @@
 解决：将字符串类型的 _id 转换为 ObjectId 类型
 """
 
+import os
 import asyncio
 import sys
-import os
 
 # 添加项目根目录到 Python 路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -17,7 +17,6 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from bson import ObjectId
 from datetime import datetime
 from app.core.config import settings
-
 
 async def fix_provider_id_types():
     """修复厂家 ID 类型"""
@@ -97,7 +96,6 @@ async def fix_provider_id_types():
         print("\n⚠️ 注意：厂家 ID 已更改，前端可能需要刷新页面")
     
     client.close()
-
 
 if __name__ == "__main__":
     asyncio.run(fix_provider_id_types())

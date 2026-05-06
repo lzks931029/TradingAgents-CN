@@ -5,9 +5,9 @@
 """
 
 import os
-import sys
 import time
 import traceback
+import sys
 
 # 强制刷新输出
 def flush_print(msg):

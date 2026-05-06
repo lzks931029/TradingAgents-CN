@@ -4,8 +4,9 @@
 用于验证配置验证器是否正常工作
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到 Python 路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -16,7 +17,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from app.core.startup_validator import validate_startup_config, ConfigurationError
-
 
 def main():
     """测试配置验证器"""
@@ -43,10 +43,9 @@ def main():
         return 1
     except Exception as e:
         print(f"\n❌ 发生错误: {e}")
-        import traceback
+        
         traceback.print_exc()
         return 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

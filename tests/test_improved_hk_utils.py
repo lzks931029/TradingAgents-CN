@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """
-import time
+
 测试改进的港股工具
 """
 
 import os
+import time
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
@@ -53,7 +55,7 @@ def test_improved_hk_provider():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -94,7 +96,7 @@ def test_analyst_integration():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -105,7 +107,7 @@ def test_cache_functionality():
     
     try:
         from tradingagents.dataflows.providers.hk.improved_hk import get_improved_hk_provider
-        import time
+        
         
         provider = get_improved_hk_provider()
         
@@ -162,7 +164,7 @@ def test_cache_functionality():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

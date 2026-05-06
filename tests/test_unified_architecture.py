@@ -4,7 +4,7 @@
 验证所有分析师都使用统一工具方案
 """
 
-import os
+import traceback
 import sys
 
 def test_unified_tools_availability():
@@ -43,7 +43,6 @@ def test_unified_tools_availability():
     except Exception as e:
         print(f"❌ 统一工具可用性测试失败: {e}")
         return False
-
 
 def test_market_analyst_unified():
     """测试市场分析师使用统一工具"""
@@ -103,10 +102,9 @@ def test_market_analyst_unified():
         
     except Exception as e:
         print(f"❌ 市场分析师统一工具测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_fundamentals_analyst_unified():
     """测试基本面分析师使用统一工具"""
@@ -166,10 +164,9 @@ def test_fundamentals_analyst_unified():
         
     except Exception as e:
         print(f"❌ 基本面分析师统一工具测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_stock_type_routing():
     """测试股票类型路由"""
@@ -236,7 +233,6 @@ def test_stock_type_routing():
         print(f"❌ 股票类型路由测试失败: {e}")
         return False
 
-
 def main():
     """主测试函数"""
     print("🔧 统一工具架构测试")
@@ -277,7 +273,6 @@ def main():
     else:
         print("⚠️ 部分测试失败，需要进一步检查")
         return False
-
 
 if __name__ == "__main__":
     success = main()

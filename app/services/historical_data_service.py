@@ -3,8 +3,9 @@
 统一历史数据管理服务
 为三数据源提供统一的历史数据存储和查询接口
 """
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime, date
 from typing import Dict, Any, List, Optional, Union
 import pandas as pd
@@ -13,7 +14,6 @@ from motor.motor_asyncio import AsyncIOMotorDatabase
 from app.core.database import get_database
 
 logger = logging.getLogger(__name__)
-
 
 class HistoricalDataService:
     """统一历史数据管理服务"""
@@ -492,10 +492,8 @@ class HistoricalDataService:
             logger.error(f"❌ 获取统计信息失败: {e}")
             return {}
 
-
 # 全局服务实例
 _historical_data_service = None
-
 
 async def get_historical_data_service() -> HistoricalDataService:
     """获取历史数据服务实例"""

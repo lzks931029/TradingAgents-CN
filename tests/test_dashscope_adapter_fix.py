@@ -4,6 +4,7 @@ DashScope OpenAI 适配器修复测试脚本
 测试修复后的工具绑定、转换和调用机制
 """
 
+import logging
 import os
 import sys
 from pathlib import Path

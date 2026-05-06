@@ -4,14 +4,13 @@
 将现有脚本按功能分类到子目录中
 """
 
-import os
+import logging
 import shutil
 from pathlib import Path
 
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('scripts')
-
 
 def create_scripts_structure():
     """创建scripts子目录结构"""

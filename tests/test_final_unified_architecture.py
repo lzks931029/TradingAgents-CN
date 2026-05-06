@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
@@ -73,10 +74,9 @@ def test_complete_unified_architecture():
         
     except Exception as e:
         print(f"❌ 完整统一工具架构测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_llm_tool_calling_simulation():
     """模拟LLM工具调用测试"""
@@ -162,10 +162,9 @@ def test_llm_tool_calling_simulation():
         
     except Exception as e:
         print(f"❌ LLM工具调用模拟测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_unified_tools_functionality():
     """测试统一工具功能"""
@@ -214,7 +213,6 @@ def test_unified_tools_functionality():
         print(f"❌ 统一工具功能测试失败: {e}")
         return False
 
-
 def main():
     """主测试函数"""
     print("🎉 最终统一工具架构测试")
@@ -261,7 +259,6 @@ def main():
     else:
         print("⚠️ 部分测试失败，需要进一步检查")
         return False
-
 
 if __name__ == "__main__":
     success = main()

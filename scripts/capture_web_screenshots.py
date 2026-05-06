@@ -4,9 +4,10 @@ Web界面截图捕获脚本
 用于自动化捕获TradingAgents-CN Web界面的截图
 """
 
-import os
-import sys
+import logging
 import time
+import sys
+
 import subprocess
 from pathlib import Path
 from datetime import datetime

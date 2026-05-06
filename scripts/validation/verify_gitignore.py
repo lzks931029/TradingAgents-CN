@@ -3,7 +3,7 @@
 验证docs/contribution目录的Git忽略配置
 """
 
-import os
+import logging
 import subprocess
 import sys
 from pathlib import Path
@@ -11,7 +11,6 @@ from pathlib import Path
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('scripts')
-
 
 def run_git_command(cmd, cwd=None):
     """运行Git命令"""

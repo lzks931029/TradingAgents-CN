@@ -3,8 +3,9 @@
 快速测试修复效果
 """
 
-import requests
 import time
+import requests
+
 import json
 
 def quick_test():

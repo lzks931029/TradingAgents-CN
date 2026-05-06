@@ -3,16 +3,17 @@
 检查 token_usage 集合中的记录
 """
 
+import os
+import traceback
 import asyncio
 import sys
-import os
+
 from pathlib import Path
 from motor.motor_asyncio import AsyncIOMotorClient
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-
 
 async def main():
     """主函数"""
@@ -101,9 +102,8 @@ async def main():
         
     except Exception as e:
         print(f"\n❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

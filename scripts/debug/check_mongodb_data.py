@@ -3,9 +3,10 @@
 检查MongoDB中保存的数据结构
 """
 
+import os
 from pymongo import MongoClient
 import json
-import os
+
 from dotenv import load_dotenv
 
 def check_mongodb_data():

@@ -28,7 +28,6 @@ from app.core.config import get_settings
 
 settings = get_settings()
 
-
 def generate_full_symbol(code: str) -> str:
     """
     根据股票代码生成完整标准化代码
@@ -60,7 +59,6 @@ def generate_full_symbol(code: str) -> str:
     else:
         # 无法识别的代码，返回原始代码（确保不为空）
         return code if code else ""
-
 
 async def fix_null_full_symbol():
     """修复 full_symbol 为 null 的记录"""
@@ -209,7 +207,6 @@ async def fix_null_full_symbol():
     print(f"\n{'='*80}")
     print("修复完成")
     print(f"{'='*80}\n")
-
 
 if __name__ == "__main__":
     asyncio.run(fix_null_full_symbol())

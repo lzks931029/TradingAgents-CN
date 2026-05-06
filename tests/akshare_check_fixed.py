@@ -4,8 +4,9 @@
 添加路径设置以解决模块导入问题
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,7 +31,7 @@ def check_akshare_utils():
         return True, provider
     except Exception as e:
         print(f"❌ AKShare工具模块异常: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False, None
 
@@ -56,7 +57,7 @@ def check_data_source_manager():
         return True, manager
     except Exception as e:
         print(f"❌ 数据源管理器检查失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False, None
 
@@ -87,7 +88,7 @@ def test_akshare_adapter():
             
     except Exception as e:
         print(f"❌ AKShare适配器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -109,7 +110,7 @@ def test_data_source_switching():
             
     except Exception as e:
         print(f"❌ 数据源切换测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -135,7 +136,7 @@ def test_unified_interface():
             
     except Exception as e:
         print(f"❌ 统一数据接口测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

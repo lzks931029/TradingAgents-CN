@@ -4,8 +4,10 @@
 用于测试Web界面的报告显示功能
 """
 
-import sys
 import os
+import traceback
+import sys
+
 from datetime import datetime
 
 # 添加项目路径
@@ -178,7 +180,7 @@ def main():
         
     except Exception as e:
         print(f"❌ 创建示例报告失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

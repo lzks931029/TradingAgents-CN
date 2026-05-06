@@ -2,16 +2,17 @@
 验证 trade_date 修复效果
 检查最新同步的数据是否使用正确的日期格式
 """
+import os
+import traceback
 import asyncio
 import sys
-import os
+
 from datetime import datetime, timedelta
 
 # 添加项目根目录到 Python 路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.core.database import init_database, get_mongo_db, close_database
-
 
 async def verify_fix():
     """验证修复效果"""
@@ -113,7 +114,7 @@ async def verify_fix():
         
     except Exception as e:
         print(f"\n❌ 验证失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     finally:
@@ -122,7 +123,6 @@ async def verify_fix():
     print("\n" + "=" * 80)
     print("✅ 验证完成")
     print("=" * 80)
-
 
 if __name__ == "__main__":
     asyncio.run(verify_fix())

@@ -3,15 +3,16 @@
 历史数据同步问题诊断脚本
 分析为什么历史数据没有完整同步到MongoDB
 """
-import asyncio
 import logging
+import os
+import asyncio
+
 from datetime import datetime, timedelta
 from tradingagents.config.database_manager import get_mongodb_client
 
 # 设置日志
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def diagnose_historical_data_sync():
     """诊断历史数据同步问题"""
@@ -88,7 +89,7 @@ async def diagnose_historical_data_sync():
     
     # 4. 检查配置状态
     print("\n4️⃣ 检查同步服务配置")
-    import os
+    
     
     tushare_enabled = os.getenv('TUSHARE_UNIFIED_ENABLED', 'false').lower() == 'true'
     akshare_enabled = os.getenv('AKSHARE_UNIFIED_ENABLED', 'false').lower() == 'true'
@@ -156,7 +157,6 @@ async def diagnose_historical_data_sync():
     print("🎯 诊断完成！请根据建议进行相应的修复操作。")
     
     client.close()
-
 
 if __name__ == "__main__":
     asyncio.run(diagnose_historical_data_sync())

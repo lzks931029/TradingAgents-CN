@@ -3,6 +3,7 @@
 检查 Redis 缓存中的美股数据
 """
 
+import traceback
 import sys
 from pathlib import Path
 
@@ -143,7 +144,7 @@ def check_redis_cache():
         print("请确保 Redis 服务正在运行")
     except Exception as e:
         print(f"❌ 检查失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     print("=" * 80)

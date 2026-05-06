@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
+import logging
 from pydantic import BaseModel, Field
 from typing import Literal, Optional, Dict, Any, List, Tuple
 from datetime import datetime
-import logging
+
 import re
 
 from app.routers.auth_db import get_current_user
@@ -12,14 +13,12 @@ from app.core.response import ok
 router = APIRouter(prefix="/paper", tags=["paper"])
 logger = logging.getLogger("webapi")
 
-
 # 每个市场的初始资金配置
 INITIAL_CASH_BY_MARKET = {
     "CNY": 1_000_000.0,   # A股：100万人民币
     "HKD": 1_000_000.0,   # 港股：100万港币
     "USD": 100_000.0      # 美股：10万美元
 }
-
 
 class PlaceOrderRequest(BaseModel):
     code: str = Field(..., description="股票代码（支持A股/港股/美股）")
@@ -28,7 +27,6 @@ class PlaceOrderRequest(BaseModel):
     market: Optional[str] = Field(None, description="市场类型 (CN/HK/US)，不传则自动识别")
     # 可选：关联的分析ID，便于从分析页面一键下单后追踪
     analysis_id: Optional[str] = None
-
 
 def _detect_market_and_code(code: str) -> Tuple[str, str]:
     """
@@ -60,7 +58,6 @@ def _detect_market_and_code(code: str) -> Tuple[str, str]:
 
     # 默认当作A股，补齐6位
     return ('CN', code.zfill(6))
-
 
 async def _get_or_create_account(user_id: str) -> Dict[str, Any]:
     """获取或创建账户（多货币）"""
@@ -114,7 +111,6 @@ async def _get_or_create_account(user_id: str) -> Dict[str, Any]:
             logger.error(f"❌ 账户结构迁移失败 user_id={user_id}: {e}")
     return acc
 
-
 async def _get_market_rules(market: str) -> Optional[Dict[str, Any]]:
     """获取市场规则配置"""
     db = get_mongo_db()
@@ -122,7 +118,6 @@ async def _get_market_rules(market: str) -> Optional[Dict[str, Any]]:
     if rules_doc:
         return rules_doc.get("rules", {})
     return None
-
 
 def _calculate_commission(market: str, side: str, amount: float, rules: Dict[str, Any]) -> float:
     """计算手续费"""
@@ -156,7 +151,6 @@ def _calculate_commission(market: str, side: str, amount: float, rules: Dict[str
 
     return round(commission, 2)
 
-
 async def _get_available_quantity(user_id: str, code: str, market: str) -> int:
     """获取可用数量（考虑T+1限制）"""
     db = get_mongo_db()
@@ -189,7 +183,6 @@ async def _get_available_quantity(user_id: str, code: str, market: str) -> int:
 
     # 港股/美股T+0：全部可用
     return total_qty
-
 
 async def _get_last_price(code: str, market: str) -> Optional[float]:
     """
@@ -259,13 +252,11 @@ async def _get_last_price(code: str, market: str) -> Optional[float]:
     logger.error(f"❌ 无法获取股票价格: {code} (market={market})")
     return None
 
-
 def _zfill_code(code: str) -> str:
     s = str(code).strip()
     if len(s) == 6 and s.isdigit():
         return s
     return s.zfill(6)
-
 
 @router.get("/account", response_model=dict)
 async def get_account(current_user: dict = Depends(get_current_user)):
@@ -339,7 +330,6 @@ async def get_account(current_user: dict = Depends(get_current_user)):
     }
 
     return ok({"account": summary, "positions": detailed_positions})
-
 
 @router.post("/order", response_model=dict)
 async def place_order(payload: PlaceOrderRequest, current_user: dict = Depends(get_current_user)):
@@ -529,7 +519,6 @@ async def place_order(payload: PlaceOrderRequest, current_user: dict = Depends(g
 
     return ok({"order": {k: v for k, v in order_doc.items() if k != "_id"}})
 
-
 @router.get("/positions", response_model=dict)
 async def list_positions(current_user: dict = Depends(get_current_user)):
     """获取持仓列表（支持多市场）"""
@@ -559,7 +548,6 @@ async def list_positions(current_user: dict = Depends(get_current_user)):
         })
     return ok({"items": enriched})
 
-
 @router.get("/orders", response_model=dict)
 async def list_orders(limit: int = Query(50, ge=1, le=200), current_user: dict = Depends(get_current_user)):
     db = get_mongo_db()
@@ -568,7 +556,6 @@ async def list_orders(limit: int = Query(50, ge=1, le=200), current_user: dict =
     # 去除 _id
     cleaned = [{k: v for k, v in it.items() if k != "_id"} for it in items]
     return ok({"items": cleaned})
-
 
 @router.post("/reset", response_model=dict)
 async def reset_account(confirm: bool = Query(False), current_user: dict = Depends(get_current_user)):

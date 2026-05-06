@@ -3,7 +3,9 @@
 将 .env 文件中的配置迁移到新的JSON配置系统
 """
 
+import logging
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -167,7 +169,7 @@ def main():
         
     except Exception as e:
         logger.error(f"❌ 迁移失败: {e}")
-        import traceback
+        
 
         logger.error(f"错误详情: {traceback.format_exc()}")
         return False

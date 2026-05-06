@@ -4,9 +4,10 @@
 测试Web和CLI界面中的股票数据预获取功能是否正常工作
 """
 
-import sys
 import os
 import time
+import sys
+
 from datetime import datetime
 
 # 添加项目根目录到Python路径

@@ -14,9 +14,10 @@
 3. 为 code 字段创建索引
 """
 
+import os
 import asyncio
 import sys
-import os
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.core.database import get_mongo_db, init_database

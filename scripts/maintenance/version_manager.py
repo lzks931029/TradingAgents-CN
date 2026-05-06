@@ -4,7 +4,7 @@
 用于管理TradingAgents项目的版本号和发布流程
 """
 
-import os
+import logging
 import sys
 import subprocess
 import argparse
@@ -14,7 +14,6 @@ from pathlib import Path
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('scripts')
-
 
 class VersionManager:
     def __init__(self):

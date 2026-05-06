@@ -1,3 +1,5 @@
+
+import logging
 import os
 import re
 from datetime import datetime
@@ -74,11 +76,9 @@ PROVIDER_OPTIONS: List[Dict[str, str]] = [
     },
 ]
 
-
 def normalize_ticker_symbol(ticker: str) -> str:
     """Normalize ticker input while preserving exchange suffixes."""
     return ticker.strip().upper()
-
 
 def get_ticker() -> str:
     """Prompt the user to enter a ticker symbol."""
@@ -98,7 +98,6 @@ def get_ticker() -> str:
         exit(1)
 
     return normalize_ticker_symbol(ticker)
-
 
 def get_analysis_date() -> str:
     """Prompt the user to enter a date in YYYY-MM-DD format."""
@@ -129,7 +128,6 @@ def get_analysis_date() -> str:
         exit(1)
 
     return date.strip()
-
 
 def select_analysts(ticker: str = None) -> List[AnalystType]:
     """Select analysts using an interactive checkbox."""
@@ -167,7 +165,6 @@ def select_analysts(ticker: str = None) -> List[AnalystType]:
 
     return choices
 
-
 def select_research_depth() -> int:
     """Select research depth using an interactive selection."""
     depth_options = [
@@ -198,7 +195,6 @@ def select_research_depth() -> int:
 
     return choice
 
-
 def _prompt_custom_model_id() -> str:
     model_id = questionary.text(
         "请输入模型名称 | Enter model ID:",
@@ -208,7 +204,6 @@ def _prompt_custom_model_id() -> str:
         logger.info("\n[red]未输入模型名称，退出程序... | No model ID entered. Exiting...[/red]")
         exit(1)
     return model_id.strip()
-
 
 def _select_model(provider: str, mode: str) -> str:
     options = get_model_options(provider, mode)
@@ -237,14 +232,11 @@ def _select_model(provider: str, mode: str) -> str:
 
     return choice
 
-
 def select_shallow_thinking_agent(provider: str) -> str:
     return _select_model(provider, "quick")
 
-
 def select_deep_thinking_agent(provider: str) -> str:
     return _select_model(provider, "deep")
-
 
 def select_llm_provider() -> tuple[str, str]:
     """Select the LLM provider using interactive selection."""

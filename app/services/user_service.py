@@ -2,8 +2,9 @@
 用户服务 - 基于数据库的用户管理
 """
 
+import logging
 import hashlib
-import time
+
 from datetime import datetime
 from typing import Optional, Dict, Any, List
 from pymongo import MongoClient
@@ -17,12 +18,11 @@ try:
     from tradingagents.utils.logging_manager import get_logger
 except ImportError:
     # 如果导入失败，使用标准日志
-    import logging
+    
     def get_logger(name: str) -> logging.Logger:
         return logging.getLogger(name)
 
 logger = get_logger('user_service')
-
 
 class UserService:
     """用户服务类"""
@@ -411,7 +411,6 @@ class UserService:
         except Exception as e:
             logger.error(f"❌ 激活用户失败: {e}")
             return False
-
 
 # 全局用户服务实例
 user_service = UserService()

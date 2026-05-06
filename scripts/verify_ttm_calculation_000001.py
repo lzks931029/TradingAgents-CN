@@ -1,9 +1,10 @@
 """
 验证 000001（平安银行）的 TTM 计算是否正确
 """
+import os
 import asyncio
 import sys
-import os
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -11,7 +12,6 @@ from dotenv import load_dotenv
 
 # 加载环境变量
 load_dotenv()
-
 
 async def main():
     # 连接数据库
@@ -176,7 +176,6 @@ async def main():
     
     client.close()
     print("\n" + "=" * 100)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

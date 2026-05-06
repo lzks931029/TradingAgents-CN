@@ -4,8 +4,10 @@
 简化测试：直接测试优化后的基本面分析数据获取逻辑
 """
 
-import sys
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from datetime import datetime, timedelta
@@ -92,7 +94,7 @@ def test_optimized_fundamentals_logic():
         
     except Exception as e:
         print(f"❌ 测试过程中出错: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

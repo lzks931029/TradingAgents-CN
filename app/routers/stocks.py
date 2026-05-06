@@ -4,9 +4,10 @@
 - 所有端点均需鉴权 (Bearer Token)
 - 路径前缀在 main.py 中挂载为 /api，当前路由自身前缀为 /stocks
 """
+import logging
 from typing import Optional, Dict, Any, List, Tuple
 from fastapi import APIRouter, Depends, HTTPException, status, Query
-import logging
+
 import re
 
 from app.routers.auth_db import get_current_user
@@ -17,7 +18,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/stocks", tags=["stocks"])
 
-
 def _zfill_code(code: str) -> str:
     try:
         s = str(code).strip()
@@ -26,7 +26,6 @@ def _zfill_code(code: str) -> str:
         return s.zfill(6)
     except Exception:
         return str(code)
-
 
 def _detect_market_and_code(code: str) -> Tuple[str, str]:
     """
@@ -61,7 +60,6 @@ def _detect_market_and_code(code: str) -> Tuple[str, str]:
 
     # 默认当作A股处理
     return ('CN', _zfill_code(code))
-
 
 @router.get("/{code}/quote", response_model=dict)
 async def get_quote(
@@ -210,7 +208,6 @@ async def get_quote(
     }
 
     return ok(data)
-
 
 @router.get("/{code}/fundamentals", response_model=dict)
 async def get_fundamentals(
@@ -417,7 +414,6 @@ async def get_fundamentals(
 
     return ok(data)
 
-
 @router.get("/{code}/kline", response_model=dict)
 async def get_kline(
     code: str,
@@ -438,7 +434,7 @@ async def get_kline(
     - 交易时间内（09:30-15:00）：从 market_quotes 获取实时数据
     - 收盘后：检查历史数据是否有当天数据，没有则从 market_quotes 获取
     """
-    import logging
+    
     from datetime import datetime, timedelta, time as dtime
     from zoneinfo import ZoneInfo
     logger = logging.getLogger(__name__)
@@ -619,7 +615,6 @@ async def get_kline(
         "items": items or []
     }
     return ok(data)
-
 
 @router.get("/{code}/news", response_model=dict)
 async def get_news(code: str, days: int = 30, limit: int = 50, include_announcements: bool = True, current_user: dict = Depends(get_current_user)):

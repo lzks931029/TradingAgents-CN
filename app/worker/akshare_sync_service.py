@@ -2,8 +2,9 @@
 AKShare数据同步服务
 基于AKShare提供器的统一数据同步方案
 """
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional
 
@@ -13,7 +14,6 @@ from app.services.news_data_service import get_news_data_service
 from tradingagents.dataflows.providers.china.akshare import get_akshare_provider
 
 logger = logging.getLogger(__name__)
-
 
 class AKShareSyncService:
     """
@@ -1141,7 +1141,6 @@ class AKShareSyncService:
 
         return batch_stats
 
-
 # 全局同步服务实例
 _akshare_sync_service = None
 
@@ -1152,7 +1151,6 @@ async def get_akshare_sync_service() -> AKShareSyncService:
         _akshare_sync_service = AKShareSyncService()
         await _akshare_sync_service.initialize()
     return _akshare_sync_service
-
 
 # APScheduler兼容的任务函数
 async def run_akshare_basic_info_sync(force_update: bool = False):
@@ -1165,7 +1163,6 @@ async def run_akshare_basic_info_sync(force_update: bool = False):
     except Exception as e:
         logger.error(f"❌ AKShare基础信息同步失败: {e}")
         raise
-
 
 async def run_akshare_quotes_sync(force: bool = False):
     """
@@ -1184,7 +1181,6 @@ async def run_akshare_quotes_sync(force: bool = False):
         logger.error(f"❌ AKShare行情同步失败: {e}")
         raise
 
-
 async def run_akshare_historical_sync(incremental: bool = True):
     """APScheduler任务：同步历史数据"""
     try:
@@ -1195,7 +1191,6 @@ async def run_akshare_historical_sync(incremental: bool = True):
     except Exception as e:
         logger.error(f"❌ AKShare历史数据同步失败: {e}")
         raise
-
 
 async def run_akshare_financial_sync():
     """APScheduler任务：同步财务数据"""
@@ -1208,7 +1203,6 @@ async def run_akshare_financial_sync():
         logger.error(f"❌ AKShare财务数据同步失败: {e}")
         raise
 
-
 async def run_akshare_status_check():
     """APScheduler任务：状态检查"""
     try:
@@ -1219,7 +1213,6 @@ async def run_akshare_status_check():
     except Exception as e:
         logger.error(f"❌ AKShare状态检查失败: {e}")
         raise
-
 
 async def run_akshare_news_sync(max_news_per_stock: int = 20):
     """APScheduler任务：同步新闻数据"""

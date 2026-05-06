@@ -4,9 +4,11 @@
 测试所有数据源的获取过程和优先级切换
 """
 
-import sys
 import os
 import time
+import traceback
+import sys
+
 from datetime import datetime, timedelta
 from typing import Dict, List, Any
 
@@ -310,7 +312,6 @@ def test_cache_system():
     
     return results
 
-
 def analyze_results(all_results: Dict):
     """分析测试结果"""
     print("\n📊 测试结果分析")
@@ -374,7 +375,6 @@ def analyze_results(all_results: Dict):
 
     return success_rate >= 70  # 70%以上成功率认为通过
 
-
 def print_recommendations(all_results: Dict):
     """打印优化建议"""
     print(f"\n💡 优化建议:")
@@ -434,7 +434,6 @@ def print_recommendations(all_results: Dict):
         print("   - 确认文件缓存目录权限")
         print("   - 清理过期缓存文件")
 
-
 def main():
     """主测试函数"""
     print("🧪 数据源综合测试程序")
@@ -480,10 +479,9 @@ def main():
 
     except Exception as e:
         print(f"❌ 测试程序异常: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 if __name__ == "__main__":
     success = main()

@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """
-import time
+
 Tushare数据源演示脚本
 展示如何使用Tushare获取中国A股数据
 """
 
+import logging
 import os
+import time
+import traceback
 import sys
 from datetime import datetime, timedelta
 
@@ -16,7 +19,6 @@ logger = get_logger('default')
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
-
 
 def demo_basic_usage():
     """演示基本用法"""
@@ -73,9 +75,8 @@ def demo_basic_usage():
         
     except Exception as e:
         logger.error(f"❌ 演示失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def demo_interface_functions():
     """演示接口函数"""
@@ -123,9 +124,8 @@ def demo_interface_functions():
         
     except Exception as e:
         logger.error(f"❌ 接口函数演示失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def demo_batch_operations():
     """演示批量操作"""
@@ -134,7 +134,7 @@ def demo_batch_operations():
     
     try:
         from tradingagents.dataflows.tushare_adapter import get_tushare_adapter
-        import time
+        
         
         adapter = get_tushare_adapter()
         
@@ -167,9 +167,8 @@ def demo_batch_operations():
         
     except Exception as e:
         logger.error(f"❌ 批量操作演示失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def demo_cache_performance():
     """演示缓存性能"""
@@ -178,7 +177,7 @@ def demo_cache_performance():
     
     try:
         from tradingagents.dataflows.tushare_adapter import get_tushare_adapter
-        import time
+        
         
         adapter = get_tushare_adapter()
         
@@ -226,9 +225,8 @@ def demo_cache_performance():
         
     except Exception as e:
         logger.error(f"❌ 缓存性能演示失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def check_environment():
     """检查环境配置"""
@@ -263,7 +261,6 @@ def check_environment():
     
     return True
 
-
 def main():
     """主函数"""
     logger.info(f"🎯 Tushare数据源演示")
@@ -289,7 +286,6 @@ def main():
     logger.info(f"   - 配置: config/tushare_config.example.env")
     
     input("\n按回车键退出...")
-
 
 if __name__ == "__main__":
     main()

@@ -1,16 +1,16 @@
 """
 AKShare data source adapter
 """
-from typing import Optional, Dict
 import logging
+import time
+from typing import Optional, Dict
+
 from datetime import datetime, timedelta
 import pandas as pd
 
 from .base import DataSourceAdapter
-import time
 
 logger = logging.getLogger(__name__)
-
 
 class AKShareAdapter(DataSourceAdapter):
     """AKShare数据源适配器"""
@@ -131,7 +131,7 @@ class AKShareAdapter(DataSourceAdapter):
 
             basic_data = []
             processed_count = 0
-            import time
+            
             start_time = time.time()
             timeout_seconds = 30
 
@@ -191,7 +191,6 @@ class AKShareAdapter(DataSourceAdapter):
             return float(value)
         except (ValueError, TypeError):
             return None
-
 
     def get_realtime_quotes(self, source: str = "eastmoney"):
         """

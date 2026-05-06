@@ -3,7 +3,9 @@
 重置股票基础信息数据
 删除所有现有数据，重新同步
 """
+
 import os
+import traceback
 import requests
 from pymongo import MongoClient
 from dotenv import load_dotenv
@@ -114,7 +116,7 @@ def reset_stock_basics():
         
     except Exception as e:
         print(f"❌ 重置失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

@@ -3,8 +3,9 @@
 财务数据同步服务
 统一管理三数据源的财务数据同步
 """
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
@@ -16,7 +17,6 @@ from tradingagents.dataflows.providers.china.akshare import get_akshare_provider
 from tradingagents.dataflows.providers.china.baostock import get_baostock_provider
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class FinancialSyncStats:
@@ -43,7 +43,6 @@ class FinancialSyncStats:
             "success_rate": round(self.success_count / max(self.total_symbols, 1) * 100, 2),
             "errors": self.errors[:10]  # 只返回前10个错误
         }
-
 
 class FinancialDataSyncService:
     """财务数据同步服务"""
@@ -321,10 +320,8 @@ class FinancialDataSyncService:
         
         return results
 
-
 # 全局服务实例
 _financial_sync_service = None
-
 
 async def get_financial_sync_service() -> FinancialDataSyncService:
     """获取财务数据同步服务实例"""

@@ -4,7 +4,9 @@
 验证用户界面是否清爽，日志是否只写入文件
 """
 
+import logging
 import os
+import traceback
 import sys
 import subprocess
 
@@ -56,7 +58,7 @@ def test_cli_logging_setup():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

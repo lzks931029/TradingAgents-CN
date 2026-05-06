@@ -3,7 +3,6 @@
 将日志系统中的模块完成消息转发给进度跟踪器
 """
 
-
 import logging
 import threading
 from typing import Dict, Optional, TYPE_CHECKING

@@ -5,8 +5,10 @@
 """
 
 import os
-import sys
 import time
+import traceback
+import sys
+
 from datetime import datetime
 
 # 添加项目根目录到路径
@@ -79,7 +81,7 @@ def test_cache_manager_fundamentals():
         
     except Exception as e:
         print(f"❌ 缓存管理器测试失败: {str(e)}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -123,7 +125,7 @@ def test_fundamentals_with_cache():
         
     except Exception as e:
         print(f"❌ 基本面数据缓存测试失败: {str(e)}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -164,7 +166,7 @@ def test_cache_ttl():
         
     except Exception as e:
         print(f"❌ 缓存TTL测试失败: {str(e)}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

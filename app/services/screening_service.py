@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
 from datetime import datetime, timedelta
@@ -12,7 +13,6 @@ from tradingagents.tools.analysis.indicators import IndicatorSpec, compute_many
 # 统一多数据源DF接口（按优先级降级）
 from tradingagents.dataflows.data_source_manager import get_data_source_manager
 from tradingagents.dataflows.providers.china.fundamentals_snapshot import get_cn_fund_snapshot
-
 
 from app.services.screening.eval_utils import (
     collect_fields_from_conditions as _collect_fields_from_conditions_util,
@@ -54,7 +54,6 @@ FUND_FIELDS = {"pe", "pb", "roe", "market_cap"}
 
 ALLOWED_OPS = {">", "<", ">=", "<=", "==", "!=", "between", "cross_up", "cross_down"}
 
-
 @dataclass
 class ScreeningParams:
     market: str = "CN"
@@ -64,8 +63,6 @@ class ScreeningParams:
     offset: int = 0
     order_by: Optional[List[Dict[str, str]]] = None  # [{field, direction}]
 
-
-import logging
 logger = logging.getLogger("agents")
 
 class ScreeningService:
@@ -187,7 +184,6 @@ class ScreeningService:
     def _evaluate_fund_conditions(self, snap: Dict[str, Any], node: Dict[str, Any]) -> bool:
         """Delegate fundamental condition evaluation to utils to keep service slim."""
         return _evaluate_fund_conditions_util(snap, node, FUND_FIELDS)
-
 
     def _collect_fields_from_conditions(self, node: Dict[str, Any]) -> List[str]:
         """Delegate field collection to utils."""

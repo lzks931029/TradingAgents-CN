@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 import asyncio
 from pathlib import Path
@@ -152,7 +153,7 @@ async def test_config_bridge():
         
     except Exception as e:
         print(f"\n❌ tradingagents 配置读取失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         all_ok = False
     
@@ -165,7 +166,6 @@ async def test_config_bridge():
     print("=" * 60)
     
     return all_ok
-
 
 if __name__ == "__main__":
     result = asyncio.run(test_config_bridge())

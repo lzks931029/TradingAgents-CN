@@ -357,7 +357,6 @@ class DatabaseManager:
 
         return cleared_count
 
-
 # 全局数据库管理器实例
 _database_manager = None
 

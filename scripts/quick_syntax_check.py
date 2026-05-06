@@ -5,6 +5,7 @@
 Quick Syntax Checker - Only show files with syntax errors
 """
 
+import logging
 import os
 import py_compile
 import sys
@@ -14,8 +15,6 @@ from typing import List, Tuple
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('default')
-
-
 
 def find_python_files(root_dir: str, exclude_dirs: List[str] = None) -> List[str]:
     """查找项目中所有Python文件，排除指定目录"""
@@ -32,7 +31,6 @@ def find_python_files(root_dir: str, exclude_dirs: List[str] = None) -> List[str
     
     return sorted(python_files)
 
-
 def check_syntax(file_path: str) -> Tuple[bool, str]:
     """检查单个Python文件的语法"""
     try:
@@ -42,7 +40,6 @@ def check_syntax(file_path: str) -> Tuple[bool, str]:
         return True, str(e)
     except Exception as e:
         return True, f"Unexpected error: {str(e)}"
-
 
 def main():
     """主函数 - 执行语法检查"""
@@ -78,7 +75,6 @@ def main():
         logger.info(f"   python syntax_checker.py")
     else:
         logger.info(f"\n🎉 所有文件语法检查通过!")
-
 
 if __name__ == "__main__":
     main()

@@ -4,8 +4,10 @@
 将 stock_basic_info 和 market_quotes 两个集合通过 $lookup 关联，创建一个类似 MySQL 视图的 MongoDB View
 """
 
+import logging
+import traceback
 import sys
-import os
+
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
@@ -13,13 +15,12 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 import asyncio
-import logging
+
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.core.database import init_database, get_mongo_db, close_database
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def create_stock_screening_view():
     """创建股票筛选视图"""
@@ -155,10 +156,9 @@ async def create_stock_screening_view():
         
     except Exception as e:
         logger.error(f"❌ 创建视图失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 async def create_indexes_on_view():
     """在视图上创建索引（注意：MongoDB 视图不支持直接创建索引，但可以在源集合上创建）"""
@@ -190,7 +190,6 @@ async def create_indexes_on_view():
         logger.error(f"❌ 创建索引失败: {e}")
         return False
 
-
 async def main():
     """主函数"""
     logger.info("=" * 60)
@@ -217,7 +216,6 @@ async def main():
     finally:
         # 关闭数据库连接
         await close_database()
-
 
 if __name__ == "__main__":
     exit_code = asyncio.run(main())

@@ -4,8 +4,9 @@
 查看数据库中的厂家配置和环境变量
 """
 
-import asyncio
 import os
+import asyncio
+
 import sys
 from datetime import datetime
 

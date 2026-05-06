@@ -7,12 +7,12 @@
 3. 验证数据完整性
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
-
 
 def test_financial_indicators():
     """测试财务指标获取"""
@@ -48,14 +48,13 @@ def test_financial_indicators():
                     
             except Exception as e:
                 print(f"   ❌ 获取失败: {e}")
-                import traceback
+                
                 traceback.print_exc()
     
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_historical_data_with_pe_pb():
     """测试历史数据（包含 PE、PB 计算）"""
@@ -103,9 +102,8 @@ def test_historical_data_with_pe_pb():
     
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_pe_pb_calculation():
     """测试 PE、PB 计算准确性"""
@@ -200,9 +198,8 @@ def test_pe_pb_calculation():
     
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def main():
     """主函数"""
@@ -222,7 +219,6 @@ def main():
     print("\n" + "=" * 80)
     print("测试完成")
     print("=" * 80)
-
 
 if __name__ == "__main__":
     main()

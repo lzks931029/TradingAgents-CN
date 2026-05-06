@@ -3,7 +3,6 @@ API密钥检查工具
 """
 
 import os
-
 def check_api_keys():
     """检查所有必要的API密钥是否已配置"""
 

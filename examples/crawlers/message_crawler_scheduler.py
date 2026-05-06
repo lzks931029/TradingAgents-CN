@@ -3,10 +3,12 @@
 消息数据爬虫调度器
 统一调度社媒消息和内部消息的爬取任务
 """
-import asyncio
 import logging
-import sys
 import os
+import asyncio
+
+import sys
+
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
 import json
@@ -34,7 +36,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 class MessageCrawlerScheduler:
     """消息数据爬虫调度器"""
@@ -321,7 +322,6 @@ class MessageCrawlerScheduler:
         self.logger.info(f"   - 社媒爬取: {'启用' if self.config['social_media']['enabled'] else '禁用'}")
         self.logger.info(f"   - 内部消息爬取: {'启用' if self.config['internal_messages']['enabled'] else '禁用'}")
 
-
 async def main():
     """主函数"""
     logger.info("🤖 消息数据爬虫调度器启动")
@@ -359,7 +359,6 @@ async def main():
         logger.info("✅ 消息数据爬虫调度器运行成功!")
     else:
         logger.warning("⚠️ 未保存任何消息，请检查配置和网络连接")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

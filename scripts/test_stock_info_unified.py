@@ -8,6 +8,7 @@
 """
 
 import os
+import traceback
 import sys
 
 # 添加项目根目录到 Python 路径
@@ -205,7 +206,7 @@ def main():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return 1
     

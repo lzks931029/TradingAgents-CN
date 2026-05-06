@@ -3,6 +3,7 @@
 财务数据API路由
 提供财务数据查询和同步管理接口
 """
+
 import logging
 from typing import Dict, Any, List, Optional
 from fastapi import APIRouter, HTTPException, Query, BackgroundTasks
@@ -15,7 +16,6 @@ from app.core.response import ok
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/financial-data", tags=["财务数据"])
-
 
 # ==================== 请求模型 ====================
 
@@ -33,7 +33,6 @@ class FinancialSyncRequest(BaseModel):
     batch_size: int = Field(50, description="批处理大小", ge=1, le=200)
     delay_seconds: float = Field(1.0, description="API调用延迟秒数", ge=0.1, le=10.0)
 
-
 class SingleStockSyncRequest(BaseModel):
     """单股票财务数据同步请求"""
     symbol: str = Field(..., description="股票代码")
@@ -41,8 +40,6 @@ class SingleStockSyncRequest(BaseModel):
         ["tushare", "akshare", "baostock"], 
         description="数据源列表"
     )
-
-
 
 # ==================== API端点 ====================
 
@@ -86,7 +83,6 @@ async def query_financial_data(
         logger.error(f"❌ 查询财务数据失败 {symbol}: {e}")
         raise HTTPException(status_code=500, detail=f"查询财务数据失败: {str(e)}")
 
-
 @router.get("/latest/{symbol}", summary="获取最新财务数据")
 async def get_latest_financial_data(
     symbol: str,
@@ -119,7 +115,6 @@ async def get_latest_financial_data(
         logger.error(f"❌ 获取最新财务数据失败 {symbol}: {e}")
         raise HTTPException(status_code=500, detail=f"获取最新财务数据失败: {str(e)}")
 
-
 @router.get("/statistics", summary="获取财务数据统计")
 async def get_financial_statistics() -> dict:
     """
@@ -142,7 +137,6 @@ async def get_financial_statistics() -> dict:
     except Exception as e:
         logger.error(f"❌ 获取财务数据统计失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取财务数据统计失败: {str(e)}")
-
 
 @router.post("/sync/start", summary="启动财务数据同步")
 async def start_financial_sync(
@@ -178,7 +172,6 @@ async def start_financial_sync(
     except Exception as e:
         logger.error(f"❌ 启动财务数据同步失败: {e}")
         raise HTTPException(status_code=500, detail=f"启动财务数据同步失败: {str(e)}")
-
 
 @router.post("/sync/single", summary="同步单只股票财务数据")
 async def sync_single_stock_financial(
@@ -216,7 +209,6 @@ async def sync_single_stock_financial(
         logger.error(f"❌ 单股票财务数据同步失败 {request.symbol}: {e}")
         raise HTTPException(status_code=500, detail=f"单股票财务数据同步失败: {str(e)}")
 
-
 @router.get("/sync/statistics", summary="获取同步统计信息")
 async def get_sync_statistics() -> dict:
     """
@@ -236,7 +228,6 @@ async def get_sync_statistics() -> dict:
     except Exception as e:
         logger.error(f"❌ 获取同步统计信息失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取同步统计信息失败: {str(e)}")
-
 
 @router.get("/health", summary="财务数据服务健康检查")
 async def health_check() -> dict:
@@ -271,7 +262,6 @@ async def health_check() -> dict:
             message="财务数据服务异常"
         )
 
-
 # ==================== 后台任务 ====================
 
 async def _execute_financial_sync(
@@ -300,7 +290,6 @@ async def _execute_financial_sync(
         
     except Exception as e:
         logger.error(f"❌ 财务数据同步任务执行失败: {e}")
-
 
 # 导入datetime用于时间戳
 from datetime import datetime

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
+import os
 """检查美股缓存状态和MongoDB数据"""
 
 import sys
-import os
+
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径

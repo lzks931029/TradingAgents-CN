@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -92,7 +93,7 @@ def test_full_stock_analysis():
         
     except Exception as e:
         print(f"❌ 完整分析测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

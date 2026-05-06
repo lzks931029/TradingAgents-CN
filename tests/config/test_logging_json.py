@@ -1,7 +1,6 @@
 from importlib import reload
+
 import logging
-
-
 def test_json_console_formatter_enabled(monkeypatch, tmp_path):
     # Arrange: TOML with json flag
     cfg_dir = tmp_path / "config"

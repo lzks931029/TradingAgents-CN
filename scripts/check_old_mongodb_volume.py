@@ -7,15 +7,16 @@
 3. 显示所有集合和数据统计
 """
 
+import time
+import traceback
 import subprocess
 import sys
-import time
+
 from pathlib import Path
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-
 
 def run_command(cmd, shell=True):
     """运行命令并返回输出"""
@@ -30,7 +31,6 @@ def run_command(cmd, shell=True):
         return result.returncode, result.stdout, result.stderr
     except Exception as e:
         return -1, "", str(e)
-
 
 def check_old_volume():
     """检查旧版数据卷"""
@@ -209,7 +209,6 @@ def check_old_volume():
     print(f"  - 您可以使用 MongoDB 客户端工具查看详细数据")
     print(f"  - 如果需要迁移数据，请参考 docs/docker_volumes_analysis.md")
 
-
 if __name__ == "__main__":
     try:
         check_old_volume()
@@ -218,7 +217,7 @@ if __name__ == "__main__":
         sys.exit(0)
     except Exception as e:
         print(f"\n\n❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
 

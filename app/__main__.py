@@ -3,9 +3,12 @@ TradingAgents-CN Backend Entry Point
 支持 python -m app 启动方式
 """
 
+import logging
+import os
+import traceback
 import uvicorn
 import sys
-import os
+
 from pathlib import Path
 
 # ============================================================================
@@ -41,7 +44,7 @@ sys.path.insert(0, str(project_root))
 # 检查并打印.env文件加载信息
 def check_env_file():
     """检查并打印.env文件加载信息"""
-    import logging
+    
     logger = logging.getLogger("app.startup")
     
     logger.info("🔍 检查环境配置文件...")
@@ -101,7 +104,7 @@ try:
     from app.core.config import settings
     from app.core.dev_config import DEV_CONFIG
 except Exception as e:
-    import traceback
+    
     print(f"❌ 导入配置模块失败: {e}")
     print("📋 详细错误信息:")
     print("-" * 50)
@@ -109,10 +112,9 @@ except Exception as e:
     print("-" * 50)
     sys.exit(1)
 
-
 def main():
     """主启动函数"""
-    import logging
+    
     logger = logging.getLogger("app.startup")
     
     logger.info("🚀 Starting TradingAgents-CN Backend...")
@@ -172,14 +174,13 @@ def main():
     except KeyboardInterrupt:
         logger.info("🛑 Server stopped by user")
     except Exception as e:
-        import traceback
+        
         logger.error(f"❌ Failed to start server: {e}")
         logger.error("📋 详细错误信息:")
         logger.error("-" * 50)
         traceback.print_exc()
         logger.error("-" * 50)
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()

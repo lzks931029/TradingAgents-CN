@@ -5,8 +5,9 @@
 测试盈利股票的PE计算（如600036招商银行）
 """
 
-import sys
 import os
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from tradingagents.agents.utils.agent_utils import Toolkit

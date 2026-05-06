@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -73,7 +74,7 @@ def test_news_analyst_with_google():
             
     except Exception as e:
         print(f"❌ 新闻分析师测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 
@@ -134,7 +135,7 @@ def test_social_analyst_with_reddit():
             
     except Exception as e:
         print(f"❌ 社交媒体分析师测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 

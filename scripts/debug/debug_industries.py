@@ -3,9 +3,10 @@
 调试行业数据 - 直接查询MongoDB
 """
 
+import os
+import traceback
 import asyncio
 import sys
-import os
 
 # 添加项目根目录到Python路径
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -100,7 +101,7 @@ async def debug_industries():
         
     except Exception as e:
         print(f"❌ 调试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

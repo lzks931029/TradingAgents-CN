@@ -3,9 +3,11 @@
 简单的异步进度跟踪测试
 """
 
-import sys
 import os
 import time
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def test_basic_functionality():
@@ -71,7 +73,7 @@ def test_basic_functionality():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

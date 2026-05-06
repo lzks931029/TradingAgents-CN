@@ -13,6 +13,8 @@
     python scripts/sync_financial_data.py --batch 100  # 批量同步前100只
 """
 
+import logging
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -26,7 +28,6 @@ sys.path.insert(0, str(project_root))
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.core.config import settings
 from tradingagents.dataflows.providers.china.akshare import AKShareProvider
-import logging
 
 # 配置日志
 logging.basicConfig(
@@ -35,7 +36,6 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-
 
 async def sync_single_stock_financial_data(
     code: str,
@@ -213,10 +213,9 @@ async def sync_single_stock_financial_data(
         
     except Exception as e:
         logger.error(f"❌ {code6} 财务数据同步失败: {e}")
-        import traceback
+        
         logger.error(traceback.format_exc())
         return False
-
 
 def _safe_float(value) -> Optional[float]:
     """安全转换为浮点数"""
@@ -226,7 +225,6 @@ def _safe_float(value) -> Optional[float]:
         return float(value)
     except (ValueError, TypeError):
         return None
-
 
 def _calculate_ttm_metric(df, metric_name: str) -> Optional[float]:
     """
@@ -310,7 +308,6 @@ def _calculate_ttm_metric(df, metric_name: str) -> Optional[float]:
         logger.warning(f"   计算{metric_name}TTM失败: {e}")
         return None
 
-
 # 保留旧函数名以保持向后兼容
 def _calculate_ttm_revenue(df) -> Optional[float]:
     """
@@ -319,7 +316,6 @@ def _calculate_ttm_revenue(df) -> Optional[float]:
     已弃用：请使用 _calculate_ttm_metric(df, '营业收入')
     """
     return _calculate_ttm_metric(df, '营业收入')
-
 
 def _parse_share_value(value_str: str) -> Optional[float]:
     """解析股本数值（支持 "193.78亿" 这种格式）"""
@@ -337,7 +333,6 @@ def _parse_share_value(value_str: str) -> Optional[float]:
             return float(value_str) / 10000
     except:
         return None
-
 
 async def main(code: Optional[str] = None, sync_all: bool = False, batch: Optional[int] = None):
     """主函数"""
@@ -402,7 +397,6 @@ async def main(code: Optional[str] = None, sync_all: bool = False, batch: Option
     
     logger.info("")
     logger.info("✅ 同步完成！")
-
 
 if __name__ == "__main__":
     import argparse

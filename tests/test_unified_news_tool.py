@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 from datetime import datetime
 
@@ -86,7 +87,7 @@ def test_unified_news_tool():
                     
             except Exception as e:
                 print(f"❌ 测试股票 {stock_code} 时出错: {e}")
-                import traceback
+                
                 traceback.print_exc()
                 
         print(f"\n{'='*60}")
@@ -95,7 +96,7 @@ def test_unified_news_tool():
         
     except Exception as e:
         print(f"❌ 测试过程中出现错误: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

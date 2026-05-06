@@ -2,11 +2,13 @@
 """
 调试BaoStock股票列表获取问题
 """
-import sys
+import logging
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import logging
 import pandas as pd
 
 # 设置日志
@@ -98,7 +100,7 @@ def debug_baostock_query_all_stock():
         print("❌ BaoStock未安装")
     except Exception as e:
         print(f"❌ 调试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 def debug_baostock_stock_basic():
@@ -181,7 +183,7 @@ def test_baostock_adapter_stock_list():
         
     except Exception as e:
         print(f"❌ 适配器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

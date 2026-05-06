@@ -4,12 +4,12 @@
 从 tradingagents/dataflows/providers_config.py 迁移而来
 统一管理所有数据源提供器的配置
 """
+
+import logging
 import os
 from typing import Dict, Any
-import logging
 
 logger = logging.getLogger(__name__)
-
 
 class DataSourceConfig:
     """数据源配置管理器"""
@@ -126,7 +126,6 @@ class DataSourceConfig:
             return float(os.getenv(key, str(default)))
         except ValueError:
             return default
-
 
 # 全局配置实例
 _config_instance = None

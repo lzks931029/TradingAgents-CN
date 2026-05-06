@@ -1,10 +1,12 @@
 import json
+import logging
+import time
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
-import time
+
 import random
-import os
+
 from tenacity import (
     retry,
     stop_after_attempt,
@@ -21,11 +23,9 @@ logger = get_logger('agents')
 SLEEP_MIN = get_float("TA_GOOGLE_NEWS_SLEEP_MIN_SECONDS", "ta_google_news_sleep_min_seconds", 2.0)
 SLEEP_MAX = get_float("TA_GOOGLE_NEWS_SLEEP_MAX_SECONDS", "ta_google_news_sleep_max_seconds", 6.0)
 
-
 def is_rate_limited(response):
     """Check if the response indicates rate limiting (status code 429)"""
     return response.status_code == 429
-
 
 @retry(
     retry=(retry_if_result(is_rate_limited) | retry_if_exception_type(requests.exceptions.ConnectionError) | retry_if_exception_type(requests.exceptions.Timeout)),
@@ -39,7 +39,6 @@ def make_request(url, headers):
     # 添加超时参数，设置连接超时和读取超时
     response = requests.get(url, headers=headers, timeout=(10, 30))  # 连接超时10秒，读取超时30秒
     return response
-
 
 def getNewsData(query, start_date, end_date):
     """

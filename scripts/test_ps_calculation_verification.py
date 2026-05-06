@@ -13,6 +13,8 @@ PS（市销率）计算验证程序
     python scripts/test_ps_calculation_verification.py 600036 000001 000002
 """
 
+import os
+import traceback
 import sys
 import asyncio
 from pathlib import Path
@@ -24,12 +26,11 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from motor.motor_asyncio import AsyncIOMotorClient
-import os
+
 from dotenv import load_dotenv
 
 # 加载环境变量
 load_dotenv()
-
 
 class PSCalculationVerifier:
     """PS 计算验证器"""
@@ -299,7 +300,6 @@ class PSCalculationVerifier:
             print(f"   ⚠️ 当前只能使用单期数据: {ps_single:.2f}倍")
             print(f"   ⚠️ 建议重新同步财务数据以获取 TTM 数据")
 
-
 async def main():
     """主函数"""
     if len(sys.argv) < 2:
@@ -331,11 +331,10 @@ async def main():
         
     except Exception as e:
         print(f"\n❌ 验证失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     finally:
         await verifier.close()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

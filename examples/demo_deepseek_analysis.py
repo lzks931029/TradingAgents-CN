@@ -4,13 +4,15 @@ DeepSeek V3股票分析演示
 展示如何使用DeepSeek V3进行股票投资分析
 """
 
-import sys
+import logging
 import os
+import sys
+
 from pathlib import Path
 from dotenv import load_dotenv
 
 # 导入日志模块
-import logging
+
 logger = logging.getLogger(__name__)
 
 # 添加项目根目录到Python路径

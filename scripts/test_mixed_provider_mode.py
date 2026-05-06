@@ -3,8 +3,9 @@
 验证快速模型和深度模型可以来自不同厂家
 """
 
+import traceback
 import sys
-import os
+
 from pathlib import Path
 
 # 添加项目根目录到路径
@@ -105,7 +106,7 @@ for i, test_case in enumerate(test_cases, 1):
         
     except Exception as e:
         print(f"\n❌ 测试 {i} 失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 print(f"\n{'=' * 80}")
@@ -164,7 +165,7 @@ try:
     
 except Exception as e:
     print(f"\n❌ TradingGraph 测试失败: {e}")
-    import traceback
+    
     traceback.print_exc()
 
 print(f"\n{'=' * 80}")

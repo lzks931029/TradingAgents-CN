@@ -4,7 +4,9 @@
 验证AKShare优先，Yahoo Finance作为备用
 """
 
+import logging
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
@@ -61,7 +63,7 @@ def test_hk_data_source_priority():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -104,7 +106,7 @@ def test_hk_data_priority():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -155,7 +157,7 @@ def test_improved_hk_provider_priority():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -201,7 +203,7 @@ def test_data_source_availability():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

@@ -3,8 +3,9 @@
 快速测试股票代码传递问题
 """
 
-import requests
 import time
+import requests
+
 import json
 
 def quick_test():

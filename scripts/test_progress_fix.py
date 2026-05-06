@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-import time
+
 测试修复后的进度跟踪功能
 """
 
-import sys
 import os
+import time
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from web.utils.progress_tracker import SmartAnalysisProgressTracker
@@ -62,7 +64,7 @@ def test_progress_tracker():
         print(f"⏱️ 已用时间: {tracker.format_time(elapsed)}")
         
         # 模拟时间间隔
-        import time
+        
         time.sleep(0.5)
 
 if __name__ == "__main__":

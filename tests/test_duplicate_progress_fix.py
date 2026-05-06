@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
@@ -60,7 +61,7 @@ def test_duplicate_prevention():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

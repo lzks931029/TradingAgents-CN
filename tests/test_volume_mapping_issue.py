@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 import pandas as pd
 import numpy as np
@@ -69,7 +70,7 @@ def test_tushare_adapter_volume_mapping():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -116,7 +117,7 @@ def test_data_source_manager_volume_access():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -164,7 +165,7 @@ def test_real_tushare_data():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -239,7 +240,7 @@ def test_column_mapping_logic():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

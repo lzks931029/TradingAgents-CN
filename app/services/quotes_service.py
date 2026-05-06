@@ -3,15 +3,15 @@ QuotesService: 提供A股批量实时快照获取（AKShare东方财富 spot 接
 - 不使用通达信（TDX）作为兜底数据源。
 - 仅用于筛选返回前对 items 进行行情富集。
 """
+import logging
+import time
 from __future__ import annotations
 
 import asyncio
-import time
-import logging
+
 from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)
-
 
 def _safe_float(v) -> Optional[float]:
     try:
@@ -29,7 +29,6 @@ def _safe_float(v) -> Optional[float]:
         return float(v)
     except Exception:
         return None
-
 
 class QuotesService:
     def __init__(self, ttl_seconds: int = 30) -> None:
@@ -99,9 +98,7 @@ class QuotesService:
             logger.error(f"获取AKShare实时快照失败: {e}")
             return {}
 
-
 _quotes_service: Optional[QuotesService] = None
-
 
 def get_quotes_service() -> QuotesService:
     global _quotes_service

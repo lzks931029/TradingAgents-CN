@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
+import time
 """等待一段时间后重试，避免频率限制"""
 
-import time
 import akshare as ak
 
 print("⏰ 等待 30 秒，避免频率限制...")

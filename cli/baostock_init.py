@@ -3,11 +3,13 @@
 BaoStock数据初始化CLI工具
 提供命令行界面进行BaoStock数据初始化和管理
 """
+import logging
+import os
 import asyncio
 import argparse
-import logging
+
 import sys
-import os
+
 from datetime import datetime
 from pathlib import Path
 
@@ -29,13 +31,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
 def print_banner():
     """打印横幅"""
     print("🚀 BaoStock数据初始化工具")
     print(f"⏰ 开始时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 50)
-
 
 def print_stats(stats):
     """打印统计信息"""
@@ -55,7 +55,6 @@ def print_stats(stats):
         if len(stats.errors) > 5:
             print(f"   ... 还有{len(stats.errors) - 5}个错误")
 
-
 async def test_connection():
     """测试BaoStock连接"""
     print("🔗 测试BaoStock连接...")
@@ -74,7 +73,6 @@ async def test_connection():
     except Exception as e:
         print(f"❌ 连接测试失败: {e}")
         return False
-
 
 async def check_database_status():
     """检查数据库状态"""
@@ -99,7 +97,6 @@ async def check_database_status():
         print(f"❌ 检查数据库状态失败: {e}")
         return None
 
-
 async def run_full_initialization(historical_days: int = 365, force: bool = False):
     """运行完整初始化"""
     print(f"🚀 开始完整初始化 (历史数据: {historical_days}天, 强制: {force})...")
@@ -120,7 +117,6 @@ async def run_full_initialization(historical_days: int = 365, force: bool = Fals
         print(f"❌ 完整初始化失败: {e}")
         return False
 
-
 async def run_basic_initialization():
     """运行基础初始化"""
     print("🚀 开始基础初始化...")
@@ -140,7 +136,6 @@ async def run_basic_initialization():
     except Exception as e:
         print(f"❌ 基础初始化失败: {e}")
         return False
-
 
 def print_help_detail():
     """打印详细帮助信息"""
@@ -195,7 +190,6 @@ def print_help_detail():
   - 建议在非交易时间进行初始化
 """
     print(help_text)
-
 
 async def main():
     """主函数"""
@@ -269,7 +263,6 @@ async def main():
         print(f"\n❌ 操作过程中发生错误: {e}")
         logger.exception("Unexpected error")
         return 1
-
 
 if __name__ == "__main__":
     try:

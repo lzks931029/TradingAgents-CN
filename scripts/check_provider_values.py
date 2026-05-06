@@ -3,7 +3,7 @@
 检查数据库中的 provider 值
 """
 
-import os
+import traceback
 from motor.motor_asyncio import AsyncIOMotorClient
 import asyncio
 
@@ -61,9 +61,8 @@ async def main():
 
     except Exception as e:
         print(f"\n❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

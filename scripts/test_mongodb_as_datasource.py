@@ -6,9 +6,11 @@
 验证 DataSourceManager 是否正确将 MongoDB 作为最高优先级数据源
 """
 
+import logging
+import os
+import traceback
 import asyncio
 import sys
-import os
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -17,7 +19,6 @@ from tradingagents.dataflows.data_source_manager import DataSourceManager, China
 from tradingagents.utils.logging_init import get_logger
 
 logger = get_logger("default")
-
 
 def test_mongodb_as_datasource():
     """测试 MongoDB 作为数据源"""
@@ -108,7 +109,6 @@ def test_mongodb_as_datasource():
         print(f"   1. {manager.default_source.value}（默认）")
         print("   2. 其他可用数据源")
 
-
 def test_mongodb_fallback():
     """测试 MongoDB 降级机制"""
     print("\n" + "=" * 70)
@@ -144,7 +144,6 @@ def test_mongodb_fallback():
         print(f"⚠️ 所有数据源都无法获取数据（预期行为）")
         print(f"📄 结果: {result[:200]}")
 
-
 if __name__ == "__main__":
     try:
         print("\n" + "=" * 70)
@@ -177,7 +176,7 @@ if __name__ == "__main__":
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
 

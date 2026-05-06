@@ -7,7 +7,6 @@
 import os
 from typing import Dict, Any, Optional
 
-
 class DatabaseConfig:
     """数据库配置管理类"""
     

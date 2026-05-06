@@ -4,6 +4,7 @@
 验证LLM只能调用统一工具
 """
 
+import traceback
 def test_available_tools():
     """测试可用工具列表"""
     print("🔧 测试可用工具列表...")
@@ -67,10 +68,9 @@ def test_available_tools():
         
     except Exception as e:
         print(f"❌ 工具移除测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_fundamentals_analyst_tool_selection():
     """测试基本面分析师工具选择"""
@@ -125,10 +125,9 @@ def test_fundamentals_analyst_tool_selection():
         
     except Exception as e:
         print(f"❌ 基本面分析师工具选择测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_market_analyst_tool_selection():
     """测试市场分析师工具选择"""
@@ -181,10 +180,9 @@ def test_market_analyst_tool_selection():
         
     except Exception as e:
         print(f"❌ 市场分析师工具选择测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def main():
     """主测试函数"""
@@ -223,7 +221,6 @@ def main():
     else:
         print("⚠️ 部分测试失败，需要进一步检查")
         return False
-
 
 if __name__ == "__main__":
     import sys

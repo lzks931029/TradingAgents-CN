@@ -3,7 +3,7 @@
 调试工具选择问题 - 检查LLM实际看到的工具列表
 """
 
-import os
+import traceback
 import sys
 
 def test_llm_tool_binding():
@@ -49,10 +49,9 @@ def test_llm_tool_binding():
         
     except Exception as e:
         print(f"❌ 工具绑定测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_tool_descriptions():
     """测试工具描述内容"""
@@ -92,7 +91,6 @@ def test_tool_descriptions():
     except Exception as e:
         print(f"❌ 工具描述测试失败: {e}")
         return False
-
 
 def test_fundamentals_analyst_tool_selection():
     """测试基本面分析师的实际工具选择"""
@@ -148,10 +146,9 @@ def test_fundamentals_analyst_tool_selection():
         
     except Exception as e:
         print(f"❌ 基本面分析师工具选择测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def main():
     """主测试函数"""
@@ -185,7 +182,6 @@ def main():
     else:
         print("⚠️ 部分测试失败，需要进一步检查")
         return False
-
 
 if __name__ == "__main__":
     success = main()

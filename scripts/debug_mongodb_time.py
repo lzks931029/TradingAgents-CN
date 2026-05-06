@@ -2,8 +2,10 @@
 调试脚本：检查 MongoDB 中存储的时间格式
 直接使用 pymongo 同步客户端，避免异步初始化问题
 """
-import sys
 import os
+import traceback
+import sys
+
 from pymongo import MongoClient
 from datetime import datetime, timezone, timedelta
 
@@ -96,7 +98,7 @@ def check_mongodb_time():
         
     except Exception as e:
         print(f"❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

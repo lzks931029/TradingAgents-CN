@@ -8,6 +8,7 @@
 4. 确认 system_configs 集合正常工作
 """
 
+import traceback
 import sys
 from pathlib import Path
 
@@ -19,7 +20,6 @@ from pymongo import MongoClient
 from app.core.config import settings
 import json
 from datetime import datetime
-
 
 def check_and_cleanup():
     """检查并清理旧的 system_config 集合"""
@@ -192,7 +192,6 @@ def check_and_cleanup():
     print(f"🎉 脚本执行完成")
     print("=" * 80)
 
-
 if __name__ == "__main__":
     try:
         check_and_cleanup()
@@ -201,7 +200,7 @@ if __name__ == "__main__":
         sys.exit(0)
     except Exception as e:
         print(f"\n\n❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
 

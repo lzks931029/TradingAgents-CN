@@ -9,6 +9,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 
@@ -69,7 +70,6 @@ def test_config_manager():
     print(f"  OpenAI 启用: {settings.get('openai_enabled', False)}")
     print()
 
-
 def test_llm_adapter():
     """测试 LLM 适配器如何读取 API 密钥"""
     print("=" * 60)
@@ -110,7 +110,6 @@ def test_llm_adapter():
         print(f"  ❌ DASHSCOPE_API_KEY 环境变量未设置")
     
     print()
-
 
 def test_env_variables():
     """测试环境变量"""
@@ -177,7 +176,6 @@ def test_env_variables():
     
     print()
 
-
 def test_config_files():
     """测试配置文件"""
     print("=" * 60)
@@ -218,7 +216,6 @@ def test_config_files():
     
     print()
 
-
 def main():
     """主函数"""
     print()
@@ -256,12 +253,11 @@ def main():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return 1
     
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

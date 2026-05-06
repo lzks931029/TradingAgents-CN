@@ -1,15 +1,14 @@
 """
 测试 AKShare 返回的日期格式
 """
+import os
 import asyncio
 import sys
-import os
 
 # 添加项目根目录到 Python 路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from tradingagents.dataflows.providers.china.akshare import AKShareProvider
-
 
 async def test_akshare_date_format():
     """测试 AKShare 返回的日期格式"""
@@ -65,7 +64,6 @@ async def test_akshare_date_format():
     print("\n" + "=" * 80)
     print("✅ 测试完成")
     print("=" * 80)
-
 
 if __name__ == "__main__":
     asyncio.run(test_akshare_date_format())

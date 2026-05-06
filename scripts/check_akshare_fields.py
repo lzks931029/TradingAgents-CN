@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import traceback
 """检查 AKShare 返回的财务数据字段"""
 
 import asyncio
@@ -34,7 +35,7 @@ async def check_akshare_fields():
             print("❌ 未获取到数据")
     except Exception as e:
         print(f"❌ 获取失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 asyncio.run(check_akshare_fields())

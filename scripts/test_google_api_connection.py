@@ -3,8 +3,11 @@
 直接调用 .env 中的 GOOGLE_API_KEY，测试 gemini-2.5-flash 模型
 """
 
-import sys
 import os
+import time
+import traceback
+import sys
+
 from pathlib import Path
 
 # 添加项目根目录到路径
@@ -34,7 +37,6 @@ print("测试网络连接")
 print("=" * 80)
 
 import socket
-import time
 
 def test_connection(host, port=443, timeout=5):
     """测试 TCP 连接"""
@@ -132,7 +134,7 @@ try:
 except Exception as e:
     print(f"\n❌ 测试失败: {e}")
     print("\n详细错误信息:")
-    import traceback
+    
     traceback.print_exc()
     
     print("\n" + "=" * 80)

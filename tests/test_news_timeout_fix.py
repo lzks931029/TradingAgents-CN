@@ -5,9 +5,9 @@
 这个测试程序验证新闻获取超时修复的有效性，特别是在一个新闻源失败时能否正确轮询到下一个新闻源。
 """
 
-import sys
 import os
-import time
+import sys
+
 import unittest
 from unittest.mock import patch, MagicMock
 import pandas as pd
@@ -20,7 +20,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from tradingagents.dataflows.realtime_news_utils import get_realtime_stock_news
 from tradingagents.dataflows.googlenews_utils import getNewsData, make_request
 from tradingagents.dataflows.akshare_utils import get_stock_news_em
-
 
 class TestNewsTimeoutFix(unittest.TestCase):
     """测试新闻获取超时修复"""
@@ -103,7 +102,6 @@ class TestNewsTimeoutFix(unittest.TestCase):
                     mock_aggregator.assert_called_once()
                     mock_google_news.assert_called_once()
                     mock_em_news.assert_called_once()
-
 
 if __name__ == "__main__":
     unittest.main()

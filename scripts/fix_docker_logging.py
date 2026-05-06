@@ -3,7 +3,9 @@
 修复Docker环境下的日志文件生成问题
 """
 
+import logging
 import os
+import traceback
 import shutil
 from pathlib import Path
 
@@ -171,7 +173,6 @@ def create_test_script():
 测试Docker环境下的日志功能
 """
 
-import os
 import sys
 from pathlib import Path
 
@@ -222,7 +223,7 @@ def test_logging():
         
     except Exception as e:
         print(f"❌ 日志测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

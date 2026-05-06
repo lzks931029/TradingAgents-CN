@@ -1,5 +1,6 @@
 # gets data/stats
 
+import logging
 import yfinance as yf
 from typing import Annotated, Callable, Any, Optional
 from pandas import DataFrame
@@ -7,7 +8,6 @@ import pandas as pd
 from functools import wraps
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-import os
 
 from tradingagents.utils.dataflow_utils import save_output, SavePathType, decorate_all_methods
 
@@ -33,7 +33,6 @@ def get_cache():
             return None
     return _cache_module() if _cache_module else None
 
-
 def init_ticker(func: Callable) -> Callable:
     """Decorator to initialize yf.Ticker and pass it to the function."""
 
@@ -43,7 +42,6 @@ def init_ticker(func: Callable) -> Callable:
         return func(ticker, *args, **kwargs)
 
     return wrapper
-
 
 @decorate_all_methods(init_ticker)
 class YFinanceUtils:
@@ -141,7 +139,6 @@ class YFinanceUtils:
 
         return majority_voting_result[0], max_votes
 
-
 # ==================== 技术指标相关函数 ====================
 
 def get_stock_data_with_indicators(
@@ -192,7 +189,6 @@ def get_stock_data_with_indicators(
     except Exception as e:
         logger.error(f"❌ [yfinance] 获取股票数据失败 {symbol}: {e}")
         return f"Error retrieving stock data for {symbol}: {str(e)}"
-
 
 def get_technical_indicator(
     symbol: Annotated[str, "ticker symbol of the company"],

@@ -3,8 +3,9 @@
 调试Tushare历史数据同步问题
 检查数据流的每个环节
 """
-import asyncio
 import logging
+import asyncio
+
 import pandas as pd
 from datetime import datetime, timedelta
 from tradingagents.dataflows.providers.tushare_provider import TushareProvider
@@ -14,7 +15,6 @@ from tradingagents.config.database_manager import get_mongodb_client
 # 设置日志
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def debug_tushare_historical_sync():
     """调试Tushare历史数据同步的完整流程"""
@@ -183,7 +183,6 @@ async def debug_tushare_historical_sync():
     print()
     print("=" * 60)
     print("🎯 调试完成！")
-
 
 if __name__ == "__main__":
     asyncio.run(debug_tushare_historical_sync())

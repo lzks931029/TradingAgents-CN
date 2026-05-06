@@ -3,8 +3,10 @@
 调试bulk_write问题
 检查为什么数据没有真正写入
 """
-import asyncio
 import logging
+import traceback
+import asyncio
+
 import sys
 from pathlib import Path
 from datetime import datetime
@@ -19,7 +21,6 @@ from app.core.database import init_database, get_database
 # 设置日志
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
-
 
 async def debug_bulk_write_issue():
     """调试bulk_write问题"""
@@ -115,7 +116,7 @@ async def debug_bulk_write_issue():
             
         except Exception as e:
             print(f"   ❌ bulk_write执行失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return
         
@@ -145,12 +146,11 @@ async def debug_bulk_write_issue():
         
     except Exception as e:
         print(f"❌ 调试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     print("\n" + "=" * 60)
     print("🎯 调试完成！")
-
 
 if __name__ == "__main__":
     asyncio.run(debug_bulk_write_issue())

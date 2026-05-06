@@ -4,8 +4,8 @@ MongoDB报告管理器
 用于保存和读取分析报告到MongoDB数据库
 """
 
-import os
 import logging
+import os
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 from pathlib import Path
@@ -19,7 +19,6 @@ try:
 except ImportError:
     MONGODB_AVAILABLE = False
     logger.warning("pymongo未安装，MongoDB功能不可用")
-
 
 class MongoDBReportManager:
     """MongoDB报告管理器"""
@@ -427,7 +426,6 @@ class MongoDBReportManager:
         except Exception as e:
             logger.error(f"❌ 保存报告到MongoDB失败: {e}")
             return False
-
 
 # 创建全局实例
 mongodb_report_manager = MongoDBReportManager()

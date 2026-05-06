@@ -1,5 +1,6 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-import time
+
+import logging
 import json
 
 # 导入统一日志系统和分析模块日志装饰器
@@ -10,7 +11,6 @@ logger = get_logger("analysts.social_media")
 # 导入Google工具调用处理器
 from tradingagents.agents.utils.google_tool_handler import GoogleToolCallHandler
 from tradingagents.agents.utils.instrument_utils import build_instrument_context
-
 
 def _get_company_name_for_social_media(ticker: str, market_info: dict) -> str:
     """
@@ -88,7 +88,6 @@ def _get_company_name_for_social_media(ticker: str, market_info: dict) -> str:
     except Exception as e:
         logger.error(f"❌ [社交媒体分析师] 获取公司名称失败: {e}")
         return f"股票{ticker}"
-
 
 def create_social_media_analyst(llm, toolkit):
     @log_analyst_module("social_media")

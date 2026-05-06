@@ -3,9 +3,10 @@
 直接访问东方财富网新闻 API - 绕过 AKShare
 测试在 Docker 环境中是否能正常获取新闻数据
 """
+import time
 import requests
 import json
-import time
+
 from urllib.parse import urlencode
 
 def get_stock_news_direct(symbol: str, page_size: int = 10):
@@ -189,7 +190,6 @@ def get_stock_news_direct(symbol: str, page_size: int = 10):
         print(f"❌ 方法4失败: {e}")
 
     return []
-
 
 if __name__ == "__main__":
     print("=" * 80)

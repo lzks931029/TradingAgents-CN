@@ -4,11 +4,13 @@ Docker 部署初始化脚本
 用于新机器部署后的系统初始化，准备必要的基础数据
 """
 
+import logging
+import traceback
 import asyncio
 import json
-import os
+
 import sys
-import time
+
 from datetime import datetime
 from pathlib import Path
 
@@ -397,7 +399,7 @@ async def main():
         
     except Exception as e:
         logger.error(f"❌ 初始化失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

@@ -5,8 +5,9 @@
 """
 
 import os
-import sys
 import time
+import traceback
+import sys
 
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -92,7 +93,7 @@ def test_time_estimation_display():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

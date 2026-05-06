@@ -3,10 +3,12 @@
 更新历史数据集合索引
 添加周期字段支持
 """
-import asyncio
 import logging
-import sys
 import os
+import asyncio
+
+import sys
+
 from datetime import datetime
 from motor.motor_asyncio import AsyncIOMotorClient
 
@@ -16,7 +18,6 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspa
 # 配置日志
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def update_historical_data_indexes():
     """更新历史数据集合索引"""
@@ -107,7 +108,6 @@ async def update_historical_data_indexes():
         logger.error(f"❌ 更新历史数据集合索引失败: {e}")
         return False
 
-
 async def main():
     """主函数"""
     print("🎯 历史数据集合索引更新工具")
@@ -138,7 +138,6 @@ async def main():
         print("\n❌ 索引更新失败，请检查MongoDB连接")
     
     return success
-
 
 if __name__ == "__main__":
     try:

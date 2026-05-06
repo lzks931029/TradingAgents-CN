@@ -2,6 +2,8 @@
 测试财务数据获取流程
 验证是否还会重复获取数据
 """
+import logging
+import traceback
 import sys
 from pathlib import Path
 
@@ -10,7 +12,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 # 设置日志级别为 INFO，以便看到详细的数据流
-import logging
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s | %(name)-20s | %(levelname)-8s | %(message)s',
@@ -90,9 +92,8 @@ def test_financial_data_flow():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     test_financial_data_flow()

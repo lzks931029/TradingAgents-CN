@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 from datetime import datetime, timedelta
 import json
@@ -139,7 +140,7 @@ def test_stock_with_all_levels(ticker, stock_name):
             
         except Exception as e:
             print(f"❌ 数据获取失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             results[level_num] = {
                 'level_name': level_name,
@@ -197,7 +198,7 @@ def main():
             all_results[ticker] = results
         except Exception as e:
             print(f"❌ 测试股票 {stock_name} 失败: {e}")
-            import traceback
+            
             traceback.print_exc()
     
     # 生成总结报告

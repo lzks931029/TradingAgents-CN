@@ -12,9 +12,10 @@
   .\.venv\Scripts\python scripts\config\cleanup_sensitive_in_db.py --mongo "mongodb://localhost:27017/tradingagents"
 """
 
+import os
 import argparse
 import sys
-import os
+
 from typing import Any, Dict
 
 try:
@@ -24,7 +25,6 @@ except Exception as e:
     sys.exit(1)
 
 SENSITIVE_KEYS = {"api_key", "api_secret", "password"}
-
 
 def redact_dict(d: Dict[str, Any]) -> Dict[str, Any]:
     nd = {}
@@ -39,7 +39,6 @@ def redact_dict(d: Dict[str, Any]) -> Dict[str, Any]:
             else:
                 nd[k] = v
     return nd
-
 
 def cleanup_system_configs(db, apply: bool):
     col = db["system_configs"]
@@ -87,7 +86,6 @@ def cleanup_system_configs(db, apply: bool):
                 print(f"  示例：{redact_dict(orig)} -> {redact_dict(doc)}")
     return count
 
-
 def cleanup_llm_providers(db, apply: bool):
     col = db["llm_providers"]
     count = 0
@@ -107,13 +105,11 @@ def cleanup_llm_providers(db, apply: bool):
                 print(f"[DRY] llm_providers {_id_str(doc)} 将清理 {list(updates.keys())}")
     return count
 
-
 def _id_str(doc: Dict[str, Any]) -> str:
     try:
         return str(doc.get("_id"))
     except Exception:
         return "<unknown>"
-
 
 def main():
     parser = argparse.ArgumentParser(description="清理 DB 中的敏感字段（默认 dry-run）")
@@ -130,7 +126,6 @@ def main():
     total += cleanup_llm_providers(db, args.apply)
 
     print(f"完成。处理文档数：{total}，模式：{'APPLY' if args.apply else 'DRY-RUN'}")
-
 
 if __name__ == "__main__":
     main()

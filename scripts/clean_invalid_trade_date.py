@@ -1,16 +1,15 @@
 """
 清理 stock_daily_quotes 集合中 trade_date 格式错误的数据
 """
+import os
 import asyncio
 import sys
-import os
 
 # 添加项目根目录到 Python 路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.core.config import settings
-
 
 async def clean_invalid_trade_date():
     """清理 trade_date 格式错误的数据"""
@@ -137,7 +136,6 @@ async def clean_invalid_trade_date():
     print("=" * 80)
     
     client.close()
-
 
 if __name__ == "__main__":
     asyncio.run(clean_invalid_trade_date())

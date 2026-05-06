@@ -3,15 +3,16 @@
 构建包含PDF支持的Docker镜像
 """
 
+import logging
+import time
 import subprocess
 import sys
-import time
+
 from pathlib import Path
 
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('scripts')
-
 
 def run_command(command, description, timeout=300):
     """运行命令并显示进度"""

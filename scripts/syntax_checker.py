@@ -5,6 +5,7 @@
 Syntax Checker - Check syntax errors in all Python files in the project
 """
 
+import logging
 import os
 import py_compile
 import sys
@@ -14,8 +15,6 @@ from typing import List, Tuple
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('default')
-
-
 
 def find_python_files(root_dir: str, exclude_dirs: List[str] = None) -> List[str]:
     """
@@ -36,7 +35,6 @@ def find_python_files(root_dir: str, exclude_dirs: List[str] = None) -> List[str
     
     return sorted(python_files)
 
-
 def check_syntax(file_path: str) -> Tuple[bool, str]:
     """
     检查单个Python文件的语法
@@ -52,7 +50,6 @@ def check_syntax(file_path: str) -> Tuple[bool, str]:
         return True, str(e)
     except Exception as e:
         return True, f"Unexpected error: {str(e)}"
-
 
 def main():
     """
@@ -114,7 +111,6 @@ def main():
         logger.info(f"\n🎉 恭喜！所有Python文件语法检查通过！")
         logger.info(f"🎉 Congratulations! All Python files passed syntax check!")
         sys.exit(0)
-
 
 if __name__ == "__main__":
     main()

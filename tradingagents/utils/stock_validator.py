@@ -4,6 +4,8 @@
 用于在分析流程开始前验证股票是否存在，并预先获取和缓存必要的数据
 """
 
+import logging
+import traceback
 import re
 from typing import Dict, Tuple, Optional
 from datetime import datetime, timedelta
@@ -11,7 +13,6 @@ from datetime import datetime, timedelta
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('stock_validator')
-
 
 class StockDataPreparationResult:
     """股票数据预获取结果类"""
@@ -46,10 +47,8 @@ class StockDataPreparationResult:
             'cache_status': self.cache_status
         }
 
-
 # 保持向后兼容
 StockValidationResult = StockDataPreparationResult
-
 
 class StockDataPreparer:
     """股票数据预获取和验证器"""
@@ -468,7 +467,7 @@ class StockDataPreparer:
 
         except Exception as e:
             logger.error(f"❌ [A股数据] 数据准备失败: {e}")
-            import traceback
+            
             logger.debug(f"详细错误: {traceback.format_exc()}")
             return StockDataPreparationResult(
                 is_valid=False,
@@ -592,7 +591,7 @@ class StockDataPreparer:
 
         except Exception as e:
             logger.error(f"❌ [A股数据-异步] 数据准备失败: {e}")
-            import traceback
+            
             logger.debug(f"详细错误: {traceback.format_exc()}")
             return StockDataPreparationResult(
                 is_valid=False,
@@ -884,7 +883,7 @@ class StockDataPreparer:
                 except Exception as e:
                     last_error = f"{data_source}: {str(e)}"
                     logger.warning(f"⚠️ [数据同步] {data_source}同步异常: {e}")
-                    import traceback
+                    
                     logger.debug(f"详细错误: {traceback.format_exc()}")
                     # 继续尝试下一个数据源
                     continue
@@ -904,7 +903,7 @@ class StockDataPreparer:
 
         except Exception as e:
             logger.error(f"❌ [数据同步] 同步数据失败: {e}")
-            import traceback
+            
             logger.debug(f"详细错误: {traceback.format_exc()}")
             return {
                 "success": False,
@@ -1217,9 +1216,6 @@ class StockDataPreparer:
                 suggestion="请检查网络连接或数据源配置"
             )
 
-
-
-
 # 全局数据准备器实例
 _stock_preparer = None
 
@@ -1229,7 +1225,6 @@ def get_stock_preparer(default_period_days: int = 30) -> StockDataPreparer:
     if _stock_preparer is None:
         _stock_preparer = StockDataPreparer(default_period_days)
     return _stock_preparer
-
 
 def prepare_stock_data(stock_code: str, market_type: str = "auto",
                       period_days: int = None, analysis_date: str = None) -> StockDataPreparationResult:
@@ -1248,7 +1243,6 @@ def prepare_stock_data(stock_code: str, market_type: str = "auto",
     preparer = get_stock_preparer()
     return preparer.prepare_stock_data(stock_code, market_type, period_days, analysis_date)
 
-
 def is_stock_data_ready(stock_code: str, market_type: str = "auto",
                        period_days: int = None, analysis_date: str = None) -> bool:
     """
@@ -1265,7 +1259,6 @@ def is_stock_data_ready(stock_code: str, market_type: str = "auto",
     """
     result = prepare_stock_data(stock_code, market_type, period_days, analysis_date)
     return result.is_valid
-
 
 def get_stock_preparation_message(stock_code: str, market_type: str = "auto",
                                  period_days: int = None, analysis_date: str = None) -> str:
@@ -1287,7 +1280,6 @@ def get_stock_preparation_message(stock_code: str, market_type: str = "auto",
         return f"✅ 数据准备成功: {result.stock_code} ({result.market_type}) - {result.stock_name}\n📊 {result.cache_status}"
     else:
         return f"❌ 数据准备失败: {result.error_message}\n💡 建议: {result.suggestion}"
-
 
 async def prepare_stock_data_async(stock_code: str, market_type: str = "auto",
                                    period_days: int = None, analysis_date: str = None) -> StockDataPreparationResult:
@@ -1329,7 +1321,6 @@ async def prepare_stock_data_async(stock_code: str, market_type: str = "auto",
 
     # 3. 预获取数据并验证（使用异步版本）
     return await preparer._prepare_data_by_market_async(stock_code, market_type, period_days, analysis_date)
-
 
 # 保持向后兼容的别名
 StockValidator = StockDataPreparer

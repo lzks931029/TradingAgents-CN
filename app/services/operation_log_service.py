@@ -20,7 +20,6 @@ from app.utils.timezone import now_tz
 
 logger = logging.getLogger("webapi")
 
-
 class OperationLogService:
     """操作日志服务"""
     
@@ -241,10 +240,8 @@ class OperationLogService:
             logger.error(f"获取操作日志详情失败: {e}")
             return None
 
-
 # 全局服务实例
 _operation_log_service: Optional[OperationLogService] = None
-
 
 def get_operation_log_service() -> OperationLogService:
     """获取操作日志服务实例"""
@@ -252,7 +249,6 @@ def get_operation_log_service() -> OperationLogService:
     if _operation_log_service is None:
         _operation_log_service = OperationLogService()
     return _operation_log_service
-
 
 # 便捷函数
 async def log_operation(

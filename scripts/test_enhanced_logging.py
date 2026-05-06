@@ -4,8 +4,10 @@
 验证详细日志是否能帮助追踪数据获取问题
 """
 
-import sys
 import os
+import traceback
+import sys
+
 from datetime import datetime, timedelta
 
 # 添加项目根目录到Python路径
@@ -79,7 +81,7 @@ def test_enhanced_logging():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 def test_direct_tushare_provider():
@@ -113,7 +115,7 @@ def test_direct_tushare_provider():
             
     except Exception as e:
         print(f"❌ 直接测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 def test_adapter_layer():
@@ -146,7 +148,7 @@ def test_adapter_layer():
             
     except Exception as e:
         print(f"❌ 适配器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 def main():

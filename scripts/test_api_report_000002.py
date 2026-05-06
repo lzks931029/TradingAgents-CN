@@ -1,9 +1,9 @@
 #!/usr/bin/env python
+import time
 # -*- coding: utf-8 -*-
 """通过 API 测试 000002 报告生成"""
 
 import requests
-import time
 
 # API 基础 URL
 BASE_URL = "http://127.0.0.1:8000"

@@ -2,6 +2,7 @@
 DeepSeek LLM适配器，支持Token使用统计
 """
 
+import logging
 import os
 import time
 from typing import Any, Dict, List, Optional, Union
@@ -26,7 +27,6 @@ try:
 except ImportError:
     TOKEN_TRACKING_ENABLED = False
     logger.warning("⚠️ Token跟踪功能未启用")
-
 
 class ChatDeepSeek(ChatOpenAI):
     """
@@ -261,7 +261,6 @@ class ChatDeepSeek(ChatOpenAI):
         else:
             return AIMessage(content="")
 
-
 def create_deepseek_llm(
     model: str = "deepseek-chat",
     temperature: float = 0.1,
@@ -286,7 +285,6 @@ def create_deepseek_llm(
         max_tokens=max_tokens,
         **kwargs
     )
-
 
 # 为了向后兼容，提供别名
 DeepSeekLLM = ChatDeepSeek

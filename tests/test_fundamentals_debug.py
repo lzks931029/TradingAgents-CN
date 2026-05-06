@@ -3,7 +3,7 @@
 调试基本面分析师的工具选择问题
 """
 
-import os
+import traceback
 import sys
 
 def test_fundamentals_analyst_directly():
@@ -60,10 +60,9 @@ def test_fundamentals_analyst_directly():
         
     except Exception as e:
         print(f"❌ 直接测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_stock_utils_import():
     """测试StockUtils导入和功能"""
@@ -92,7 +91,6 @@ def test_stock_utils_import():
     except Exception as e:
         print(f"❌ StockUtils测试失败: {e}")
         return False
-
 
 def test_toolkit_hk_tools():
     """测试工具包中的港股工具"""
@@ -128,7 +126,6 @@ def test_toolkit_hk_tools():
         print(f"❌ 工具包测试失败: {e}")
         return False
 
-
 def test_import_paths():
     """测试导入路径"""
     print("\n🔧 测试导入路径...")
@@ -149,7 +146,6 @@ def test_import_paths():
             return False
     
     return True
-
 
 def main():
     """主测试函数"""
@@ -184,7 +180,6 @@ def main():
     else:
         print("⚠️ 部分测试失败，需要进一步检查")
         return False
-
 
 if __name__ == "__main__":
     success = main()

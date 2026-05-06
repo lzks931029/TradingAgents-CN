@@ -12,6 +12,7 @@ AKShare 强制全量同步股票基础信息
     python scripts/akshare_force_sync_all.py --batch-size 10  # 调整批次大小
 """
 
+import logging
 import asyncio
 import sys
 from pathlib import Path
@@ -22,7 +23,7 @@ sys.path.insert(0, str(project_root))
 
 from app.worker.akshare_sync_service import AKShareSyncService
 from app.core.database import init_database
-import logging
+
 import argparse
 
 # 配置日志
@@ -32,7 +33,6 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 logger = logging.getLogger(__name__)
-
 
 async def main(batch_size: int = 50):
     """主函数"""
@@ -75,7 +75,6 @@ async def main(batch_size: int = 50):
     
     logger.info("")
     logger.info("✅ 同步完成！")
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

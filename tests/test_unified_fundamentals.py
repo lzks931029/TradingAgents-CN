@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 
 def test_unified_tool_directly():
@@ -64,10 +65,9 @@ def test_unified_tool_directly():
         
     except Exception as e:
         print(f"❌ 统一工具直接测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_fundamentals_analyst_with_unified_tool():
     """测试基本面分析师使用统一工具"""
@@ -142,10 +142,9 @@ def test_fundamentals_analyst_with_unified_tool():
         
     except Exception as e:
         print(f"❌ 基本面分析师统一工具测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_stock_type_detection():
     """测试股票类型检测"""
@@ -185,7 +184,6 @@ def test_stock_type_detection():
         print(f"❌ 股票类型检测测试失败: {e}")
         return False
 
-
 def main():
     """主测试函数"""
     print("🔧 统一基本面分析工具测试")
@@ -224,7 +222,6 @@ def main():
     else:
         print("⚠️ 部分测试失败，需要进一步检查")
         return False
-
 
 if __name__ == "__main__":
     success = main()

@@ -3,8 +3,10 @@
 """
 
 import logging
-import json
 import os
+import traceback
+import json
+
 from datetime import datetime
 from typing import Dict, Any, List
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
@@ -200,7 +202,7 @@ async def import_data(
         }
     except Exception as e:
         logger.error(f"❌ 导入数据失败: {e}")
-        import traceback
+        
         logger.error(traceback.format_exc())
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

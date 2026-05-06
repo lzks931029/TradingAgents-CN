@@ -14,7 +14,9 @@
 3. 改进条件判断逻辑，同时检查报告完成状态
 """
 
+import logging
 import os
+import time
 import sys
 
 # 添加项目根目录到Python路径
@@ -258,9 +260,7 @@ def create_test_script():
 测试级别3死循环修复效果
 """
 
-import os
 import sys
-import time
 
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.abspath(__file__))

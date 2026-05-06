@@ -4,7 +4,9 @@
 展示如何使用新的数据目录配置功能
 """
 
+import logging
 import os
+import traceback
 import sys
 from pathlib import Path
 
@@ -238,7 +240,7 @@ def main():
         
     except Exception as e:
         logger.error(f"\n[bold red]❌ 演示过程中出现错误: {e}[/bold red]")
-        import traceback
+        
 
         console.print(traceback.format_exc())
 

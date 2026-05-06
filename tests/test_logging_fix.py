@@ -3,7 +3,8 @@
 测试日志修复效果的脚本
 """
 
-import os
+import logging
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -77,7 +78,7 @@ def test_logging_fix():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

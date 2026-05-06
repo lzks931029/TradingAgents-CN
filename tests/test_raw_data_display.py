@@ -5,8 +5,10 @@
 直接调用底层数据接口，显示原始的财务数据
 """
 
-import sys
 import os
+import traceback
+import sys
+
 import json
 from datetime import datetime, timedelta
 
@@ -142,13 +144,13 @@ def test_raw_data_display():
             
         except Exception as e:
             print(f"❌ 财务基本面数据获取失败: {str(e)}")
-            import traceback
+            
             print("🔍 详细错误信息:")
             traceback.print_exc()
         
     except Exception as e:
         print(f"❌ 测试失败: {str(e)}")
-        import traceback
+        
         print("🔍 详细错误信息:")
         traceback.print_exc()
 

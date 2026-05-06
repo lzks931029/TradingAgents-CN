@@ -3,8 +3,10 @@
 测试信号处理器的调试脚本
 """
 
-import sys
 import os
+import traceback
+import sys
+
 sys.path.append('..')
 
 def test_signal_processor():
@@ -62,7 +64,7 @@ def test_signal_processor():
         
     except Exception as e:
         print(f"❌ 测试失败: {str(e)}")
-        import traceback
+        
         traceback.print_exc()
         return None
 
@@ -104,7 +106,7 @@ def test_trading_graph():
         
     except Exception as e:
         print(f"❌ 测试失败: {str(e)}")
-        import traceback
+        
         traceback.print_exc()
         return None
 

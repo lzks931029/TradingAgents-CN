@@ -9,8 +9,8 @@
 4. 报告长度足够时，应该停止循环
 """
 
+import traceback
 from unittest.mock import Mock
-
 
 def create_mock_message(has_tool_calls=False):
     """创建模拟消息"""
@@ -20,7 +20,6 @@ def create_mock_message(has_tool_calls=False):
     else:
         message.tool_calls = []
     return message
-
 
 def test_fundamentals_no_report_with_tool_calls():
     """测试：基本面分析 - 没有报告，有 tool_calls -> 应该继续执行工具"""
@@ -36,7 +35,6 @@ def test_fundamentals_no_report_with_tool_calls():
     assert result == "tools_fundamentals", "没有报告时应该执行工具"
     print("✅ 测试通过：没有报告时继续执行工具")
 
-
 def test_fundamentals_has_report_with_tool_calls():
     """测试：基本面分析 - 有报告，有 tool_calls -> 应该停止循环"""
     from tradingagents.graph.conditional_logic import ConditionalLogic
@@ -50,7 +48,6 @@ def test_fundamentals_has_report_with_tool_calls():
     result = logic.should_continue_fundamentals(state)
     assert result == "Msg Clear Fundamentals", "有报告时应该停止循环"
     print("✅ 测试通过：有报告时停止循环")
-
 
 def test_all_analysts():
     """测试：所有分析师的行为一致性"""
@@ -84,7 +81,6 @@ def test_all_analysts():
     
     print("✅ 测试通过：所有分析师行为一致")
 
-
 def test_conditional_logic_fix():
     """主测试函数 - 运行所有测试"""
     print("🔧 测试条件逻辑修复 - 防止分析师节点无限循环\n")
@@ -105,10 +101,9 @@ def test_conditional_logic_fix():
         return False
     except Exception as e:
         print(f"\n❌ 测试错误: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 if __name__ == "__main__":
     # 运行测试

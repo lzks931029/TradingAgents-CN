@@ -3,11 +3,11 @@
 用于过滤与特定股票/公司不相关的新闻，提高新闻分析质量
 """
 
+import logging
 import pandas as pd
 import re
 from typing import List, Dict, Tuple
 from datetime import datetime
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -200,7 +200,6 @@ class NewsRelevanceFilter:
         
         return stats
 
-
 # 股票代码到公司名称的映射
 STOCK_COMPANY_MAPPING = {
     # A股主要银行
@@ -261,7 +260,6 @@ def get_company_name(ticker: str) -> str:
         logger.warning(f"[公司映射] 未找到 {ticker} 的公司名称映射，使用默认: {default_name}")
         return default_name
 
-
 def create_news_filter(ticker: str) -> NewsRelevanceFilter:
     """
     创建新闻过滤器的便捷函数
@@ -274,7 +272,6 @@ def create_news_filter(ticker: str) -> NewsRelevanceFilter:
     """
     company_name = get_company_name(ticker)
     return NewsRelevanceFilter(ticker, company_name)
-
 
 # 使用示例
 if __name__ == "__main__":

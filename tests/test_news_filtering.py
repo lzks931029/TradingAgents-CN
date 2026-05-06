@@ -3,12 +3,15 @@
 验证基于规则的过滤器和增强过滤器的效果
 """
 
-import sys
 import os
+import time
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pandas as pd
-import time
+
 from datetime import datetime
 
 def test_basic_news_filter():
@@ -74,7 +77,6 @@ def test_basic_news_filter():
         print(f"❌ 基础过滤器测试失败: {e}")
         return False
 
-
 def test_enhanced_news_filter():
     """测试增强新闻过滤器"""
     print("\n=== 测试增强新闻过滤器 ===")
@@ -130,10 +132,9 @@ def test_enhanced_news_filter():
         
     except Exception as e:
         print(f"❌ 增强过滤器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_real_news_filtering():
     """测试真实新闻数据过滤"""
@@ -191,10 +192,9 @@ def test_real_news_filtering():
         
     except Exception as e:
         print(f"❌ 真实新闻过滤测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_news_filter_integration():
     """测试新闻过滤集成功能"""
@@ -229,10 +229,9 @@ def test_news_filter_integration():
         
     except Exception as e:
         print(f"❌ 新闻过滤集成测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def main():
     """主测试函数"""
@@ -270,7 +269,6 @@ def main():
         print("🎉 所有测试通过！新闻过滤功能工作正常")
     else:
         print("⚠️ 部分测试失败，请检查相关功能")
-
 
 if __name__ == "__main__":
     main()

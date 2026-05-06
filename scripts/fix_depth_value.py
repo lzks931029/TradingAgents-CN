@@ -4,6 +4,7 @@
 将分析深度从 "5" 改为 "4"（4级 - 深度分析）
 """
 
+import logging
 import sys
 from pathlib import Path
 
@@ -12,11 +13,9 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from app.core.database import get_mongo_db_sync
-import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 def fix_depth_value():
     """修复分析深度值"""
@@ -53,7 +52,6 @@ def fix_depth_value():
     except Exception as e:
         logger.error(f"❌ 修复失败: {e}", exc_info=True)
         raise
-
 
 if __name__ == "__main__":
     logger.info("🚀 开始修复分析深度值...")

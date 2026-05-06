@@ -3,8 +3,10 @@
 整合 config/、tradingagents/config/ 和 webapi 的配置管理
 """
 
-import json
 import os
+import traceback
+import json
+
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Union
 from datetime import datetime
@@ -15,7 +17,6 @@ from app.models.config import (
     LLMConfig, DataSourceConfig, DatabaseConfig, SystemConfig,
     ModelProvider, DataSourceType, DatabaseType
 )
-
 
 @dataclass
 class ConfigPaths:
@@ -29,7 +30,6 @@ class ConfigPaths:
     settings_json: Path = root_config_dir / "settings.json"
     pricing_json: Path = root_config_dir / "pricing.json"
     verified_models_json: Path = root_config_dir / "verified_models.json"
-
 
 class UnifiedConfigManager:
     """统一配置管理器"""
@@ -219,7 +219,7 @@ class UnifiedConfigManager:
             return True
         except Exception as e:
             print(f"❌ [unified_config] 保存系统设置失败: {e}")
-            import traceback
+            
             print(traceback.format_exc())
             return False
     
@@ -496,7 +496,6 @@ class UnifiedConfigManager:
         except Exception as e:
             print(f"同步配置到传统格式失败: {e}")
             return False
-
 
 # 创建全局实例
 unified_config = UnifiedConfigManager()

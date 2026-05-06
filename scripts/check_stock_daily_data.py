@@ -1,16 +1,15 @@
 """
 检查股票的 daily 数据
 """
+import os
 import asyncio
 import sys
-import os
 
 # 添加项目根目录到 Python 路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.core.config import settings
-
 
 async def check_stock_daily_data(symbol: str = "000001"):
     """检查指定股票的 daily 数据"""
@@ -114,7 +113,6 @@ async def check_stock_daily_data(symbol: str = "000001"):
     print("=" * 80)
     
     client.close()
-
 
 if __name__ == "__main__":
     symbol = sys.argv[1] if len(sys.argv) > 1 else "000001"

@@ -3,10 +3,11 @@
 直接测试 _bridge_system_settings 函数
 """
 
+import logging
 import os
 import sys
 import asyncio
-import logging
+
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
@@ -57,7 +58,6 @@ async def main():
             print(f"  ❌ {key}: 未设置")
     
     print("\n" + "=" * 60)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

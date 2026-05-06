@@ -4,9 +4,10 @@
 在应用启动时初始化统一日志系统
 """
 
+import logging
 import os
 import sys
-import logging
+
 from pathlib import Path
 from typing import Optional
 
@@ -15,7 +16,6 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from tradingagents.utils.logging_manager import setup_logging, get_logger
-
 
 def init_logging(config_override: Optional[dict] = None) -> None:
     """
@@ -43,7 +43,6 @@ def init_logging(config_override: Optional[dict] = None) -> None:
     logger.debug(f"🔧 Python版本: {sys.version}")
     logger.debug(f"📂 工作目录: {os.getcwd()}")
     logger.debug(f"🌍 环境变量: DOCKER_CONTAINER={os.getenv('DOCKER_CONTAINER', 'false')}")
-
 
 def get_session_logger(session_id: str, module_name: str = 'session') -> 'logging.Logger':
     """
@@ -87,7 +86,6 @@ def get_session_logger(session_id: str, module_name: str = 'session') -> 'loggin
     
     return SessionAdapter(logger, session_id)
 
-
 def log_startup_info():
     """记录应用启动信息"""
     logger = get_logger('tradingagents.startup')
@@ -113,7 +111,6 @@ def log_startup_info():
     
     logger.info("=" * 60)
 
-
 def log_shutdown_info():
     """记录应用关闭信息"""
     logger = get_logger('tradingagents.shutdown')
@@ -122,7 +119,6 @@ def log_shutdown_info():
     logger.info("🛑 TradingAgents-CN 关闭")
     logger.info("=" * 60)
 
-
 # 便捷函数
 def setup_web_logging():
     """设置Web应用专用日志"""
@@ -130,21 +126,17 @@ def setup_web_logging():
     log_startup_info()
     return get_logger('web')
 
-
 def setup_analysis_logging(session_id: str):
     """设置分析专用日志"""
     return get_session_logger(session_id, 'analysis')
-
 
 def setup_dataflow_logging():
     """设置数据流专用日志"""
     return get_logger('dataflows')
 
-
 def setup_llm_logging():
     """设置LLM适配器专用日志"""
     return get_logger('llm_adapters')
-
 
 if __name__ == "__main__":
     # 测试日志系统

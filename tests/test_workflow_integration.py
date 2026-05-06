@@ -3,8 +3,10 @@
 验证统一新闻工具在整体流程中的使用情况
 """
 
-import sys
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 class MockLLM:
@@ -166,7 +168,7 @@ def test_news_analyst_integration():
         
     except Exception as e:
         print(f"❌ 验证过程中出现错误: {str(e)}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

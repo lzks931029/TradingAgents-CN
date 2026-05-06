@@ -3,14 +3,13 @@
 验证港股代码识别、数据获取和处理功能
 """
 
-import sys
 import os
 import traceback
+import sys
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
-
 
 def test_stock_utils():
     """测试股票工具类"""
@@ -53,7 +52,6 @@ def test_stock_utils():
         traceback.print_exc()
         return False
 
-
 def test_hk_stock_provider():
     """测试港股数据提供器"""
     print("\n🧪 测试港股数据提供器...")
@@ -86,7 +84,6 @@ def test_hk_stock_provider():
         print(f"❌ 港股数据提供器测试失败: {e}")
         traceback.print_exc()
         return False
-
 
 def test_hk_stock_info():
     """测试港股信息获取"""
@@ -125,7 +122,6 @@ def test_hk_stock_info():
         print(f"❌ 港股信息获取测试失败: {e}")
         traceback.print_exc()
         return False
-
 
 def test_hk_stock_data():
     """测试港股数据获取（简单测试）"""
@@ -169,7 +165,6 @@ def test_hk_stock_data():
         print(f"❌ 港股数据获取测试失败: {e}")
         traceback.print_exc()
         return False
-
 
 def test_optimized_us_data_hk_support():
     """测试优化美股数据模块的港股支持"""
@@ -217,7 +212,6 @@ def test_optimized_us_data_hk_support():
         traceback.print_exc()
         return False
 
-
 def main():
     """运行所有港股功能测试"""
     print("🇭🇰 开始港股功能测试")
@@ -250,7 +244,6 @@ def main():
     else:
         print("⚠️ 部分测试失败，需要进一步调试")
         return False
-
 
 if __name__ == "__main__":
     success = main()

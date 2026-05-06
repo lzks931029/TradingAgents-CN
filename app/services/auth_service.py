@@ -1,3 +1,5 @@
+
+import logging
 import time
 from datetime import datetime, timedelta, timezone
 from app.utils.timezone import now_tz
@@ -25,7 +27,7 @@ class AuthService:
 
     @staticmethod
     def verify_token(token: str) -> Optional[TokenData]:
-        import logging
+        
         logger = logging.getLogger(__name__)
 
         try:

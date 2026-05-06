@@ -4,6 +4,7 @@ Google AI OpenAI兼容适配器
 解决Google模型工具调用格式不匹配的问题
 """
 
+import logging
 import os
 from typing import Any, Dict, List, Optional, Union, Sequence
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -16,7 +17,6 @@ from ..config.config_manager import token_tracker
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('agents')
-
 
 class ChatGoogleOpenAI(ChatGoogleGenerativeAI):
     """
@@ -290,7 +290,6 @@ class ChatGoogleOpenAI(ChatGoogleGenerativeAI):
             # token 追踪失败不应该影响主要功能
             logger.error(f"⚠️ Google适配器 Token 追踪失败: {track_error}")
 
-
 # 支持的模型列表
 GOOGLE_OPENAI_MODELS = {
     # Gemini 2.5 系列 - 最新验证模型
@@ -347,11 +346,9 @@ GOOGLE_OPENAI_MODELS = {
     }
 }
 
-
 def get_available_google_models() -> Dict[str, Dict[str, Any]]:
     """获取可用的 Google AI 模型列表"""
     return GOOGLE_OPENAI_MODELS
-
 
 def create_google_openai_llm(
     model: str = "gemini-2.5-flash-lite-preview-06-17",
@@ -385,7 +382,6 @@ def create_google_openai_llm(
         **kwargs
     )
 
-
 def test_google_openai_connection(
     model: str = "gemini-2.0-flash",
     google_api_key: Optional[str] = None
@@ -417,7 +413,6 @@ def test_google_openai_connection(
     except Exception as e:
         logger.error(f"❌ Google AI OpenAI 兼容接口连接失败: {e}")
         return False
-
 
 def test_google_openai_function_calling(
     model: str = "gemini-2.5-flash-lite-preview-06-17",
@@ -468,7 +463,6 @@ def test_google_openai_function_calling(
     except Exception as e:
         logger.error(f"❌ Google AI Function Calling 测试失败: {e}")
         return False
-
 
 if __name__ == "__main__":
     """测试脚本"""

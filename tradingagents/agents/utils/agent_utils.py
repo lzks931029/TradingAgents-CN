@@ -1,4 +1,6 @@
 from langchain_core.messages import BaseMessage, HumanMessage, ToolMessage, AIMessage
+import logging
+import traceback
 from typing import List
 from typing import Annotated
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -7,7 +9,7 @@ from langchain_core.tools import tool
 from datetime import date, timedelta, datetime
 import functools
 import pandas as pd
-import os
+
 from dateutil.relativedelta import relativedelta
 from langchain_openai import ChatOpenAI
 import tradingagents.dataflows.interface as interface
@@ -21,7 +23,6 @@ from tradingagents.utils.tool_logging import log_tool_call, log_analysis_step
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('agents')
-
 
 def create_msg_delete():
     def delete_messages(state):
@@ -37,7 +38,6 @@ def create_msg_delete():
         return {"messages": removal_operations + [placeholder]}
     
     return delete_messages
-
 
 class Toolkit:
     _config = DEFAULT_CONFIG.copy()
@@ -185,7 +185,7 @@ class Toolkit:
 
             return result
         except Exception as e:
-            import traceback
+            
             error_details = traceback.format_exc()
             logger.error(f"❌ [DEBUG] ===== agent_utils.get_china_stock_data 异常 =====")
             logger.error(f"❌ [DEBUG] 错误类型: {type(e).__name__}")
@@ -213,7 +213,6 @@ class Toolkit:
             from tradingagents.dataflows.providers.china.tushare import get_tushare_adapter
 
             adapter = get_tushare_adapter()
-
 
             # 使用Tushare获取主要指数信息
             # 这里可以扩展为获取具体的指数数据
@@ -645,7 +644,7 @@ class Toolkit:
             return fundamentals_report
 
         except Exception as e:
-            import traceback
+            
             error_details = traceback.format_exc()
             logger.error(f"❌ [DEBUG] get_china_fundamentals 失败:")
             logger.error(f"❌ [DEBUG] 错误: {str(e)}")
@@ -682,7 +681,7 @@ class Toolkit:
             return result
 
         except Exception as e:
-            import traceback
+            
             error_details = traceback.format_exc()
             logger.error(f"❌ [DEBUG] get_hk_stock_data_unified 失败:")
             logger.error(f"❌ [DEBUG] 错误: {str(e)}")

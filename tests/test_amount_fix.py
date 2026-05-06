@@ -2,8 +2,9 @@
 测试成交额单位修复
 验证 Tushare 数据的成交额单位转换是否正确
 """
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import asyncio

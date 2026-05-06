@@ -3,6 +3,7 @@
 调试300750估值指标计算问题
 """
 
+import traceback
 import pymongo
 from tradingagents.config.database_manager import get_database_manager
 
@@ -135,7 +136,7 @@ def debug_valuation_data(stock_code):
         
     except Exception as e:
         print(f'调试时出错: {e}')
-        import traceback
+        
         traceback.print_exc()
         return None
 

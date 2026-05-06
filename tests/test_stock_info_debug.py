@@ -5,12 +5,12 @@
 """
 
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
-
 
 def test_stock_code_normalization():
     """测试股票代码标准化"""
@@ -34,7 +34,6 @@ def test_stock_code_normalization():
         print(f"❌ 股票代码标准化测试失败: {e}")
         return False
 
-
 def test_tushare_api_direct():
     """直接测试Tushare API"""
     print("\n🔧 直接测试Tushare API")
@@ -42,7 +41,7 @@ def test_tushare_api_direct():
     
     try:
         import tushare as ts
-        import os
+        
         
         token = os.getenv('TUSHARE_TOKEN')
         if not token:
@@ -98,7 +97,6 @@ def test_tushare_api_direct():
         print(f"❌ Tushare API测试失败: {e}")
         return False
 
-
 def test_stock_list_search():
     """测试股票列表搜索"""
     print("\n🔧 测试股票列表搜索")
@@ -145,10 +143,9 @@ def test_stock_list_search():
         
     except Exception as e:
         print(f"❌ 股票列表搜索失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_alternative_stock_codes():
     """测试其他股票代码"""
@@ -188,7 +185,6 @@ def test_alternative_stock_codes():
     except Exception as e:
         print(f"❌ 其他股票代码测试失败: {e}")
         return False
-
 
 def main():
     """主测试函数"""
@@ -242,7 +238,6 @@ def main():
         print("\n⚠️ 部分测试失败，请检查具体问题")
     
     input("按回车键退出...")
-
 
 if __name__ == "__main__":
     main()

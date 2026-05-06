@@ -3,6 +3,7 @@
 修复股票代码误判问题的脚本
 """
 
+import logging
 import os
 import shutil
 import sys
@@ -87,7 +88,6 @@ def create_test_script():
 002027 股票代码专项测试
 """
 
-import os
 import sys
 
 # 添加项目根目录到Python路径

@@ -4,6 +4,7 @@
 集成缓存策略，减少API调用，提高响应速度
 """
 
+import logging
 import os
 import time
 import random
@@ -33,7 +34,6 @@ from tradingagents.config.runtime_settings import get_float, get_timezone_name
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('agents')
-
 
 class OptimizedUSDataProvider:
     """优化的美股数据提供器 - 集成缓存和API限制处理"""
@@ -349,9 +349,8 @@ class OptimizedUSDataProvider:
         """从FINNHUB API获取股票数据"""
         try:
             import finnhub
-            import os
+            
             from datetime import datetime, timedelta
-
 
             # 获取API密钥
             api_key = os.getenv('FINNHUB_API_KEY')
@@ -507,7 +506,6 @@ class OptimizedUSDataProvider:
 生成时间: {datetime.now(ZoneInfo(get_timezone_name())).strftime('%Y-%m-%d %H:%M:%S')}
 """
 
-
 # 全局实例
 _us_data_provider = None
 
@@ -517,7 +515,6 @@ def get_optimized_us_data_provider() -> OptimizedUSDataProvider:
     if _us_data_provider is None:
         _us_data_provider = OptimizedUSDataProvider()
     return _us_data_provider
-
 
 def get_us_stock_data_cached(symbol: str, start_date: str, end_date: str,
                            force_refresh: bool = False) -> str:

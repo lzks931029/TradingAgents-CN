@@ -1,4 +1,5 @@
 """检查用户数据"""
+import traceback
 from pymongo import MongoClient
 from bson import ObjectId
 
@@ -74,6 +75,6 @@ try:
 
 except Exception as e:
     print(f"❌ 错误: {e}")
-    import traceback
+    
     traceback.print_exc()
 

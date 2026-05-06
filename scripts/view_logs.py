@@ -4,9 +4,9 @@ TradingAgents 日志查看工具
 方便查看和分析应用日志
 """
 
-import os
-import sys
 import time
+import sys
+
 from pathlib import Path
 from datetime import datetime
 

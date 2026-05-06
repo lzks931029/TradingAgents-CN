@@ -6,6 +6,7 @@ MongoDB数据验证脚本
 """
 
 import os
+import traceback
 from typing import Dict, Any, List
 from datetime import datetime
 
@@ -183,7 +184,7 @@ def main():
         
     except Exception as e:
         print(f"❌ 验证过程中发生错误: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     finally:

@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
@@ -78,7 +79,7 @@ def test_real_tushare_volume_access():
                 print(f"❌ 其他错误: {e}")
                 if "volume" in str(e).lower():
                     print(f"🎯 可能与volume相关的错误")
-                import traceback
+                
                 traceback.print_exc()
                 return False
         else:
@@ -87,7 +88,7 @@ def test_real_tushare_volume_access():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -150,13 +151,13 @@ def test_tushare_adapter_direct():
                 return False
         except Exception as e:
             print(f"❌ 其他错误: {e}")
-            import traceback
+            
             traceback.print_exc()
             return False
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -225,7 +226,7 @@ def test_column_mapping_in_real_data():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

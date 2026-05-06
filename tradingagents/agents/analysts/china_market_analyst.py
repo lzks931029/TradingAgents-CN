@@ -1,5 +1,6 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-import time
+
+import logging
 import json
 
 # 导入统一日志系统
@@ -8,7 +9,6 @@ logger = get_logger("default")
 
 # 导入Google工具调用处理器
 from tradingagents.agents.utils.google_tool_handler import GoogleToolCallHandler
-
 
 def _get_company_name_for_china_market(ticker: str, market_info: dict) -> str:
     """
@@ -86,7 +86,6 @@ def _get_company_name_for_china_market(ticker: str, market_info: dict) -> str:
     except Exception as e:
         logger.error(f"❌ [中国市场分析师] 获取公司名称失败: {e}")
         return f"股票{ticker}"
-
 
 def create_china_market_analyst(llm, toolkit):
     """创建中国市场分析师"""
@@ -207,7 +206,6 @@ def create_china_market_analyst(llm, toolkit):
         }
     
     return china_market_analyst_node
-
 
 def create_china_stock_screener(llm, toolkit):
     """创建中国股票筛选器"""

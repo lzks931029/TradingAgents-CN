@@ -1,17 +1,18 @@
 """
 Backup, import, and export routines extracted from DatabaseService.
 """
+import logging
+import os
 from __future__ import annotations
 
 import json
-import os
+
 import gzip
 import asyncio
 import subprocess
 import shutil
 from datetime import datetime
 from typing import Any, Dict, List, Optional
-import logging
 
 from bson import ObjectId
 
@@ -21,11 +22,9 @@ from .serialization import serialize_document
 
 logger = logging.getLogger(__name__)
 
-
 def _check_mongodump_available() -> bool:
     """检查 mongodump 命令是否可用"""
     return shutil.which("mongodump") is not None
-
 
 async def create_backup_native(name: str, backup_dir: str, collections: Optional[List[str]] = None, user_id: str | None = None) -> Dict[str, Any]:
     """
@@ -133,7 +132,6 @@ async def create_backup_native(name: str, backup_dir: str, collections: Optional
         "backup_type": "mongodump",
     }
 
-
 async def create_backup(name: str, backup_dir: str, collections: Optional[List[str]] = None, user_id: str | None = None) -> Dict[str, Any]:
     """
     创建数据库备份（Python 实现，兼容性好但速度较慢）
@@ -199,7 +197,6 @@ async def create_backup(name: str, backup_dir: str, collections: Optional[List[s
         "created_at": backup_meta["created_at"].isoformat(),
     }
 
-
 async def list_backups() -> List[Dict[str, Any]]:
     db = get_mongo_db()
     backups: List[Dict[str, Any]] = []
@@ -214,7 +211,6 @@ async def list_backups() -> List[Dict[str, Any]]:
             "created_by": backup.get("created_by"),
         })
     return backups
-
 
 async def delete_backup(backup_id: str) -> None:
     db = get_mongo_db()
@@ -231,7 +227,6 @@ async def delete_backup(backup_id: str) -> None:
             # Python 备份是单个文件
             await asyncio.to_thread(os.remove, backup["file_path"])
     await db.database_backups.delete_one({"_id": ObjectId(backup_id)})
-
 
 def _convert_date_fields(doc: dict) -> dict:
     """
@@ -260,7 +255,6 @@ def _convert_date_fields(doc: dict) -> dict:
                 logger.warning(f"⚠️ 无法解析日期字段 {field}: {doc[field]}, 错误: {e}")
 
     return doc
-
 
 async def import_data(content: bytes, collection: str, *, format: str = "json", overwrite: bool = False, filename: str | None = None) -> Dict[str, Any]:
     """
@@ -398,7 +392,6 @@ async def import_data(content: bytes, collection: str, *, format: str = "json", 
             "overwrite": overwrite,
         }
 
-
 def _sanitize_document(doc: Any) -> Any:
     """
     递归清空文档中的敏感字段
@@ -443,7 +436,6 @@ def _sanitize_document(doc: Any) -> Any:
         return [_sanitize_document(item) for item in doc]
     else:
         return doc
-
 
 async def export_data(collections: Optional[List[str]] = None, *, export_dir: str, format: str = "json", sanitize: bool = False) -> str:
     import pandas as pd

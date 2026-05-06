@@ -3,16 +3,19 @@
 社媒消息爬虫示例程序
 演示如何爬取社交媒体数据并入库到消息数据系统
 """
-import asyncio
 import logging
-import sys
 import os
+import time
+import asyncio
+
+import sys
+
 import json
 import re
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 import aiohttp
-import time
+
 import random
 from pathlib import Path
 
@@ -28,7 +31,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 class SocialMediaCrawler:
     """社媒消息爬虫基类"""
@@ -155,7 +157,6 @@ class SocialMediaCrawler:
                 return 'low'
             else:
                 return 'low'
-
 
 class WeiboCrawler(SocialMediaCrawler):
     """微博爬虫"""
@@ -302,7 +303,6 @@ class WeiboCrawler(SocialMediaCrawler):
         except Exception as e:
             self.logger.error(f"❌ 微博消息标准化失败: {e}")
             return None
-
 
 class DouyinCrawler(SocialMediaCrawler):
     """抖音爬虫"""
@@ -452,7 +452,6 @@ class DouyinCrawler(SocialMediaCrawler):
             self.logger.error(f"❌ 抖音消息标准化失败: {e}")
             return None
 
-
 async def crawl_and_save_social_media(symbols: List[str], platforms: List[str] = None):
     """爬取并保存社媒消息"""
     if platforms is None:
@@ -512,7 +511,6 @@ async def crawl_and_save_social_media(symbols: List[str], platforms: List[str] =
         logger.error(f"❌ 社媒消息爬取过程异常: {e}")
         return 0
 
-
 async def main():
     """主函数"""
     # 测试股票列表
@@ -535,7 +533,6 @@ async def main():
         logger.info("✅ 社媒消息爬虫运行成功!")
     else:
         logger.warning("⚠️ 未保存任何消息，请检查配置")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

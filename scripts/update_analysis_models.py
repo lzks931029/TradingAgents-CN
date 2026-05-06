@@ -3,6 +3,7 @@
 直接更新系统设置中的分析模型配置
 """
 
+import traceback
 import asyncio
 from motor.motor_asyncio import AsyncIOMotorClient
 
@@ -60,9 +61,8 @@ async def main():
         
     except Exception as e:
         print(f"\n❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

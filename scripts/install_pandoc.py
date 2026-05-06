@@ -4,7 +4,7 @@ Pandoc安装脚本
 自动安装pandoc工具，用于报告导出功能
 """
 
-import os
+import logging
 import sys
 import subprocess
 import platform

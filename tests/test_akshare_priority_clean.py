@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 import importlib
 
@@ -50,7 +51,7 @@ def clean_import_test():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -91,7 +92,7 @@ def test_env_variable_directly():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -131,7 +132,7 @@ def test_manual_env_setting():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -185,7 +186,7 @@ def test_fallback_order():
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

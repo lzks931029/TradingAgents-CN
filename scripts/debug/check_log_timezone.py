@@ -3,9 +3,11 @@
 检查操作日志的时区问题
 """
 
+import os
+import traceback
 import asyncio
 import sys
-import os
+
 import datetime
 from dotenv import load_dotenv
 
@@ -126,7 +128,7 @@ async def check_log_timezone():
         
     except Exception as e:
         print(f"❌ 检查失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

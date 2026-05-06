@@ -4,6 +4,7 @@ MongoDB + Redis 数据库缓存管理器
 提供高性能的股票数据缓存和持久化存储
 """
 
+import logging
 import os
 import json
 import pickle
@@ -36,7 +37,6 @@ try:
 except ImportError:
     REDIS_AVAILABLE = False
     logger.warning(f"⚠️ redis 未安装，Redis功能不可用")
-
 
 class DatabaseCacheManager:
     """MongoDB + Redis 数据库缓存管理器"""
@@ -85,7 +85,7 @@ class DatabaseCacheManager:
 
         try:
             # 从环境变量读取超时配置，使用合理的默认值
-            import os
+            
             connect_timeout = int(os.getenv("MONGO_CONNECT_TIMEOUT_MS", "30000"))
             socket_timeout = int(os.getenv("MONGO_SOCKET_TIMEOUT_MS", "60000"))
             server_selection_timeout = int(os.getenv("MONGO_SERVER_SELECTION_TIMEOUT_MS", "5000"))
@@ -564,7 +564,6 @@ class DatabaseCacheManager:
         if self.redis_client:
             self.redis_client.close()
             logger.info(f"🔒 Redis连接已关闭")
-
 
 # 全局数据库缓存实例
 _db_cache_instance = None

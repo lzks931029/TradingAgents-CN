@@ -1,10 +1,10 @@
 """
 测试 preferred_sources 参数是否生效
 """
+import traceback
 import asyncio
 from app.core.database import init_db
 from app.services.data_sources.manager import DataSourceManager
-
 
 async def test_default_order():
     """测试默认优先级顺序"""
@@ -28,7 +28,6 @@ async def test_default_order():
         print("❌ 获取失败")
     
     print()
-
 
 async def test_preferred_sources_akshare():
     """测试指定 akshare 为优先数据源"""
@@ -54,7 +53,6 @@ async def test_preferred_sources_akshare():
     
     print()
 
-
 async def test_preferred_sources_baostock():
     """测试指定 baostock 为优先数据源"""
     print("=" * 80)
@@ -78,7 +76,6 @@ async def test_preferred_sources_baostock():
         print("❌ 获取失败")
     
     print()
-
 
 async def test_preferred_sources_multiple():
     """测试指定多个优先数据源"""
@@ -105,7 +102,6 @@ async def test_preferred_sources_multiple():
     
     print()
 
-
 async def test_preferred_sources_invalid():
     """测试指定不存在的数据源"""
     print("=" * 80)
@@ -130,7 +126,6 @@ async def test_preferred_sources_invalid():
         print("❌ 获取失败")
     
     print()
-
 
 async def test_api_integration():
     """测试完整的API集成"""
@@ -176,11 +171,10 @@ async def test_api_integration():
         
     except Exception as e:
         print(f"❌ 同步失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     print()
-
 
 async def main():
     """主测试函数"""
@@ -209,7 +203,6 @@ async def main():
     print("✅ 所有测试完成")
     print("=" * 80)
 
-
 if __name__ == "__main__":
     try:
         asyncio.run(main())
@@ -217,6 +210,6 @@ if __name__ == "__main__":
         print("\n\n⚠️  测试被用户中断")
     except Exception as e:
         print(f"\n\n❌ 测试出错: {e}")
-        import traceback
+        
         traceback.print_exc()
 

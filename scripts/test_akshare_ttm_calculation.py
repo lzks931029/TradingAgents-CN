@@ -9,8 +9,9 @@
 4. PE/PS 是否使用 TTM 数据
 """
 
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pandas as pd

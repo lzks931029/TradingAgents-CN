@@ -8,8 +8,9 @@
 - 配置兼容层
 """
 
-import pytest
 import os
+import pytest
+
 import sys
 from pathlib import Path
 from unittest.mock import Mock, patch, AsyncMock
@@ -24,7 +25,6 @@ from app.core.startup_validator import (
     ValidationResult,
     ConfigurationError
 )
-
 
 class TestStartupValidator:
     """测试启动配置验证器"""
@@ -182,7 +182,6 @@ class TestStartupValidator:
         # 不应该抛出异常
         validator.raise_if_failed()
 
-
 class TestConfigCompat:
     """测试配置兼容层"""
     
@@ -262,7 +261,6 @@ class TestConfigCompat:
         tracker.reset_usage()
         assert len(tracker.get_usage_summary()) == 0
 
-
 class TestConfigPriority:
     """测试配置优先级"""
     
@@ -285,7 +283,6 @@ class TestConfigPriority:
         assert settings["max_debate_rounds"] == 1
         assert settings["online_tools"] is True
         assert settings["memory_enabled"] is True
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

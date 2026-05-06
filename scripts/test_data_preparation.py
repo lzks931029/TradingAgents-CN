@@ -4,17 +4,17 @@
 验证数据库检查和自动同步功能
 """
 
-import sys
+import logging
 import os
+import traceback
+import sys
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from tradingagents.utils.stock_validator import prepare_stock_data
-import logging
 
 logger = logging.getLogger(__name__)
-
 
 def test_data_preparation():
     """测试数据准备功能"""
@@ -61,13 +61,12 @@ def test_data_preparation():
             
         except Exception as e:
             print(f"\n❌ 测试失败: {e}")
-            import traceback
+            
             traceback.print_exc()
     
     print(f"\n{'=' * 80}")
     print("✅ 测试完成")
     print(f"{'=' * 80}")
-
 
 def test_database_check():
     """测试数据库检查功能"""
@@ -103,7 +102,6 @@ def test_database_check():
             
         except Exception as e:
             print(f"   ❌ 检查失败: {e}")
-
 
 async def test_data_sync_async():
     """测试数据同步功能（异步版本）"""
@@ -145,7 +143,7 @@ async def test_data_sync_async():
 
         except Exception as e:
             print(f"   ❌ 同步失败: {e}")
-            import traceback
+            
             traceback.print_exc()
 
     finally:
@@ -154,14 +152,12 @@ async def test_data_sync_async():
         await close_database()
         print("✅ 数据库连接已关闭")
 
-
 def test_data_sync():
     """测试数据同步功能（同步包装器）"""
     import asyncio
 
     # 运行异步测试
     asyncio.run(test_data_sync_async())
-
 
 if __name__ == "__main__":
     import argparse

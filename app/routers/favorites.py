@@ -2,10 +2,10 @@
 自选股管理API路由
 """
 
+import logging
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
-import logging
 
 from app.routers.auth_db import get_current_user
 from app.models.user import User, FavoriteStock
@@ -15,7 +15,6 @@ from app.core.response import ok
 logger = logging.getLogger("webapi")
 
 router = APIRouter(prefix="/favorites", tags=["自选股管理"])
-
 
 class AddFavoriteRequest(BaseModel):
     """添加自选股请求"""
@@ -27,14 +26,12 @@ class AddFavoriteRequest(BaseModel):
     alert_price_high: Optional[float] = None
     alert_price_low: Optional[float] = None
 
-
 class UpdateFavoriteRequest(BaseModel):
     """更新自选股请求"""
     tags: Optional[List[str]] = None
     notes: Optional[str] = None
     alert_price_high: Optional[float] = None
     alert_price_low: Optional[float] = None
-
 
 class FavoriteStockResponse(BaseModel):
     """自选股响应"""
@@ -51,7 +48,6 @@ class FavoriteStockResponse(BaseModel):
     change_percent: Optional[float] = None
     volume: Optional[int] = None
 
-
 @router.get("/", response_model=dict)
 async def get_favorites(
     current_user: dict = Depends(get_current_user)
@@ -66,14 +62,13 @@ async def get_favorites(
             detail=f"获取自选股失败: {str(e)}"
         )
 
-
 @router.post("/", response_model=dict)
 async def add_favorite(
     request: AddFavoriteRequest,
     current_user: dict = Depends(get_current_user)
 ):
     """添加股票到自选股"""
-    import logging
+    
     logger = logging.getLogger("webapi")
 
     try:
@@ -123,7 +118,6 @@ async def add_favorite(
             detail=f"添加自选股失败: {str(e)}"
         )
 
-
 @router.put("/{stock_code}", response_model=dict)
 async def update_favorite(
     stock_code: str,
@@ -157,7 +151,6 @@ async def update_favorite(
             detail=f"更新自选股失败: {str(e)}"
         )
 
-
 @router.delete("/{stock_code}", response_model=dict)
 async def remove_favorite(
     stock_code: str,
@@ -183,7 +176,6 @@ async def remove_favorite(
             detail=f"移除自选股失败: {str(e)}"
         )
 
-
 @router.get("/check/{stock_code}", response_model=dict)
 async def check_favorite(
     stock_code: str,
@@ -199,7 +191,6 @@ async def check_favorite(
             detail=f"检查自选股状态失败: {str(e)}"
         )
 
-
 @router.get("/tags", response_model=dict)
 async def get_user_tags(
     current_user: dict = Depends(get_current_user)
@@ -214,11 +205,9 @@ async def get_user_tags(
             detail=f"获取标签失败: {str(e)}"
         )
 
-
 class SyncFavoritesRequest(BaseModel):
     """同步自选股实时行情请求"""
     data_source: str = "tushare"  # tushare/akshare
-
 
 @router.post("/sync-realtime", response_model=dict)
 async def sync_favorites_realtime(

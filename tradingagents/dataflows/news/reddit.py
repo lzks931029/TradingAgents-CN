@@ -1,10 +1,11 @@
 import requests
-import time
+
+import os
 import json
 from datetime import datetime, timedelta
 from contextlib import contextmanager
 from typing import Annotated
-import os
+
 import re
 
 ticker_to_company = {
@@ -47,7 +48,6 @@ ticker_to_company = {
     "ROKU": "Roku",
     "PINS": "Pinterest",
 }
-
 
 def fetch_top_from_category(
     category: Annotated[

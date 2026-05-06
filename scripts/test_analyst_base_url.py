@@ -1,8 +1,9 @@
 """
 测试脚本：验证分析师使用的 base_url 是否正确
 """
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 def main():

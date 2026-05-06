@@ -10,8 +10,9 @@
 4. 验证配置优先级
 """
 
+import traceback
 import sys
-import os
+
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
@@ -23,7 +24,6 @@ from dotenv import load_dotenv
 
 # 加载环境变量
 load_dotenv()
-
 
 async def test_add_provider_with_key():
     """测试添加厂家并配置 API Key"""
@@ -74,10 +74,9 @@ async def test_add_provider_with_key():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None
-
 
 async def test_update_provider_key(provider_id: str):
     """测试更新厂家的 API Key"""
@@ -115,9 +114,8 @@ async def test_update_provider_key(provider_id: str):
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 async def test_clear_provider_key(provider_id: str):
     """测试清空厂家的 API Key（使用环境变量）"""
@@ -155,9 +153,8 @@ async def test_clear_provider_key(provider_id: str):
             
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 async def test_cleanup(provider_id: str):
     """清理测试数据"""
@@ -182,7 +179,6 @@ async def test_cleanup(provider_id: str):
     except Exception as e:
         print(f"❌ 清理失败: {e}")
 
-
 def _mask_key(key: str) -> str:
     """脱敏显示 API Key"""
     if not key:
@@ -190,7 +186,6 @@ def _mask_key(key: str) -> str:
     if len(key) <= 10:
         return "***"
     return f"{key[:4]}{'*' * (len(key) - 8)}{key[-4:]}"
-
 
 async def main():
     """主函数"""
@@ -217,10 +212,9 @@ async def main():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

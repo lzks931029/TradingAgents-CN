@@ -13,7 +13,6 @@ from app.models.config import UsageRecord, UsageStatistics
 
 logger = logging.getLogger("app.services.usage_statistics_service")
 
-
 class UsageStatisticsService:
     """使用统计服务"""
     
@@ -230,7 +229,6 @@ class UsageStatisticsService:
         except Exception as e:
             logger.error(f"❌ 删除旧记录失败: {e}")
             return 0
-
 
 # 创建全局实例
 usage_statistics_service = UsageStatisticsService()

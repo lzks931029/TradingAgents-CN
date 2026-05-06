@@ -5,8 +5,10 @@
 验证300750的估值指标是否正确显示
 """
 
-import sys
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from tradingagents.default_config import DEFAULT_CONFIG
@@ -51,7 +53,7 @@ def test_300750_fundamentals():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

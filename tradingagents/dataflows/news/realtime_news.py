@@ -4,14 +4,17 @@
 解决新闻滞后性问题
 """
 
+import logging
+import os
+import time
+import traceback
 import requests
 import json
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 from typing import List, Dict, Optional
-import time
-import os
+
 from dataclasses import dataclass
 
 # 导入日志模块
@@ -19,8 +22,6 @@ from tradingagents.config.runtime_settings import get_timezone_name
 
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('agents')
-
-
 
 @dataclass
 class NewsItem:
@@ -32,7 +33,6 @@ class NewsItem:
     url: str
     urgency: str  # high, medium, low
     relevance_score: float
-
 
 class RealtimeNewsAggregator:
     """实时新闻聚合器"""
@@ -679,7 +679,6 @@ class RealtimeNewsAggregator:
 
         return report
 
-
 def get_realtime_stock_news(ticker: str, curr_date: str, hours_back: int = 6) -> str:
     """
     获取实时股票新闻的主要接口函数
@@ -804,7 +803,7 @@ def get_realtime_stock_news(ticker: str, curr_date: str, hours_back: int = 6) ->
         except Exception as e:
             logger.error(f"[新闻分析] 东方财富新闻获取失败: {e}，将尝试其他新闻源")
             logger.error(f"[新闻分析] 异常详情: {type(e).__name__}: {str(e)}")
-            import traceback
+            
             logger.error(f"[新闻分析] 异常堆栈: {traceback.format_exc()}")
     else:
         logger.info(f"[新闻分析] ========== 跳过A股东方财富新闻获取 ==========")
@@ -853,7 +852,7 @@ def get_realtime_stock_news(ticker: str, curr_date: str, hours_back: int = 6) ->
     except Exception as e:
         logger.error(f"[新闻分析] 实时新闻聚合器获取失败: {e}，将尝试备用新闻源")
         logger.error(f"[新闻分析] 异常详情: {type(e).__name__}: {str(e)}")
-        import traceback
+        
         logger.error(f"[新闻分析] 异常堆栈: {traceback.format_exc()}")
         # 发生异常时，继续尝试备用方案
 

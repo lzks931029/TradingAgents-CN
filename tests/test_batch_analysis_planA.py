@@ -6,6 +6,7 @@
 - 轮询 /api/analysis/tasks/{task_id}/status 直至 completed
 - 获取 /api/analysis/tasks/{task_id}/result 并验证关键字段
 """
+
 import time
 import json
 import requests
@@ -15,7 +16,6 @@ USERNAME = "admin"
 PASSWORD = "admin123"
 
 STOCKS = ["000001", "000002"]
-
 
 def login():
     r = requests.post(
@@ -28,7 +28,6 @@ def login():
     data = r.json()
     assert data.get("success"), f"login failed: {data}"
     return data["data"]["access_token"]
-
 
 def submit_batch(token: str):
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
@@ -53,7 +52,6 @@ def submit_batch(token: str):
     assert len(mapping) == len(STOCKS), f"mapping size mismatch: {mapping}"
     return data["data"]["batch_id"], mapping
 
-
 def poll_status(token: str, task_id: str, timeout_sec: int = 300):
     headers = {"Authorization": f"Bearer {token}"}
     start = time.time()
@@ -74,7 +72,6 @@ def poll_status(token: str, task_id: str, timeout_sec: int = 300):
     print(f"⏰ 任务超时: {task_id}")
     return False
 
-
 def fetch_result(token: str, task_id: str):
     headers = {"Authorization": f"Bearer {token}"}
     r = requests.get(f"{BASE_URL}/api/analysis/tasks/{task_id}/result", headers=headers, timeout=30)
@@ -82,7 +79,6 @@ def fetch_result(token: str, task_id: str):
     data = r.json()
     assert data.get("success"), f"get result failed: {data}"
     return data["data"]
-
 
 def main():
     print("开始方案A批量链路测试...")
@@ -120,7 +116,6 @@ def main():
         print("✅ 方案A批量链路测试通过！")
     else:
         print("⚠️ 部分任务未完成或失败，请检查日志")
-
 
 if __name__ == '__main__':
     main()

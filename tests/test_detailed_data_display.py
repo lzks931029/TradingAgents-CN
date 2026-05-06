@@ -5,8 +5,10 @@
 完整显示基本面分析获取的所有数据内容
 """
 
-import sys
 import os
+import traceback
+import sys
+
 import json
 from datetime import datetime, timedelta
 
@@ -105,7 +107,7 @@ def test_detailed_data_display():
         
     except Exception as e:
         print(f"❌ 测试失败: {str(e)}")
-        import traceback
+        
         print("🔍 详细错误信息:")
         traceback.print_exc()
 

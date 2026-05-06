@@ -4,7 +4,9 @@ MongoDB存储适配器
 用于将token使用记录存储到MongoDB数据库
 """
 
+import logging
 import os
+import traceback
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 from typing import Dict, List, Optional, Any
@@ -23,7 +25,6 @@ try:
 except ImportError:
     MONGODB_AVAILABLE = False
     MongoClient = None
-
 
 class MongoDBStorage:
     """MongoDB存储适配器"""
@@ -57,7 +58,7 @@ class MongoDBStorage:
         """连接到MongoDB"""
         try:
             # 从环境变量读取超时配置，使用合理的默认值
-            import os
+            
             connect_timeout = int(os.getenv("MONGO_CONNECT_TIMEOUT_MS", "30000"))
             socket_timeout = int(os.getenv("MONGO_SOCKET_TIMEOUT_MS", "60000"))
             server_selection_timeout = int(os.getenv("MONGO_SERVER_SELECTION_TIMEOUT_MS", "5000"))
@@ -140,7 +141,7 @@ class MongoDBStorage:
 
         except Exception as e:
             logger.error(f"❌ [MongoDB存储] 保存记录失败: {e}")
-            import traceback
+            
             logger.error(f"   堆栈: {traceback.format_exc()}")
             return False
     

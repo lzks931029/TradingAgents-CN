@@ -5,7 +5,7 @@
 """
 
 import os
-
+import traceback
 def test_final_config():
     """测试最终配置"""
     print("🔧 测试最终的.env配置系统")
@@ -70,7 +70,7 @@ def test_final_config():
         
     except Exception as e:
         print(f"❌ 数据库管理器测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
     
@@ -107,7 +107,7 @@ def test_final_config():
         
     except Exception as e:
         print(f"❌ 缓存系统测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
     
@@ -146,7 +146,7 @@ def main():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

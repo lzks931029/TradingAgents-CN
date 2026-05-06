@@ -4,9 +4,11 @@
 快速测试主要数据源的可用性
 """
 
-import sys
 import os
 import time
+import traceback
+import sys
+
 from datetime import datetime
 
 # 添加项目根目录到Python路径
@@ -220,5 +222,5 @@ if __name__ == "__main__":
             
     except Exception as e:
         print(f"❌ 测试程序异常: {e}")
-        import traceback
+        
         traceback.print_exc()

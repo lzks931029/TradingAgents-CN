@@ -7,7 +7,6 @@ API Key 处理工具函数
 import os
 from typing import Optional
 
-
 def is_valid_api_key(api_key: Optional[str]) -> bool:
     """
     判断 API Key 是否有效
@@ -52,7 +51,6 @@ def is_valid_api_key(api_key: Optional[str]) -> bool:
     
     return True
 
-
 def truncate_api_key(api_key: Optional[str]) -> Optional[str]:
     """
     缩略 API Key，显示前6位和后6位
@@ -71,7 +69,6 @@ def truncate_api_key(api_key: Optional[str]) -> Optional[str]:
         return api_key
     
     return f"{api_key[:6]}...{api_key[-6:]}"
-
 
 def get_env_api_key_for_provider(provider_name: str) -> Optional[str]:
     """
@@ -92,7 +89,6 @@ def get_env_api_key_for_provider(provider_name: str) -> Optional[str]:
         return env_key
     
     return None
-
 
 def get_env_api_key_for_datasource(ds_type: str) -> Optional[str]:
     """
@@ -132,7 +128,6 @@ def get_env_api_key_for_datasource(ds_type: str) -> Optional[str]:
         return env_key
     
     return None
-
 
 def should_skip_api_key_update(api_key: Optional[str]) -> bool:
     """

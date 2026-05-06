@@ -3,8 +3,9 @@
 清理测试数据
 """
 
-import sys
 import os
+import sys
+
 from pathlib import Path
 
 # 添加项目路径

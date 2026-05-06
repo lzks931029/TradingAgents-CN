@@ -15,6 +15,7 @@
     export TA_CACHE_STRATEGY=file        # 使用文件缓存（默认）
 """
 
+import logging
 import os
 from typing import Union
 

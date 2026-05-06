@@ -2,8 +2,9 @@
 调试Web界面显示"True"的问题
 """
 
+import traceback
 import sys
-import os
+
 from pathlib import Path
 
 # 添加项目根目录到Python路径
@@ -85,7 +86,7 @@ def test_validation_function():
         
     except Exception as e:
         print(f"❌ 验证函数测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -110,7 +111,7 @@ def test_analysis_runner_import():
         
     except Exception as e:
         print(f"❌ 分析运行器导入失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -129,7 +130,7 @@ def test_streamlit_components():
         
     except Exception as e:
         print(f"❌ Streamlit组件测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

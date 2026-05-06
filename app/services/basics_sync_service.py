@@ -8,10 +8,11 @@ Stock basics synchronization service
 
 This module is async-friendly and offloads blocking IO (Tushare/pandas) to a thread.
 """
+import logging
 from __future__ import annotations
 
 import asyncio
-import logging
+
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional
@@ -35,7 +36,6 @@ STATUS_COLLECTION = "sync_status"
 DATA_COLLECTION = "stock_basic_info"
 JOB_KEY = "stock_basics"
 
-
 @dataclass
 class SyncStats:
     started_at: Optional[str] = None
@@ -47,7 +47,6 @@ class SyncStats:
     errors: int = 0
     message: str = ""
     last_trade_date: Optional[str] = None  # YYYYMMDD
-
 
 class BasicsSyncService:
     def __init__(self) -> None:
@@ -406,10 +405,8 @@ class BasicsSyncService:
             # 无法识别的代码，返回原始代码（确保不为空）
             return code if code else ""
 
-
 # Singleton accessor
 _basics_sync_service: Optional[BasicsSyncService] = None
-
 
 def get_basics_sync_service() -> BasicsSyncService:
     global _basics_sync_service

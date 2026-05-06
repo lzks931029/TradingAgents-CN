@@ -2,9 +2,10 @@
 Tushare统一方案演示脚本
 展示新的TushareProvider和TushareSyncService的功能
 """
-import asyncio
 import logging
 import os
+import asyncio
+
 import sys
 from datetime import datetime, timedelta
 
@@ -20,7 +21,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 async def test_tushare_provider():
     """测试TushareProvider功能"""
@@ -129,7 +129,6 @@ async def test_tushare_provider():
         logger.error(f"❌ TushareProvider测试失败: {e}")
         return False
 
-
 async def test_tushare_sync_service():
     """测试TushareSyncService功能"""
     logger.info("\n🚀 开始测试TushareSyncService...")
@@ -146,7 +145,6 @@ async def test_tushare_sync_service():
     except Exception as e:
         logger.error(f"❌ TushareSyncService测试失败: {e}")
         return False
-
 
 async def performance_test():
     """性能测试"""
@@ -188,7 +186,6 @@ async def performance_test():
     except Exception as e:
         logger.error(f"❌ 性能测试失败: {e}")
 
-
 async def main():
     """主函数"""
     logger.info("🎯 Tushare统一方案演示开始")
@@ -225,7 +222,6 @@ async def main():
     logger.info("✅ 异步接口性能良好")
     logger.info("✅ 错误处理机制完善")
     logger.info("✅ 与现有数据模型兼容")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

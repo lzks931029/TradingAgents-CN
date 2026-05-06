@@ -2,8 +2,9 @@
 测试港股数据源修复
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -35,7 +36,7 @@ def test_toolkit_hk_method():
         
     except Exception as e:
         print(f"❌ 工具包港股方法测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -77,7 +78,7 @@ def test_market_analyst_tools():
         
     except Exception as e:
         print(f"❌ 市场分析师工具配置测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -114,7 +115,7 @@ def test_akshare_hk_availability():
         
     except Exception as e:
         print(f"❌ AKShare港股可用性测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -145,7 +146,7 @@ def test_data_source_priority():
         
     except Exception as e:
         print(f"❌ 数据源优先级测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

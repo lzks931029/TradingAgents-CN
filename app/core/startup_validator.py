@@ -4,8 +4,8 @@
 验证系统启动所需的必需配置项，提供友好的错误提示。
 """
 
-import os
 import logging
+import os
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
 from enum import Enum
@@ -14,13 +14,11 @@ from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
-
 class ConfigLevel(Enum):
     """配置级别"""
     REQUIRED = "required"      # 必需配置，缺少则无法启动
     RECOMMENDED = "recommended"  # 推荐配置，缺少会影响功能
     OPTIONAL = "optional"      # 可选配置，缺少不影响基本功能
-
 
 @dataclass
 class ConfigItem:
@@ -32,7 +30,6 @@ class ConfigItem:
     help_url: Optional[str] = None  # 帮助链接
     validator: Optional[callable] = None  # 自定义验证函数
 
-
 @dataclass
 class ValidationResult:
     """验证结果"""
@@ -41,7 +38,6 @@ class ValidationResult:
     missing_recommended: List[ConfigItem]  # 缺少的推荐配置
     invalid_configs: List[tuple[ConfigItem, str]]  # 无效的配置（配置项，错误信息）
     warnings: List[str]         # 警告信息
-
 
 class StartupValidator:
     """启动配置验证器"""
@@ -331,11 +327,9 @@ class StartupValidator:
                 "\n\n请检查 .env 文件并参考 docs/configuration_guide.md"
             )
 
-
 class ConfigurationError(Exception):
     """配置错误异常"""
     pass
-
 
 def validate_startup_config() -> ValidationResult:
     """

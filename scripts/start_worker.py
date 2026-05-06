@@ -3,9 +3,10 @@
 启动分析Worker的脚本
 """
 
+import logging
 import asyncio
 import sys
-import logging
+
 from pathlib import Path
 
 # 添加项目根目录到路径
@@ -13,7 +14,6 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from webapi.worker.analysis_worker import AnalysisWorker
-
 
 def setup_logging():
     """设置日志配置"""
@@ -25,7 +25,6 @@ def setup_logging():
             logging.FileHandler('logs/worker.log', encoding='utf-8')
         ]
     )
-
 
 async def main():
     """主函数"""
@@ -47,7 +46,6 @@ async def main():
         sys.exit(1)
     
     print("✅ Worker已安全退出")
-
 
 if __name__ == "__main__":
     # 确保日志目录存在

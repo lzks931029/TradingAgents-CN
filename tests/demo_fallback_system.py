@@ -5,8 +5,10 @@
 展示MongoDB -> Tushare数据接口的完整降级机制
 """
 
-import sys
 import os
+import traceback
+import sys
+
 from datetime import datetime
 
 # 添加项目根目录到Python路径
@@ -242,7 +244,7 @@ def main():
         print("\n⚠️ 演示被用户中断")
     except Exception as e:
         print(f"\n❌ 演示过程中出错: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == '__main__':

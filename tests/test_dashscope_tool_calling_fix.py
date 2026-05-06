@@ -12,7 +12,6 @@ from datetime import datetime, timedelta
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
-
 def test_basic_tool_calling():
     """测试基本工具调用"""
     print("🔧 测试基本工具调用")
@@ -81,7 +80,6 @@ def test_basic_tool_calling():
     except Exception as e:
         print(f"❌ 基本工具调用测试失败: {e}")
         return False
-
 
 def test_stock_analysis_tool_calling():
     """测试股票分析工具调用"""
@@ -162,7 +160,6 @@ def test_stock_analysis_tool_calling():
         print(f"❌ 股票分析工具调用测试失败: {e}")
         return False
 
-
 def test_parameter_optimization():
     """测试参数优化"""
     print("\n🔧 测试参数优化")
@@ -218,7 +215,6 @@ def test_parameter_optimization():
     except Exception as e:
         print(f"❌ 参数优化测试失败: {e}")
         return None
-
 
 def test_model_comparison():
     """测试不同模型的工具调用能力"""
@@ -277,7 +273,6 @@ def test_model_comparison():
         print(f"❌ 模型比较测试失败: {e}")
         return False
 
-
 def main():
     """主测试函数"""
     print("🔬 阿里百炼工具调用优化测试")
@@ -332,7 +327,6 @@ def main():
     else:
         print("\n⚠️ 阿里百炼可能需要特殊的工具调用处理")
         print("   建议使用手动工具调用作为备用方案")
-
 
 if __name__ == "__main__":
     main()

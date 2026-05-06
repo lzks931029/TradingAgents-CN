@@ -3,13 +3,14 @@
 AKShare数据初始化CLI工具
 用于首次部署时的数据初始化和管理
 """
+import logging
+import os
 import asyncio
 import argparse
-import logging
+
 import sys
 from datetime import datetime
 from pathlib import Path
-import os
 
 # 添加项目根目录到Python路径
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -29,7 +30,6 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
-
 
 async def check_database_status():
     """检查数据库状态"""
@@ -83,7 +83,6 @@ async def check_database_status():
         return False
     finally:
         print("📋 数据库状态检查完成")
-
 
 async def run_full_initialization(
     historical_days: int,
@@ -139,7 +138,6 @@ async def run_full_initialization(
         print(f"❌ 初始化失败: {e}")
         return False
 
-
 async def run_basic_sync_only():
     """仅运行基础信息同步"""
     print("=" * 50)
@@ -160,7 +158,6 @@ async def run_basic_sync_only():
     except Exception as e:
         print(f"❌ 基础信息同步失败: {e}")
         return False
-
 
 async def test_akshare_connection():
     """测试AKShare连接"""
@@ -194,7 +191,6 @@ async def test_akshare_connection():
     except Exception as e:
         print(f"❌ 连接测试失败: {e}")
         return False
-
 
 def print_help_detail():
     """打印详细帮助信息"""
@@ -254,7 +250,6 @@ def print_help_detail():
   - 可以随时按Ctrl+C中断操作
 """
     print(help_text)
-
 
 async def main():
     """主函数"""
@@ -355,7 +350,6 @@ async def main():
         # 根据成功状态退出
         if not success:
             sys.exit(1)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

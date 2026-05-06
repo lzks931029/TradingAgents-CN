@@ -4,6 +4,7 @@
 """
 
 import os
+import traceback
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -88,13 +89,13 @@ def test_gemini_simple_analysis():
                 
         except Exception as e:
             print(f"❌ 股票分析失败: {e}")
-            import traceback
+            
             print(traceback.format_exc())
             return False
             
     except Exception as e:
         print(f"❌ 简化测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 
@@ -160,7 +161,7 @@ def test_gemini_analyst_direct():
             
     except Exception as e:
         print(f"❌ 直接分析师测试失败: {e}")
-        import traceback
+        
         print(traceback.format_exc())
         return False
 

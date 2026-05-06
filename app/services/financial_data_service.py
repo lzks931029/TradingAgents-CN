@@ -3,6 +3,7 @@
 财务数据服务
 统一管理三数据源的财务数据存储和查询
 """
+
 import logging
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional
@@ -12,7 +13,6 @@ from pymongo import ReplaceOne
 from app.core.database import get_mongo_db
 
 logger = logging.getLogger(__name__)
-
 
 class FinancialDataService:
     """财务数据统一管理服务"""
@@ -512,10 +512,8 @@ class FinancialDataService:
         except (ValueError, TypeError):
             return None
 
-
 # 全局服务实例
 _financial_data_service = None
-
 
 async def get_financial_data_service() -> FinancialDataService:
     """获取财务数据服务实例"""

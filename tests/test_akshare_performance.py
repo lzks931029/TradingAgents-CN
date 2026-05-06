@@ -2,12 +2,14 @@
 """
 测试AKShare性能优化
 """
-import sys
+import logging
 import os
+import time
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import logging
-import time
 from datetime import datetime, timedelta
 
 # 设置日志
@@ -79,7 +81,7 @@ def test_akshare_performance():
         
     except Exception as e:
         print(f"❌ 性能测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 def test_web_api_simulation():
@@ -157,7 +159,7 @@ def test_web_api_simulation():
         
     except Exception as e:
         print(f"❌ Web API模拟测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

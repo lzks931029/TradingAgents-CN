@@ -9,8 +9,11 @@
    迁移脚本: scripts/migrate_config_to_db.py
 """
 
-import json
+import logging
 import os
+import traceback
+import json
+
 import re
 import warnings
 from datetime import datetime
@@ -46,17 +49,16 @@ try:
     MONGODB_AVAILABLE = True
 except ImportError as e:
     logger.error(f"❌ [ConfigManager] 导入 MongoDBStorage 失败 (ImportError): {e}")
-    import traceback
+    
     logger.error(f"   堆栈: {traceback.format_exc()}")
     MONGODB_AVAILABLE = False
     MongoDBStorage = None
 except Exception as e:
     logger.error(f"❌ [ConfigManager] 导入 MongoDBStorage 失败 (Exception): {e}")
-    import traceback
+    
     logger.error(f"   堆栈: {traceback.format_exc()}")
     MONGODB_AVAILABLE = False
     MongoDBStorage = None
-
 
 class ConfigManager:
     """配置管理器"""
@@ -280,7 +282,7 @@ class ConfigManager:
         # 默认设置
         if not self.settings_file.exists():
             # 导入默认数据目录配置
-            import os
+            
             default_data_dir = os.path.join(os.path.expanduser("~"), "Documents", "TradingAgents", "data")
             
             default_settings = {
@@ -688,7 +690,6 @@ class ConfigManager:
             "api_key_preview": f"{openai_key[:10]}..." if openai_key else "未配置"
         }
 
-
 class TokenTracker:
     """Token使用跟踪器"""
 
@@ -754,9 +755,6 @@ class TokenTracker:
         return self.config_manager.calculate_cost(
             provider, model_name, estimated_input_tokens, estimated_output_tokens
         )
-
-
-
 
 # 全局配置管理器实例 - 使用项目根目录的配置
 def _get_project_config_dir():

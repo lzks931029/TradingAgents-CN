@@ -7,15 +7,14 @@ TradingAgents 运行时配置适配器（弱依赖）
 - 保持 TradingAgents 包独立性：不可用时静默回退，不引入硬依赖
 """
 
+import logging
+import os
 from __future__ import annotations
 
-import os
 import asyncio
 from typing import Any, Optional, Callable
 
-import logging
 _logger = logging.getLogger("tradingagents.config")
-
 
 def _get_event_loop_running() -> bool:
     """检测是否有事件循环正在运行"""
@@ -28,7 +27,6 @@ def _get_event_loop_running() -> bool:
     except Exception:
         # 其他异常也认为没有事件循环
         return False
-
 
 def _get_system_settings_sync() -> dict:
     """最佳努力获取后端动态 system_settings。
@@ -87,7 +85,6 @@ def _get_system_settings_sync() -> dict:
     #     _logger.debug(f"获取动态配置失败: {e}")
     #     return {}
 
-
 def _coerce(value: Any, caster: Callable[[Any], Any], default: Any) -> Any:
     try:
         if value is None:
@@ -95,7 +92,6 @@ def _coerce(value: Any, caster: Callable[[Any], Any], default: Any) -> Any:
         return caster(value)
     except Exception:
         return default
-
 
 def get_number(env_var: str, system_key: Optional[str], default: float | int, caster: Callable[[Any], Any]) -> float | int:
     """按优先级获取数值配置：DB(system_settings) > ENV > default
@@ -118,14 +114,11 @@ def get_number(env_var: str, system_key: Optional[str], default: float | int, ca
     # 3) 代码默认
     return default
 
-
 def get_float(env_var: str, system_key: Optional[str], default: float) -> float:
     return get_number(env_var, system_key, default, float)  # type: ignore[arg-type]
 
-
 def get_int(env_var: str, system_key: Optional[str], default: int) -> int:
     return get_number(env_var, system_key, default, int)  # type: ignore[arg-type]
-
 
 # --- Boolean access helper ---------------------------------------------------
 
@@ -148,7 +141,6 @@ def get_bool(env_var: str, system_key: Optional[str], default: bool) -> bool:
         return str(env_val).strip().lower() in ("1", "true", "yes", "on")
     # 3) 代码默认
     return default
-
 
 def use_app_cache_enabled(default: bool = False) -> bool:
     """是否启用从 app 缓存（Mongo 集合）优先读取。ENV: TA_USE_APP_CACHE; DB: ta_use_app_cache
@@ -175,11 +167,9 @@ def use_app_cache_enabled(default: bool = False) -> bool:
         pass
     return val
 
-
 # --- Timezone access helpers -------------------------------------------------
 from typing import Optional as _Optional
 from zoneinfo import ZoneInfo as _ZoneInfo
-
 
 def get_timezone_name(default: str = "Asia/Shanghai") -> str:
     """Return configured timezone name with priority: DB(system_settings) > ENV > default.
@@ -202,7 +192,6 @@ def get_timezone_name(default: str = "Asia/Shanghai") -> str:
 
     return default
 
-
 def get_zoneinfo(default: str = "Asia/Shanghai") -> _ZoneInfo:
     """Convenience: return ZoneInfo for the configured timezone name."""
     name = get_timezone_name(default)
@@ -211,7 +200,6 @@ def get_zoneinfo(default: str = "Asia/Shanghai") -> _ZoneInfo:
     except Exception:
         # Fallback to UTC if invalid
         return _ZoneInfo("UTC")
-
 
 __all__ = [
     "get_float",

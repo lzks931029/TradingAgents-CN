@@ -3,8 +3,9 @@
 将新闻过滤器集成到现有的新闻获取流程中
 """
 
-import pandas as pd
 import logging
+import pandas as pd
+
 from typing import Optional, Dict, Any
 from datetime import datetime
 
@@ -103,7 +104,6 @@ def integrate_news_filtering(original_get_stock_news_em):
     
     return filtered_get_stock_news_em
 
-
 def patch_akshare_utils():
     """
     为akshare_utils模块的get_stock_news_em函数添加过滤功能
@@ -111,7 +111,6 @@ def patch_akshare_utils():
     ⚠️ 已废弃：akshare_utils 模块已被移除，此函数保留仅为向后兼容
     """
     logger.warning("[新闻过滤集成] ⚠️ patch_akshare_utils 已废弃：akshare_utils 模块已被移除")
-
 
 def create_filtered_realtime_news_function():
     """
@@ -180,7 +179,6 @@ def create_filtered_realtime_news_function():
     
     return get_filtered_realtime_stock_news
 
-
 # 自动应用补丁
 def apply_news_filtering_patches():
     """
@@ -197,7 +195,6 @@ def apply_news_filtering_patches():
     logger.info("[新闻过滤集成] ✅ 新闻过滤补丁应用完成")
     
     return enhanced_function
-
 
 if __name__ == "__main__":
     # 测试集成功能

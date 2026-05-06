@@ -4,7 +4,7 @@
 集成缓存策略和Tushare数据接口，提高数据获取效率
 """
 
-import os
+import logging
 import time
 import random
 from datetime import datetime, timedelta
@@ -21,7 +21,6 @@ logger = get_logger('agents')
 
 # 导入 MongoDB 缓存适配器
 from .cache.mongodb_cache_adapter import get_mongodb_cache_adapter, get_stock_data_with_fallback, get_financial_data_with_fallback
-
 
 class OptimizedChinaDataProvider:
     """优化的A股数据提供器 - 集成缓存和Tushare数据接口"""
@@ -1980,8 +1979,6 @@ class OptimizedChinaDataProvider:
 
         return "中等"
 
-
-
     def _analyze_valuation(self, financial_estimates: dict) -> str:
         """分析估值水平"""
         valuation_score = financial_estimates['valuation_score']
@@ -2115,7 +2112,6 @@ class OptimizedChinaDataProvider:
 生成时间: {datetime.now(ZoneInfo(get_timezone_name())).strftime('%Y-%m-%d %H:%M:%S')}
 """
 
-
 # 全局实例
 _china_data_provider = None
 
@@ -2125,7 +2121,6 @@ def get_optimized_china_data_provider() -> OptimizedChinaDataProvider:
     if _china_data_provider is None:
         _china_data_provider = OptimizedChinaDataProvider()
     return _china_data_provider
-
 
 def get_china_stock_data_cached(symbol: str, start_date: str, end_date: str,
                                force_refresh: bool = False) -> str:
@@ -2144,7 +2139,6 @@ def get_china_stock_data_cached(symbol: str, start_date: str, end_date: str,
     provider = get_optimized_china_data_provider()
     return provider.get_stock_data(symbol, start_date, end_date, force_refresh)
 
-
 def get_china_fundamentals_cached(symbol: str, force_refresh: bool = False) -> str:
     """
     获取A股基本面数据的便捷函数
@@ -2158,7 +2152,6 @@ def get_china_fundamentals_cached(symbol: str, force_refresh: bool = False) -> s
     """
     provider = get_optimized_china_data_provider()
     return provider.get_fundamentals_data(symbol, force_refresh)
-
 
 # 在OptimizedChinaDataProvider类中添加缓存方法
 def _add_financial_cache_methods():

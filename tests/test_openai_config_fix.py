@@ -4,7 +4,9 @@
 验证在没有OpenAI API Key的情况下，系统是否正确跳过OpenAI API调用
 """
 
+import logging
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
@@ -75,7 +77,7 @@ def test_openai_config_detection():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -131,7 +133,7 @@ def test_fundamentals_api_selection():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

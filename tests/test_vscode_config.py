@@ -10,7 +10,6 @@ import json
 import subprocess
 from pathlib import Path
 
-
 def test_python_environment():
     """测试Python环境配置"""
     print("🐍 Python环境验证")
@@ -37,7 +36,6 @@ def test_python_environment():
         print("❌ 不在项目根目录")
     
     return True
-
 
 def test_vscode_settings():
     """测试VSCode设置文件"""
@@ -82,7 +80,6 @@ def test_vscode_settings():
         print(f"❌ 读取settings.json失败: {e}")
         return False
 
-
 def test_virtual_env_path():
     """测试虚拟环境路径"""
     print("\n📁 虚拟环境路径验证")
@@ -113,7 +110,6 @@ def test_virtual_env_path():
     
     return True
 
-
 def test_package_imports():
     """测试关键包导入"""
     print("\n📦 关键包导入验证")
@@ -143,7 +139,6 @@ def test_package_imports():
     
     print(f"\n📊 包导入结果: {success_count}/{len(packages)} 成功")
     return success_count >= len(packages) * 0.8  # 80%成功率
-
 
 def test_project_structure():
     """测试项目结构"""
@@ -181,7 +176,6 @@ def test_project_structure():
     
     return True
 
-
 def test_environment_variables():
     """测试环境变量"""
     print("\n🔑 环境变量验证")
@@ -212,7 +206,6 @@ def test_environment_variables():
     
     return True
 
-
 def test_simple_functionality():
     """测试基本功能"""
     print("\n⚡ 基本功能验证")
@@ -236,7 +229,6 @@ def test_simple_functionality():
     except Exception as e:
         print(f"❌ 功能测试失败: {e}")
         return False
-
 
 def main():
     """主测试函数"""
@@ -303,7 +295,6 @@ def main():
     print("   2. 重启VSCode以应用新的配置")
     print("   3. 使用Ctrl+Shift+P -> 'Python: Select Interpreter'")
     print("   4. 在集成终端中验证虚拟环境已激活")
-
 
 if __name__ == "__main__":
     main()

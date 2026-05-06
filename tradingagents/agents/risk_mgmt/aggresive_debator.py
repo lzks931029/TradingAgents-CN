@@ -1,10 +1,11 @@
+
+import logging
 import time
 import json
 
 # 导入统一日志系统
 from tradingagents.utils.logging_init import get_logger
 logger = get_logger("default")
-
 
 def create_risky_debator(llm):
     def risky_node(state) -> dict:
@@ -51,7 +52,7 @@ def create_risky_debator(llm):
 积极参与，解决提出的任何具体担忧，反驳他们逻辑中的弱点，并断言承担风险的好处以超越市场常规。专注于辩论和说服，而不仅仅是呈现数据。挑战每个反驳点，强调为什么高风险方法是最优的。请用中文以对话方式输出，就像您在说话一样，不使用任何特殊格式。"""
 
         logger.info(f"⏱️ [Risky Analyst] 开始调用LLM...")
-        import time
+        
         llm_start_time = time.time()
 
         response = llm.invoke(prompt)

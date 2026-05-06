@@ -3,8 +3,9 @@
 测试reports和analysts字段修复
 """
 
-import requests
 import time
+import requests
+
 import json
 from pymongo import MongoClient
 

@@ -3,11 +3,12 @@
 类似于 analysis-engine 的实现，提供快速的状态读写
 """
 
+import logging
 import asyncio
 import threading
 from typing import Dict, Any, Optional, List
 from datetime import datetime
-import logging
+
 from dataclasses import dataclass, asdict
 from enum import Enum
 

@@ -5,6 +5,7 @@
 将旧的默认分析师值迁移到新的值
 """
 
+import logging
 import asyncio
 import sys
 from pathlib import Path
@@ -15,11 +16,9 @@ sys.path.insert(0, str(project_root))
 
 from app.core.database import get_mongo_db_sync
 from app.core.config import settings
-import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 def migrate_user_preferences():
     """迁移用户偏好设置"""
@@ -111,7 +110,6 @@ def migrate_user_preferences():
     except Exception as e:
         logger.error(f"❌ 迁移失败: {e}", exc_info=True)
         raise
-
 
 if __name__ == "__main__":
     logger.info("🚀 开始迁移用户偏好设置...")

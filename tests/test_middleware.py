@@ -3,9 +3,11 @@
 测试操作日志中间件
 """
 
+import os
+import traceback
 import asyncio
 import sys
-import os
+
 import httpx
 
 # 添加项目根目录到Python路径
@@ -75,7 +77,7 @@ async def test_middleware():
                 
         except Exception as e:
             print(f"❌ 测试失败: {e}")
-            import traceback
+            
             traceback.print_exc()
 
 if __name__ == "__main__":

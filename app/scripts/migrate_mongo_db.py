@@ -1,6 +1,7 @@
 import argparse
-import json
 import os
+import json
+
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Set
@@ -25,19 +26,16 @@ DEFAULT_EXCLUDED_COLLECTIONS = {
     "usage_records",
 }
 
-
 def _split_csv(value: Optional[str]) -> List[str]:
     if not value:
         return []
     return [item.strip() for item in value.split(",") if item.strip()]
-
 
 def _parse_since(value: Optional[str]) -> Optional[datetime]:
     if not value:
         return None
     normalized = value.strip().replace("Z", "+00:00")
     return datetime.fromisoformat(normalized)
-
 
 def _build_since_query(since: Optional[datetime]) -> Dict[str, object]:
     if since is None:
@@ -53,10 +51,8 @@ def _build_since_query(since: Optional[datetime]) -> Dict[str, object]:
         ]
     }
 
-
 def _get_collection_names(db) -> List[str]:
     return sorted(db.list_collection_names())
-
 
 def _iter_collections(
     db,
@@ -69,7 +65,6 @@ def _iter_collections(
     if exclude:
         names = [n for n in names if n not in exclude]
     return names
-
 
 def _copy_collection(
     source_db,
@@ -143,7 +138,6 @@ def _copy_collection(
         "limit": limit if limit > 0 else None,
     }
 
-
 def _write_summary_json(path: str, summary: Dict[str, object]) -> None:
     output_path = Path(path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -151,7 +145,6 @@ def _write_summary_json(path: str, summary: Dict[str, object]) -> None:
         json.dumps(summary, ensure_ascii=False, indent=2, default=str),
         encoding="utf-8",
     )
-
 
 def main(argv: Optional[Iterable[str]] = None) -> int:
     parser = argparse.ArgumentParser(prog="migrate_mongo_db")
@@ -215,7 +208,6 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
         return 0
     finally:
         client.close()
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

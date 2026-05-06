@@ -2,6 +2,7 @@
 检查 stock_financial_data 集合中的数据
 验证 ROE 和负债率数据是否存在
 """
+import logging
 import asyncio
 import sys
 from pathlib import Path
@@ -12,14 +13,12 @@ sys.path.insert(0, str(project_root))
 
 from app.core.database import init_mongodb, get_mongo_db
 from app.core.config import get_settings
-import logging
 
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s | %(levelname)-8s | %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 async def check_financial_data():
     """检查财务数据集合"""
@@ -197,7 +196,6 @@ async def check_financial_data():
         logger.info(f"\n✅ 数据正常！")
         return True
 
-
 async def main():
     """主函数"""
     try:
@@ -217,7 +215,6 @@ async def main():
     except Exception as e:
         logger.error(f"❌ 检查失败: {e}", exc_info=True)
         return False
-
 
 if __name__ == "__main__":
     asyncio.run(main())

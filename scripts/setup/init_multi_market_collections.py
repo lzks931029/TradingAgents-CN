@@ -19,9 +19,11 @@ MongoDB多市场集合初始化脚本（支持多数据源）
     python scripts/setup/init_multi_market_collections.py
 """
 
+import logging
+import traceback
 import asyncio
 import sys
-import logging
+
 from pathlib import Path
 
 # 添加项目根目录到路径
@@ -37,7 +39,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 from app.core.config import settings
-
 
 async def create_hk_collections(db):
     """创建港股集合和索引"""
@@ -109,7 +110,6 @@ async def create_hk_collections(db):
     
     logger.info("✅ 港股集合创建完成")
 
-
 async def create_us_collections(db):
     """创建美股集合和索引"""
     logger.info("📊 开始创建美股集合...")
@@ -180,7 +180,6 @@ async def create_us_collections(db):
     
     logger.info("✅ 美股集合创建完成")
 
-
 async def verify_collections(db):
     """验证集合创建情况"""
     logger.info("\n📋 验证集合创建情况...")
@@ -222,7 +221,6 @@ async def verify_collections(db):
             indexes = await db[col].list_indexes().to_list(length=None)
             logger.info(f"  {col}: {len(indexes)} 个索引")
 
-
 async def main():
     """主函数"""
     logger.info("🚀 开始初始化多市场MongoDB集合...")
@@ -251,10 +249,9 @@ async def main():
         
     except Exception as e:
         logger.error(f"❌ 初始化失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

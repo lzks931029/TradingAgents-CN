@@ -12,12 +12,14 @@ Finnhub数据下载脚本
     python scripts/download_finnhub_data.py --force-refresh
 """
 
+import logging
 import os
+import time
 import sys
 import json
 import argparse
 import requests
-import time
+
 from pathlib import Path
 from datetime import datetime, timedelta
 from typing import List, Dict, Any

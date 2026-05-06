@@ -10,8 +10,9 @@
 4. 数据库和环境变量都没有 → 报错
 """
 
+import traceback
 import sys
-import os
+
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
@@ -23,7 +24,6 @@ from dotenv import load_dotenv
 
 # 加载环境变量
 load_dotenv()
-
 
 async def test_api_key_validation():
     """测试 API Key 验证逻辑"""
@@ -53,7 +53,6 @@ async def test_api_key_validation():
         print(f"{status} {description:30s} | Key: {repr(api_key):30s} | 结果: {result} | 期望: {expected}")
     
     print("\n" + "=" * 80)
-
 
 async def test_provider_key_priority():
     """测试厂家 API Key 优先级"""
@@ -94,7 +93,6 @@ async def test_provider_key_priority():
     
     print("=" * 80)
 
-
 def _mask_key(key: str) -> str:
     """脱敏显示 API Key"""
     if not key:
@@ -102,7 +100,6 @@ def _mask_key(key: str) -> str:
     if len(key) <= 10:
         return "***"
     return f"{key[:4]}{'*' * (len(key) - 8)}{key[-4:]}"
-
 
 async def main():
     """主函数"""
@@ -117,10 +114,9 @@ async def main():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

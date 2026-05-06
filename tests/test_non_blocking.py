@@ -4,9 +4,10 @@
 验证分析任务提交后，API服务器仍然可以响应其他请求
 """
 
+import time
 import asyncio
 import aiohttp
-import time
+
 import json
 
 async def test_non_blocking_analysis():

@@ -3,8 +3,10 @@
 测试股票筛选视图
 """
 
+import logging
+import traceback
 import sys
-import os
+
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
@@ -12,13 +14,12 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 import asyncio
-import logging
+
 from app.core.database import init_database, get_mongo_db, close_database
 from app.services.database_screening_service import get_database_screening_service
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def test_screening():
     """测试筛选功能"""
@@ -98,7 +99,7 @@ async def test_screening():
         
     except Exception as e:
         logger.error(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return 1
     
@@ -106,7 +107,6 @@ async def test_screening():
         await close_database()
     
     return 0
-
 
 if __name__ == "__main__":
     exit_code = asyncio.run(test_screening())

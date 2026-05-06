@@ -4,7 +4,7 @@
 自动化处理代码清理、文档生成、测试验证等任务
 """
 
-import os
+import logging
 import re
 import shutil
 import subprocess
@@ -15,7 +15,6 @@ import json
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('scripts')
-
 
 class UpstreamContributionPreparer:
     """上游贡献准备工具"""
@@ -320,12 +319,10 @@ Any additional context or notes for reviewers...
         
         logger.info(f"\n🎉 Preparation completed! Check {self.target_dir} for results.")
 
-
 def main():
     """主函数"""
     preparer = UpstreamContributionPreparer()
     preparer.prepare_all_batches()
-
 
 if __name__ == "__main__":
     main()

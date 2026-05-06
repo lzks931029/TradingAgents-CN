@@ -4,7 +4,9 @@
 专门用于调试股票代码在基本面分析中的误判问题
 """
 
+import logging
 import os
+import traceback
 import sys
 
 # 添加项目根目录到Python路径
@@ -65,7 +67,7 @@ def test_stock_code_tracking():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -101,7 +103,7 @@ def test_individual_components():
         
     except Exception as e:
         print(f"❌ 组件测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

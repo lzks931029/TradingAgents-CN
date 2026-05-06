@@ -4,11 +4,11 @@
 - find_latest_trade_date：探测最近可用交易日（YYYYMMDD）
 - fetch_daily_basic_mv_map：根据交易日获取日度基础指标映射（市值/估值/交易）
 """
+import logging
+import time
 from __future__ import annotations
 from datetime import datetime, timedelta
 from typing import Dict
-import time
-
 
 def fetch_stock_basic_df():
     """
@@ -17,8 +17,8 @@ def fetch_stock_basic_df():
 
     注意：这是一个同步函数，会等待 Tushare 连接完成。
     """
-    import time
-    import logging
+    
+    
     from tradingagents.dataflows.providers.china.tushare import get_tushare_provider
     from app.core.config import settings
 
@@ -90,7 +90,6 @@ def fetch_stock_basic_df():
         logger.error(f"❌ 调用 Tushare API 失败: {e}")
         raise RuntimeError(f"Failed to fetch stock basic DataFrame: {e}")
 
-
 def find_latest_trade_date() -> str:
     """
     探测最近可用的交易日（YYYYMMDD）。
@@ -114,7 +113,6 @@ def find_latest_trade_date() -> str:
         except Exception:
             continue
     return (today - timedelta(days=1)).strftime("%Y%m%d")
-
 
 def fetch_daily_basic_mv_map(trade_date: str) -> Dict[str, Dict[str, float]]:
     """
@@ -162,9 +160,6 @@ def fetch_daily_basic_mv_map(trade_date: str) -> Dict[str, Dict[str, float]]:
                 except Exception:
                     pass
     return data_map
-
-
-
 
 def fetch_latest_roe_map() -> Dict[str, Dict[str, float]]:
     """

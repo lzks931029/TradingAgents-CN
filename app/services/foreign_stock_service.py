@@ -4,9 +4,11 @@
 🔥 按照数据库配置的数据源优先级调用API
 🔥 请求去重机制：防止并发请求重复调用API
 """
+import logging
+import os
 from typing import Optional, Dict, List, Tuple
 from datetime import datetime, timedelta
-import logging
+
 import json
 import re
 import asyncio
@@ -19,7 +21,6 @@ from tradingagents.dataflows.cache import get_cache
 from tradingagents.dataflows.providers.hk.hk_stock import HKStockProvider
 
 logger = logging.getLogger(__name__)
-
 
 class ForeignStockService:
     """港股和美股数据服务（复用统一数据源管理器，按数据库优先级调用）"""
@@ -493,7 +494,7 @@ class ForeignStockService:
         """从Finnhub获取美股行情"""
         try:
             import finnhub
-            import os
+            
 
             # 获取 API Key
             api_key = os.getenv('FINNHUB_API_KEY')
@@ -1007,7 +1008,7 @@ class ForeignStockService:
     def _get_us_info_from_finnhub(self, code: str) -> Dict:
         """从Finnhub获取美股基础信息"""
         import finnhub
-        import os
+        
 
         # 获取 API Key
         api_key = os.getenv('FINNHUB_API_KEY')
@@ -1134,7 +1135,7 @@ class ForeignStockService:
     def _get_us_kline_from_finnhub(self, code: str, period: str, limit: int) -> List[Dict]:
         """从Finnhub获取美股K线数据"""
         import finnhub
-        import os
+        
         from datetime import datetime, timedelta
 
         # 获取 API Key
@@ -1459,7 +1460,7 @@ class ForeignStockService:
     def _get_us_news_from_finnhub(self, code: str, days: int, limit: int) -> List[Dict]:
         """从Finnhub获取美股新闻"""
         import finnhub
-        import os
+        
         from datetime import datetime, timedelta
 
         # 获取 API Key
@@ -1506,7 +1507,7 @@ class ForeignStockService:
     def _get_hk_news_from_finnhub(self, code: str, days: int, limit: int) -> List[Dict]:
         """从Finnhub获取港股新闻"""
         import finnhub
-        import os
+        
         from datetime import datetime, timedelta
 
         # 获取 API Key
@@ -1633,7 +1634,7 @@ class ForeignStockService:
     def _get_hk_info_from_finnhub(self, code: str) -> Dict:
         """从Finnhub获取港股基础信息"""
         import finnhub
-        import os
+        
 
         # 获取 API Key
         api_key = os.getenv('FINNHUB_API_KEY')
@@ -1743,7 +1744,7 @@ class ForeignStockService:
     def _get_hk_kline_from_finnhub(self, code: str, period: str, limit: int) -> List[Dict]:
         """从Finnhub获取港股K线数据"""
         import finnhub
-        import os
+        
         from datetime import datetime, timedelta
 
         # 获取 API Key

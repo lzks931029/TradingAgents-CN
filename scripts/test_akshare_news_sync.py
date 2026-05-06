@@ -2,6 +2,7 @@
 """
 测试AKShare新闻数据同步功能
 """
+import traceback
 import asyncio
 import sys
 from pathlib import Path
@@ -12,7 +13,6 @@ sys.path.insert(0, str(project_root))
 
 from app.core.database import init_database, get_mongo_db, close_database
 from app.worker.akshare_sync_service import get_akshare_sync_service
-
 
 async def test_akshare_news_sync():
     """测试AKShare新闻数据同步"""
@@ -91,7 +91,7 @@ async def test_akshare_news_sync():
 
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
     finally:
@@ -100,7 +100,6 @@ async def test_akshare_news_sync():
             await close_database()
         except Exception as e:
             print(f"关闭数据库连接失败: {e}")
-
 
 if __name__ == "__main__":
     asyncio.run(test_akshare_news_sync())

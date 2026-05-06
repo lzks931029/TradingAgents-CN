@@ -4,6 +4,7 @@
 将基于配置文件的认证迁移到基于数据库的认证
 """
 
+import traceback
 import json
 import sys
 import hashlib
@@ -229,7 +230,7 @@ def migrate_auth_to_db():
         
     except Exception as e:
         print(f"❌ 认证系统迁移失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

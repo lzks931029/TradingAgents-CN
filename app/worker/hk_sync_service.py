@@ -15,8 +15,9 @@
 - 缓存时长可配置（默认24小时）
 """
 
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Any
 from pymongo import UpdateOne
@@ -33,7 +34,6 @@ from app.core.database import get_mongo_db
 from app.core.config import settings
 
 logger = logging.getLogger(__name__)
-
 
 class HKDataService:
     """港股数据服务（按需获取+缓存模式）"""
@@ -458,7 +458,6 @@ class HKDataService:
         
         return result
 
-
 # ==================== 全局服务实例 ====================
 
 _hk_sync_service = None
@@ -470,7 +469,6 @@ async def get_hk_sync_service() -> HKDataService:
         _hk_sync_service = HKDataService()
         await _hk_sync_service.initialize()
     return _hk_sync_service
-
 
 # ==================== APScheduler 兼容的任务函数 ====================
 
@@ -485,7 +483,6 @@ async def run_hk_yfinance_basic_info_sync(force_update: bool = False):
         logger.error(f"❌ 港股基础信息同步失败 (yfinance): {e}")
         raise
 
-
 async def run_hk_akshare_basic_info_sync(force_update: bool = False):
     """APScheduler任务：港股基础信息同步（akshare）"""
     try:
@@ -497,7 +494,6 @@ async def run_hk_akshare_basic_info_sync(force_update: bool = False):
         logger.error(f"❌ 港股基础信息同步失败 (AKShare): {e}")
         raise
 
-
 async def run_hk_yfinance_quotes_sync():
     """APScheduler任务：港股实时行情同步（yfinance）"""
     try:
@@ -508,7 +504,6 @@ async def run_hk_yfinance_quotes_sync():
     except Exception as e:
         logger.error(f"❌ 港股实时行情同步失败: {e}")
         raise
-
 
 async def run_hk_status_check():
     """APScheduler任务：港股数据源状态检查"""

@@ -5,8 +5,9 @@
 Syntax Check Script - Check all Python files except env directory
 """
 
-import ast
 import os
+import ast
+
 import sys
 from pathlib import Path
 from typing import List, Tuple

@@ -7,6 +7,7 @@
 3. 验证 backend_url 是否使用了 default_base_url
 """
 
+import traceback
 import sys
 from pathlib import Path
 
@@ -17,7 +18,6 @@ sys.path.insert(0, str(project_root))
 from pymongo import MongoClient
 from app.core.config import settings
 from app.services.simple_analysis_service import create_analysis_config, get_provider_and_url_by_model_sync
-
 
 def test_default_base_url():
     """测试 default_base_url 是否被正确使用"""
@@ -110,7 +110,7 @@ def test_default_base_url():
         
     except Exception as e:
         print(f"\n❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         
         # 尝试恢复原始配置
@@ -126,7 +126,6 @@ def test_default_base_url():
     
     finally:
         client.close()
-
 
 if __name__ == "__main__":
     test_default_base_url()

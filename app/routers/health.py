@@ -1,9 +1,9 @@
 from fastapi import APIRouter
+
 import time
 from pathlib import Path
 
 router = APIRouter()
-
 
 def get_version() -> str:
     """从 VERSION 文件读取版本号"""
@@ -14,7 +14,6 @@ def get_version() -> str:
     except Exception:
         pass
     return "0.1.16"  # 默认版本号
-
 
 @router.get("/health")
 async def health():

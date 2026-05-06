@@ -5,6 +5,7 @@
 """
 
 import os
+import traceback
 import sys
 import subprocess
 from pathlib import Path
@@ -278,7 +279,7 @@ if __name__ == "__main__":
         sys.exit(0)
     except Exception as e:
         print_error(f"诊断过程出错: {e}")
-        import traceback
+        
         traceback.print_exc()
         sys.exit(1)
 

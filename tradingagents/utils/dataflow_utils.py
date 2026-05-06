@@ -3,7 +3,8 @@
 
 从 tradingagents/dataflows/utils.py 迁移而来
 """
-import os
+
+import logging
 import json
 import pandas as pd
 from datetime import date, timedelta, datetime
@@ -12,7 +13,6 @@ from typing import Annotated
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('agents')
-
 
 SavePathType = Annotated[str, "File path to save data. If None, data is not saved."]
 
@@ -29,7 +29,6 @@ def save_output(data: pd.DataFrame, tag: str, save_path: SavePathType = None) ->
         data.to_csv(save_path)
         logger.info(f"{tag} saved to {save_path}")
 
-
 def get_current_date():
     """
     获取当前日期（YYYY-MM-DD 格式）
@@ -38,7 +37,6 @@ def get_current_date():
         str: 当前日期字符串
     """
     return date.today().strftime("%Y-%m-%d")
-
 
 def decorate_all_methods(decorator):
     """
@@ -64,7 +62,6 @@ def decorate_all_methods(decorator):
 
     return class_decorator
 
-
 def get_next_weekday(date_input):
     """
     获取下一个工作日（跳过周末）
@@ -88,7 +85,6 @@ def get_next_weekday(date_input):
         return next_weekday
     else:
         return date_input
-
 
 def get_trading_date_range(target_date=None, lookback_days=10):
     """

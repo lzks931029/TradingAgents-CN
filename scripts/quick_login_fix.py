@@ -4,10 +4,13 @@
 专门用于解决新机器部署后的登录问题
 """
 
-import json
 import os
-import sys
 import time
+import traceback
+import json
+
+import sys
+
 from datetime import datetime
 from pathlib import Path
 
@@ -111,7 +114,7 @@ def check_mongodb_connection():
 
     try:
         from pymongo import MongoClient
-        import os
+        
 
         # 检查是否在Docker容器内
         is_docker = os.path.exists('/.dockerenv') or os.getenv('DOCKER_CONTAINER') == 'true'
@@ -307,7 +310,7 @@ def main():
         
     except Exception as e:
         print(f"❌ 修复过程中出现错误: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

@@ -18,7 +18,6 @@ from datetime import datetime
 
 from pymongo import MongoClient
 
-
 def get_mongo_params():
     uri = os.environ.get("MONGO_URI") or os.environ.get("MONGODB_URI") or "mongodb://localhost:27017"
     db_name = (
@@ -29,10 +28,8 @@ def get_mongo_params():
     )
     return uri, db_name
 
-
 def is_scalar(value):
     return isinstance(value, (int, float))
-
 
 def migrate_one(doc, coll):
     updates = {}
@@ -50,7 +47,6 @@ def migrate_one(doc, coll):
         coll.update_one({"_id": doc["_id"]}, {"$set": updates})
         return True, updates
     return False, {}
-
 
 def main():
     uri, db_name = get_mongo_params()
@@ -72,7 +68,6 @@ def main():
             print(f"Migrated _id={doc['_id']}: {updates}")
 
     print(f"Done. Scanned={total}, migrated={migrated}")
-
 
 if __name__ == "__main__":
     try:

@@ -2,8 +2,10 @@
 """
 测试修复后的历史数据同步
 """
-import asyncio
 import logging
+import traceback
+import asyncio
+
 from datetime import datetime, timedelta
 from tradingagents.dataflows.providers.tushare_provider import TushareProvider
 from app.services.historical_data_service import get_historical_data_service
@@ -13,7 +15,6 @@ from tradingagents.config.database_manager import get_mongodb_client
 # 设置日志
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 async def test_fixed_historical_sync():
     """测试修复后的历史数据同步"""
@@ -137,12 +138,11 @@ async def test_fixed_historical_sync():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     print("\n" + "=" * 60)
     print("🎯 测试完成！")
-
 
 if __name__ == "__main__":
     asyncio.run(test_fixed_historical_sync())

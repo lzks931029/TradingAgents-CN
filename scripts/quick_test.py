@@ -3,16 +3,17 @@
 快速测试脚本 - 验证API架构升级是否正常工作
 """
 
+import time
+import traceback
 import asyncio
 import sys
 import json
-import time
+
 from pathlib import Path
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-
 
 async def test_database_connections():
     """测试数据库连接"""
@@ -40,7 +41,6 @@ async def test_database_connections():
     except Exception as e:
         print(f"❌ 数据库连接测试失败: {e}")
         return False
-
 
 async def test_queue_service():
     """测试队列服务"""
@@ -87,10 +87,9 @@ async def test_queue_service():
         
     except Exception as e:
         print(f"❌ 队列服务测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 async def test_analysis_service():
     """测试分析服务"""
@@ -133,10 +132,9 @@ async def test_analysis_service():
         
     except Exception as e:
         print(f"❌ 分析服务测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 async def test_api_imports():
     """测试API模块导入"""
@@ -173,10 +171,9 @@ async def test_api_imports():
         
     except Exception as e:
         print(f"❌ 模块导入测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 async def main():
     """主测试函数"""
@@ -233,7 +230,6 @@ async def main():
     else:
         print("⚠️  部分测试失败，请检查配置和依赖")
         return 1
-
 
 if __name__ == "__main__":
     exit_code = asyncio.run(main())

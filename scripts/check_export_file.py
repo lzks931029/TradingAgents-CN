@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import traceback
 """检查导出文件内容"""
 
 import json
@@ -59,7 +60,7 @@ def check_export_file(filepath: str):
         
     except Exception as e:
         print(f"❌ 检查失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

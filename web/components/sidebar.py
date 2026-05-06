@@ -2,9 +2,10 @@
 侧边栏组件
 """
 
-import streamlit as st
-import os
 import logging
+import os
+import streamlit as st
+
 import sys
 from pathlib import Path
 

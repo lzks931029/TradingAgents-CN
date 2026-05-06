@@ -10,6 +10,7 @@ Alpha Vantage API 公共模块
 参考原版 TradingAgents 实现
 """
 
+import logging
 import os
 import time
 import json
@@ -21,16 +22,13 @@ from datetime import datetime
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('agents')
 
-
 class AlphaVantageRateLimitError(Exception):
     """Alpha Vantage 速率限制错误"""
     pass
 
-
 class AlphaVantageAPIError(Exception):
     """Alpha Vantage API 错误"""
     pass
-
 
 def _get_api_key_from_database() -> Optional[str]:
     """
@@ -80,7 +78,6 @@ def _get_api_key_from_database() -> Optional[str]:
         logger.debug(f"❌ [DB查询] 从数据库读取 API Key 失败: {e}")
 
     return None
-
 
 def get_api_key() -> str:
     """
@@ -139,7 +136,6 @@ def get_api_key() -> str:
 
     return api_key
 
-
 def format_datetime_for_api(date_str: str) -> str:
     """
     格式化日期时间为 Alpha Vantage API 要求的格式
@@ -156,7 +152,6 @@ def format_datetime_for_api(date_str: str) -> str:
     except Exception as e:
         logger.warning(f"⚠️ 日期格式化失败 {date_str}: {e}，使用原始值")
         return date_str
-
 
 def _make_api_request(
     function: str,
@@ -266,7 +261,6 @@ def _make_api_request(
     # 所有重试都失败
     raise AlphaVantageAPIError(f"Failed to get data from Alpha Vantage after {max_retries} attempts")
 
-
 def format_response_as_string(data: Dict[str, Any], title: str = "Alpha Vantage Data") -> str:
     """
     将 API 响应格式化为字符串
@@ -291,7 +285,6 @@ def format_response_as_string(data: Dict[str, Any], title: str = "Alpha Vantage 
     except Exception as e:
         logger.error(f"❌ 格式化响应失败: {e}")
         return str(data)
-
 
 def check_api_key_valid() -> bool:
     """

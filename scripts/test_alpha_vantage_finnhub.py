@@ -4,6 +4,7 @@
 测试 Alpha Vantage 和 Finnhub 数据源
 """
 
+import os
 import sys
 from pathlib import Path
 
@@ -60,7 +61,7 @@ print("-" * 80)
 
 try:
     import finnhub
-    import os
+    
     
     # 检查 API Key
     api_key = os.getenv('FINNHUB_API_KEY')

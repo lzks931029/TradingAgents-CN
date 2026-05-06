@@ -3,6 +3,7 @@
 历史数据查询API
 提供统一的历史K线数据查询接口
 """
+
 import logging
 from datetime import datetime, date
 from typing import Dict, Any, List, Optional
@@ -15,7 +16,6 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/historical-data", tags=["历史数据"])
 
-
 class HistoricalDataQuery(BaseModel):
     """历史数据查询请求"""
     symbol: str = Field(..., description="股票代码")
@@ -25,13 +25,11 @@ class HistoricalDataQuery(BaseModel):
     period: Optional[str] = Field(None, description="数据周期 (daily/weekly/monthly)")
     limit: Optional[int] = Field(None, ge=1, le=1000, description="限制返回数量")
 
-
 class HistoricalDataResponse(BaseModel):
     """历史数据响应"""
     success: bool
     message: str
     data: Optional[Dict[str, Any]] = None
-
 
 @router.get("/query/{symbol}", response_model=HistoricalDataResponse)
 async def get_historical_data(
@@ -90,7 +88,6 @@ async def get_historical_data(
         logger.error(f"查询历史数据失败 {symbol}: {e}")
         raise HTTPException(status_code=500, detail=f"查询失败: {e}")
 
-
 @router.post("/query", response_model=HistoricalDataResponse)
 async def query_historical_data(request: HistoricalDataQuery):
     """
@@ -127,7 +124,6 @@ async def query_historical_data(request: HistoricalDataQuery):
         logger.error(f"查询历史数据失败 {request.symbol}: {e}")
         raise HTTPException(status_code=500, detail=f"查询失败: {e}")
 
-
 @router.get("/latest-date/{symbol}")
 async def get_latest_date(
     symbol: str,
@@ -152,7 +148,6 @@ async def get_latest_date(
         logger.error(f"获取最新日期失败 {symbol}: {e}")
         raise HTTPException(status_code=500, detail=f"查询失败: {e}")
 
-
 @router.get("/statistics")
 async def get_data_statistics():
     """获取历史数据统计信息"""
@@ -169,7 +164,6 @@ async def get_data_statistics():
     except Exception as e:
         logger.error(f"获取统计信息失败: {e}")
         raise HTTPException(status_code=500, detail=f"获取统计信息失败: {e}")
-
 
 @router.get("/compare/{symbol}")
 async def compare_data_sources(
@@ -214,7 +208,6 @@ async def compare_data_sources(
     except Exception as e:
         logger.error(f"数据对比失败 {symbol}: {e}")
         raise HTTPException(status_code=500, detail=f"数据对比失败: {e}")
-
 
 @router.get("/health")
 async def health_check():

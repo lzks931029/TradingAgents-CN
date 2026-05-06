@@ -1,15 +1,15 @@
 """
 Tushare data source adapter
 """
-from typing import Optional, Dict
 import logging
+from typing import Optional, Dict
+
 from datetime import datetime, timedelta
 import pandas as pd
 
 from .base import DataSourceAdapter
 
 logger = logging.getLogger(__name__)
-
 
 class TushareAdapter(DataSourceAdapter):
     """Tusharedata source adapter"""
@@ -95,7 +95,6 @@ class TushareAdapter(DataSourceAdapter):
         except Exception as e:
             logger.error(f"Tushare: Failed to fetch daily data for {trade_date}: {e}")
         return None
-
 
     def get_realtime_quotes(self):
         """Get full-market near real-time quotes via Tushare rt_k fallback

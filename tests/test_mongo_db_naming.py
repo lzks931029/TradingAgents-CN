@@ -1,6 +1,6 @@
+
 import os
 import unittest
-
 
 class MongoDbNamingTests(unittest.TestCase):
     def test_auto_scope_debug_uses_major_instance(self):
@@ -75,7 +75,6 @@ class MongoDbNamingTests(unittest.TestCase):
                     os.environ.pop(k, None)
                 else:
                     os.environ[k] = v
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -5,8 +5,10 @@
 """
 
 import logging
-import sys
 import os
+import traceback
+import sys
+
 from datetime import datetime
 from typing import Dict, Any
 
@@ -54,7 +56,7 @@ def test_direct_call():
         return True, result
     except Exception as e:
         logger.error(f"直接调用失败: {e}")
-        import traceback
+        
         logger.error(f"错误详情: {traceback.format_exc()}")
         return False, None
 
@@ -76,7 +78,7 @@ def test_toolkit_call():
         return True, result
     except Exception as e:
         logger.error(f"Toolkit调用失败: {e}")
-        import traceback
+        
         logger.error(f"错误详情: {traceback.format_exc()}")
         return False, None
 
@@ -135,7 +137,7 @@ def simulate_llm_tool_call():
             
     except Exception as e:
         logger.error(f"模拟LLM调用失败: {e}")
-        import traceback
+        
         logger.error(f"错误详情: {traceback.format_exc()}")
         return False, None
 

@@ -60,7 +60,6 @@ except Exception as e:
     PDFKIT_ERROR = str(e)
     logger.warning(f"⚠️ pdfkit 检测失败: {e}")
 
-
 class ReportExporter:
     """报告导出器 - 支持 Markdown、Word、PDF 格式"""
 
@@ -661,7 +660,6 @@ pre, code {
             error_msg = f"PDF 生成失败: {e}"
             logger.error(f"❌ {error_msg}")
             raise Exception(error_msg)
-
 
 # 创建全局导出器实例
 report_exporter = ReportExporter()

@@ -3,8 +3,10 @@
 测试美股分析功能
 """
 
-import sys
 import os
+import traceback
+import sys
+
 sys.path.append('..')
 
 def test_us_stock_market_analysis():
@@ -63,7 +65,7 @@ def test_us_stock_market_analysis():
         
     except Exception as e:
         print(f"❌ 美股市场分析失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None
 
@@ -124,7 +126,7 @@ def test_us_stock_fundamentals_analysis():
         
     except Exception as e:
         print(f"❌ 美股基本面分析失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None
 

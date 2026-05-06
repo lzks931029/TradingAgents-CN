@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
+import os
 """启用MongoDB缓存并测试"""
 
 import sys
-import os
+
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径

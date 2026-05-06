@@ -13,13 +13,15 @@ For commercial licensing, please contact: hsliup@163.com
 商业许可咨询，请联系：hsliup@163.com
 """
 
+import logging
+import os
+import time
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import JSONResponse
 import uvicorn
-import logging
-import time
+
 from datetime import datetime
 from contextlib import asynccontextmanager
 import asyncio
@@ -70,7 +72,6 @@ from apscheduler.triggers.interval import IntervalTrigger
 from app.services.quotes_ingestion_service import QuotesIngestionService
 from app.routers import paper as paper_router
 
-
 def get_version() -> str:
     """从 VERSION 文件读取版本号"""
     try:
@@ -81,7 +82,6 @@ def get_version() -> str:
         pass
     return "1.0.0"  # 默认版本号
 
-
 async def _print_config_summary(logger):
     """显示配置摘要"""
     try:
@@ -90,7 +90,7 @@ async def _print_config_summary(logger):
         logger.info("=" * 70)
 
         # .env 文件路径信息
-        import os
+        
         from pathlib import Path
         
         current_dir = Path.cwd()
@@ -155,7 +155,7 @@ async def _print_config_summary(logger):
         logger.info(f"Redis: {settings.REDIS_HOST}:{settings.REDIS_PORT}/{settings.REDIS_DB}")
 
         # 代理配置
-        import os
+        
         if settings.HTTP_PROXY or settings.HTTPS_PROXY:
             logger.info("Proxy Configuration:")
             if settings.HTTP_PROXY:
@@ -210,7 +210,6 @@ async def _print_config_summary(logger):
         logger.info("=" * 70)
     except Exception as e:
         logger.error(f"Failed to print config summary: {e}")
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -599,7 +598,6 @@ async def lifespan(app: FastAPI):
         await close_db()
         logger.info("TradingAgents FastAPI backend stopped")
 
-
 # 创建FastAPI应用
 app = FastAPI(
     title="TradingAgents-CN API",
@@ -626,10 +624,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 # 操作日志中间件
 app.add_middleware(OperationLogMiddleware)
-
 
 # 请求日志中间件
 @app.middleware("http")
@@ -654,7 +650,6 @@ async def log_requests(request: Request, call_next):
 
     return response
 
-
 # 全局异常处理
 # 请求ID/Trace-ID 中间件（需作为最外层，放在函数式中间件之后）
 from app.middleware.request_id import RequestIDMiddleware
@@ -673,7 +668,6 @@ async def global_exception_handler(request: Request, exc: Exception):
             }
         }
     )
-
 
 # 测试端点 - 验证中间件是否工作
 @app.get("/api/test-log")
@@ -729,7 +723,6 @@ app.include_router(news_data.router, tags=["news-data"])
 app.include_router(social_media.router, tags=["social-media"])
 app.include_router(internal_messages.router, tags=["internal-messages"])
 
-
 @app.get("/")
 async def root():
     """根路径，返回API信息"""
@@ -740,7 +733,6 @@ async def root():
         "status": "running",
         "docs_url": "/docs" if settings.DEBUG else None
     }
-
 
 if __name__ == "__main__":
     uvicorn.run(

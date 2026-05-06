@@ -4,13 +4,15 @@
 实际场景测试：验证Google工具调用处理器修复效果
 """
 
-import sys
+import logging
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from tradingagents.default_config import DEFAULT_CONFIG
 from tradingagents.agents.utils.google_tool_handler import GoogleToolCallHandler
-import logging
 
 # 设置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -226,7 +228,7 @@ def main():
         
     except Exception as e:
         print(f"\n❌ 实际场景测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

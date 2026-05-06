@@ -4,7 +4,7 @@
 验证在部分数据获取失败时的优雅降级处理
 """
 
-import os
+import traceback
 import sys
 
 def test_hk_data_error_handling():
@@ -73,10 +73,9 @@ def test_hk_data_error_handling():
         
     except Exception as e:
         print(f"❌ 港股数据获取错误处理测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_akshare_error_recovery():
     """测试AKShare错误恢复机制"""
@@ -138,10 +137,9 @@ def test_akshare_error_recovery():
         
     except Exception as e:
         print(f"❌ AKShare错误恢复机制测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def test_hk_fallback_mechanisms():
     """测试港股备用机制"""
@@ -201,10 +199,9 @@ def test_hk_fallback_mechanisms():
         
     except Exception as e:
         print(f"❌ 港股备用机制测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
-
 
 def main():
     """主测试函数"""
@@ -251,7 +248,6 @@ def main():
     else:
         print("⚠️ 部分测试失败，需要进一步检查")
         return False
-
 
 if __name__ == "__main__":
     success = main()

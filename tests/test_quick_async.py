@@ -4,8 +4,9 @@
 验证API是否不再阻塞
 """
 
-import requests
 import time
+import requests
+
 import json
 
 def test_api_non_blocking():

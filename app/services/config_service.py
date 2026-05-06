@@ -2,9 +2,12 @@
 配置管理服务
 """
 
-import time
-import asyncio
 import logging
+import os
+import time
+import traceback
+import asyncio
+
 import re
 from collections import defaultdict
 from typing import List, Optional, Dict, Any
@@ -22,7 +25,6 @@ from app.models.config import (
 from tradingagents.llm_clients.provider_keys import canonical_aliases, normalize_provider_key
 
 logger = logging.getLogger(__name__)
-
 
 class ConfigService:
     """配置管理服务类"""
@@ -383,7 +385,7 @@ class ConfigService:
             return True
         except Exception as e:
             print(f"❌ 更新分类数据源排序失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return False
 
@@ -596,7 +598,7 @@ class ConfigService:
 
         except Exception as e:
             print(f"❌ 保存配置失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return False
 
@@ -644,7 +646,7 @@ class ConfigService:
 
         except Exception as e:
             print(f"❌ 删除LLM配置失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return False
 
@@ -1178,7 +1180,7 @@ class ConfigService:
         start_time = time.time()
         try:
             import requests
-            import os
+            
 
             ds_type = ds_config.type.value if hasattr(ds_config.type, 'value') else str(ds_config.type)
 
@@ -1745,7 +1747,7 @@ class ConfigService:
             if db_type == "mongodb":
                 try:
                     from motor.motor_asyncio import AsyncIOMotorClient
-                    import os
+                    
 
                     # 🔥 优先使用环境变量中的完整连接信息（包括host、用户名、密码）
                     host = db_config.host
@@ -1897,7 +1899,7 @@ class ConfigService:
             elif db_type == "redis":
                 try:
                     import redis.asyncio as aioredis
-                    import os
+                    
 
                     # 🔥 优先使用环境变量中的完整 Redis 配置（包括host、密码）
                     host = db_config.host
@@ -2218,7 +2220,7 @@ class ConfigService:
 
         except Exception as e:
             logger.error(f"❌ 添加数据库配置失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return False
 
@@ -2255,7 +2257,7 @@ class ConfigService:
 
         except Exception as e:
             logger.error(f"❌ 更新数据库配置失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return False
 
@@ -2295,7 +2297,7 @@ class ConfigService:
 
         except Exception as e:
             logger.error(f"❌ 删除数据库配置失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return False
 
@@ -2750,7 +2752,6 @@ class ConfigService:
             # 失败时返回默认数据
             return self._get_default_model_catalog()
 
-
     async def set_default_llm(self, model_name: str) -> bool:
         """设置默认大模型"""
         try:
@@ -2897,7 +2898,7 @@ class ConfigService:
 
     def _get_env_api_key(self, provider_name: str) -> Optional[str]:
         """从环境变量获取API密钥"""
-        import os
+        
         from tradingagents.llm_clients.provider_keys import env_key_for_provider, normalize_provider_key
 
         # 环境变量映射表
@@ -2993,7 +2994,7 @@ class ConfigService:
             return result.matched_count > 0
         except Exception as e:
             print(f"更新厂家失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return False
 
@@ -3045,7 +3046,7 @@ class ConfigService:
 
         except Exception as e:
             print(f"❌ 删除厂家失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return False
 
@@ -3178,7 +3179,7 @@ class ConfigService:
 
         except Exception as e:
             print(f"❌ 初始化聚合渠道失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return {
                 "success": False,
@@ -3188,7 +3189,7 @@ class ConfigService:
 
     async def migrate_env_to_providers(self) -> Dict[str, Any]:
         """将环境变量配置迁移到厂家管理"""
-        import os
+        
 
         try:
             db = await self._get_db()
@@ -4048,7 +4049,7 @@ class ConfigService:
 
         except Exception as e:
             logger.exception(f"❌ [fetch_provider_models] 获取模型列表失败: {e}")
-            import traceback
+            
             traceback.print_exc()
             return {
                 "success": False,
@@ -4159,7 +4160,7 @@ class ConfigService:
 
         except Exception as e:
             print(f"❌ 异常: {e}")
-            import traceback
+            
             traceback.print_exc()
             return {
                 "success": False,
@@ -4695,7 +4696,6 @@ class ConfigService:
                 "success": False,
                 "message": f"{display_name} API测试异常: {str(e)}"
             }
-
 
 # 创建全局实例
 config_service = ConfigService()

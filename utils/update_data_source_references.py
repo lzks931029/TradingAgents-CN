@@ -4,14 +4,13 @@
 将所有"通达信"引用更新为"Tushare"或通用描述
 """
 
-import os
+import logging
 import re
 from pathlib import Path
 
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
 logger = get_logger('default')
-
 
 def update_file_content(file_path: Path, replacements: list):
     """更新文件内容"""

@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """
-import time
+
 系统状态检查脚本
 检查数据库配置和缓存系统状态
 """
 
-import sys
+import logging
 import os
+import time
+import traceback
+import sys
+
 from pathlib import Path
 
 # 导入日志模块
@@ -31,7 +35,7 @@ def check_system_status():
         logger.info(f"✅ 环境配置文件存在: {env_file}")
 
         try:
-            import os
+            
             from dotenv import load_dotenv
 
             # 加载环境变量
@@ -92,7 +96,7 @@ def check_system_status():
         
     except Exception as e:
         logger.error(f"❌ 数据库管理器检查失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 检查缓存系统
@@ -121,7 +125,7 @@ def check_system_status():
         
     except Exception as e:
         logger.error(f"❌ 缓存系统检查失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 测试缓存功能
@@ -165,13 +169,13 @@ def check_system_status():
         
     except Exception as e:
         logger.error(f"❌ 缓存功能测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 性能测试
     logger.info(f"\n⚡ 简单性能测试...")
     try:
-        import time
+        
         from tradingagents.dataflows.integrated_cache import get_cache
         
         cache = get_cache()
@@ -247,7 +251,7 @@ def main():
         return True
     except Exception as e:
         logger.error(f"❌ 系统检查失败: {e}")
-        import traceback
+        
 
         traceback.print_exc()
         return False

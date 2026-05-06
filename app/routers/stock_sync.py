@@ -3,6 +3,7 @@
 支持单个股票或批量股票的历史数据和财务数据同步
 """
 
+import logging
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from pydantic import BaseModel, Field
@@ -13,14 +14,13 @@ from app.core.database import get_mongo_db
 from app.worker.tushare_sync_service import get_tushare_sync_service
 from app.worker.akshare_sync_service import get_akshare_sync_service
 from app.worker.financial_data_sync_service import get_financial_sync_service
-import logging
+
 import asyncio
 from datetime import datetime, timedelta
 
 logger = logging.getLogger("webapi")
 
 router = APIRouter(prefix="/api/stock-sync", tags=["股票数据同步"])
-
 
 async def _sync_latest_to_market_quotes(symbol: str) -> None:
     """
@@ -97,7 +97,6 @@ async def _sync_latest_to_market_quotes(symbol: str) -> None:
         upsert=True
     )
 
-
 class SingleStockSyncRequest(BaseModel):
     """单股票同步请求"""
     symbol: str = Field(..., description="股票代码（6位）")
@@ -108,7 +107,6 @@ class SingleStockSyncRequest(BaseModel):
     data_source: str = Field("tushare", description="数据源: tushare/akshare")
     days: int = Field(30, description="历史数据天数", ge=1, le=3650)
 
-
 class BatchStockSyncRequest(BaseModel):
     """批量股票同步请求"""
     symbols: List[str] = Field(..., description="股票代码列表")
@@ -117,7 +115,6 @@ class BatchStockSyncRequest(BaseModel):
     sync_basic: bool = Field(False, description="是否同步基础数据")
     data_source: str = Field("tushare", description="数据源: tushare/akshare")
     days: int = Field(30, description="历史数据天数", ge=1, le=3650)
-
 
 @router.post("/single")
 async def sync_single_stock(
@@ -566,7 +563,6 @@ async def sync_single_stock(
         logger.error(f"❌ 同步单个股票失败: {e}")
         raise HTTPException(status_code=500, detail=f"同步失败: {str(e)}")
 
-
 @router.post("/batch")
 async def sync_batch_stocks(
     request: BatchStockSyncRequest,
@@ -756,7 +752,6 @@ async def sync_batch_stocks(
     except Exception as e:
         logger.error(f"❌ 批量同步失败: {e}")
         raise HTTPException(status_code=500, detail=f"批量同步失败: {str(e)}")
-
 
 @router.get("/status/{symbol}")
 async def get_sync_status(

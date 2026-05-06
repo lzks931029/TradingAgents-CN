@@ -3,8 +3,9 @@
 测试MongoDB保存功能
 """
 
-import requests
 import time
+import requests
+
 import json
 from pymongo import MongoClient
 

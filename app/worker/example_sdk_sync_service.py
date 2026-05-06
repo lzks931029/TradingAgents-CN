@@ -7,18 +7,18 @@
 - app层: 数据同步服务，负责数据库操作和业务逻辑
 - 数据流: 外部SDK → tradingagents适配器 → app同步服务 → MongoDB
 """
-import asyncio
 import logging
+import os
+import asyncio
+
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 
-import os
 from app.services.stock_data_service import get_stock_data_service
 from app.core.database import get_mongo_db
 from tradingagents.dataflows.providers.examples.example_sdk import ExampleSDKProvider
 
 logger = logging.getLogger(__name__)
-
 
 class ExampleSDKSyncService:
     """
@@ -323,7 +323,6 @@ class ExampleSDKSyncService:
         finally:
             await self.provider.disconnect()
 
-
 # ==================== 定时任务函数 ====================
 
 async def run_full_sync():
@@ -331,12 +330,10 @@ async def run_full_sync():
     sync_service = ExampleSDKSyncService()
     return await sync_service.sync_all_data()
 
-
 async def run_incremental_sync():
     """运行增量同步 - 供定时任务调用"""
     sync_service = ExampleSDKSyncService()
     return await sync_service.sync_incremental()
-
 
 # ==================== 使用示例 ====================
 
@@ -348,7 +345,6 @@ async def main():
     
     # 测试全量同步
     await sync_service.sync_all_data()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

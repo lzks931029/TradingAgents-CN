@@ -3,9 +3,10 @@
 测试操作日志功能
 """
 
+import os
+import traceback
 import asyncio
 import sys
-import os
 
 # 添加项目根目录到Python路径
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -117,7 +118,7 @@ async def test_operation_logs():
         
     except Exception as e:
         print(f"❌ 测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

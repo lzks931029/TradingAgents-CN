@@ -4,6 +4,7 @@
 检查字段映射是否正确
 """
 
+import traceback
 import sys
 from pathlib import Path
 
@@ -14,7 +15,6 @@ sys.path.insert(0, str(project_root))
 import akshare as ak
 import pandas as pd
 from datetime import datetime, timedelta
-
 
 def test_hk_stock_data_fields():
     """测试港股历史数据字段"""
@@ -183,9 +183,8 @@ def test_hk_stock_data_fields():
         
     except Exception as e:
         print(f"❌ 错误: {e}")
-        import traceback
+        
         traceback.print_exc()
-
 
 def test_multiple_stocks():
     """测试多个港股的数据"""
@@ -230,7 +229,6 @@ def test_multiple_stocks():
             
         except Exception as e:
             print(f"  ❌ 错误: {e}")
-
 
 if __name__ == "__main__":
     test_hk_stock_data_fields()

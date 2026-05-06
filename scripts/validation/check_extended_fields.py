@@ -2,6 +2,7 @@
 """
 验证扩展字段同步结果 - 使用直接 MongoDB 连接
 """
+
 import os
 from pymongo import MongoClient
 from dotenv import load_dotenv

@@ -5,9 +5,11 @@
 这个脚本用于手动验证新闻获取功能，特别是在Google新闻获取超时的情况下的轮询机制。
 """
 
-import sys
+import logging
 import os
 import time
+import sys
+
 from datetime import datetime
 
 # 添加项目根目录到Python路径

@@ -4,8 +4,9 @@
 验证不同配置下的预估时间是否合理
 """
 
-import sys
 import os
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.services.progress.tracker import RedisProgressTracker

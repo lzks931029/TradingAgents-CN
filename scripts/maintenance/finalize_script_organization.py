@@ -4,7 +4,8 @@
 将剩余的脚本文件移动到合适的分类目录
 """
 
-import os
+import logging
+import traceback
 import shutil
 from pathlib import Path
 
@@ -332,7 +333,7 @@ def main():
         
     except Exception as e:
         logger.error(f"❌ 整理失败: {e}")
-        import traceback
+        
 
         traceback.print_exc()
         return False

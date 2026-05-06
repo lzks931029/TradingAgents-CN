@@ -1,13 +1,13 @@
 """
 测试 AKShare 两个实时行情接口返回的股票代码格式
 """
+import traceback
 import sys
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
-
 
 def test_akshare_interfaces():
     """测试 AKShare 的两个实时行情接口"""
@@ -74,7 +74,7 @@ def test_akshare_interfaces():
                 
     except Exception as e:
         print(f"❌ 新浪接口测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 测试 2: 东方财富接口
@@ -129,7 +129,7 @@ def test_akshare_interfaces():
                 
     except Exception as e:
         print(f"❌ 东方财富接口测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
     
     # 对比总结
@@ -139,7 +139,6 @@ def test_akshare_interfaces():
     print("✅ 新浪接口 (stock_zh_a_spot): 代码可能带有交易所前缀（如 sz000001）")
     print("✅ 东方财富接口 (stock_zh_a_spot_em): 需要验证代码格式")
     print("\n💡 建议: 两个接口都应该使用统一的代码标准化逻辑")
-
 
 if __name__ == "__main__":
     test_akshare_interfaces()

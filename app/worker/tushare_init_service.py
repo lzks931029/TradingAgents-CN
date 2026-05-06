@@ -2,8 +2,9 @@
 Tushare数据初始化服务
 用于首次部署时的完整数据初始化，包括基础数据、历史数据、财务数据等
 """
-import asyncio
 import logging
+import asyncio
+
 from datetime import datetime, timedelta
 from typing import Dict, Any, Optional, List
 from dataclasses import dataclass
@@ -12,7 +13,6 @@ from app.core.database import get_mongo_db
 from app.worker.tushare_sync_service import get_tushare_sync_service
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class InitializationStats:
@@ -34,7 +34,6 @@ class InitializationStats:
     def __post_init__(self):
         if self.errors is None:
             self.errors = []
-
 
 class TushareInitService:
     """
@@ -427,7 +426,6 @@ class TushareInitService:
             "current_step": self.stats.current_step
         }
 
-
 # 全局初始化服务实例
 _tushare_init_service = None
 
@@ -438,7 +436,6 @@ async def get_tushare_init_service() -> TushareInitService:
         _tushare_init_service = TushareInitService()
         await _tushare_init_service.initialize()
     return _tushare_init_service
-
 
 # APScheduler兼容的初始化任务函数
 async def run_tushare_full_initialization(

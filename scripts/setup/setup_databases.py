@@ -4,6 +4,7 @@
 自动安装和配置MongoDB + Redis
 """
 
+import logging
 import os
 import sys
 import subprocess
@@ -194,7 +195,6 @@ def test_connections():
     
     try:
         from tradingagents.config.database_manager import get_database_manager
-
 
         db_manager = get_database_manager()
         

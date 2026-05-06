@@ -4,15 +4,15 @@
 验证 app/core/logging_config.py 中的错误日志处理器是否正确配置
 """
 
-import sys
 import logging
+import sys
+
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from app.core.logging_config import setup_logging
-
 
 def test_error_logging_toml_config():
     """测试从 TOML 配置读取错误日志处理器"""
@@ -56,7 +56,6 @@ def test_error_logging_toml_config():
         return False
     
     return True
-
 
 def test_error_logging_functionality():
     """测试错误日志的实际功能"""
@@ -110,7 +109,6 @@ def test_error_logging_functionality():
         print(f"\n❌ error.log 文件未创建: {error_log_path.absolute()}")
         return False
 
-
 def test_webapi_and_worker_loggers():
     """测试 webapi 和 worker 日志器都有错误日志处理器"""
     print("\n" + "=" * 60)
@@ -139,7 +137,6 @@ def test_webapi_and_worker_loggers():
             all_ok = False
     
     return all_ok
-
 
 if __name__ == "__main__":
     print("=" * 60)

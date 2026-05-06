@@ -2,11 +2,13 @@
 """
 调试BaoStock返回的字段结构
 """
-import sys
+import logging
 import os
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import logging
 import pandas as pd
 from datetime import datetime, timedelta
 
@@ -88,7 +90,7 @@ def debug_baostock_fields():
         
     except Exception as e:
         print(f"❌ 调试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
 
 if __name__ == "__main__":

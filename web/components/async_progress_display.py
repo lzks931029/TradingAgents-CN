@@ -4,8 +4,10 @@
 支持定时刷新，从Redis或文件获取进度状态
 """
 
-import streamlit as st
+import logging
 import time
+import streamlit as st
+
 from typing import Optional, Dict, Any
 from web.utils.async_progress_tracker import get_progress_by_id, format_time
 
@@ -265,7 +267,7 @@ def streamlit_auto_refresh_progress(analysis_id: str, refresh_interval: int = 2)
             default_value = st.session_state.get(auto_refresh_key, True)  # 默认为True
             auto_refresh = st.checkbox("🔄 自动刷新", value=default_value, key=auto_refresh_key)
             if auto_refresh and status == 'running':  # 只在运行时自动刷新
-                import time
+                
                 time.sleep(3)  # 等待3秒
                 st.rerun()
             elif auto_refresh and status in ['completed', 'failed']:
@@ -391,7 +393,7 @@ def display_static_progress(analysis_id: str) -> bool:
                 default_value = st.session_state.get(auto_refresh_key, True)  # 默认为True
                 auto_refresh = st.checkbox("🔄 自动刷新", value=default_value, key=auto_refresh_key)
                 if auto_refresh and status == 'running':  # 只在运行时自动刷新
-                    import time
+                    
                     time.sleep(3)  # 等待3秒
                     st.rerun()
                 elif auto_refresh and status in ['completed', 'failed']:
@@ -409,7 +411,6 @@ def display_static_progress(analysis_id: str) -> bool:
 
     return status in ['completed', 'failed']
 
-
 def display_unified_progress(analysis_id: str, show_refresh_controls: bool = True) -> bool:
     """
     统一的进度显示函数，避免重复元素
@@ -420,7 +421,6 @@ def display_unified_progress(analysis_id: str, show_refresh_controls: bool = Tru
     # 简化逻辑：直接调用显示函数，通过参数控制是否显示刷新按钮
     # 调用方负责确保只在需要的地方传入show_refresh_controls=True
     return display_static_progress_with_controls(analysis_id, show_refresh_controls)
-
 
 def display_static_progress_with_controls(analysis_id: str, show_refresh_controls: bool = True) -> bool:
     """
@@ -451,7 +451,7 @@ def display_static_progress_with_controls(analysis_id: str, show_refresh_control
                 default_value = st.session_state.get(auto_refresh_key, True)  # 默认为True
                 auto_refresh = st.checkbox("🔄 自动刷新", value=default_value, key=auto_refresh_key)
                 if auto_refresh and status == 'running':  # 只在运行时自动刷新
-                    import time
+                    
                     time.sleep(3)  # 等待3秒
                     st.rerun()
                 elif auto_refresh and status in ['completed', 'failed']:
@@ -547,7 +547,7 @@ def display_static_progress_with_controls(analysis_id: str, show_refresh_control
             default_value = st.session_state.get(auto_refresh_key, True)  # 默认为True
             auto_refresh = st.checkbox("🔄 自动刷新", value=default_value, key=auto_refresh_key)
             if auto_refresh and status == 'running':  # 只在运行时自动刷新
-                import time
+                
                 time.sleep(3)  # 等待3秒
                 st.rerun()
             elif auto_refresh and status in ['completed', 'failed']:

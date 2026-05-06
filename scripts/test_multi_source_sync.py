@@ -3,11 +3,13 @@
 测试多数据源同步功能
 验证数据源分级和fallback机制
 """
+
 import os
+import time
 import sys
 import requests
 import json
-import time
+
 from typing import Dict, Any
 
 # 添加项目根目录到路径

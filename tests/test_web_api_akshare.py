@@ -2,12 +2,14 @@
 """
 测试Web API中的AKShare功能
 """
-import sys
+import logging
 import os
+import time
+import traceback
+import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import logging
-import time
 from datetime import datetime, timedelta
 
 # 设置日志
@@ -178,7 +180,7 @@ def test_akshare_web_api():
         
     except Exception as e:
         print(f"❌ Web API测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None
 

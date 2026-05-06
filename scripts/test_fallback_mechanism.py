@@ -4,8 +4,9 @@
 验证当Tushare返回空数据时是否能正确降级到其他数据源
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到Python路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +30,7 @@ def test_data_source_availability():
         
     except Exception as e:
         print(f"❌ 数据源管理器初始化失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return None
 
@@ -64,7 +65,7 @@ def test_fallback_mechanism(manager):
             
     except Exception as e:
         print(f"❌ 测试过程中发生异常: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 

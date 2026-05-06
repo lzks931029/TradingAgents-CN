@@ -3,16 +3,19 @@
 内部消息爬虫示例程序
 演示如何爬取内部消息数据并入库到消息数据系统
 """
-import asyncio
 import logging
-import sys
 import os
+import time
+import asyncio
+
+import sys
+
 import json
 import re
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 import aiohttp
-import time
+
 import random
 from pathlib import Path
 
@@ -28,7 +31,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 class InternalMessageCrawler:
     """内部消息爬虫基类"""
@@ -138,7 +140,6 @@ class InternalMessageCrawler:
             opportunities.extend(matches)
         
         return list(set(opportunities))[:5]  # 最多5个机会因素
-
 
 class ResearchReportCrawler(InternalMessageCrawler):
     """研究报告爬虫"""
@@ -315,7 +316,6 @@ class ResearchReportCrawler(InternalMessageCrawler):
             self.logger.error(f"❌ 研究报告标准化失败: {e}")
             return None
 
-
 class AnalystNoteCrawler(InternalMessageCrawler):
     """分析师笔记爬虫"""
     
@@ -478,7 +478,6 @@ class AnalystNoteCrawler(InternalMessageCrawler):
         }
         return category_map.get(note_type, 'fundamental_analysis')
 
-
 async def crawl_and_save_internal_messages(symbols: List[str], message_types: List[str] = None):
     """爬取并保存内部消息"""
     if message_types is None:
@@ -538,7 +537,6 @@ async def crawl_and_save_internal_messages(symbols: List[str], message_types: Li
         logger.error(f"❌ 内部消息爬取过程异常: {e}")
         return 0
 
-
 async def main():
     """主函数"""
     # 测试股票列表
@@ -561,7 +559,6 @@ async def main():
         logger.info("✅ 内部消息爬虫运行成功!")
     else:
         logger.warning("⚠️ 未保存任何消息，请检查配置")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

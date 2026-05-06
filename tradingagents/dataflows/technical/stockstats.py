@@ -1,14 +1,14 @@
 import pandas as pd
+import os
 import yfinance as yf
 from stockstats import wrap
 from typing import Annotated
-import os
+
 from tradingagents.config.config_manager import config_manager
 
 def get_config():
     """兼容性包装函数"""
     return config_manager.load_settings()
-
 
 class StockstatsUtils:
     @staticmethod

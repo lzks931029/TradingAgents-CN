@@ -2,8 +2,9 @@
 测试CLI港股输入功能
 """
 
-import sys
 import os
+import traceback
+import sys
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.abspath(__file__))
@@ -50,7 +51,7 @@ def test_cli_market_selection():
         
     except Exception as e:
         print(f"❌ CLI市场选择测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
@@ -86,7 +87,7 @@ def test_stock_analysis_flow():
         
     except Exception as e:
         print(f"❌ 股票分析流程测试失败: {e}")
-        import traceback
+        
         traceback.print_exc()
         return False
 
