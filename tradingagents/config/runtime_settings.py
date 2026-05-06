@@ -7,11 +7,11 @@ TradingAgents 运行时配置适配器（弱依赖）
 - 保持 TradingAgents 包独立性：不可用时静默回退，不引入硬依赖
 """
 
-import logging
-import os
 from __future__ import annotations
 
 import asyncio
+import logging
+import os
 from typing import Any, Optional, Callable
 
 _logger = logging.getLogger("tradingagents.config")

@@ -1,9 +1,10 @@
 """
 Backup, import, and export routines extracted from DatabaseService.
 """
+from __future__ import annotations
+
 import logging
 import os
-from __future__ import annotations
 
 import json
 

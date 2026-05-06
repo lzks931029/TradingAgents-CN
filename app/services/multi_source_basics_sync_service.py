@@ -6,8 +6,9 @@ Multi-source stock basics synchronization service
 - Upserts into MongoDB collection `stock_basic_info`
 - Provides unified interface for different data sources
 """
-import logging
 from __future__ import annotations
+
+import logging
 
 import asyncio
 

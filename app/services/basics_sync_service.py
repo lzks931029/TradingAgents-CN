@@ -8,8 +8,9 @@ Stock basics synchronization service
 
 This module is async-friendly and offloads blocking IO (Tushare/pandas) to a thread.
 """
-import logging
 from __future__ import annotations
+
+import logging
 
 import asyncio
 

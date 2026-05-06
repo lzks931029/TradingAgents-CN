@@ -4,9 +4,10 @@
 - find_latest_trade_date：探测最近可用交易日（YYYYMMDD）
 - fetch_daily_basic_mv_map：根据交易日获取日度基础指标映射（市值/估值/交易）
 """
+from __future__ import annotations
+
 import logging
 import time
-from __future__ import annotations
 from datetime import datetime, timedelta
 from typing import Dict
 

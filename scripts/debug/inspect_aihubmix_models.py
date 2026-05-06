@@ -10,9 +10,9 @@
     .\.venv\Scripts\python.exe scripts\debug\inspect_aihubmix_models.py
     .\.venv\Scripts\python.exe scripts\debug\inspect_aihubmix_models.py --providers qwen glm deepseek
 """
+from __future__ import annotations
 
 import os
-from __future__ import annotations
 
 import argparse
 import json

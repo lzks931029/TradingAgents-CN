@@ -11,8 +11,9 @@
 
 注意：此脚本仅创建索引，不会删除已有索引。
 """
-import os
 from __future__ import annotations
+
+import os
 
 from pymongo import MongoClient, ASCENDING, DESCENDING
 
