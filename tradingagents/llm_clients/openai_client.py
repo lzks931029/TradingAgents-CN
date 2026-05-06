@@ -1,6 +1,7 @@
 import os
 from typing import Any, Optional
 
+from langchain_core.messages import AIMessage
 from langchain_openai import ChatOpenAI
 
 from .base_client import BaseLLMClient, normalize_content
@@ -12,6 +13,66 @@ class NormalizedChatOpenAI(ChatOpenAI):
 
     def invoke(self, input, config=None, **kwargs):
         return normalize_content(super().invoke(input, config, **kwargs))
+
+
+def _input_to_messages(input_: Any) -> list:
+    """Normalise a langchain LLM input to a list of message objects.
+
+    Accepts a list of messages, a ``ChatPromptValue`` (from a
+    ChatPromptTemplate), or anything else (treated as no messages).
+    """
+    if isinstance(input_, list):
+        return input_
+    if hasattr(input_, "to_messages"):
+        return input_.to_messages()
+    return []
+
+
+class DeepSeekChatOpenAI(NormalizedChatOpenAI):
+    """DeepSeek-specific overrides for thinking-mode round-trip.
+
+    When DeepSeek's thinking models return ``reasoning_content``, that field
+    must be echoed back as part of the assistant message on the next turn
+    or the API fails with HTTP 400. ``_create_chat_result`` captures the
+    field on receive and ``_get_request_payload`` re-attaches it on send.
+    """
+
+    def _get_request_payload(self, input_, *, stop=None, **kwargs):
+        payload = super()._get_request_payload(input_, stop=stop, **kwargs)
+        outgoing = payload.get("messages", [])
+        for message_dict, message in zip(outgoing, _input_to_messages(input_)):
+            if not isinstance(message, AIMessage):
+                continue
+            reasoning = message.additional_kwargs.get("reasoning_content")
+            if reasoning is not None:
+                message_dict["reasoning_content"] = reasoning
+        return payload
+
+    def _create_chat_result(self, response, generation_info=None):
+        chat_result = super()._create_chat_result(response, generation_info)
+        response_dict = (
+            response
+            if isinstance(response, dict)
+            else response.model_dump(
+                exclude={"choices": {"__all__": {"message": {"parsed"}}}}
+            )
+        )
+        for generation, choice in zip(
+            chat_result.generations, response_dict.get("choices", [])
+        ):
+            reasoning = choice.get("message", {}).get("reasoning_content")
+            if reasoning is not None:
+                generation.message.additional_kwargs["reasoning_content"] = reasoning
+        return chat_result
+
+    def with_structured_output(self, schema, *, method=None, **kwargs):
+        if self.model_name == "deepseek-reasoner":
+            raise NotImplementedError(
+                "deepseek-reasoner does not support tool_choice; structured "
+                "output is unavailable. Agent factories fall back to "
+                "free-text generation automatically."
+            )
+        return super().with_structured_output(schema, method=method, **kwargs)
 
 
 _PASSTHROUGH_KWARGS = (
@@ -72,7 +133,10 @@ class OpenAIClient(BaseLLMClient):
             if key in self.kwargs:
                 llm_kwargs[key] = self.kwargs[key]
 
-        return NormalizedChatOpenAI(**llm_kwargs)
+        # Use DeepSeekChatOpenAI for deepseek provider to handle
+        # reasoning_content round-trip in thinking-mode models.
+        chat_cls = DeepSeekChatOpenAI if self.provider == "deepseek" else NormalizedChatOpenAI
+        return chat_cls(**llm_kwargs)
 
     def validate_model(self) -> bool:
         return validate_model(self.provider, self.model)
