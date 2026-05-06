@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+import time
 DeepSeek Token统计功能测试
 """
 

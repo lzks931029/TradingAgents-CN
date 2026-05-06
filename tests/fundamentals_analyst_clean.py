@@ -118,7 +118,7 @@ def create_fundamentals_analyst(llm, toolkit):
             original_base_url = getattr(llm, 'openai_api_base', None)
             original_api_key = getattr(llm, 'openai_api_key', None)
 
-            llm = ChatDashScopeOpenAI(
+            new_llm = ChatDashScopeOpenAI(
                 model=llm.model_name,
                 api_key=original_api_key,  # 🔥 传递原始 LLM 的 API Key
                 base_url=original_base_url if original_base_url else None,  # 传递 base_url
@@ -130,6 +130,7 @@ def create_fundamentals_analyst(llm, toolkit):
                 print(f"📊 [DEBUG] 新实例使用原始 base_url: {original_base_url}")
             if original_api_key:
                 print(f"📊 [DEBUG] 新实例使用原始 API Key（来自数据库配置）")
+            llm = new_llm
 
         print(f"📊 [DEBUG] 创建LLM链，工具数量: {len(tools)}")
         print(f"📊 [DEBUG] 绑定的工具列表: {[tool.name for tool in tools]}")

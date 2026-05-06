@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+import time
 Tushare数据源演示脚本
 展示如何使用Tushare获取中国A股数据
 """

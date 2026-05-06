@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+import os
 Redis连接和性能测试脚本
 """
 

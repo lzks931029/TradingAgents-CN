@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+import time
 快速集成测试 - 验证复制的文件是否正常工作
 """
 

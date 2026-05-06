@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
+import logging
 基本面分析股票代码追踪测试
 """
+
+logger = logging.getLogger(__name__)
 
 import os
 import sys

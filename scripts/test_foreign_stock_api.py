@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+import time
 测试港股和美股API接口
 """
 import asyncio

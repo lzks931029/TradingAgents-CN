@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+import time
 系统状态检查脚本
 检查数据库配置和缓存系统状态
 """

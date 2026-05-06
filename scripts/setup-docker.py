@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+import time
 Docker环境快速配置脚本
 帮助用户快速配置Docker部署环境
 """

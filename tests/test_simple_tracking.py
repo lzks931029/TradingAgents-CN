@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+import logging
 简单的股票代码追踪测试
 """
 

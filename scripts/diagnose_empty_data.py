@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+import time
 诊断Tushare返回空数据的原因
 分析时间参数、股票代码、API限制等可能的问题
 """
