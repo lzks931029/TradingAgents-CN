@@ -2580,7 +2580,7 @@ class ConfigService:
                 "provider_name": "DeepSeek",
                 "models": [
                     {
-                        "name": "deepseek-chat",
+                        "name": "deepseek-v4-pro",
                         "display_name": "DeepSeek Chat - 通用对话",
                         "input_price_per_1k": 0.0001,
                         "output_price_per_1k": 0.0002,
@@ -3612,7 +3612,7 @@ class ConfigService:
 
             # 如果没有指定模型，使用默认模型
             if not model_name:
-                model_name = "deepseek-chat"
+                model_name = "deepseek-v4-pro"
                 logger.info(f"⚠️ 未指定模型，使用默认模型: {model_name}")
 
             logger.info(f"🔍 [DeepSeek 测试] 使用模型: {model_name}")

@@ -10,8 +10,8 @@ DEFAULT_CONFIG = {
     ),
     # LLM settings
     "llm_provider": "deepseek",
-    "deep_think_llm": "deepseek-chat",
-    "quick_think_llm": "deepseek-chat",
+    "deep_think_llm": "deepseek-v4-pro",
+    "quick_think_llm": "deepseek-v4-pro",
     "backend_url": "https://api.deepseek.com/v1",
     # Debate and discussion settings
     "max_debate_rounds": 1,

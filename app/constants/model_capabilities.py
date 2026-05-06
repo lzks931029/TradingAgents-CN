@@ -185,6 +185,13 @@ DEFAULT_MODEL_CAPABILITIES: Dict[str, Dict[str, Any]] = {
     },
     
     # ==================== DeepSeek ====================
+    "deepseek-v4-pro": {
+        "capability_level": 4,
+        "suitable_roles": [ModelRole.BOTH],
+        "features": [ModelFeature.TOOL_CALLING, ModelFeature.LONG_CONTEXT, ModelFeature.THINKING],
+        "recommended_depths": ["标准", "深度", "极致"],
+        "performance_metrics": {"speed": 3, "cost": 3, "quality": 5},
+    },
     "deepseek-chat": {
         "capability_level": 3,
         "suitable_roles": [ModelRole.BOTH],

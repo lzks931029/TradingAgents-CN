@@ -6,7 +6,10 @@
 
 import logging
 import threading
-from typing import Dict, Optional
+from typing import Dict, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .async_progress_tracker import AsyncProgressTracker
 
 class ProgressLogHandler(logging.Handler):
     """
