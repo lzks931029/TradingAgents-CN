@@ -1050,7 +1050,7 @@ def get_scheduler_service() -> SchedulerService:
     Returns:
         调度器服务实例
     """
-    global _scheduler_service, _scheduler_instance
+    global _scheduler_service
 
     if _scheduler_instance is None:
         raise RuntimeError("调度器实例未设置，请先调用 set_scheduler_instance()")

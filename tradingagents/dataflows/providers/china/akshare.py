@@ -9,6 +9,7 @@ from typing import Dict, Any, List, Optional, Union
 import pandas as pd
 
 from ..base_provider import BaseStockDataProvider
+import time
 
 logger = logging.getLogger(__name__)
 

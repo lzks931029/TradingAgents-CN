@@ -48,7 +48,6 @@ async def init_redis():
 
 async def close_redis():
     """关闭Redis连接"""
-    global redis_pool, redis_client
     
     try:
         if redis_client:

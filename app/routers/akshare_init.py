@@ -159,7 +159,6 @@ async def start_full_initialization(
     Returns:
         初始化启动结果
     """
-    global _initialization_status
     
     if _initialization_status["is_running"]:
         raise HTTPException(status_code=400, detail="初始化任务正在运行中")
@@ -217,7 +216,6 @@ async def start_basic_sync(
     Returns:
         同步启动结果
     """
-    global _initialization_status
     
     if _initialization_status["is_running"]:
         raise HTTPException(status_code=400, detail="同步任务正在运行中")
@@ -264,7 +262,6 @@ async def get_initialization_status():
     Returns:
         当前任务状态
     """
-    global _initialization_status
     
     return {
         "success": True,
@@ -294,7 +291,6 @@ async def stop_initialization(current_user: dict = Depends(get_current_user)):
     Returns:
         停止结果
     """
-    global _initialization_status
     
     if not _initialization_status["is_running"]:
         raise HTTPException(status_code=400, detail="没有正在运行的任务")
@@ -325,7 +321,6 @@ async def stop_initialization(current_user: dict = Depends(get_current_user)):
 
 async def _run_full_initialization_background(historical_days: int, force: bool):
     """后台运行完整初始化"""
-    global _initialization_status
     
     try:
         service = await get_akshare_init_service()
@@ -351,7 +346,6 @@ async def _run_full_initialization_background(historical_days: int, force: bool)
 
 async def _run_basic_sync_background(force_update: bool):
     """后台运行基础信息同步"""
-    global _initialization_status
     
     try:
         service = await get_akshare_sync_service()

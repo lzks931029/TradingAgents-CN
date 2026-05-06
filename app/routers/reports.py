@@ -26,7 +26,6 @@ def get_stock_name(stock_code: str) -> str:
     获取股票名称
     优先级：缓存 -> MongoDB（按数据源优先级） -> 默认返回股票代码
     """
-    global _stock_name_cache
 
     # 检查缓存
     if stock_code in _stock_name_cache:

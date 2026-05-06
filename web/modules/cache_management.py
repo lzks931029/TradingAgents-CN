@@ -179,6 +179,7 @@ def main():
                     with st.spinner(f"测试 {us_symbol} 缓存..."):
                         try:
                             from datetime import datetime, timedelta
+                            from tradingagents.dataflows.providers.us.optimized import get_optimized_us_data_provider
                             provider = get_optimized_us_data_provider()
                             result = provider.get_stock_data(
                                 symbol=us_symbol,

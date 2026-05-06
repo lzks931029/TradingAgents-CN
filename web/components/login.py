@@ -544,14 +544,12 @@ def render_user_info():
 
 def check_authentication():
     """检查用户认证状态"""
-    global auth_manager
     if auth_manager is None:
         return False
     return auth_manager.is_authenticated()
 
 def require_permission(permission: str):
     """要求特定权限"""
-    global auth_manager
     if auth_manager is None:
         return False
     return auth_manager.require_permission(permission)

@@ -9,6 +9,11 @@ from pathlib import Path
 from datetime import datetime
 from dotenv import load_dotenv
 
+try:
+    import streamlit as st
+except ImportError:
+    st = None  # type: ignore
+
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger, get_logger_manager
 logger = get_logger('web')
@@ -22,6 +27,7 @@ load_dotenv(project_root / ".env", override=True)
 
 # 导入统一日志系统
 from tradingagents.utils.logging_init import setup_web_logging
+import time
 logger = setup_web_logging()
 
 # 添加配置管理器
@@ -1202,7 +1208,7 @@ def generate_demo_results_deprecated(stock_symbol, analysis_date, analysts, rese
 
 ### 📊 决策摘要
 - **投资建议**: **{action}**
-- **置信度**: {confidence:.1%}
+- **置信度**: {demo_decision['confidence']:.1%}
 - **风险评级**: 中等风险
 - **预期收益**: {'10-20%' if action == '买入' else '规避损失' if action == '卖出' else '稳健持有'}
 

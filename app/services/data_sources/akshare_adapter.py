@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import pandas as pd
 
 from .base import DataSourceAdapter
+import time
 
 logger = logging.getLogger(__name__)
 

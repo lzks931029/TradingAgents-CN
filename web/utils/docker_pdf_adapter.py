@@ -11,6 +11,7 @@ from typing import Optional
 
 # 导入日志模块
 from tradingagents.utils.logging_manager import get_logger
+import time
 logger = get_logger('web')
 
 def is_docker_environment() -> bool:
